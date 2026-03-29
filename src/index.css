@@ -1,48 +1,130 @@
 /* ── CDG TRANSFERT VTC — Global styles ─────────────────────────────────
    MAQUETTE UNIQUEMENT — aucune valeur réelle, aucun backend.
+   Style: Dark OLED + Luxury Premium (ui-ux-pro-max skill recommendations)
    ──────────────────────────────────────────────────────────────────── */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Base: fond Onyx Deep, texte Off-White */
+/* ── Base ──────────────────────────────────────────────────────────── */
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
+
   body {
     @apply bg-canvas text-offwhite font-sans;
+    /* Grain texture subtil — signe de qualité premium */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    background-repeat: repeat;
   }
+
   h1, h2, h3, h4 {
     @apply font-serif;
   }
-}
 
-/* ── Animation prix (booking module) ───────────────────────────────── */
-@keyframes priceReveal {
-  from {
-    opacity: 0;
-    transform: translateY(8px) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+  /* Focus visible accessible (skill: accessibility priority 1) */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-gold rounded-sm;
   }
 }
 
-.animate-price-reveal {
-  animation: priceReveal 0.4s ease-out forwards;
+/* ── Composants utilitaires ─────────────────────────────────────────── */
+@layer components {
+
+  /* Titre de section standard */
+  .section-eyebrow {
+    @apply text-gold text-xs font-semibold tracking-[0.5em] uppercase mb-4;
+  }
+
+  .section-title {
+    @apply font-serif text-4xl md:text-5xl lg:text-6xl text-offwhite leading-tight;
+  }
+
+  .section-divider {
+    @apply flex items-center justify-center gap-4 mt-6 mb-0;
+  }
+
+  /* Bouton primaire gold */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+      px-8 py-4 bg-gold text-canvas
+      font-sans font-semibold text-xs tracking-[0.2em] uppercase
+      border border-gold
+      hover:bg-gold-hover hover:border-gold-hover
+      transition-all duration-300 ease-in-out
+      focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-canvas;
+  }
+
+  /* Bouton outline gold */
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2
+      px-8 py-4 bg-transparent text-gold
+      font-sans font-semibold text-xs tracking-[0.2em] uppercase
+      border border-gold
+      hover:bg-gold hover:text-canvas
+      transition-all duration-300 ease-in-out;
+  }
+
+  /* Input premium */
+  .input-luxury {
+    @apply w-full bg-canvas-3/80 border border-divider text-offwhite text-sm
+      px-4 py-3.5 outline-none
+      focus:border-gold/60 focus:bg-canvas-3
+      transition-all duration-200
+      placeholder:text-silver-dim font-sans;
+  }
+
+  /* Label luxury */
+  .label-luxury {
+    @apply block text-[10px] font-semibold tracking-[0.35em] uppercase text-silver-dim mb-2;
+  }
+
+  /* Card glass */
+  .card-glass {
+    @apply bg-canvas-3/60 backdrop-blur-sm border border-divider;
+  }
+
+  /* Séparateur doré décoratif */
+  .gold-divider {
+    @apply flex items-center gap-3;
+  }
+  .gold-divider::before,
+  .gold-divider::after {
+    content: '';
+    @apply flex-1 h-px bg-gold/20;
+  }
 }
 
-/* ── Scrollbar custom (dark luxe) ──────────────────────────────────── */
-::-webkit-scrollbar {
-  width: 6px;
+/* ── Scrollbar custom ───────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 4px; }
+::-webkit-scrollbar-track  { background: #050507; }
+::-webkit-scrollbar-thumb  { background: #C5A059; border-radius: 2px; }
+
+/* ── Animations delay utilities ─────────────────────────────────────── */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* ── Gold shimmer effect (fleet cards featured) ─────────────────────── */
+.gold-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(197, 160, 89, 0.08) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
 }
-::-webkit-scrollbar-track {
-  background: #0A0A0C;
-}
-::-webkit-scrollbar-thumb {
-  background: #C5A059;
-  border-radius: 3px;
+
+/* ── Gradient masque pour les sections ──────────────────────────────── */
+.fade-bottom::after {
+  content: '';
+  @apply absolute bottom-0 left-0 right-0 h-32 pointer-events-none;
+  background: linear-gradient(to bottom, transparent, #050507);
 }
