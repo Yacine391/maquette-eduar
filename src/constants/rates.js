@@ -5,28 +5,28 @@
 
 export const rateTable = [
   {
-    zone: { fr: 'CDG / Orly → Paris', en: 'CDG / Orly → Paris', ru: 'CDG / Орли → Париж' },
+    zone: { fr: 'CDG / Orly → Paris', en: 'CDG / Orly → Paris', ru: 'CDG / Орли → Париж', ro: 'CDG / Orly → Paris' },
     business: 79,
     luxe:     120,
     van:      110,
     eco:      55,
   },
   {
-    zone: { fr: 'Paris Centre-ville', en: 'Paris City Centre', ru: 'Центр Парижа' },
+    zone: { fr: 'Paris Centre-ville', en: 'Paris City Centre', ru: 'Центр Парижа', ro: 'Centrul Parisului' },
     business: 45,
     luxe:     80,
     van:      70,
     eco:      35,
   },
   {
-    zone: { fr: 'Versailles / Banlieue proche', en: 'Versailles / Near suburbs', ru: 'Версаль / Пригород' },
+    zone: { fr: 'Versailles / Banlieue proche', en: 'Versailles / Near suburbs', ru: 'Версаль / Пригород', ro: 'Versailles / Suburbii apropiate' },
     business: 95,
     luxe:     150,
     van:      130,
     eco:      70,
   },
   {
-    zone: { fr: 'Longue distance (> 100 km)', en: 'Long distance (> 100 km)', ru: 'Дальние поездки (> 100 км)' },
+    zone: { fr: 'Longue distance (> 100 km)', en: 'Long distance (> 100 km)', ru: 'Дальние поездки (> 100 км)', ro: 'Distanță lungă (> 100 km)' },
     business: 'Sur devis',
     luxe:     'Sur devis',
     van:      'Sur devis',

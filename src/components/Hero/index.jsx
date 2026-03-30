@@ -6,10 +6,10 @@
 
 // Stats simulées — chiffres fictifs pour la maquette
 const STATS = [
-  { value: '15+', label: { fr: "Ans d'expérience", en: 'Years experience', ru: 'Лет опыта' } },
-  { value: '50K+', label: { fr: 'Transferts réalisés', en: 'Transfers completed', ru: 'Трансферов' } },
-  { value: '98%', label: { fr: 'Taux de satisfaction', en: 'Satisfaction rate', ru: 'Удовлетворённость' } },
-  { value: '24/7', label: { fr: 'Disponibilité', en: 'Availability', ru: 'Доступность' } },
+  { value: '15+', label: { fr: "Ans d'expérience", en: 'Years experience', ru: 'Лет опыта', ro: 'Ani de experiență' } },
+  { value: '50K+', label: { fr: 'Transferts réalisés', en: 'Transfers completed', ru: 'Трансферов', ro: 'Transferuri efectuate' } },
+  { value: '98%', label: { fr: 'Taux de satisfaction', en: 'Satisfaction rate', ru: 'Удовлетворённость', ro: 'Satisfacție clienți' } },
+  { value: '24/7', label: { fr: 'Disponibilité', en: 'Availability', ru: 'Доступность', ro: 'Disponibilitate' } },
 ]
 
 export default function Hero({ t, lang }) {
@@ -92,7 +92,7 @@ export default function Hero({ t, lang }) {
               </svg>
             </a>
             <a href="#fleet" className="btn-outline py-4 px-8">
-              {lang === 'ru' ? 'Наш автопарк' : lang === 'en' ? 'Discover our fleet' : 'Découvrir la flotte'}
+              {{ fr: 'Découvrir la flotte', en: 'Discover our fleet', ru: 'Наш автопарк', ro: 'Descoperiți flota' }[lang] ?? 'Découvrir la flotte'}
             </a>
           </div>
         </div>

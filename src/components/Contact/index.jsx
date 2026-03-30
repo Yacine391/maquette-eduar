@@ -17,7 +17,7 @@ export default function Contact({ t }) {
       label:   t('contact_phone'),
       value:   '+33 1 XX XX XX XX',
       href:    'tel:+33100000000',
-      detail:  { fr: 'Disponible 24h/24', en: 'Available 24/7', ru: 'Доступно 24/7' },
+      detail:  { fr: 'Disponible 24h/24', en: 'Available 24/7', ru: 'Доступно 24/7', ro: 'Disponibil 24/24' },
     },
     {
       icon: (
@@ -30,7 +30,7 @@ export default function Contact({ t }) {
       label:  t('contact_email'),
       value:  'contact@cdg-transfert.fr',
       href:   'mailto:contact@cdg-transfert.fr',
-      detail: { fr: 'Réponse sous 1h', en: 'Response within 1h', ru: 'Ответ за 1ч' },
+      detail: { fr: 'Réponse sous 1h', en: 'Response within 1h', ru: 'Ответ за 1ч', ro: 'Răspuns în 1h' },
     },
     {
       icon: (
@@ -41,10 +41,10 @@ export default function Contact({ t }) {
             d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
         </svg>
       ),
-      label:  { fr: 'Zone d\'intervention', en: 'Coverage area', ru: 'Зона обслуживания' },
+      label:  { fr: 'Zone d\'intervention', en: 'Coverage area', ru: 'Зона обслуживания', ro: 'Zonă de acoperire' },
       value:  'Île-de-France',
       href:   '#',
-      detail: { fr: 'Paris + tous aéroports', en: 'Paris + all airports', ru: 'Париж + аэропорты' },
+      detail: { fr: 'Paris + tous aéroports', en: 'Paris + all airports', ru: 'Париж + аэропорты', ro: 'Paris + toate aeroporturile' },
     },
   ]
 

@@ -5,7 +5,7 @@
 import { useState, useEffect } from 'react'
 import logo from '../../assets/logo.png'
 
-const LANGS = ['FR', 'EN', 'RU']
+const LANGS = ['FR', 'EN', 'RO', 'RU']
 
 export default function Header({ t, lang, setLang }) {
   const [scrolled,  setScrolled]  = useState(false)

@@ -17,6 +17,7 @@ export default function Footer({ t, lang }) {
     fr: ['Mentions légales', 'Politique de confidentialité', 'CGV'],
     en: ['Legal notice', 'Privacy policy', 'T&C'],
     ru: ['Правовая информация', 'Конфиденциальность', 'Условия'],
+    ro: ['Mențiuni legale', 'Confidențialitate', 'T&C'],
   }
 
   return (
@@ -45,7 +46,7 @@ export default function Footer({ t, lang }) {
           {/* Colonne 2 : Navigation */}
           <div>
             <p className="text-[10px] font-semibold tracking-[0.4em] uppercase text-silver-dim mb-5">
-              {lang === 'ru' ? 'Навигация' : lang === 'en' ? 'Navigation' : 'Navigation'}
+              {{ ru: 'Навигация', ro: 'Navigare' }[lang] ?? 'Navigation'}
             </p>
             <nav className="space-y-3" role="navigation" aria-label="Footer navigation">
               {navLinks.map(({ key, href }) => (
@@ -62,7 +63,7 @@ export default function Footer({ t, lang }) {
           {/* Colonne 3 : Contact rapide */}
           <div>
             <p className="text-[10px] font-semibold tracking-[0.4em] uppercase text-silver-dim mb-5">
-              {lang === 'ru' ? 'Контакты' : lang === 'en' ? 'Contact' : 'Contact rapide'}
+              {{ fr: 'Contact rapide', en: 'Contact', ru: 'Контакты', ro: 'Contact rapid' }[lang] ?? 'Contact rapide'}
             </p>
             <div className="space-y-3">
               <p className="text-sm text-silver font-sans">+33 1 XX XX XX XX</p>

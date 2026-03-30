@@ -18,6 +18,7 @@ export const vehicles = [
       fr: 'Confort et élégance pour vos déplacements professionnels.',
       en: 'Comfort and elegance for your business travel.',
       ru: 'Комфорт и элегантность для деловых поездок.',
+      ro: 'Confort și eleganță pentru deplasările dvs. profesionale.',
     },
   },
   {
@@ -32,6 +33,7 @@ export const vehicles = [
       fr: 'L\'excellence absolue. La berline de prestige par excellence.',
       en: 'Absolute excellence. The ultimate prestige sedan.',
       ru: 'Абсолютное превосходство. Престижный лимузин.',
+      ro: 'Excelență absolută. Berlina de prestigiu prin excelență.',
     },
   },
   {
@@ -46,6 +48,7 @@ export const vehicles = [
       fr: 'Idéal pour les groupes et les familles avec bagages.',
       en: 'Ideal for groups and families with luggage.',
       ru: 'Идеально для групп и семей с багажом.',
+      ro: 'Ideal pentru grupuri și familii cu bagaje.',
     },
   },
   {
@@ -60,6 +63,7 @@ export const vehicles = [
       fr: 'Transfert soigné à tarif accessible.',
       en: 'Quality transfer at an affordable rate.',
       ru: 'Качественный трансфер по доступной цене.',
+      ro: 'Transfer îngrijit la tarif accesibil.',
     },
   },
 ]

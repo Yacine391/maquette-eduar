@@ -1,4 +1,4 @@
-// ── Traductions simulées FR / EN / RU ────────────────────────────────
+// ── Traductions simulées FR / EN / RU / RO ───────────────────────────
 // MAQUETTE — pas de bibliothèque i18n, simple objet JS.
 // Pour ajouter une langue : copier un bloc et traduire les valeurs.
 // ────────────────────────────────────────────────────────────────────
@@ -135,5 +135,54 @@ export const translations = {
     footer_legal:    'Правовая информация',
     footer_rights:   'Все права защищены.',
     footer_mockup:   'Демонстрационный сайт — макет, не является офертой.',
+  },
+
+  ro: {
+    // Navigare
+    nav_home:        'Acasă',
+    nav_fleet:       'Flotă',
+    nav_booking:     'Rezervare',
+    nav_contact:     'Contact',
+
+    // Hero
+    hero_headline:   'Excelența în Serviciul Dumneavoastră',
+    hero_sub:        'Transferuri aeroport, evenimente corporate, călătorii la distanță lungă.',
+    hero_cta:        'Rezervați acum',
+
+    // Booking
+    booking_title:   'Rezervați transferul dvs.',
+    booking_date:    'Data',
+    booking_time:    'Ora',
+    booking_pickup:  'Loc de preluare',
+    booking_dropoff: 'Destinație',
+    booking_vehicle: 'Categorie vehicul',
+    booking_submit:  'Obțineți un preț estimativ',
+    booking_price_label: 'Preț estimat (simulare)',
+    booking_note:    '* Preț simulat cu titlu indicativ — nicio plată necesară.',
+
+    // Fleet
+    fleet_title:     'Flota Noastră',
+    fleet_badge:     'Recomandat',
+    fleet_seats:     'locuri',
+    fleet_luggage:   'bagaje',
+
+    // Rates
+    rates_title:     'Tarifele Noastre',
+    rates_zone:      'Zonă / Pachet',
+    rates_business:  'Business',
+    rates_luxe:      'Lux',
+    rates_van:       'Van',
+    rates_eco:       'Eco',
+
+    // Contact
+    contact_title:   'Contactați-Ne',
+    contact_desc:    'Disponibili 24h/24, 7 zile/7 pentru transferurile dvs. premium în Île-de-France.',
+    contact_phone:   'Telefon',
+    contact_email:   'Email',
+
+    // Footer
+    footer_legal:    'Mențiuni legale',
+    footer_rights:   'Toate drepturile rezervate.',
+    footer_mockup:   'Site demonstrativ — machetă necontractuală.',
   },
 }

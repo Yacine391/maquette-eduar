@@ -181,7 +181,7 @@ export default function BookingModule({ t, lang }) {
                 {loading
                   ? <span className="flex items-center gap-2">
                       <span className="w-3.5 h-3.5 border border-canvas/30 border-t-canvas rounded-full animate-spin" />
-                      {lang === 'ru' ? 'Расчёт…' : lang === 'en' ? 'Calculating…' : 'Calcul…'}
+                      {{ fr: 'Calcul…', en: 'Calculating…', ru: 'Расчёт…', ro: 'Calcul…' }[lang] ?? 'Calcul…'}
                     </span>
                   : t('booking_submit')
                 }

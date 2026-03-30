@@ -93,7 +93,7 @@ export default function Rates({ t, lang }) {
                           </span>
                         ) : (
                           <span className="text-xs italic text-silver-dim">
-                            {lang === 'en' ? 'On quote' : lang === 'ru' ? 'По запросу' : row[col]}
+                            {{ en: 'On quote', ru: 'По запросу', ro: 'La cerere' }[lang] ?? row[col]}
                           </span>
                         )}
                       </td>
@@ -108,11 +108,8 @@ export default function Rates({ t, lang }) {
 
         {/* Note */}
         <p className="mt-5 text-[11px] text-silver-dim/50 italic text-center tracking-wide">
-          {lang === 'en'
-            ? '* Prices shown are indicative and simulated for demo purposes only.'
-            : lang === 'ru'
-            ? '* Цены указаны в ознакомительных целях и являются симуляцией.'
-            : '* Prix indicatifs simulés à titre de démonstration uniquement.'}
+          {{ en: '* Prices shown are indicative and simulated for demo purposes only.', ru: '* Цены указаны в ознакомительных целях и являются симуляцией.', ro: '* Prețuri orientative simulate exclusiv în scop demonstrativ.' }[lang]
+            ?? '* Prix indicatifs simulés à titre de démonstration uniquement.'}
         </p>
       </div>
     </section>
