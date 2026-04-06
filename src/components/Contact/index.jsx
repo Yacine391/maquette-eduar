@@ -15,8 +15,8 @@ export default function Contact({ t }) {
         </svg>
       ),
       label:   t('contact_phone'),
-      value:   '+33 1 XX XX XX XX',
-      href:    'tel:+33100000000',
+      value:   '+33 6 65 69 96 78',
+      href:    'tel:+33665699678',
       detail:  { fr: 'Disponible 24h/24', en: 'Available 24/7', ru: 'Доступно 24/7', ro: 'Disponibil 24/24' },
     },
     {

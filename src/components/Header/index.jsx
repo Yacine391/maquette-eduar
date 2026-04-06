@@ -38,7 +38,7 @@ export default function Header({ t, lang, setLang }) {
                 <span className="w-1 h-1 rounded-full bg-gold inline-block" />
                 Disponible 24h/24 · 7j/7
               </span>
-              <span className="hidden sm:block">+33 1 XX XX XX XX</span>
+              <span className="hidden sm:block">+33 6 65 69 96 78</span>
             </div>
             {/* Sélecteur langue dans la top bar */}
             <div className="flex items-center gap-1">
