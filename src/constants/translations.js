@@ -39,7 +39,7 @@ export const translations = {
     rates_business:  'Business',
     rates_luxe:      'Luxe',
     rates_van:       'Van',
-    rates_eco:       'Éco',
+    rates_eco:       'Éco / Électrique',
 
     // Contact
     contact_title:   'Contactez-Nous',
@@ -83,7 +83,7 @@ export const translations = {
     rates_business:  'Business',
     rates_luxe:      'Luxury',
     rates_van:       'Van',
-    rates_eco:       'Eco',
+    rates_eco:       'Eco / Electric',
 
     contact_title:   'Contact Us',
     contact_desc:    'Available 24/7 for your premium transfers in Île-de-France.',
@@ -125,7 +125,7 @@ export const translations = {
     rates_business:  'Бизнес',
     rates_luxe:      'Люкс',
     rates_van:       'Ван',
-    rates_eco:       'Эко',
+    rates_eco:       'Эко / Электро',
 
     contact_title:   'Свяжитесь с нами',
     contact_desc:    'Доступны 24/7 для премиум-трансферов в Иль-де-Франс.',
@@ -172,7 +172,7 @@ export const translations = {
     rates_business:  'Business',
     rates_luxe:      'Lux',
     rates_van:       'Van',
-    rates_eco:       'Eco',
+    rates_eco:       'Eco / Electric',
 
     // Contact
     contact_title:   'Contactați-Ne',

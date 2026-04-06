@@ -6,24 +6,24 @@
 export const rateTable = [
   {
     zone: { fr: 'CDG / Orly → Paris', en: 'CDG / Orly → Paris', ru: 'CDG / Орли → Париж', ro: 'CDG / Orly → Paris' },
-    business: 79,
-    luxe:     120,
-    van:      110,
-    eco:      55,
+    business: 99,
+    luxe:     170,
+    van:      130,
+    eco:      65,
   },
   {
     zone: { fr: 'Paris Centre-ville', en: 'Paris City Centre', ru: 'Центр Парижа', ro: 'Centrul Parisului' },
-    business: 45,
-    luxe:     80,
-    van:      70,
-    eco:      35,
+    business: 65,
+    luxe:     100,
+    van:      80,
+    eco:      50,
   },
   {
-    zone: { fr: 'Versailles / Banlieue proche', en: 'Versailles / Near suburbs', ru: 'Версаль / Пригород', ro: 'Versailles / Suburbii apropiate' },
-    business: 95,
-    luxe:     150,
-    van:      130,
-    eco:      70,
+    zone: { fr: 'Beauvais / Paris', en: 'Beauvais / Paris', ru: 'Бовэ / Париж', ro: 'Beauvais / Paris' },
+    business: 200,
+    luxe:     300,
+    van:      250,
+    eco:      150,
   },
   {
     zone: { fr: 'Longue distance (> 100 km)', en: 'Long distance (> 100 km)', ru: 'Дальние поездки (> 100 км)', ro: 'Distanță lungă (> 100 km)' },
@@ -37,8 +37,8 @@ export const rateTable = [
 // ── Table de simulation prix (BookingModule) ─────────────────────────
 // Lookup: vehicleId → zone → prix simulé (€)
 export const priceSimulator = {
-  business: { airport: 79,  city: 45,  suburb: 95,  long: 180 },
-  luxe:     { airport: 120, city: 80,  suburb: 150, long: 280 },
-  van:      { airport: 110, city: 70,  suburb: 130, long: 240 },
-  eco:      { airport: 55,  city: 35,  suburb: 70,  long: 120 },
+  business: { airport: 99,  city: 65,  suburb: 200, long: 'Sur devis' },
+  luxe:     { airport: 170, city: 100, suburb: 300, long: 'Sur devis' },
+  van:      { airport: 130, city: 80,  suburb: 250, long: 'Sur devis' },
+  eco:      { airport: 65,  city: 50,  suburb: 150, long: 'Sur devis' },
 }

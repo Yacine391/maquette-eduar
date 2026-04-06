@@ -67,31 +67,48 @@ function FleetCard({ vehicle, t, lang, large = false }) {
         </div>
       )}
 
-      {/* ── Visuel CSS gradient ── */}
+      {/* ── Visuel : photo réelle si disponible, sinon gradient CSS ── */}
       <div className={`relative bg-gradient-to-br ${gradient} overflow-hidden
         ${large ? 'h-56' : 'h-40'} flex-shrink-0`}
       >
+        {/* Photo réelle (ex: Tesla) */}
+        {vehicle.image && (
+          <img
+            src={vehicle.image}
+            alt={`${vehicle.model} — CDG Transfert VTC`}
+            className="absolute inset-0 w-full h-full object-cover object-center opacity-70 group-hover:opacity-80 transition-opacity duration-500"
+            loading="lazy"
+          />
+        )}
         {/* Gold shimmer on hover */}
         <div className="absolute inset-0 gold-shimmer opacity-0 group-hover:opacity-100 group-hover:animate-shimmer transition-opacity duration-500" />
         {/* Vignette bottom */}
         <div className="absolute bottom-0 left-0 right-0 h-20"
           style={{ background: 'linear-gradient(to top, rgba(17,17,21,0.9), transparent)' }}
         />
-        {/* Silhouette SVG véhicule */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <svg
-            viewBox="0 0 160 60"
-            className={`${large ? 'w-44' : 'w-32'} opacity-20 text-gold group-hover:opacity-30 transition-opacity duration-500`}
-            fill="currentColor"
-          >
-            {vehicle.id === 'van'
-              ? <path d="M8 44 Q10 24 28 22 L38 16 Q60 12 90 14 L118 18 Q138 22 148 38 L152 44 L155 44 Q157 48 150 50 L10 50 Q3 48 4 44 Z" />
-              : <path d="M10 44 Q14 26 34 24 L50 18 Q72 13 88 15 L108 18 Q130 24 142 38 L146 44 L150 44 Q152 48 146 50 L10 50 Q4 48 5 44 Z" />
-            }
-            <ellipse cx={vehicle.id === 'van' ? '38' : '36'} cy="50" rx="10" ry="10" />
-            <ellipse cx={vehicle.id === 'van' ? '118' : '120'} cy="50" rx="10" ry="10" />
-          </svg>
-        </div>
+        {/* Silhouette SVG véhicule — masqué si photo réelle */}
+        {!vehicle.image && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <svg
+              viewBox="0 0 160 60"
+              className={`${large ? 'w-44' : 'w-32'} opacity-20 text-gold group-hover:opacity-30 transition-opacity duration-500`}
+              fill="currentColor"
+            >
+              {vehicle.id === 'van'
+                ? <path d="M8 44 Q10 24 28 22 L38 16 Q60 12 90 14 L118 18 Q138 22 148 38 L152 44 L155 44 Q157 48 150 50 L10 50 Q3 48 4 44 Z" />
+                : <path d="M10 44 Q14 26 34 24 L50 18 Q72 13 88 15 L108 18 Q130 24 142 38 L146 44 L150 44 Q152 48 146 50 L10 50 Q4 48 5 44 Z" />
+              }
+              <ellipse cx={vehicle.id === 'van' ? '38' : '36'} cy="50" rx="10" ry="10" />
+              <ellipse cx={vehicle.id === 'van' ? '118' : '120'} cy="50" rx="10" ry="10" />
+            </svg>
+          </div>
+        )}
+        {/* Badge électrique */}
+        {vehicle.id === 'eco' && (
+          <div className="absolute top-3 left-3 flex items-center gap-1 bg-emerald-900/80 border border-emerald-500/40 px-2 py-0.5 text-[8px] font-bold tracking-widest text-emerald-400 uppercase">
+            ⚡ 100% Électrique
+          </div>
+        )}
         {/* Catégorie en overlay */}
         <div className="absolute bottom-3 right-3 text-[9px] font-bold tracking-[0.4em] text-gold/60 uppercase">
           {category}

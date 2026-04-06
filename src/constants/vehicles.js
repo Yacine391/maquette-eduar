@@ -53,17 +53,19 @@ export const vehicles = [
   },
   {
     id:       'eco',
-    category: 'Éco',
-    model:    'Peugeot 508 / Skoda Octavia',
-    seats:    3,
-    luggage:  2,
+    category: 'Éco / Électrique',
+    model:    'Tesla Model Y',
+    seats:    4,
+    luggage:  3,
     gradient: 'from-gray-900 via-zinc-800 to-gray-900',
+    // Photo libre de droits — Unsplash License
+    image:    'https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=800&q=80',
     featured: false,
     description: {
-      fr: 'Transfert soigné à tarif accessible.',
-      en: 'Quality transfer at an affordable rate.',
-      ru: 'Качественный трансфер по доступной цене.',
-      ro: 'Transfer îngrijit la tarif accesibil.',
+      fr: 'Transfert écologique et moderne avec la Tesla Model Y 100% électrique.',
+      en: 'Eco-friendly modern transfer with the fully electric Tesla Model Y.',
+      ru: 'Экологичная поездка на полностью электрическом Tesla Model Y.',
+      ro: 'Transfer modern și ecologic cu Tesla Model Y 100% electric.',
     },
   },
 ]

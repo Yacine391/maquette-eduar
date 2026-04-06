@@ -12,7 +12,7 @@ function detectZone(dropoff = '') {
   if (d.includes('cdg') || d.includes('orly') || d.includes('aéroport') || d.includes('airport')) {
     return 'airport'
   }
-  if (d.includes('versailles') || d.includes('vincennes') || d.includes('boulogne') || d.includes('saint-')) {
+  if (d.includes('beauvais') || d.includes('vincennes') || d.includes('boulogne') || d.includes('saint-')) {
     return 'suburb'
   }
   // Heuristique distance : si l'input contient un chiffre > 100 → longue distance
