@@ -8,6 +8,7 @@ import emailjs from '@emailjs/browser'
 import { usePriceSimulator } from '../../hooks/usePriceSimulator'
 import { vehicles } from '../../constants/vehicles'
 import { EMAILJS_CONFIG } from '../../config/emailjs'
+import AddressAutocomplete from './AddressAutocomplete'
 
 export default function BookingModule({ t, lang }) {
   const { price, loading, compute, reset } = usePriceSimulator()
@@ -214,24 +215,24 @@ export default function BookingModule({ t, lang }) {
                   <input id="time" type="time" name="time" value={form.time}
                     onChange={handleChange} required className="input-luxury" />
                 </div>
-                <div>
-                  <label htmlFor="pickup" className="label-luxury">{t('booking_pickup')} *</label>
-                  <div className="relative">
-                    <input id="pickup" type="text" name="pickup" value={form.pickup}
-                      onChange={handleChange} placeholder="Paris 8ème, CDG T2E…"
-                      required className="input-luxury pr-10" />
-                    <PinIcon />
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="dropoff" className="label-luxury">{t('booking_dropoff')} *</label>
-                  <div className="relative">
-                    <input id="dropoff" type="text" name="dropoff" value={form.dropoff}
-                      onChange={handleChange} placeholder="CDG T1, Beauvais, Paris…"
-                      required className="input-luxury pr-10" />
-                    <FlagIcon />
-                  </div>
-                </div>
+                <AddressAutocomplete
+                  id="pickup"
+                  name="pickup"
+                  value={form.pickup}
+                  onChange={handleChange}
+                  placeholder="Paris 8ème, CDG Terminal 2…"
+                  required
+                  label={t('booking_pickup')}
+                />
+                <AddressAutocomplete
+                  id="dropoff"
+                  name="dropoff"
+                  value={form.dropoff}
+                  onChange={handleChange}
+                  placeholder="CDG T1, Beauvais, Paris…"
+                  required
+                  label={t('booking_dropoff')}
+                />
               </div>
             </fieldset>
 
