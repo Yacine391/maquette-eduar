@@ -12,7 +12,7 @@ export const vehicles = [
     seats:    3,
     luggage:  3,
     gradient: 'from-zinc-900 via-zinc-800 to-neutral-900',
-    image:    '/vehicles/mercedes-classe-e.jpg',
+    images:   ['/vehicles/mercedes-classe-e.jpg', '/vehicles/mercedes-classe-e-2.jpg'],
     featured: true,  // → bordure gold + badge "Recommandé"
     description: {
       fr: 'Confort et élégance pour vos déplacements professionnels.',

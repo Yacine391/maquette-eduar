@@ -46,6 +46,8 @@ export default function Fleet({ t, lang }) {
 // ── Carte individuelle ────────────────────────────────────────────────
 function FleetCard({ vehicle, t, lang, large = false }) {
   const { category, model, seats, luggage, gradient, featured, description } = vehicle
+  // Support both single image and images array
+  const photos = vehicle.images ?? (vehicle.image ? [vehicle.image] : [])
 
   return (
     <article
@@ -67,15 +69,27 @@ function FleetCard({ vehicle, t, lang, large = false }) {
         </div>
       )}
 
-      {/* ── Visuel : photo réelle si disponible, sinon gradient CSS ── */}
+      {/* ── Visuel : photo(s) réelle(s) si disponible, sinon gradient CSS ── */}
       <div className={`relative bg-gradient-to-br ${gradient} overflow-hidden
         ${large ? 'h-56' : 'h-40'} flex-shrink-0`}
       >
-        {/* Photo réelle (ex: Tesla) */}
-        {vehicle.image && (
+        {/* Deux photos côte à côte */}
+        {photos.length >= 2 && (
+          <div className="absolute inset-0 flex">
+            <img src={photos[0]} alt={`${model} — CDG Transfert VTC`}
+              className="w-1/2 h-full object-cover object-center opacity-70 group-hover:opacity-80 transition-opacity duration-500"
+              loading="lazy" />
+            <div className="w-px bg-gold/20 flex-shrink-0" />
+            <img src={photos[1]} alt={`${model} — CDG Transfert VTC`}
+              className="w-1/2 h-full object-cover object-center opacity-70 group-hover:opacity-80 transition-opacity duration-500"
+              loading="lazy" />
+          </div>
+        )}
+        {/* Photo unique */}
+        {photos.length === 1 && (
           <img
-            src={vehicle.image}
-            alt={`${vehicle.model} — CDG Transfert VTC`}
+            src={photos[0]}
+            alt={`${model} — CDG Transfert VTC`}
             className="absolute inset-0 w-full h-full object-cover object-center opacity-70 group-hover:opacity-80 transition-opacity duration-500"
             loading="lazy"
           />
@@ -87,7 +101,7 @@ function FleetCard({ vehicle, t, lang, large = false }) {
           style={{ background: 'linear-gradient(to top, rgba(17,17,21,0.9), transparent)' }}
         />
         {/* Silhouette SVG véhicule — masqué si photo réelle */}
-        {!vehicle.image && (
+        {photos.length === 0 && (
           <div className="absolute inset-0 flex items-center justify-center">
             <svg
               viewBox="0 0 160 60"
