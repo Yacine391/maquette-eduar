@@ -28,8 +28,8 @@ export default function Contact({ t }) {
         </svg>
       ),
       label:  t('contact_email'),
-      value:  'contact@cdg-transfert.fr',
-      href:   'mailto:contact@cdg-transfert.fr',
+      value:  'cdgtransfertvtc@gmail.com',
+      href:   'mailto:cdgtransfertvtc@gmail.com',
       detail: { fr: 'Réponse sous 1h', en: 'Response within 1h', ru: 'Ответ за 1ч', ro: 'Răspuns în 1h' },
     },
     {

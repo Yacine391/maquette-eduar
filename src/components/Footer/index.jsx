@@ -66,8 +66,8 @@ export default function Footer({ t, lang }) {
               {{ fr: 'Contact rapide', en: 'Contact', ru: 'Контакты', ro: 'Contact rapid' }[lang] ?? 'Contact rapide'}
             </p>
             <div className="space-y-3">
-              <p className="text-sm text-silver font-sans">+33 1 XX XX XX XX</p>
-              <p className="text-sm text-silver font-sans">contact@cdg-transfert.fr</p>
+              <p className="text-sm text-silver font-sans">+33 6 65 69 96 78</p>
+              <p className="text-sm text-silver font-sans">cdgtransfertvtc@gmail.com</p>
               <p className="text-sm text-silver font-sans">Paris, Île-de-France</p>
             </div>
             {/* CTA footer */}

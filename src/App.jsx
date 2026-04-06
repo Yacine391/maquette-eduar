@@ -16,7 +16,7 @@ import Footer        from './components/Footer'
 
 // Numéro WhatsApp d'Eduard (format international sans espaces ni +)
 const WHATSAPP_NUMBER = '33665699678'
-const WHATSAPP_MSG    = encodeURIComponent('Bonjour, je souhaite réserver un transfert VTC avec CDG Transfert.')
+const WHATSAPP_MSG    = encodeURIComponent('Bonjour je souhaite reserver un transfert avec CDG Transfert VTC')
 
 export default function App() {
   const { t, lang, setLang } = useTranslation()
