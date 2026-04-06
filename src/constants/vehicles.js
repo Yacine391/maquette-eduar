@@ -11,8 +11,8 @@ export const vehicles = [
     model:    'Mercedes Classe E',
     seats:    3,
     luggage:  3,
-    // Gradient placeholder — pas d'image copyrigthée
     gradient: 'from-zinc-900 via-zinc-800 to-neutral-900',
+    image:    '/vehicles/mercedes-classe-e.jpg',
     featured: true,  // → bordure gold + badge "Recommandé"
     description: {
       fr: 'Confort et élégance pour vos déplacements professionnels.',
@@ -58,8 +58,7 @@ export const vehicles = [
     seats:    4,
     luggage:  3,
     gradient: 'from-gray-900 via-zinc-800 to-gray-900',
-    // Photo libre de droits — Unsplash License
-    image:    'https://images.unsplash.com/photo-1765863238065-f59ec84eb280?auto=format&fit=crop&w=800&q=80',
+    image:    '/vehicles/tesla-model-y.jpg',
     featured: false,
     description: {
       fr: 'Transfert écologique et moderne avec la Tesla Model Y 100% électrique.',
