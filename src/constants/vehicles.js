@@ -12,7 +12,7 @@ export const vehicles = [
     seats:    3,
     luggage:  3,
     gradient: 'from-zinc-900 via-zinc-800 to-neutral-900',
-    images:   ['/vehicles/mercedes-classe-e.jpg', '/vehicles/mercedes-classe-e-2.jpg'],
+    image:    '/vehicles/mercedes-classe-e.jpg',
     featured: true,  // → bordure gold + badge "Recommandé"
     description: {
       fr: 'Confort et élégance pour vos déplacements professionnels.',
@@ -28,6 +28,7 @@ export const vehicles = [
     seats:    3,
     luggage:  3,
     gradient: 'from-stone-900 via-zinc-900 to-black',
+    image:    '/vehicles/mercedes-classe-s.jpg',
     featured: false,
     description: {
       fr: 'L\'excellence absolue. La berline de prestige par excellence.',
@@ -43,6 +44,7 @@ export const vehicles = [
     seats:    7,
     luggage:  7,
     gradient: 'from-neutral-900 via-stone-900 to-zinc-900',
+    image:    'https://images.unsplash.com/photo-1765461734605-34657fa04db2?auto=format&fit=crop&w=800&q=80',
     featured: false,
     description: {
       fr: 'Idéal pour les groupes et les familles avec bagages.',
