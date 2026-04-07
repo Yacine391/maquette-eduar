@@ -6,19 +6,25 @@
 import { useState, useCallback } from 'react'
 import { priceSimulator } from '../constants/rates'
 
-// Détection naive de zone d'après le texte de la destination
-function detectZone(dropoff = '') {
-  const d = dropoff.toLowerCase()
-  if (d.includes('cdg') || d.includes('orly') || d.includes('aéroport') || d.includes('airport')) {
-    return 'airport'
+// Détection de zone — vérifie pickup ET dropoff
+function detectZone(pickup = '', dropoff = '') {
+  const text = (pickup + ' ' + dropoff).toLowerCase()
+  // CDG (Roissy) — plus loin que Orly
+  if (text.includes('cdg') || text.includes('roissy') || text.includes('charles de gaulle')) {
+    return 'cdg'
   }
-  if (d.includes('beauvais') || d.includes('vincennes') || d.includes('boulogne') || d.includes('saint-')) {
+  // Orly
+  if (text.includes('orly')) {
+    return 'orly'
+  }
+  // Beauvais / banlieue éloignée
+  if (text.includes('beauvais') || text.includes('vincennes') || text.includes('boulogne') || text.includes('saint-')) {
     return 'suburb'
   }
-  // Heuristique distance : si l'input contient un chiffre > 100 → longue distance
-  const nums = dropoff.match(/\d+/)
+  // Longue distance
+  const nums = (pickup + ' ' + dropoff).match(/\d+/)
   if (nums && parseInt(nums[0]) > 100) return 'long'
-  // Par défaut : Paris centre-ville
+  // Paris intra-muros par défaut
   return 'city'
 }
 
@@ -27,11 +33,10 @@ export function usePriceSimulator() {
   const [loading, setLoading] = useState(false)
 
   // compute({ vehicleId, dropoff }) → calcule et stocke le prix simulé
-  const compute = useCallback(({ vehicleId, dropoff }) => {
+  const compute = useCallback(({ vehicleId, pickup = '', dropoff = '' }) => {
     setLoading(true)
-    // Délai artificiel pour simuler un appel réseau (UX réaliste)
     setTimeout(() => {
-      const zone   = detectZone(dropoff)
+      const zone   = detectZone(pickup, dropoff)
       const table  = priceSimulator[vehicleId] ?? priceSimulator['eco']
       const result = table[zone] ?? table['city']
       setPrice(result)

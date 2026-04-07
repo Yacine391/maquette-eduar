@@ -50,7 +50,7 @@ export default function BookingModule({ t, lang }) {
   const handleEstimate = () => {
     if (!form.vehicleId || !form.dropoff) return
     setSubmitted(true)
-    compute({ vehicleId: form.vehicleId, dropoff: form.dropoff })
+    compute({ vehicleId: form.vehicleId, pickup: form.pickup, dropoff: form.dropoff })
   }
 
   // ── Envoi de la réservation + emails ──

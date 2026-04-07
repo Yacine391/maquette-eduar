@@ -37,8 +37,8 @@ export const rateTable = [
 // ── Table de simulation prix (BookingModule) ─────────────────────────
 // Lookup: vehicleId → zone → prix simulé (€)
 export const priceSimulator = {
-  business: { airport: 99,  city: 65,  suburb: 200, long: 'Sur devis' },
-  luxe:     { airport: 170, city: 100, suburb: 300, long: 'Sur devis' },
-  van:      { airport: 130, city: 80,  suburb: 250, long: 'Sur devis' },
-  eco:      { airport: 65,  city: 50,  suburb: 150, long: 'Sur devis' },
+  business: { cdg: 110, orly: 85,  city: 65,  suburb: 200, long: 'Sur devis' },
+  luxe:     { cdg: 190, orly: 150, city: 100, suburb: 300, long: 'Sur devis' },
+  van:      { cdg: 145, orly: 115, city: 80,  suburb: 250, long: 'Sur devis' },
+  eco:      { cdg: 75,  orly: 60,  city: 50,  suburb: 150, long: 'Sur devis' },
 }
