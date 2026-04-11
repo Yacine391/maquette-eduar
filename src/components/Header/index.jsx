@@ -61,11 +61,16 @@ export default function Header({ t, lang, setLang }) {
       </div>
 
       {/* ── Navigation principale ── */}
+      {/*
+        z-[52] > z-50 de la top bar pour que le header scroll par-dessus
+        backdrop-blur retiré sur mobile : crée un stacking context cassé sur
+        Samsung Browser / Chrome Android → fond devient transparent, menu illisible
+      */}
       <header
-        className={`fixed left-0 right-0 z-50 transition-all duration-500
+        className={`fixed left-0 right-0 z-[52] transition-all duration-500
           ${scrolled ? 'top-0' : 'top-[37px]'}
           ${scrolled
-            ? 'bg-canvas/90 backdrop-blur-md border-b border-divider shadow-2xl shadow-black/50'
+            ? 'bg-[#050507] border-b border-divider shadow-2xl shadow-black/50 md:backdrop-blur-md md:bg-canvas/90'
             : 'bg-transparent'
           }`}
       >
@@ -141,36 +146,49 @@ export default function Header({ t, lang, setLang }) {
           </div>
         </div>
 
-        {/* ── Menu mobile ── */}
-        <div className={`md:hidden transition-all duration-300 overflow-hidden
-          ${menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
+      </header>
+
+      {/*
+        ── Menu mobile — overlay INDÉPENDANT du <header> ────────────────
+        Rendu hors du <header> pour éviter les bugs Android :
+        • backdrop-filter sur le parent créait un stacking context cassé
+        • overflow-hidden + max-h animation clippait le fond sur Android
+        Solution : fixed overlay séparé, fond solide (#0A0A0C), z-[55]
+        Position calculée : top bar (37px) + header (64px) = 101px quand
+        non-scrollé / 64px quand scrollé (top bar masquée)
+      */}
+      <div
+        className={`md:hidden fixed left-0 right-0 z-[55] transition-all duration-300
+          ${menuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
+        style={{ top: scrolled ? '64px' : '101px' }}
+      >
+        <div style={{ backgroundColor: '#0A0A0C' }}
+          className="border-t border-b border-divider px-6 py-6 flex flex-col gap-5 shadow-2xl shadow-black"
         >
-          <div className="bg-canvas-2/98 border-t border-divider px-6 py-6 flex flex-col gap-5">
-            {navLinks.map(({ key, href }) => (
-              <a
-                key={key}
-                href={href}
-                onClick={() => setMenuOpen(false)}
-                className="text-sm tracking-[0.2em] uppercase text-silver hover:text-gold transition-colors duration-300"
+          {navLinks.map(({ key, href }) => (
+            <a
+              key={key}
+              href={href}
+              onClick={() => setMenuOpen(false)}
+              className="text-sm tracking-[0.2em] uppercase text-silver hover:text-gold transition-colors duration-300"
+            >
+              {t(key)}
+            </a>
+          ))}
+          <div className="pt-4 border-t border-divider flex items-center gap-3">
+            {LANGS.map((l) => (
+              <button
+                key={l}
+                onClick={() => { setLang(l.toLowerCase()); setMenuOpen(false) }}
+                className={`px-3 py-1.5 text-xs font-semibold tracking-widest transition-all duration-200
+                  ${lang === l.toLowerCase() ? 'bg-gold text-canvas' : 'border border-divider text-silver'}`}
               >
-                {t(key)}
-              </a>
+                {l}
+              </button>
             ))}
-            <div className="pt-4 border-t border-divider flex items-center gap-3">
-              {LANGS.map((l) => (
-                <button
-                  key={l}
-                  onClick={() => { setLang(l.toLowerCase()); setMenuOpen(false) }}
-                  className={`px-3 py-1.5 text-xs font-semibold tracking-widest transition-all duration-200
-                    ${lang === l.toLowerCase() ? 'bg-gold text-canvas' : 'border border-divider text-silver'}`}
-                >
-                  {l}
-                </button>
-              ))}
-            </div>
           </div>
         </div>
-      </header>
+      </div>
     </>
   )
 }
