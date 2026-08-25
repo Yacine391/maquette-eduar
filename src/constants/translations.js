@@ -47,6 +47,12 @@ export const translations = {
     contact_phone:   'Téléphone',
     contact_email:   'Email',
 
+    // Reviews
+    reviews_title:   'Avis Clients',
+    reviews_subtitle:'Ce que disent nos passagers',
+    reviews_cta:     'Laisser un avis Google',
+    reviews_verified:'Avis vérifié',
+
     // Footer
     footer_legal:    'Mentions légales',
     footer_rights:   'Tous droits réservés.',
@@ -90,6 +96,11 @@ export const translations = {
     contact_phone:   'Phone',
     contact_email:   'Email',
 
+    reviews_title:   'Customer Reviews',
+    reviews_subtitle:'What our passengers say',
+    reviews_cta:     'Leave a Google Review',
+    reviews_verified:'Verified review',
+
     footer_legal:    'Legal notice',
     footer_rights:   'All rights reserved.',
     footer_mockup:   'Demo site — non-contractual mockup.',
@@ -131,6 +142,11 @@ export const translations = {
     contact_desc:    'Доступны 24/7 для премиум-трансферов в Иль-де-Франс.',
     contact_phone:   'Телефон',
     contact_email:   'Эл. почта',
+
+    reviews_title:   'Отзывы клиентов',
+    reviews_subtitle:'Что говорят наши пассажиры',
+    reviews_cta:     'Оставить отзыв в Google',
+    reviews_verified:'Подтверждённый отзыв',
 
     footer_legal:    'Правовая информация',
     footer_rights:   'Все права защищены.',
@@ -179,6 +195,12 @@ export const translations = {
     contact_desc:    'Disponibili 24h/24, 7 zile/7 pentru transferurile dvs. premium în Île-de-France.',
     contact_phone:   'Telefon',
     contact_email:   'Email',
+
+    // Reviews
+    reviews_title:   'Recenzii Clienți',
+    reviews_subtitle:'Ce spun pasagerii noștri',
+    reviews_cta:     'Lasă o recenzie Google',
+    reviews_verified:'Recenzie verificată',
 
     // Footer
     footer_legal:    'Mențiuni legale',

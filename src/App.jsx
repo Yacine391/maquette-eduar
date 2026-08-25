@@ -1,7 +1,7 @@
 // ── App — Composition de la page ────────────────────────────────────
 // MAQUETTE CDG TRANSFERT VTC
-// Ordre DOM (CLAUDE.md + section WhyUs ajoutée post-Fleet) :
-//   Header → Hero → Booking → Fleet → WhyUs → Rates → Contact → Footer
+// Ordre DOM :
+//   Header → Hero → Booking → Fleet → WhyUs → Reviews → Rates → Contact → Footer
 // + Bouton WhatsApp flottant (mobile uniquement) bas-droite
 // ────────────────────────────────────────────────────────────────────
 import { useTranslation } from './hooks/useTranslation'
@@ -10,6 +10,7 @@ import Hero          from './components/Hero'
 import BookingModule from './components/BookingModule'
 import Fleet         from './components/Fleet'
 import WhyUs         from './components/WhyUs'
+import Reviews       from './components/Reviews'
 import Rates         from './components/Rates'
 import Contact       from './components/Contact'
 import Footer        from './components/Footer'
@@ -39,7 +40,10 @@ export default function App() {
       {/* 5 · Pourquoi nous (Trust & Authority — skill recommendation) */}
       <WhyUs lang={lang} />
 
-      {/* 6 · Tarifs */}
+      {/* 6 · Avis Google clients */}
+      <Reviews t={t} lang={lang} />
+
+      {/* 7 · Tarifs */}
       <Rates t={t} lang={lang} />
 
       {/* 7 · Contact */}

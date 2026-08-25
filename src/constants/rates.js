@@ -36,9 +36,11 @@ export const rateTable = [
 
 // ── Table de simulation prix (BookingModule) ─────────────────────────
 // Lookup: vehicleId → zone → prix simulé (€)
+// Tarifs alignés sur rateTable — CDG et Orly au même prix (forfait aéroport unifié).
+// Beauvais (suburb) est la longue distance banlieue éloignée.
 export const priceSimulator = {
-  business: { cdg: 110, orly: 85,  city: 65,  suburb: 200, long: 'Sur devis' },
-  luxe:     { cdg: 190, orly: 150, city: 100, suburb: 300, long: 'Sur devis' },
-  van:      { cdg: 145, orly: 115, city: 80,  suburb: 250, long: 'Sur devis' },
-  eco:      { cdg: 75,  orly: 60,  city: 50,  suburb: 150, long: 'Sur devis' },
+  business: { cdg: 99,  orly: 99,  city: 65,  suburb: 200, long: 'Sur devis' },
+  luxe:     { cdg: 170, orly: 170, city: 100, suburb: 300, long: 'Sur devis' },
+  van:      { cdg: 130, orly: 130, city: 80,  suburb: 250, long: 'Sur devis' },
+  eco:      { cdg: 65,  orly: 65,  city: 50,  suburb: 150, long: 'Sur devis' },
 }
