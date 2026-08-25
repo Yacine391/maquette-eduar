@@ -1,7 +1,14 @@
 // ── Données véhicules — MAQUETTE ─────────────────────────────────────
 // Noms / catégories inspirés de vtcparis-transfert.fr.
-// Aucune image propriétaire : fond CSS gradient + emoji placeholder.
 // Ordre strict imposé par CLAUDE.md : BUSINESS > Luxe > Van > Éco
+//
+// PHOTOS : ce sont les photos réelles de la flotte fournies par le client
+// (fichiers dans /public/vehicles/). Chaque véhicule possède :
+//   • `images` → tableau de photos { src, alt } affichées dans la galerie
+//                plein écran (clic sur la photo → flèches gauche/droite)
+//   • `image`  → photo de couverture affichée sur la carte = images[0]
+// Pour changer la photo de couverture : remonter la photo voulue en
+// première position du tableau `images`.
 // ────────────────────────────────────────────────────────────────────
 
 export const vehicles = [
@@ -12,7 +19,14 @@ export const vehicles = [
     seats:    3,
     luggage:  3,
     gradient: 'from-zinc-900 via-zinc-800 to-neutral-900',
-    image:    '/vehicles/mercedes-classe-e.jpg',
+    // 3 photos client — couverture : la Classe E devant l'Arc de Triomphe
+    images: [
+      // `position` = recadrage de la vignette sur la carte (la voiture est
+      // dans la moitié basse de la photo → on descend le cadrage)
+      { src: '/vehicles/classe-e-1.jpg', alt: 'Mercedes Classe E noire devant l\'Arc de Triomphe, Paris', position: '50% 72%' },
+      { src: '/vehicles/classe-e-2.jpg', alt: 'Mercedes Classe E devant l\'hôtel San Régis, Paris 8e' },
+      { src: '/vehicles/classe-e-3.jpg', alt: 'Mercedes Classe E vue de profil, avenue Montaigne' },
+    ],
     featured: true,  // → bordure gold + badge "Recommandé"
     description: {
       fr: 'Confort et élégance pour vos déplacements professionnels.',
@@ -28,7 +42,13 @@ export const vehicles = [
     seats:    3,
     luggage:  3,
     gradient: 'from-stone-900 via-zinc-900 to-black',
-    image:    '/vehicles/mercedes-classe-s.jpg',
+    // 4 photos client — 2 extérieures + 2 intérieures (demande client)
+    images: [
+      { src: '/vehicles/classe-s-1.jpg', alt: 'Mercedes Classe S sur le tarmac, portière ouverte' },
+      { src: '/vehicles/classe-s-2.jpg', alt: 'Mercedes Classe S vue de face' },
+      { src: '/vehicles/classe-s-3.jpg', alt: 'Intérieur Classe S : cuir clair et écrans passagers' },
+      { src: '/vehicles/classe-s-4.jpg', alt: 'Intérieur Classe S : sièges arrière et rafraîchissements' },
+    ],
     featured: false,
     description: {
       fr: 'L\'excellence absolue. La berline de prestige par excellence.',
@@ -44,7 +64,13 @@ export const vehicles = [
     seats:    6,
     luggage:  6,
     gradient: 'from-neutral-900 via-stone-900 to-zinc-900',
-    image:    'https://images.unsplash.com/photo-1765461734605-34657fa04db2?auto=format&fit=crop&w=800&q=80',
+    // 4 photos client — 2 extérieures + 2 intérieures (demande client)
+    images: [
+      { src: '/vehicles/classe-v-1.jpg', alt: 'Mercedes Classe V noire vue de trois quarts avant' },
+      { src: '/vehicles/classe-v-2.jpg', alt: 'Mercedes Classe V vue de trois quarts arrière' },
+      { src: '/vehicles/classe-v-3.jpg', alt: 'Intérieur Classe V : sièges cuir beige face à face' },
+      { src: '/vehicles/classe-v-4.jpg', alt: 'Intérieur Classe V : banquette arrière et accès latéral' },
+    ],
     featured: false,
     description: {
       fr: 'Idéal pour les groupes et les familles avec bagages.',
@@ -60,7 +86,10 @@ export const vehicles = [
     seats:    4,
     luggage:  3,
     gradient: 'from-gray-900 via-zinc-800 to-gray-900',
-    image:    '/vehicles/tesla-model-y.jpg',
+    // Une seule photo pour l'instant → pas de galerie sur cette carte
+    images: [
+      { src: '/vehicles/tesla-model-y.jpg', alt: 'Tesla Model Y 100% électrique' },
+    ],
     featured: false,
     description: {
       fr: 'Transfert écologique et moderne avec la Tesla Model Y 100% électrique.',

@@ -2,8 +2,14 @@
 // MAQUETTE CDG TRANSFERT VTC
 // Design : card cinématique avec gradient, hover scale + gold glow,
 // featured card mise en valeur avec taille plus grande.
+//
+// Photos : chaque véhicule affiche sa photo de couverture. Si plusieurs
+// photos existent, la photo devient cliquable et ouvre la galerie plein
+// écran (flèches gauche/droite, miniatures, swipe mobile).
 // ────────────────────────────────────────────────────────────────────
+import { useState } from 'react'
 import { vehicles } from '../../constants/vehicles'
+import Lightbox from '../Gallery/Lightbox'
 
 export default function Fleet({ t, lang }) {
   return (
@@ -47,6 +53,22 @@ export default function Fleet({ t, lang }) {
 function FleetCard({ vehicle, t, lang, large = false }) {
   const { category, model, seats, luggage, gradient, featured, description } = vehicle
 
+  // ── Galerie photo ──
+  const images     = vehicle.images ?? []
+  const cover      = images[0]                 // photo de couverture = 1re du tableau
+  const hasGallery = images.length > 1         // galerie seulement si ≥ 2 photos
+  // Index de la photo ouverte (null = galerie fermée)
+  const [openAt, setOpenAt] = useState(null)
+
+  // La zone visuelle devient un <button> quand une galerie est disponible
+  const Visual = hasGallery ? 'button' : 'div'
+  const galleryLabel = {
+    fr: `Voir les ${images.length} photos — ${model}`,
+    en: `View the ${images.length} photos — ${model}`,
+    ru: `Смотреть фото (${images.length}) — ${model}`,
+    ro: `Vezi cele ${images.length} fotografii — ${model}`,
+  }[lang] ?? `Voir les ${images.length} photos — ${model}`
+
   return (
     <article
       className={`relative flex flex-col overflow-hidden group cursor-pointer
@@ -67,16 +89,24 @@ function FleetCard({ vehicle, t, lang, large = false }) {
         </div>
       )}
 
-      {/* ── Visuel : photo réelle si disponible, sinon gradient CSS ── */}
-      <div className={`relative bg-gradient-to-br ${gradient} overflow-hidden
-        ${large ? 'h-56' : 'h-40'} flex-shrink-0`}
+      {/* ── Visuel : photo réelle si disponible, sinon gradient CSS ──
+          Cliquable (bouton) dès qu'il y a plusieurs photos → galerie. */}
+      <Visual
+        type={hasGallery ? 'button' : undefined}
+        onClick={hasGallery ? () => setOpenAt(0) : undefined}
+        aria-label={hasGallery ? galleryLabel : undefined}
+        className={`relative block w-full bg-gradient-to-br ${gradient} overflow-hidden
+          ${large ? 'h-56' : 'h-40'} flex-shrink-0
+          ${hasGallery ? 'cursor-zoom-in' : ''}`}
       >
-        {/* Photo réelle */}
-        {vehicle.image && (
+        {/* Photo de couverture */}
+        {cover && (
           <img
-            src={vehicle.image}
+            src={cover.src}
             alt={`${model} — CDG Transfert VTC`}
-            className="absolute inset-0 w-full h-full object-cover object-center opacity-70 group-hover:opacity-80 transition-opacity duration-500"
+            className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out"
+            /* `position` permet de recadrer la couverture (défaut : centre) */
+            style={{ objectPosition: cover.position ?? 'center' }}
             loading="lazy"
           />
         )}
@@ -87,7 +117,7 @@ function FleetCard({ vehicle, t, lang, large = false }) {
           style={{ background: 'linear-gradient(to top, rgba(17,17,21,0.9), transparent)' }}
         />
         {/* Silhouette SVG véhicule — masqué si photo réelle */}
-        {!vehicle.image && (
+        {!cover && (
           <div className="absolute inset-0 flex items-center justify-center">
             <svg
               viewBox="0 0 160 60"
@@ -109,11 +139,37 @@ function FleetCard({ vehicle, t, lang, large = false }) {
             ⚡ 100% Électrique
           </div>
         )}
+        {/* Compteur de photos — indique que la photo est cliquable */}
+        {hasGallery && (
+          <span className="absolute bottom-3 left-3 flex items-center gap-1.5
+            bg-canvas/75 backdrop-blur-sm border border-gold/30 text-gold
+            px-2 py-1 text-[9px] font-semibold tracking-widest uppercase
+            group-hover:bg-gold group-hover:text-canvas group-hover:border-gold
+            transition-all duration-300">
+            <svg viewBox="0 0 16 16" className="w-3 h-3" fill="currentColor">
+              <path d="M2 4a2 2 0 012-2h8a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V4zm2-.5a.5.5 0 00-.5.5v4.6l2.3-2a.75.75 0 01.98 0l2.1 1.85 1.6-1.3a.75.75 0 01.96.02l1.06.93V4a.5.5 0 00-.5-.5H4z" />
+              <circle cx="6" cy="5.5" r="1" />
+              <path d="M1 5v7a3 3 0 003 3h8v-1.5H4A1.5 1.5 0 012.5 12V5H1z" />
+            </svg>
+            {images.length} photos
+          </span>
+        )}
         {/* Catégorie en overlay */}
         <div className="absolute bottom-3 right-3 text-[9px] font-bold tracking-[0.4em] text-gold/60 uppercase">
           {category}
         </div>
-      </div>
+      </Visual>
+
+      {/* ── Galerie plein écran (portal sur <body>) ── */}
+      {openAt !== null && (
+        <Lightbox
+          images={images}
+          startIndex={openAt}
+          title={`${model} — ${category}`}
+          lang={lang}
+          onClose={() => setOpenAt(null)}
+        />
+      )}
 
       {/* ── Infos ── */}
       <div className={`flex flex-col flex-1 p-5 ${featured ? 'bg-canvas-3/80' : 'bg-canvas-3/50'}`}>
