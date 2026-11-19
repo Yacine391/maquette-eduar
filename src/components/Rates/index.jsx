@@ -108,8 +108,8 @@ export default function Rates({ t, lang }) {
 
         {/* Note */}
         <p className="mt-5 text-[11px] text-silver-dim/50 italic text-center tracking-wide">
-          {{ en: '* Prices shown are indicative and simulated for demo purposes only.', ru: '* Цены указаны в ознакомительных целях и являются симуляцией.', ro: '* Prețuri orientative simulate exclusiv în scop demonstrativ.' }[lang]
-            ?? '* Prix indicatifs simulés à titre de démonstration uniquement.'}
+          {{ en: 'Fixed prices, tolls and waiting time included, confirmed before the ride', ru: 'Фиксированные тарифы, платные дороги и ожидание включены, цена сообщается до поездки', ro: 'Tarife fixe, taxe de autostradă și așteptare incluse, comunicate înainte de cursă' }[lang]
+            ?? 'Tarifs fixes, péage et attente inclus, annoncés avant la course'}
         </p>
       </div>
     </section>

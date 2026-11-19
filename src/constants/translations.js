@@ -48,10 +48,9 @@ export const translations = {
     contact_email:   'Email',
 
     // Reviews
-    reviews_title:   'Avis Clients',
-    reviews_subtitle:'Ce que disent nos passagers',
+    reviews_title:   'Votre avis compte',
+    reviews_subtitle:'Vous avez voyagé avec nous ? Partagez votre expérience en quelques mots sur Google.',
     reviews_cta:     'Laisser un avis Google',
-    reviews_verified:'Avis vérifié',
 
     // Footer
     footer_legal:    'Mentions légales',
@@ -96,10 +95,9 @@ export const translations = {
     contact_phone:   'Phone',
     contact_email:   'Email',
 
-    reviews_title:   'Customer Reviews',
-    reviews_subtitle:'What our passengers say',
+    reviews_title:   'Your feedback matters',
+    reviews_subtitle:'Travelled with us? Share your experience in a few words on Google.',
     reviews_cta:     'Leave a Google Review',
-    reviews_verified:'Verified review',
 
     footer_legal:    'Legal notice',
     footer_rights:   'All rights reserved.',
@@ -143,10 +141,9 @@ export const translations = {
     contact_phone:   'Телефон',
     contact_email:   'Эл. почта',
 
-    reviews_title:   'Отзывы клиентов',
-    reviews_subtitle:'Что говорят наши пассажиры',
+    reviews_title:   'Ваше мнение важно',
+    reviews_subtitle:'Ездили с нами? Поделитесь впечатлениями в нескольких словах в Google.',
     reviews_cta:     'Оставить отзыв в Google',
-    reviews_verified:'Подтверждённый отзыв',
 
     footer_legal:    'Правовая информация',
     footer_rights:   'Все права защищены.',
@@ -197,10 +194,9 @@ export const translations = {
     contact_email:   'Email',
 
     // Reviews
-    reviews_title:   'Recenzii Clienți',
-    reviews_subtitle:'Ce spun pasagerii noștri',
+    reviews_title:   'Părerea dvs. contează',
+    reviews_subtitle:'Ați călătorit cu noi? Împărtășiți-vă experiența în câteva cuvinte pe Google.',
     reviews_cta:     'Lasă o recenzie Google',
-    reviews_verified:'Recenzie verificată',
 
     // Footer
     footer_legal:    'Mențiuni legale',
