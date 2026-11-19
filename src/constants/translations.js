@@ -12,6 +12,7 @@ export const translations = {
     nav_contact:     'Contact',
 
     // Hero
+    hero_h1:         'Chauffeur privé VTC à Paris – Transferts CDG et Orly',
     hero_headline:   "L'Excellence à Votre Service",
     hero_sub:        'Transferts aéroport, événements d\'entreprise, voyages longue distance.',
     hero_cta:        'Réserver maintenant',
@@ -64,6 +65,7 @@ export const translations = {
     nav_booking:     'Booking',
     nav_contact:     'Contact',
 
+    hero_h1:         'Private VTC chauffeur in Paris – CDG and Orly airport transfers',
     hero_headline:   'Excellence at Your Service',
     hero_sub:        'Airport transfers, corporate events, long-distance journeys.',
     hero_cta:        'Book now',
@@ -110,6 +112,7 @@ export const translations = {
     nav_booking:     'Бронирование',
     nav_contact:     'Контакты',
 
+    hero_h1:         'Частный водитель VTC в Париже – трансферы CDG и Орли',
     hero_headline:   'Превосходство на вашей стороне',
     hero_sub:        'Трансферы в аэропорт, корпоративные мероприятия, дальние поездки.',
     hero_cta:        'Забронировать',
@@ -158,6 +161,7 @@ export const translations = {
     nav_contact:     'Contact',
 
     // Hero
+    hero_h1:         'Șofer privat VTC în Paris – transferuri CDG și Orly',
     hero_headline:   'Excelența în Serviciul Dumneavoastră',
     hero_sub:        'Transferuri aeroport, evenimente corporate, călătorii la distanță lungă.',
     hero_cta:        'Rezervați acum',

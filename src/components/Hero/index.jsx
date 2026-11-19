@@ -60,14 +60,17 @@ export default function Hero({ t, lang }) {
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
         <div className="max-w-4xl">
 
-          {/* Eyebrow */}
+          {/* Eyebrow = H1 SEO (mots-clés : chauffeur privé VTC Paris, CDG, Orly).
+              Même style visuel que l'ancien eyebrow : font-sans force la police
+              du texte courant (index.css applique font-serif à tous les h1). */}
           <div className="flex items-center gap-4 mb-8 animate-fade-up">
             <div className="h-px w-12 bg-gold/60 animate-line-grow" />
-            <p className="section-eyebrow mb-0">CDG TRANSFERT VTC</p>
+            <h1 className="section-eyebrow mb-0 font-sans">{t('hero_h1')}</h1>
           </div>
 
-          {/* Titre principal — Cormorant Garamond ultra-luxe */}
-          <h1 className="font-serif text-display text-offwhite mb-6 animate-fade-up delay-100">
+          {/* Accroche visuelle — Cormorant Garamond ultra-luxe
+              (balise <p> : le H1 de la page est l'eyebrow ci-dessus) */}
+          <p className="font-serif text-display text-offwhite mb-6 animate-fade-up delay-100">
             {t('hero_headline')
               .split(' ')
               .map((word, i) => (
@@ -76,7 +79,7 @@ export default function Hero({ t, lang }) {
                 </span>
               ))
             }
-          </h1>
+          </p>
 
           {/* Sous-titre */}
           <p className="font-sans text-lg md:text-xl text-silver font-light leading-relaxed mb-10 max-w-xl animate-fade-up delay-200">
