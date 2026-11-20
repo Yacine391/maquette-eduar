@@ -1,5 +1,5 @@
 // ── Point d'entrée React ─────────────────────────────────────────────
-// MAQUETTE — CDG TRANSFERT VTC
+// CDG TRANSFERT VTC — site en production (cdgtransfertvtc.fr)
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'

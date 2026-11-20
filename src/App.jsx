@@ -1,8 +1,8 @@
 // ── App — Composition de la page ────────────────────────────────────
-// MAQUETTE CDG TRANSFERT VTC
+// CDG TRANSFERT VTC — site en production (cdgtransfertvtc.fr)
 // Ordre DOM :
 //   Header → Hero → Booking → Fleet → WhyUs → Reviews → Rates → Contact → Footer
-// + Bouton WhatsApp flottant (mobile uniquement) bas-droite
+// + Bouton WhatsApp flottant (mobile + desktop) bas-droite
 // ────────────────────────────────────────────────────────────────────
 import { useTranslation } from './hooks/useTranslation'
 import Header        from './components/Header'
@@ -14,10 +14,10 @@ import Reviews       from './components/Reviews'
 import Rates         from './components/Rates'
 import Contact       from './components/Contact'
 import Footer        from './components/Footer'
+import { whatsappLink } from './constants/contact'
 
-// Numéro WhatsApp d'Eduard (format international sans espaces ni +)
-const WHATSAPP_NUMBER = '33665699678'
-const WHATSAPP_MSG    = encodeURIComponent('Bonjour je souhaite reserver un transfert avec CDG Transfert VTC')
+// Message pré-rempli du bouton WhatsApp flottant
+const WHATSAPP_MSG = 'Bonjour je souhaite reserver un transfert avec CDG Transfert VTC'
 
 export default function App() {
   const { t, lang, setLang } = useTranslation()
@@ -54,7 +54,7 @@ export default function App() {
 
       {/* ── Bouton WhatsApp flottant (visible mobile + desktop) ── */}
       <a
-        href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
+        href={whatsappLink(WHATSAPP_MSG)}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Contacter sur WhatsApp"

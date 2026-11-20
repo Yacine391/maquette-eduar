@@ -1,5 +1,5 @@
 // ── Footer — Premium 3 colonnes ──────────────────────────────────────
-// MAQUETTE CDG TRANSFERT VTC
+// CDG TRANSFERT VTC — site en production (cdgtransfertvtc.fr)
 // ────────────────────────────────────────────────────────────────────
 import logo from '../../assets/logo.png'
 
