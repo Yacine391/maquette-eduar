@@ -1,11 +1,11 @@
 // ── Reviews — « Votre avis compte » ─────────────────────────────────
 // Section sobre invitant les clients à laisser un avis Google.
 // Aucun avis ni note affichés sur le site : seul un bouton renvoie
-// vers la page d'avis Google (via le lien court site1euro.fr).
+// directement vers la page « Laisser un avis » de la fiche Google.
 // ────────────────────────────────────────────────────────────────────
 
-// Lien vers la page « Laisser un avis » Google de CDG Transfert VTC
-const GOOGLE_REVIEW_URL = 'https://www.site1euro.fr/qr/cdg-avis'
+// Lien officiel « Laisser un avis » de la fiche Google de CDG Transfert VTC
+const GOOGLE_REVIEW_URL = 'https://g.page/r/CfqSDSmBkk6BEBM/review'
 
 export default function Reviews({ t }) {
   return (

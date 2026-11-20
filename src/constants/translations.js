@@ -1,5 +1,5 @@
-// ── Traductions simulées FR / EN / RU / RO ───────────────────────────
-// MAQUETTE — pas de bibliothèque i18n, simple objet JS.
+// ── Traductions FR / EN / RU / RO ────────────────────────────────────
+// Pas de bibliothèque i18n, simple objet JS.
 // Pour ajouter une langue : copier un bloc et traduire les valeurs.
 // ────────────────────────────────────────────────────────────────────
 

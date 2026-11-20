@@ -66,7 +66,7 @@ export default function AddressAutocomplete({ id, name, value, onChange, placeho
   }
 
   const handleSelect = (label) => {
-    // Simuler un event onChange avec la valeur sélectionnée
+    // Transmettre la valeur choisie au parent sous la forme d'un event onChange
     onChange({ target: { name, value: label } })
     setSuggestions([])
     setOpen(false)

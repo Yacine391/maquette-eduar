@@ -1,4 +1,4 @@
-// ── Hook useTranslation — simulation i18n ────────────────────────────
+// ── Hook useTranslation — traductions sans bibliothèque ──────────────
 // Pas de bibliothèque externe. Simple lookup dans l'objet translations.
 // Usage : const { t, lang, setLang } = useTranslation()
 // ────────────────────────────────────────────────────────────────────

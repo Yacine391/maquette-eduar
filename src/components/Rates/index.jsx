@@ -1,5 +1,5 @@
 // ── Rates — Tableau des tarifs premium ──────────────────────────────
-// MAQUETTE : prix fictifs à titre illustratif uniquement.
+// Tarifs réels (src/constants/rates.js), identiques au priceRange de index.html.
 // Design : tableau sombre avec headers gold, lignes élégantes.
 // ────────────────────────────────────────────────────────────────────
 import { rateTable } from '../../constants/rates'

@@ -10,12 +10,9 @@
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://cdgtransfertvtc.fr/" />
 
-    <!-- Versions linguistiques (hreflang)
-         ⚠️ La version anglaise /en/ n'existe pas encore : elle doit être en ligne
-         (avec les mêmes 3 balises ci-dessous et son propre canonical /en/)
-         avant de publier cette balise, sinon Google signale une erreur hreflang. -->
+    <!-- Versions linguistiques (hreflang). Ajouter hreflang="en" → /en/
+         uniquement quand les pages /en/ existeront réellement. -->
     <link rel="alternate" hreflang="fr" href="https://cdgtransfertvtc.fr/" />
-    <link rel="alternate" hreflang="en" href="https://cdgtransfertvtc.fr/en/" />
     <link rel="alternate" hreflang="x-default" href="https://cdgtransfertvtc.fr/" />
 
     <!-- Open Graph -->
@@ -32,7 +29,8 @@
     <meta name="twitter:title" content="CDG Transfert VTC — Chauffeur Privé Paris & Aéroports" />
     <meta name="twitter:description" content="Chauffeur privé premium à Paris, CDG et Orly. Mercedes Classe E, S, V et Tesla. Tarifs fixes, disponible 24h/24." />
 
-    <!-- Données structurées JSON-LD -->
+    <!-- Données structurées JSON-LD — doivent correspondre exactement au site :
+         priceRange = prix min / max du tableau des tarifs (src/constants/rates.js). -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -56,7 +54,7 @@
         { "@type": "Airport", "name": "Aéroport Paris-Beauvais", "iataCode": "BVA" },
         { "@type": "AdministrativeArea", "name": "Île-de-France" }
       ],
-      "priceRange": "65 € – 300 €",
+      "priceRange": "50 € – 300 €",
       "openingHours": "Mo-Su 00:00-24:00",
       "sameAs": []
     }

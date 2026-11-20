@@ -5,13 +5,13 @@
 // ────────────────────────────────────────────────────────────────────
 import { useState } from 'react'
 import emailjs from '@emailjs/browser'
-import { usePriceSimulator } from '../../hooks/usePriceSimulator'
+import { usePriceEstimate } from '../../hooks/usePriceEstimate'
 import { vehicles } from '../../constants/vehicles'
 import { EMAILJS_CONFIG } from '../../config/emailjs'
 import AddressAutocomplete from './AddressAutocomplete'
 
 export default function BookingModule({ t, lang }) {
-  const { price, loading, compute, reset } = usePriceSimulator()
+  const { price, loading, compute, reset } = usePriceEstimate()
 
   const [form, setForm] = useState({
     name:      '',
@@ -46,7 +46,7 @@ export default function BookingModule({ t, lang }) {
     setConfirmed(false)
   }
 
-  // ── Simulation du prix ──
+  // ── Estimation du prix ──
   const handleEstimate = () => {
     if (!form.vehicleId || !form.dropoff) return
     setSubmitted(true)

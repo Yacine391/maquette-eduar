@@ -4,12 +4,27 @@
 // éléments décoratifs dorés animés.
 // ────────────────────────────────────────────────────────────────────
 
-// Stats simulées — chiffres fictifs pour la maquette
+// Bandeau sous le hero : uniquement des éléments vrais et vérifiables,
+// aucun chiffre inventé. Cohérents avec le reste du site : disponibilité 24/7
+// (en-tête, données structurées), flotte (constants/vehicles.js), tarifs fixes
+// et attente incluse (note sous le tableau des tarifs).
 const STATS = [
-  { value: '15+', label: { fr: "Ans d'expérience", en: 'Years experience', ru: 'Лет опыта', ro: 'Ani de experiență' } },
-  { value: '50K+', label: { fr: 'Transferts réalisés', en: 'Transfers completed', ru: 'Трансферов', ro: 'Transferuri efectuate' } },
-  { value: '98%', label: { fr: 'Taux de satisfaction', en: 'Satisfaction rate', ru: 'Удовлетворённость', ro: 'Satisfacție clienți' } },
-  { value: '24/7', label: { fr: 'Disponibilité', en: 'Availability', ru: 'Доступность', ro: 'Disponibilitate' } },
+  {
+    value: { fr: '24/7', en: '24/7', ru: '24/7', ro: '24/7' },
+    label: { fr: 'Disponible 24h/24 – 7j/7', en: 'Available 24 hours a day, 7 days a week', ru: 'Круглосуточно, без выходных', ro: 'Disponibil 24h/24 – 7 zile din 7' },
+  },
+  {
+    value: { fr: 'Mercedes & Tesla', en: 'Mercedes & Tesla', ru: 'Mercedes и Tesla', ro: 'Mercedes & Tesla' },
+    label: { fr: 'Classe E, S, V et Tesla Model Y', en: 'E-Class, S-Class, V-Class and Tesla Model Y', ru: 'E-, S-, V-класс и Tesla Model Y', ro: 'Clasa E, S, V și Tesla Model Y' },
+  },
+  {
+    value: { fr: 'Prix fixe', en: 'Fixed price', ru: 'Цена заранее', ro: 'Preț fix' },
+    label: { fr: 'Confirmé avant la course', en: 'Confirmed before the ride', ru: 'Подтверждается до поездки', ro: 'Confirmat înainte de cursă' },
+  },
+  {
+    value: { fr: 'Suivi de vol', en: 'Flight tracking', ru: 'Следим за рейсом', ro: 'Urmărire zbor' },
+    label: { fr: 'Attente incluse en cas de retard', en: 'Waiting time included if delayed', ru: 'Ожидание при задержке включено', ro: 'Așteptare inclusă în caz de întârziere' },
+  },
 ]
 
 export default function Hero({ t, lang }) {
@@ -107,8 +122,8 @@ export default function Hero({ t, lang }) {
           <div className="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 divide-x-0 md:divide-x divide-divider">
             {STATS.map(({ value, label }, i) => (
               <div key={i} className="py-8 px-6 text-center md:text-left group">
-                <p className="font-serif text-4xl font-bold text-gold mb-1 group-hover:text-gold-hover transition-colors duration-300">
-                  {value}
+                <p className="font-serif text-2xl md:text-3xl font-bold text-gold mb-1 group-hover:text-gold-hover transition-colors duration-300">
+                  {value[lang] ?? value.fr}
                 </p>
                 <p className="text-xs text-silver tracking-wide font-sans">
                   {label[lang] ?? label.fr}
