@@ -1,6 +1,7 @@
-// ── Tableau des tarifs — MAQUETTE ────────────────────────────────────
-// Prix FICTIFS, hardcodés pour la démo. Aucune valeur contractuelle.
-// Structure inspirée de vtcparis-transfert.fr (sans copie directe).
+// ── Tableau des tarifs ───────────────────────────────────────────────
+// Tarifs réels communiqués par le client (affichés dans la section Tarifs).
+// ⚠️ Si un prix change : mettre à jour "priceRange" dans index.html
+//    (min / max de ce tableau) pour que les données structurées restent exactes.
 // ────────────────────────────────────────────────────────────────────
 
 export const rateTable = [
@@ -34,11 +35,11 @@ export const rateTable = [
   },
 ]
 
-// ── Table de simulation prix (BookingModule) ─────────────────────────
-// Lookup: vehicleId → zone → prix simulé (€)
+// ── Table d'estimation des prix (BookingModule) ──────────────────────
+// Lookup: vehicleId → zone → prix estimé (€)
 // Tarifs alignés sur rateTable — CDG et Orly au même prix (forfait aéroport unifié).
 // Beauvais (suburb) est la longue distance banlieue éloignée.
-export const priceSimulator = {
+export const priceEstimates = {
   business: { cdg: 99,  orly: 99,  city: 65,  suburb: 200, long: 'Sur devis' },
   luxe:     { cdg: 170, orly: 170, city: 100, suburb: 300, long: 'Sur devis' },
   van:      { cdg: 130, orly: 130, city: 80,  suburb: 250, long: 'Sur devis' },

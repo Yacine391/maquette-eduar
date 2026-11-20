@@ -1,5 +1,5 @@
-// ── Traductions simulées FR / EN / RU / RO ───────────────────────────
-// MAQUETTE — pas de bibliothèque i18n, simple objet JS.
+// ── Traductions FR / EN / RU / RO ────────────────────────────────────
+// Pas de bibliothèque i18n, simple objet JS.
 // Pour ajouter une langue : copier un bloc et traduire les valeurs.
 // ────────────────────────────────────────────────────────────────────
 
@@ -12,6 +12,7 @@ export const translations = {
     nav_contact:     'Contact',
 
     // Hero
+    hero_h1:         'Chauffeur privé VTC à Paris – Transferts CDG et Orly',
     hero_headline:   "L'Excellence à Votre Service",
     hero_sub:        'Transferts aéroport, événements d\'entreprise, voyages longue distance.',
     hero_cta:        'Réserver maintenant',
@@ -24,8 +25,8 @@ export const translations = {
     booking_dropoff: 'Destination',
     booking_vehicle: 'Catégorie de véhicule',
     booking_submit:  'Obtenir un prix estimatif',
-    booking_price_label: 'Prix estimé (simulation)',
-    booking_note:    '* Prix simulé à titre indicatif — aucun paiement requis.',
+    booking_price_label: 'Prix estimé',
+    booking_note:    '* Estimation indicative — prix confirmé avant la course, aucun paiement en ligne.',
 
     // Fleet
     fleet_title:     'Notre Flotte',
@@ -48,15 +49,13 @@ export const translations = {
     contact_email:   'Email',
 
     // Reviews
-    reviews_title:   'Avis Clients',
-    reviews_subtitle:'Ce que disent nos passagers',
+    reviews_title:   'Votre avis compte',
+    reviews_subtitle:'Vous avez voyagé avec nous ? Partagez votre expérience en quelques mots sur Google.',
     reviews_cta:     'Laisser un avis Google',
-    reviews_verified:'Avis vérifié',
 
     // Footer
     footer_legal:    'Mentions légales',
     footer_rights:   'Tous droits réservés.',
-    footer_mockup:   'Site de démonstration — maquette non contractuelle.',
   },
 
   en: {
@@ -65,6 +64,7 @@ export const translations = {
     nav_booking:     'Booking',
     nav_contact:     'Contact',
 
+    hero_h1:         'Private VTC chauffeur in Paris – CDG and Orly airport transfers',
     hero_headline:   'Excellence at Your Service',
     hero_sub:        'Airport transfers, corporate events, long-distance journeys.',
     hero_cta:        'Book now',
@@ -76,8 +76,8 @@ export const translations = {
     booking_dropoff: 'Destination',
     booking_vehicle: 'Vehicle category',
     booking_submit:  'Get an estimated price',
-    booking_price_label: 'Estimated price (simulation)',
-    booking_note:    '* Simulated price for information only — no payment required.',
+    booking_price_label: 'Estimated price',
+    booking_note:    '* Indicative estimate — price confirmed before the ride, no online payment.',
 
     fleet_title:     'Our Fleet',
     fleet_badge:     'Recommended',
@@ -96,14 +96,12 @@ export const translations = {
     contact_phone:   'Phone',
     contact_email:   'Email',
 
-    reviews_title:   'Customer Reviews',
-    reviews_subtitle:'What our passengers say',
+    reviews_title:   'Your feedback matters',
+    reviews_subtitle:'Travelled with us? Share your experience in a few words on Google.',
     reviews_cta:     'Leave a Google Review',
-    reviews_verified:'Verified review',
 
     footer_legal:    'Legal notice',
     footer_rights:   'All rights reserved.',
-    footer_mockup:   'Demo site — non-contractual mockup.',
   },
 
   ru: {
@@ -112,6 +110,7 @@ export const translations = {
     nav_booking:     'Бронирование',
     nav_contact:     'Контакты',
 
+    hero_h1:         'Частный водитель VTC в Париже – трансферы CDG и Орли',
     hero_headline:   'Превосходство на вашей стороне',
     hero_sub:        'Трансферы в аэропорт, корпоративные мероприятия, дальние поездки.',
     hero_cta:        'Забронировать',
@@ -123,8 +122,8 @@ export const translations = {
     booking_dropoff: 'Пункт назначения',
     booking_vehicle: 'Категория автомобиля',
     booking_submit:  'Получить оценку стоимости',
-    booking_price_label: 'Примерная стоимость (симуляция)',
-    booking_note:    '* Ориентировочная цена — оплата не требуется.',
+    booking_price_label: 'Примерная стоимость',
+    booking_note:    '* Ориентировочная оценка — цена подтверждается до поездки, без онлайн-оплаты.',
 
     fleet_title:     'Наш автопарк',
     fleet_badge:     'Рекомендуется',
@@ -143,14 +142,12 @@ export const translations = {
     contact_phone:   'Телефон',
     contact_email:   'Эл. почта',
 
-    reviews_title:   'Отзывы клиентов',
-    reviews_subtitle:'Что говорят наши пассажиры',
+    reviews_title:   'Ваше мнение важно',
+    reviews_subtitle:'Ездили с нами? Поделитесь впечатлениями в нескольких словах в Google.',
     reviews_cta:     'Оставить отзыв в Google',
-    reviews_verified:'Подтверждённый отзыв',
 
     footer_legal:    'Правовая информация',
     footer_rights:   'Все права защищены.',
-    footer_mockup:   'Демонстрационный сайт — макет, не является офертой.',
   },
 
   ro: {
@@ -161,6 +158,7 @@ export const translations = {
     nav_contact:     'Contact',
 
     // Hero
+    hero_h1:         'Șofer privat VTC în Paris – transferuri CDG și Orly',
     hero_headline:   'Excelența în Serviciul Dumneavoastră',
     hero_sub:        'Transferuri aeroport, evenimente corporate, călătorii la distanță lungă.',
     hero_cta:        'Rezervați acum',
@@ -173,8 +171,8 @@ export const translations = {
     booking_dropoff: 'Destinație',
     booking_vehicle: 'Categorie vehicul',
     booking_submit:  'Obțineți un preț estimativ',
-    booking_price_label: 'Preț estimat (simulare)',
-    booking_note:    '* Preț simulat cu titlu indicativ — nicio plată necesară.',
+    booking_price_label: 'Preț estimat',
+    booking_note:    '* Estimare orientativă — prețul este confirmat înainte de cursă, fără plată online.',
 
     // Fleet
     fleet_title:     'Flota Noastră',
@@ -197,14 +195,12 @@ export const translations = {
     contact_email:   'Email',
 
     // Reviews
-    reviews_title:   'Recenzii Clienți',
-    reviews_subtitle:'Ce spun pasagerii noștri',
+    reviews_title:   'Părerea dvs. contează',
+    reviews_subtitle:'Ați călătorit cu noi? Împărtășiți-vă experiența în câteva cuvinte pe Google.',
     reviews_cta:     'Lasă o recenzie Google',
-    reviews_verified:'Recenzie verificată',
 
     // Footer
     footer_legal:    'Mențiuni legale',
     footer_rights:   'Toate drepturile rezervate.',
-    footer_mockup:   'Site demonstrativ — machetă necontractuală.',
   },
 }

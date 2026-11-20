@@ -40,7 +40,7 @@ export default function App() {
       {/* 5 · Pourquoi nous (Trust & Authority — skill recommendation) */}
       <WhyUs lang={lang} />
 
-      {/* 6 · Avis Google clients */}
+      {/* 6 · Votre avis compte (lien vers avis Google) */}
       <Reviews t={t} lang={lang} />
 
       {/* 7 · Tarifs */}

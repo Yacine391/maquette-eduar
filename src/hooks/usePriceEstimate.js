@@ -1,10 +1,10 @@
-// ── Hook usePriceSimulator — simulation de prix ──────────────────────
-// MAQUETTE : aucune API appelée. Lookup purement JS côté client.
+// ── Hook usePriceEstimate — estimation de prix ───────────────────────
+// Aucune API appelée : lookup JS côté client dans la grille des tarifs.
 // La "zone" est déduite de mots-clés dans l'adresse saisie.
-// Usage : const { price, compute, reset } = usePriceSimulator()
+// Usage : const { price, compute, reset } = usePriceEstimate()
 // ────────────────────────────────────────────────────────────────────
 import { useState, useCallback } from 'react'
-import { priceSimulator } from '../constants/rates'
+import { priceEstimates } from '../constants/rates'
 
 // Détection de zone — vérifie pickup ET dropoff
 function detectZone(pickup = '', dropoff = '') {
@@ -28,16 +28,16 @@ function detectZone(pickup = '', dropoff = '') {
   return 'city'
 }
 
-export function usePriceSimulator() {
+export function usePriceEstimate() {
   const [price, setPrice]   = useState(null)
   const [loading, setLoading] = useState(false)
 
-  // compute({ vehicleId, dropoff }) → calcule et stocke le prix simulé
+  // compute({ vehicleId, dropoff }) → calcule et stocke le prix estimé
   const compute = useCallback(({ vehicleId, pickup = '', dropoff = '' }) => {
     setLoading(true)
     setTimeout(() => {
       const zone   = detectZone(pickup, dropoff)
-      const table  = priceSimulator[vehicleId] ?? priceSimulator['eco']
+      const table  = priceEstimates[vehicleId] ?? priceEstimates['eco']
       const result = table[zone] ?? table['city']
       setPrice(result)
       setLoading(false)
