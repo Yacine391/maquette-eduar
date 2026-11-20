@@ -4,31 +4,34 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-**CDG TRANSFERT VTC** — Interactive front-end mockup (maquette) of a single-page landing site for a premium B2B VTC company. No backend, no real API, no database. Runs entirely in the browser.
+**CDG TRANSFERT VTC** — production website of a real client: private VTC chauffeur in Paris, airport transfers (CDG, Orly, Beauvais). Live at **https://cdgtransfertvtc.fr**.
+
+Single-page React site, no backend. Booking requests are sent by e-mail through EmailJS. Everything shown to visitors must be true: this is no longer a mockup.
+
+## Deployment
+
+- **Vercel deploys `main` automatically** on every push (production, usually live within a minute).
+- Work on a branch. Merge / push to `main` only with the owner's explicit approval. No force-push.
+- Before merging: `npm test` and `npm run build` must pass. After deploying, check the live site.
 
 ## Stack
 
-- **React** (Vite scaffold preferred)
-- **Tailwind CSS** (utility-first styling)
-- **No backend** — all form submissions and price calculations are purely simulated in JS
+- **React 18** + **Vite 5**
+- **Tailwind CSS 3**
+- **@emailjs/browser** — booking e-mails
+- Tests: Node built-in test runner (`node --test`), no extra dependency
 
 ## Commands
 
 ```bash
-# Install dependencies
-npm install
-
-# Start dev server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
+npm install        # install dependencies
+npm run dev        # dev server
+npm test           # unit tests (price estimate + structured data consistency)
+npm run build      # production build (dist/)
+npm run preview    # preview the production build
 ```
 
-## Design System (Design Tokens — enforce strictly)
+## Design System (enforce strictly)
 
 | Token | Value |
 |---|---|
@@ -37,53 +40,58 @@ npm run preview
 | Accent hover | `#D6B471` |
 | Primary text | `#F4F4F6` (Off-White) |
 | Secondary text | `#8E8E93` (Matte Silver) |
-| Title font | **Playfair Display** or Cinzel (Serif) |
-| Body / UI font | **Inter** or Montserrat (Sans-Serif) |
+| Title font | **Cormorant Garamond** (serif) |
+| Body / UI font | **Montserrat** (sans-serif) |
 
-Apply `double whitespace` spacing rhythm (generous padding/gap between sections).
+Generous spacing between sections. Buttons transition to `#D6B471` on hover, `0.3s ease-in-out`. Fleet cards: `hover:scale-105` + inner gold glow.
 
-## Page Architecture (strict DOM order)
+## Page Architecture (DOM order)
 
-1. **Header** — Logo (`assets/logo.png`) + "CDG TRANSFERT VTC" wordmark + nav links (Accueil, Flotte, Réservation, Contact) + language switcher (FR / EN / RU) with simulated title translation.
-2. **Hero** — Full-bleed luxury background + headline "L'Excellence à Votre Service" + CTA button scrolling to the booking module.
-3. **Booking Module** (simulated) — Form: Date, Time, Pickup, Dropoff, Vehicle category. On vehicle selection, a **fake price** is computed in JS and displayed — no real API call.
-4. **Fleet Section** (strict vehicle order):
-   - **BUSINESS** — Mercedes Classe E · featured card (gold border `#C5A059`, "Recommandé" badge)
-   - **Luxe** — Mercedes Classe S
-   - **Van** — Mercedes Classe V
-   - **Eco** — other vehicles
-5. **Rates Section** — Static table simulating the pricing/package structure.
-6. **Contact** — Phone, email, short description.
-7. **Footer** — Legal mentions, brand name.
+Header → Hero → Booking → Fleet → WhyUs → Reviews (« Votre avis compte ») → Rates → Contact → Footer, plus a floating WhatsApp button.
 
-## Component Structure
+Fleet order (strict): **BUSINESS** — Mercedes Classe E (featured, gold border, « Recommandé ») → **Luxe** — Classe S → **Van** — Classe V → **Éco / Électrique** — Tesla Model Y.
 
-Separate logic from presentation. Suggested split:
+## Code Map
 
 ```
 src/
-  components/
-    Header/
-    Hero/
-    BookingModule/   ← contains fake price-calculation logic
-    Fleet/
-    Rates/
-    Contact/
-    Footer/
-  hooks/             ← useTranslation (simulated i18n), usePriceSimulator
-  constants/         ← translations object (FR/EN/RU), vehicle data, rate table
-  assets/            ← logo.png (CDG TRANSFERT VTC logo officiel)
+  components/          Header, Hero, BookingModule (+ AddressAutocomplete), Fleet,
+                       Gallery/Lightbox, WhyUs, Reviews, Rates, Contact, Footer
+  constants/
+    translations.js    FR / EN / RU / RO texts
+    vehicles.js        real fleet + client photos (public/vehicles/)
+    rates.js           price table = single source of truth (+ derived priceEstimates)
+    contact.js         phone / WhatsApp (single source)
+  config/emailjs.js    EmailJS service, templates, public key
+  hooks/               useTranslation, usePriceEstimate
+  utils/               priceZone.js (trip → price zone), estimatePrice.js
+tests/                 priceZone.test.js
+public/                og-image.jpg (1200×630), sitemap.xml, robots.txt, vehicles/
+index.html             SEO meta, Open Graph, hreflang, JSON-LD (TaxiService + LocalBusiness)
 ```
 
-## Key Behaviours
+## Booking Flow
 
-- **Language switcher**: swaps H2 section titles and key labels via a simple JS object (`{ fr: {...}, en: {...}, ru: {...} }`). No i18n library required.
-- **Price simulator**: maps `(vehicleCategory, distance/zone)` → a hardcoded price lookup table. Display result with a brief CSS animation.
-- **Fleet cards**: `hover:scale-105` + inner gold glow (`box-shadow: inset 0 0 0 1px #C5A059`) transition `0.3s ease-in-out`.
-- **Buttons**: transition to `#D6B471` on hover, `0.3s ease-in-out`.
+- Form fields: name, e-mail, phone (required: the client is called back by phone / WhatsApp), date (not in the past), time, pickup, drop-off, vehicle.
+- On submit, EmailJS sends 1) the notification to the business (`ADMIN_TEMPLATE_ID`, mandatory) and 2) a summary to the client (`CLIENT_TEMPLATE_ID`, best effort: its failure must not show an error).
+- If the notification fails: fallback message with a `tel:` link and a WhatsApp link pre-filled with the request.
+- Success message: « Demande de réservation envoyée ! Nous vous confirmons votre course rapidement par téléphone ou WhatsApp. » — it is a request, not a confirmed booking.
+- Recipient addresses and template contents live in the EmailJS dashboard, not in the code.
+- **Never send real booking e-mails while testing** without the owner's approval: intercept `api.emailjs.com` in the browser (e.g. Playwright `page.route`).
 
-## Constraints
+## Prices
 
-- **No `.glb` files**, no 3D assets.
-- **No images copied from vtcparis-transfert.fr** — use royalty-free placeholders or CSS gradients; vehicle names/prices are inspired by that site's structure.
-- Code must be **heavily commented** so the client understands this is a mockup.
+- `src/constants/rates.js` → `rateTable` is the only place where prices are written; the booking estimate is derived from it.
+- Zones (`src/utils/priceZone.js`): Paris ↔ Paris → Paris Centre-ville; Paris ↔ CDG / Orly → airport flat rate; Paris ↔ Beauvais → Beauvais / Paris; anything else → « Sur devis ». Never show a price for a trip that is not in the displayed table.
+- Addresses are classified by postal code first (75001–75020, 75116 = Paris), then airport keywords. Add a test in `tests/priceZone.test.js` for every new case.
+
+## Content & SEO Rules (production)
+
+- Only true, verifiable content: no fake reviews, ratings, statistics or invented claims; no « démo / simulé / maquette » wording.
+- Structured data must match exactly what is displayed: `priceRange` = min – max of `rateTable` (checked by `npm test`); never add `aggregateRating` / `review` markup.
+- Google review button: `https://g.page/r/CfqSDSmBkk6BEBM/review` (direct link, no third-party shortener).
+- `hreflang`: only `fr` + `x-default` until real `/en/` pages exist.
+- **Pending client confirmation — do not modify without the owner's approval:** the « Pourquoi nous choisir » arguments (`WhyUs`) and the highlights bar under the hero (`STATS` in `Hero`).
+- Every visible text exists in the 4 languages (FR / EN / RU / RO).
+- Vehicle photos are the client's own photos (`public/vehicles/`). Do not copy text or images from other VTC sites.
+- Code comments: short, in French, describing the production behaviour.

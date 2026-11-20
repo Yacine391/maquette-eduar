@@ -1,5 +1,5 @@
 // ── WhyUs — Section "Pourquoi Nous" (Trust & Authority) ─────────────
-// MAQUETTE CDG TRANSFERT VTC
+// CDG TRANSFERT VTC — site en production (cdgtransfertvtc.fr)
 // Skill recommendation : Trust & Authority pattern → credentials,
 // badges, expert signals. Conversion avant les tarifs.
 // ────────────────────────────────────────────────────────────────────

@@ -1,6 +1,6 @@
-// ── Données véhicules — MAQUETTE ─────────────────────────────────────
-// Noms / catégories inspirés de vtcparis-transfert.fr.
-// Ordre strict imposé par CLAUDE.md : BUSINESS > Luxe > Van > Éco
+// ── Données véhicules ────────────────────────────────────────────────
+// Flotte réelle du client. Ordre strict (voir CLAUDE.md) :
+// BUSINESS > Luxe > Van > Éco
 //
 // PHOTOS : ce sont les photos réelles de la flotte fournies par le client
 // (fichiers dans /public/vehicles/). Chaque véhicule possède :

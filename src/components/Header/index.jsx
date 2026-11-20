@@ -1,5 +1,5 @@
 // ── Header — Navigation premium avec glassmorphism ───────────────────
-// MAQUETTE CDG TRANSFERT VTC
+// CDG TRANSFERT VTC — site en production (cdgtransfertvtc.fr)
 // Design : barre supérieure info + nav principale avec backdrop-blur
 // ────────────────────────────────────────────────────────────────────
 import { useState, useEffect } from 'react'

@@ -1,5 +1,5 @@
 // ── Contact — Section contact deux colonnes ──────────────────────────
-// MAQUETTE CDG TRANSFERT VTC
+// CDG TRANSFERT VTC — site en production (cdgtransfertvtc.fr)
 // Design : layout asymétrique — info à gauche, décoration géométrique
 // dorée à droite. Icônes SVG inline accessibles (aria-hidden).
 // ────────────────────────────────────────────────────────────────────

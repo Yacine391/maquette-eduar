@@ -1,5 +1,5 @@
 // ── Hero — Section plein écran premium ──────────────────────────────
-// MAQUETTE CDG TRANSFERT VTC
+// CDG TRANSFERT VTC — site en production (cdgtransfertvtc.fr)
 // Design : fond multi-couches, titre Cormorant Garamond, stats bar,
 // éléments décoratifs dorés animés.
 // ────────────────────────────────────────────────────────────────────

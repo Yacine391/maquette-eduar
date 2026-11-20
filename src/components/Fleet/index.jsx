@@ -1,5 +1,5 @@
 // ── Fleet — Flotte premium (ordre strict CLAUDE.md) ──────────────────
-// MAQUETTE CDG TRANSFERT VTC
+// CDG TRANSFERT VTC — site en production (cdgtransfertvtc.fr)
 // Design : card cinématique avec gradient, hover scale + gold glow,
 // featured card mise en valeur avec taille plus grande.
 //

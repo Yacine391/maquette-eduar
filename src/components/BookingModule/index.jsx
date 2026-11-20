@@ -1,14 +1,28 @@
-// ── BookingModule — Réservation avec envoi email ─────────────────────
-// MAQUETTE CDG TRANSFERT VTC
-// Envoi email via EmailJS (emailjs.com) — configurer les IDs dans
-// src/config/emailjs.js avant mise en production.
+// ── BookingModule — Demande de réservation avec envoi e-mail ─────────
+// CDG TRANSFERT VTC — formulaire de réservation du site en production.
+// Envoi via EmailJS (emailjs.com), identifiants dans src/config/emailjs.js :
+//   1. notification à CDG Transfert VTC (indispensable)
+//   2. récapitulatif au client (facultatif : un échec n'annule pas la demande)
+// Si la notification échoue : message de secours avec appel et WhatsApp
+// (demande pré-remplie).
 // ────────────────────────────────────────────────────────────────────
 import { useState } from 'react'
 import emailjs from '@emailjs/browser'
 import { usePriceEstimate } from '../../hooks/usePriceEstimate'
+import { estimatePrice } from '../../utils/estimatePrice'
 import { vehicles } from '../../constants/vehicles'
 import { EMAILJS_CONFIG } from '../../config/emailjs'
 import AddressAutocomplete from './AddressAutocomplete'
+import { PHONE_E164, PHONE_DISPLAY, whatsappLink } from '../../constants/contact'
+
+// Date du jour au format AAAA-MM-JJ (heure locale) : date minimale du formulaire
+const todayISO = () => {
+  const d = new Date()
+  d.setMinutes(d.getMinutes() - d.getTimezoneOffset())
+  return d.toISOString().slice(0, 10)
+}
+const EMAIL_RE    = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
+const phoneDigits = (s) => s.replace(/\D/g, '')
 
 export default function BookingModule({ t, lang }) {
   const { price, loading, compute, reset } = usePriceEstimate()
@@ -27,16 +41,26 @@ export default function BookingModule({ t, lang }) {
   const [sending,   setSending]   = useState(false)
   const [confirmed, setConfirmed] = useState(false)
   const [emailError, setEmailError] = useState(false)
+  const [clientMailOk, setClientMailOk] = useState(true)  // récapitulatif client envoyé ?
+  const [errors, setErrors] = useState([])                 // erreurs de saisie
 
   const selectedVehicle = vehicles.find(v => v.id === form.vehicleId)
+
+  // Prix transmis dans la demande : celui affiché, ou calculé si le client
+  // n'a pas cliqué sur « Obtenir une estimation »
+  const requestPrice = () => {
+    const p = price ?? estimatePrice(form.vehicleId, form.pickup, form.dropoff)
+    return typeof p === 'number' ? `${p} €` : p
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target
     setForm((prev) => ({ ...prev, [name]: value }))
-    if (name === 'vehicleId' || name === 'dropoff') reset()
+    if (name === 'vehicleId' || name === 'pickup' || name === 'dropoff') reset()
     setSubmitted(false)
     setConfirmed(false)
     setEmailError(false)
+    setErrors([])
   }
 
   const handleVehicle = (id) => {
@@ -46,22 +70,34 @@ export default function BookingModule({ t, lang }) {
     setConfirmed(false)
   }
 
-  // ── Estimation du prix ──
+  // ── Estimation du prix (départ ET arrivée nécessaires) ──
   const handleEstimate = () => {
-    if (!form.vehicleId || !form.dropoff) return
+    if (!form.vehicleId || !form.pickup || !form.dropoff) return
     setSubmitted(true)
     compute({ vehicleId: form.vehicleId, pickup: form.pickup, dropoff: form.dropoff })
   }
 
-  // ── Envoi de la réservation + emails ──
+  // ── Vérification des champs avant envoi ──
+  const validate = () => {
+    const errs = []
+    if (!EMAIL_RE.test(form.email.trim()))  errs.push(lbl('errEmail'))
+    if (phoneDigits(form.phone).length < 9) errs.push(lbl('errPhone'))
+    if (form.date && form.date < todayISO()) errs.push(lbl('errDate'))
+    return errs
+  }
+
+  // ── Envoi de la demande + e-mails ──
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!form.name || !form.email || !form.date || !form.time || !form.pickup || !form.dropoff) return
+    if (!form.name || !form.email || !form.phone || !form.date || !form.time || !form.pickup || !form.dropoff) return
+    const errs = validate()
+    setErrors(errs)
+    if (errs.length) return
 
     setSending(true)
     setEmailError(false)
 
-    const priceLabel = typeof price === 'number' ? `${price} €` : (price ?? 'Sur devis')
+    const priceLabel = requestPrice()
 
     const templateParams = {
       client_name:  form.name,
@@ -75,40 +111,69 @@ export default function BookingModule({ t, lang }) {
       price:        priceLabel,
     }
 
+    // 1. Notification à CDG Transfert VTC — indispensable
     try {
-      // Email de notification à Eduard (admin)
       await emailjs.send(
         EMAILJS_CONFIG.SERVICE_ID,
         EMAILJS_CONFIG.ADMIN_TEMPLATE_ID,
         templateParams,
         EMAILJS_CONFIG.PUBLIC_KEY,
       )
-      // Email de confirmation au client
+    } catch (err) {
+      console.error('EmailJS (notification) :', err)
+      setEmailError(true)   // → message de secours appel / WhatsApp
+      setSending(false)
+      return
+    }
+
+    // 2. Récapitulatif au client — la demande est déjà arrivée : un échec
+    //    ici ne doit pas afficher d'erreur (risque de doublon)
+    let clientOk = true
+    try {
       await emailjs.send(
         EMAILJS_CONFIG.SERVICE_ID,
         EMAILJS_CONFIG.CLIENT_TEMPLATE_ID,
         templateParams,
         EMAILJS_CONFIG.PUBLIC_KEY,
       )
-      setConfirmed(true)
     } catch (err) {
-      console.error('EmailJS error:', err)
-      setEmailError(true)
-    } finally {
-      setSending(false)
+      console.error('EmailJS (récapitulatif client) :', err)
+      clientOk = false
     }
+    setClientMailOk(clientOk)
+    setConfirmed(true)
+    setSending(false)
   }
+
+  // Demande pré-remplie pour WhatsApp (message de secours)
+  const whatsappRequest = () => [
+    'Bonjour, je souhaite réserver un transfert :',
+    `• Nom : ${form.name}`,
+    `• Téléphone : ${form.phone}`,
+    `• E-mail : ${form.email}`,
+    `• Date : ${form.date} à ${form.time}`,
+    `• Départ : ${form.pickup}`,
+    `• Arrivée : ${form.dropoff}`,
+    `• Véhicule : ${selectedVehicle?.category} — ${selectedVehicle?.model}`,
+    `• Prix estimé : ${requestPrice()}`,
+  ].join('\n')
 
   const L = {
     coords:   { fr: 'Vos coordonnées',  en: 'Your details',     ru: 'Ваши данные',       ro: 'Datele dvs.'      },
     journey:  { fr: 'Détails du trajet', en: 'Journey details',  ru: 'Детали поездки',    ro: 'Detalii cursă'    },
     name:     { fr: 'Nom complet',       en: 'Full name',        ru: 'Полное имя',         ro: 'Nume complet'     },
-    phone:    { fr: 'Téléphone (optionnel)', en: 'Phone (optional)', ru: 'Телефон (необязательно)', ro: 'Telefon (opțional)' },
+    phone:    { fr: 'Téléphone', en: 'Phone', ru: 'Телефон', ro: 'Telefon' },
     estimate: { fr: 'Obtenir une estimation', en: 'Get estimate', ru: 'Оценить стоимость', ro: 'Obțineți estimare' },
     send:     { fr: 'Confirmer la réservation', en: 'Confirm booking', ru: 'Подтвердить', ro: 'Confirmați rezervarea' },
-    success:  { fr: 'Réservation confirmée !', en: 'Booking confirmed!', ru: 'Подтверждено!', ro: 'Rezervare confirmată!' },
-    success2: { fr: 'Un email de confirmation vous a été envoyé. Nous vous contactons très rapidement.', en: 'A confirmation email has been sent. We will contact you shortly.', ru: 'Письмо с подтверждением отправлено. Мы свяжемся с вами.', ro: 'Email de confirmare trimis. Vă vom contacta rapid.' },
-    error:    { fr: "Erreur d'envoi — appelez-nous directement.", en: 'Send error — please call us.', ru: 'Ошибка — позвоните нам.', ro: 'Eroare — contactați-ne direct.' },
+    success:  { fr: 'Demande de réservation envoyée !', en: 'Booking request sent!', ru: 'Заявка на бронирование отправлена!', ro: 'Cererea de rezervare a fost trimisă!' },
+    success2: { fr: 'Nous vous confirmons votre course rapidement par téléphone ou WhatsApp.', en: 'We will confirm your ride shortly by phone or WhatsApp.', ru: 'Мы скоро подтвердим вашу поездку по телефону или в WhatsApp.', ro: 'Vă confirmăm cursa în curând prin telefon sau WhatsApp.' },
+    success3: { fr: 'Un récapitulatif de votre demande vous a été envoyé par e-mail.', en: 'A summary of your request has been emailed to you.', ru: 'Сводка вашей заявки отправлена вам по электронной почте.', ro: 'Un rezumat al cererii v-a fost trimis pe e-mail.' },
+    error:    { fr: "Votre demande n'a pas pu être envoyée. Contactez-nous directement :", en: 'Your request could not be sent. Please contact us directly:', ru: 'Не удалось отправить заявку. Свяжитесь с нами напрямую:', ro: 'Cererea nu a putut fi trimisă. Contactați-ne direct:' },
+    call:     { fr: 'Appeler le', en: 'Call', ru: 'Позвонить', ro: 'Sunați la' },
+    whatsapp: { fr: 'Envoyer ma demande par WhatsApp', en: 'Send my request via WhatsApp', ru: 'Отправить заявку в WhatsApp', ro: 'Trimiteți cererea pe WhatsApp' },
+    errEmail: { fr: 'Adresse e-mail invalide.', en: 'Invalid email address.', ru: 'Неверный адрес эл. почты.', ro: 'Adresă de e-mail invalidă.' },
+    errPhone: { fr: 'Numéro de téléphone invalide (nécessaire pour confirmer votre course).', en: 'Invalid phone number (needed to confirm your ride).', ru: 'Неверный номер телефона (нужен для подтверждения поездки).', ro: 'Număr de telefon invalid (necesar pentru confirmarea cursei).' },
+    errDate:  { fr: 'La date ne peut pas être dans le passé.', en: 'The date cannot be in the past.', ru: 'Дата не может быть в прошлом.', ro: 'Data nu poate fi în trecut.' },
     newbook:  { fr: 'Nouvelle réservation', en: 'New booking', ru: 'Новое бронирование', ro: 'Rezervare nouă' },
     calc:     { fr: 'Calcul…', en: 'Calculating…', ru: 'Расчёт…', ro: 'Calcul…' },
     sending:  { fr: 'Envoi…', en: 'Sending…', ru: 'Отправка…', ro: 'Trimitere…' },
@@ -128,9 +193,13 @@ export default function BookingModule({ t, lang }) {
               </svg>
             </div>
             <h2 className="font-serif text-3xl md:text-4xl text-gold mb-4">{lbl('success')}</h2>
-            <p className="text-silver font-sans font-light leading-relaxed mb-8 max-w-md mx-auto">
+            <p className="text-silver font-sans font-light leading-relaxed mb-2 max-w-md mx-auto">
               {lbl('success2')}
             </p>
+            {clientMailOk && (
+              <p className="text-silver-dim text-sm font-sans font-light max-w-md mx-auto">{lbl('success3')}</p>
+            )}
+            <div className="mb-8" />
             <div className="text-left max-w-md mx-auto space-y-2 border border-divider p-6 mb-8">
               <SummaryRow label={form.name} value={`${form.date} · ${form.time}`} />
               <SummaryRow label={form.pickup} value="→" />
@@ -140,6 +209,8 @@ export default function BookingModule({ t, lang }) {
             <button
               onClick={() => {
                 setConfirmed(false)
+                setClientMailOk(true)
+                setErrors([])
                 reset()
                 setForm(f => ({ ...f, name: '', email: '', phone: '', date: '', time: '', pickup: '', dropoff: '' }))
               }}
@@ -183,18 +254,18 @@ export default function BookingModule({ t, lang }) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label htmlFor="name" className="label-luxury">{lbl('name')} *</label>
-                  <input id="name" type="text" name="name" value={form.name}
+                  <input id="name" type="text" name="name" value={form.name} autoComplete="name"
                     onChange={handleChange} placeholder="Jean Dupont" required className="input-luxury" />
                 </div>
                 <div>
                   <label htmlFor="email" className="label-luxury">Email *</label>
-                  <input id="email" type="email" name="email" value={form.email}
+                  <input id="email" type="email" name="email" value={form.email} autoComplete="email" inputMode="email"
                     onChange={handleChange} placeholder="jean@example.com" required className="input-luxury" />
                 </div>
                 <div className="sm:col-span-2">
-                  <label htmlFor="phone" className="label-luxury">{lbl('phone')}</label>
-                  <input id="phone" type="tel" name="phone" value={form.phone}
-                    onChange={handleChange} placeholder="+33 6 XX XX XX XX" className="input-luxury" />
+                  <label htmlFor="phone" className="label-luxury">{lbl('phone')} *</label>
+                  <input id="phone" type="tel" name="phone" value={form.phone} autoComplete="tel" inputMode="tel"
+                    onChange={handleChange} placeholder="+33 6 XX XX XX XX" required className="input-luxury" />
                 </div>
               </div>
             </fieldset>
@@ -207,7 +278,7 @@ export default function BookingModule({ t, lang }) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label htmlFor="date" className="label-luxury">{t('booking_date')} *</label>
-                  <input id="date" type="date" name="date" value={form.date}
+                  <input id="date" type="date" name="date" value={form.date} min={todayISO()}
                     onChange={handleChange} required className="input-luxury" />
                 </div>
                 <div>
@@ -261,7 +332,7 @@ export default function BookingModule({ t, lang }) {
                         ${active ? 'text-gold' : 'text-silver'}`}>
                         {v.category}
                       </p>
-                      <p className="text-xs text-silver-dim truncate">{v.model.split(' ').slice(0, 2).join(' ')}</p>
+                      <p className="text-xs text-silver-dim truncate">{v.model.replace(/^Mercedes /, '')}</p>
                     </button>
                   )
                 })}
@@ -272,7 +343,7 @@ export default function BookingModule({ t, lang }) {
             <div className="border-t border-divider pt-6 mb-6">
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                 <button type="button" onClick={handleEstimate}
-                  disabled={loading || !form.dropoff}
+                  disabled={loading || !form.pickup || !form.dropoff}
                   className="text-[10px] font-bold tracking-widest uppercase py-3 px-6
                     border border-divider text-silver hover:border-gold/50 hover:text-gold
                     transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
@@ -297,16 +368,33 @@ export default function BookingModule({ t, lang }) {
               </div>
             </div>
 
-            {/* ── Erreur ── */}
+            {/* ── Erreurs de saisie ── */}
+            {errors.length > 0 && (
+              <div role="alert" className="mb-4 p-4 border border-red-500/40 bg-red-900/20 text-red-400 text-sm space-y-1">
+                {errors.map(msg => <p key={msg}>{msg}</p>)}
+              </div>
+            )}
+
+            {/* ── Échec d'envoi : message de secours appel / WhatsApp ── */}
             {emailError && (
-              <div className="mb-4 p-4 border border-red-500/40 bg-red-900/20 text-red-400 text-sm">
-                {lbl('error')}
+              <div role="alert" className="mb-4 p-4 border border-red-500/40 bg-red-900/20 text-sm">
+                <p className="text-red-400 mb-3">{lbl('error')}</p>
+                <div className="flex flex-wrap gap-3">
+                  <a href={`tel:${PHONE_E164}`} className="btn-outline py-3 px-5">
+                    {lbl('call')} <span className="whitespace-nowrap">{PHONE_DISPLAY}</span>
+                  </a>
+                  <a href={whatsappLink(whatsappRequest())} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 py-3 px-5 font-sans font-semibold text-xs tracking-[0.2em] uppercase
+                      border border-[#25D366] text-[#25D366] hover:bg-[#25D366] hover:text-canvas transition-all duration-300 ease-in-out">
+                    {lbl('whatsapp')}
+                  </a>
+                </div>
               </div>
             )}
 
             {/* ── Submit ── */}
             <button type="submit"
-              disabled={sending || !form.name || !form.email || !form.date || !form.time || !form.pickup || !form.dropoff}
+              disabled={sending || !form.name || !form.email || !form.phone || !form.date || !form.time || !form.pickup || !form.dropoff}
               className="btn-primary w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {sending
@@ -359,7 +447,7 @@ function SummaryRow({ label, value, gold }) {
   return (
     <div className="flex justify-between items-baseline gap-2 py-1 border-b border-divider/50 last:border-0">
       <span className={`text-xs font-sans ${gold ? 'text-gold font-semibold' : 'text-silver-dim'}`}>{label}</span>
-      {value && <span className={`text-xs font-mono ${gold ? 'text-gold' : 'text-offwhite'}`}>{value}</span>}
+      {value && <span className={`text-xs font-mono whitespace-nowrap ${gold ? 'text-gold' : 'text-offwhite'}`}>{value}</span>}
     </div>
   )
 }

@@ -1,5 +1,5 @@
 // ── Lightbox — Galerie photo plein écran ─────────────────────────────
-// MAQUETTE CDG TRANSFERT VTC
+// CDG TRANSFERT VTC — site en production (cdgtransfertvtc.fr)
 //
 // Composant réutilisable : affiche les photos d'un véhicule en plein
 // écran, avec navigation flèches gauche/droite, miniatures, clavier
@@ -12,7 +12,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
-// Libellés multilingues (maquette : pas de lib i18n, simple objet JS)
+// Libellés multilingues (pas de lib i18n, simple objet JS)
 const LABELS = {
   fr: { close: 'Fermer', prev: 'Photo précédente', next: 'Photo suivante', of: 'sur' },
   en: { close: 'Close',  prev: 'Previous photo',   next: 'Next photo',     of: 'of' },
