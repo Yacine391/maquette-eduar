@@ -92,10 +92,6 @@ export default function Footer({ t, lang }) {
             ))}
           </div>
         </div>
-        {/* Note maquette */}
-        <div className="pb-3 text-center">
-          <p className="text-[10px] italic text-silver-dim/30">{t('footer_mockup')}</p>
-        </div>
       </div>
 
     </footer>

@@ -25,8 +25,8 @@ export const translations = {
     booking_dropoff: 'Destination',
     booking_vehicle: 'Catégorie de véhicule',
     booking_submit:  'Obtenir un prix estimatif',
-    booking_price_label: 'Prix estimé (simulation)',
-    booking_note:    '* Prix simulé à titre indicatif — aucun paiement requis.',
+    booking_price_label: 'Prix estimé',
+    booking_note:    '* Estimation indicative — prix confirmé avant la course, aucun paiement en ligne.',
 
     // Fleet
     fleet_title:     'Notre Flotte',
@@ -56,7 +56,6 @@ export const translations = {
     // Footer
     footer_legal:    'Mentions légales',
     footer_rights:   'Tous droits réservés.',
-    footer_mockup:   'Site de démonstration — maquette non contractuelle.',
   },
 
   en: {
@@ -77,8 +76,8 @@ export const translations = {
     booking_dropoff: 'Destination',
     booking_vehicle: 'Vehicle category',
     booking_submit:  'Get an estimated price',
-    booking_price_label: 'Estimated price (simulation)',
-    booking_note:    '* Simulated price for information only — no payment required.',
+    booking_price_label: 'Estimated price',
+    booking_note:    '* Indicative estimate — price confirmed before the ride, no online payment.',
 
     fleet_title:     'Our Fleet',
     fleet_badge:     'Recommended',
@@ -103,7 +102,6 @@ export const translations = {
 
     footer_legal:    'Legal notice',
     footer_rights:   'All rights reserved.',
-    footer_mockup:   'Demo site — non-contractual mockup.',
   },
 
   ru: {
@@ -124,8 +122,8 @@ export const translations = {
     booking_dropoff: 'Пункт назначения',
     booking_vehicle: 'Категория автомобиля',
     booking_submit:  'Получить оценку стоимости',
-    booking_price_label: 'Примерная стоимость (симуляция)',
-    booking_note:    '* Ориентировочная цена — оплата не требуется.',
+    booking_price_label: 'Примерная стоимость',
+    booking_note:    '* Ориентировочная оценка — цена подтверждается до поездки, без онлайн-оплаты.',
 
     fleet_title:     'Наш автопарк',
     fleet_badge:     'Рекомендуется',
@@ -150,7 +148,6 @@ export const translations = {
 
     footer_legal:    'Правовая информация',
     footer_rights:   'Все права защищены.',
-    footer_mockup:   'Демонстрационный сайт — макет, не является офертой.',
   },
 
   ro: {
@@ -174,8 +171,8 @@ export const translations = {
     booking_dropoff: 'Destinație',
     booking_vehicle: 'Categorie vehicul',
     booking_submit:  'Obțineți un preț estimativ',
-    booking_price_label: 'Preț estimat (simulare)',
-    booking_note:    '* Preț simulat cu titlu indicativ — nicio plată necesară.',
+    booking_price_label: 'Preț estimat',
+    booking_note:    '* Estimare orientativă — prețul este confirmat înainte de cursă, fără plată online.',
 
     // Fleet
     fleet_title:     'Flota Noastră',
@@ -205,6 +202,5 @@ export const translations = {
     // Footer
     footer_legal:    'Mențiuni legale',
     footer_rights:   'Toate drepturile rezervate.',
-    footer_mockup:   'Site demonstrativ — machetă necontractuală.',
   },
 }
