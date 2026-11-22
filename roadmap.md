@@ -25,6 +25,15 @@
 - [x] Image de partage `og-image.jpg` 1200×630 + balises Open Graph / Twitter complètes
 - [x] Documentation (CLAUDE.md, roadmap, en-têtes de fichiers) à jour pour la production
 
+### Phase 3 — Performance, accessibilité, sécurité (novembre 2026) ✅
+- [x] HTML pré-généré au build + hydratation, CSS intégré, aucune requête bloquante
+- [x] Polices auto-hébergées (variables, woff2, swap), préchargement des 3 fichiers du haut de page
+- [x] Images AVIF/WebP aux tailles affichées (srcset/sizes, width/height, lazy), couvertures recadrées par gabarit de carte, logo et favicon légers, grain de fond pré-calculé
+- [x] JS différé : EmailJS à l'envoi, galerie à l'ouverture ; hydratation découpée (startTransition)
+- [x] Accessibilité : contrastes ≥ 4,5:1, ARIA combobox, repères main/nav, lien d'évitement, lang synchronisé
+- [x] En-têtes de sécurité (vercel.json) : CSP stricte + Trusted Types, HSTS preload, COOP, X-Frame-Options, nosniff, Referrer-Policy, Permissions-Policy, cache immuable
+- [x] Lighthouse local : 100 / 100 / 100 / 100 mobile et desktop, Navigation agentique 2/2
+
 ---
 
 ## En attente du client
@@ -37,4 +46,5 @@
 
 - [ ] Pages légales : Mentions légales, Politique de confidentialité, CGV (les liens du pied de page ne mènent encore nulle part ; obligatoires pour un site professionnel)
 - [ ] Version anglaise `/en/` (pages réelles), puis ajouter `hreflang="en"` et l'URL au sitemap
-- [ ] Optionnel : en-têtes de sécurité (CSP autorisant `api.emailjs.com`, `api-adresse.data.gouv.fr`, Google Fonts) via `vercel.json`
+- [ ] Vérifier les scores sur PageSpeed Insights après mise en ligne
+- [ ] Optionnel : inscrire le domaine sur hstspreload.org (l'en-tête HSTS est prêt)

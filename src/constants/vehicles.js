@@ -2,9 +2,10 @@
 // Flotte réelle du client. Ordre strict (voir CLAUDE.md) :
 // BUSINESS > Luxe > Van > Éco
 //
-// PHOTOS : ce sont les photos réelles de la flotte fournies par le client
-// (fichiers dans /public/vehicles/). Chaque véhicule possède :
-//   • `images` → tableau de photos { src, alt } affichées dans la galerie
+// PHOTOS : photos réelles de la flotte fournies par le client (originaux dans
+// images-src/vehicles/, variantes AVIF/WebP générées par
+// scripts/optimize-images.py). Chaque véhicule possède :
+//   • `images` → tableau de photos { name, alt } affichées dans la galerie
 //                plein écran (clic sur la photo → flèches gauche/droite)
 //   • `image`  → photo de couverture affichée sur la carte = images[0]
 // Pour changer la photo de couverture : remonter la photo voulue en
@@ -21,11 +22,11 @@ export const vehicles = [
     gradient: 'from-zinc-900 via-zinc-800 to-neutral-900',
     // 3 photos client — couverture : la Classe E devant l'Arc de Triomphe
     images: [
-      // `position` = recadrage de la vignette sur la carte (la voiture est
-      // dans la moitié basse de la photo → on descend le cadrage)
-      { src: '/vehicles/classe-e-1.jpg', alt: 'Mercedes Classe E noire devant l\'Arc de Triomphe, Paris', position: '50% 72%' },
-      { src: '/vehicles/classe-e-2.jpg', alt: 'Mercedes Classe E devant l\'hôtel San Régis, Paris 8e' },
-      { src: '/vehicles/classe-e-3.jpg', alt: 'Mercedes Classe E vue de profil, avenue Montaigne' },
+      // Couverture recadrée au format de la carte, centrée sur la voiture
+      // (point focal défini dans scripts/optimize-images.py → COVERS)
+      { name: 'classe-e-1', alt: 'Mercedes Classe E noire devant l\'Arc de Triomphe, Paris' },
+      { name: 'classe-e-2', alt: 'Mercedes Classe E devant l\'hôtel San Régis, Paris 8e' },
+      { name: 'classe-e-3', alt: 'Mercedes Classe E vue de profil, avenue Montaigne' },
     ],
     featured: true,  // → bordure gold + badge "Recommandé"
     description: {
@@ -44,10 +45,10 @@ export const vehicles = [
     gradient: 'from-stone-900 via-zinc-900 to-black',
     // 4 photos client — 2 extérieures + 2 intérieures (demande client)
     images: [
-      { src: '/vehicles/classe-s-1.jpg', alt: 'Mercedes Classe S sur le tarmac, portière ouverte' },
-      { src: '/vehicles/classe-s-2.jpg', alt: 'Mercedes Classe S vue de face' },
-      { src: '/vehicles/classe-s-3.jpg', alt: 'Intérieur Classe S : cuir clair et écrans passagers' },
-      { src: '/vehicles/classe-s-4.jpg', alt: 'Intérieur Classe S : sièges arrière et rafraîchissements' },
+      { name: 'classe-s-1', alt: 'Mercedes Classe S sur le tarmac, portière ouverte' },
+      { name: 'classe-s-2', alt: 'Mercedes Classe S vue de face' },
+      { name: 'classe-s-3', alt: 'Intérieur Classe S : cuir clair et écrans passagers' },
+      { name: 'classe-s-4', alt: 'Intérieur Classe S : sièges arrière et rafraîchissements' },
     ],
     featured: false,
     description: {
@@ -66,10 +67,10 @@ export const vehicles = [
     gradient: 'from-neutral-900 via-stone-900 to-zinc-900',
     // 4 photos client — 2 extérieures + 2 intérieures (demande client)
     images: [
-      { src: '/vehicles/classe-v-1.jpg', alt: 'Mercedes Classe V noire vue de trois quarts avant' },
-      { src: '/vehicles/classe-v-2.jpg', alt: 'Mercedes Classe V vue de trois quarts arrière' },
-      { src: '/vehicles/classe-v-3.jpg', alt: 'Intérieur Classe V : sièges cuir beige face à face' },
-      { src: '/vehicles/classe-v-4.jpg', alt: 'Intérieur Classe V : banquette arrière et accès latéral' },
+      { name: 'classe-v-1', alt: 'Mercedes Classe V noire vue de trois quarts avant' },
+      { name: 'classe-v-2', alt: 'Mercedes Classe V vue de trois quarts arrière' },
+      { name: 'classe-v-3', alt: 'Intérieur Classe V : sièges cuir beige face à face' },
+      { name: 'classe-v-4', alt: 'Intérieur Classe V : banquette arrière et accès latéral' },
     ],
     featured: false,
     description: {
@@ -88,7 +89,7 @@ export const vehicles = [
     gradient: 'from-gray-900 via-zinc-800 to-gray-900',
     // Une seule photo pour l'instant → pas de galerie sur cette carte
     images: [
-      { src: '/vehicles/tesla-model-y.jpg', alt: 'Tesla Model Y 100% électrique' },
+      { name: 'tesla-model-y', alt: 'Tesla Model Y 100% électrique' },
     ],
     featured: false,
     description: {

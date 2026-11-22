@@ -1,10 +1,13 @@
 // ── Footer — Premium 3 colonnes ──────────────────────────────────────
 // CDG TRANSFERT VTC — site en production (cdgtransfertvtc.fr)
 // ────────────────────────────────────────────────────────────────────
-import logo from '../../assets/logo.png'
+import { useEffect, useState } from 'react'
+import Logo from '../Logo'
 
 export default function Footer({ t, lang }) {
-  const year = new Date().getFullYear()
+  // Année du build dans le HTML pré-généré, mise à jour côté navigateur
+  const [year, setYear] = useState(__BUILD_YEAR__)
+  useEffect(() => setYear(new Date().getFullYear()), [])
 
   const navLinks = [
     { key: 'nav_home',    href: '#hero'    },
@@ -30,7 +33,7 @@ export default function Footer({ t, lang }) {
           {/* Colonne 1 : Marque */}
           <div>
             <div className="flex items-center gap-3 mb-5">
-              <img src={logo} alt="CDG Transfert VTC" className="h-9 w-auto opacity-80" />
+              <Logo className="h-9 w-auto opacity-80" sizes="51px" />
               <div>
                 <p className="font-serif text-sm font-semibold tracking-[0.2em] text-gold leading-none">CDG TRANSFERT</p>
                 <p className="text-[9px] tracking-[0.4em] text-silver-dim uppercase mt-0.5">VTC Premium</p>
@@ -48,7 +51,7 @@ export default function Footer({ t, lang }) {
             <p className="text-[10px] font-semibold tracking-[0.4em] uppercase text-silver-dim mb-5">
               {{ ru: 'Навигация', ro: 'Navigare' }[lang] ?? 'Navigation'}
             </p>
-            <nav className="space-y-3" role="navigation" aria-label="Footer navigation">
+            <nav className="space-y-3" aria-label={{ fr: 'Navigation du pied de page', en: 'Footer navigation', ru: 'Навигация в подвале', ro: 'Navigare subsol' }[lang] ?? 'Navigation du pied de page'}>
               {navLinks.map(({ key, href }) => (
                 <a key={key} href={href}
                   className="flex items-center gap-2 text-sm text-silver hover:text-gold transition-colors duration-300 group"
@@ -81,14 +84,16 @@ export default function Footer({ t, lang }) {
       {/* ── Barre légale ── */}
       <div className="border-t border-divider">
         <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-silver-dim/50 font-sans">
+          <p className="text-xs text-silver-dim font-sans">
             © {year} CDG TRANSFERT VTC — {t('footer_rights')}
           </p>
           <div className="flex items-center gap-4">
+            {/* Pages légales à venir : simple texte tant qu'elles n'existent pas
+                (pas de faux bouton ni de lien mort) */}
             {(legalText[lang] ?? legalText.fr).map((item) => (
-              <button key={item} className="text-[11px] text-silver-dim/50 hover:text-gold transition-colors duration-300">
+              <span key={item} className="text-[11px] text-silver-dim">
                 {item}
-              </button>
+              </span>
             ))}
           </div>
         </div>

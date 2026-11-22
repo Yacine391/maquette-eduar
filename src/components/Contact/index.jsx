@@ -4,7 +4,7 @@
 // dorée à droite. Icônes SVG inline accessibles (aria-hidden).
 // ────────────────────────────────────────────────────────────────────
 
-export default function Contact({ t }) {
+export default function Contact({ t, lang }) {
   const items = [
     {
       icon: (
@@ -43,7 +43,7 @@ export default function Contact({ t }) {
       ),
       label:  { fr: 'Zone d\'intervention', en: 'Coverage area', ru: 'Зона обслуживания', ro: 'Zonă de acoperire' },
       value:  'Île-de-France',
-      href:   '#',
+      href:   null,   // information, pas un lien
       detail: { fr: 'Paris + tous aéroports', en: 'Paris + all airports', ru: 'Париж + аэропорты', ro: 'Paris + toate aeroporturile' },
     },
   ]
@@ -69,12 +69,14 @@ export default function Contact({ t }) {
             {/* Cartes contact */}
             <div className="space-y-4">
               {items.map(({ icon, label, value, href, detail }) => {
-                const l = typeof label === 'string' ? label : label?.fr ?? ''
-                const labelText = typeof label === 'object' ? (label[document?.documentElement?.lang] ?? label.fr) : label
+                // Texte dans la langue affichée (repli FR)
+                const tr = (v) => (typeof v === 'object' ? (v[lang] ?? v.fr) : v)
+                // Carte cliquable (tel:, mailto:) ou simple information
+                const Card = href ? 'a' : 'div'
                 return (
-                  <a
-                    key={href}
-                    href={href}
+                  <Card
+                    key={value}
+                    href={href ?? undefined}
                     className="flex items-start gap-4 p-5 border border-divider
                       hover:border-gold/30 hover:bg-gold/[0.03]
                       transition-all duration-300 group"
@@ -84,23 +86,23 @@ export default function Contact({ t }) {
                     </div>
                     <div>
                       <p className="text-[10px] tracking-[0.3em] uppercase text-silver-dim mb-0.5 font-sans">
-                        {typeof label === 'object' ? label.fr : label}
+                        {tr(label)}
                       </p>
                       <p className="text-offwhite font-sans font-medium group-hover:text-gold transition-colors duration-300">
                         {value}
                       </p>
                       <p className="text-xs text-silver-dim mt-0.5 font-sans">
-                        {typeof detail === 'object' ? detail.fr : detail}
+                        {tr(detail)}
                       </p>
                     </div>
-                  </a>
+                  </Card>
                 )
               })}
             </div>
           </div>
 
           {/* ── Colonne droite : décoration géométrique ── */}
-          <div className="hidden lg:flex items-center justify-center relative min-h-80">
+          <div className="hidden lg:flex items-center justify-center relative min-h-80" aria-hidden="true">
             {/* Composition géométrique gold */}
             <svg viewBox="0 0 400 400" className="w-full max-w-sm opacity-[0.15] text-gold" fill="none" stroke="currentColor">
               {/* Cercles concentriques */}
@@ -120,7 +122,7 @@ export default function Contact({ t }) {
             {/* Texte central */}
             <div className="absolute text-center">
               <p className="font-serif text-5xl font-bold text-gold/60 leading-none">CDG</p>
-              <p className="text-[10px] tracking-[0.6em] text-gold/30 uppercase mt-1">Transfert VTC</p>
+              <p className="text-[10px] tracking-[0.6em] text-gold/80 uppercase mt-1">Transfert VTC</p>
             </div>
           </div>
 

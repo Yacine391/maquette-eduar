@@ -107,7 +107,7 @@ export default function Rates({ t, lang }) {
         </div>
 
         {/* Note */}
-        <p className="mt-5 text-[11px] text-silver-dim/50 italic text-center tracking-wide">
+        <p className="mt-5 text-[11px] text-silver-dim italic text-center tracking-wide">
           {{ en: 'Fixed prices, tolls and waiting time included, confirmed before the ride', ru: 'Фиксированные тарифы, платные дороги и ожидание включены, цена сообщается до поездки', ro: 'Tarife fixe, taxe de autostradă și așteptare incluse, comunicate înainte de cursă' }[lang]
             ?? 'Tarifs fixes, péage et attente inclus, annoncés avant la course'}
         </p>

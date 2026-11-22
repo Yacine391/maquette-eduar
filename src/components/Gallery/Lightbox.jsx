@@ -11,6 +11,7 @@
 // ────────────────────────────────────────────────────────────────────
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { photo } from '../../constants/vehiclePhotos'
 
 // Libellés multilingues (pas de lib i18n, simple objet JS)
 const LABELS = {
@@ -28,6 +29,7 @@ export default function Lightbox({ images, startIndex = 0, title, lang = 'fr', o
   const count = images.length
   const l = LABELS[lang] ?? LABELS.fr
   const current = images[index]
+  const currentPhoto = photo(current.name)
 
   // Navigation circulaire (dernière → première)
   const go = useCallback(
@@ -66,7 +68,7 @@ export default function Lightbox({ images, startIndex = 0, title, lang = 'fr', o
   useEffect(() => {
     ;[index + 1, index - 1].forEach((i) => {
       const img = images[(i + count) % count]
-      if (img) { const preload = new window.Image(); preload.src = img.src }
+      if (img) { const preload = new window.Image(); preload.src = photo(img.name).largest.avif }
     })
   }, [index, images, count])
 
@@ -102,7 +104,7 @@ export default function Lightbox({ images, startIndex = 0, title, lang = 'fr', o
       >
         <div className="min-w-0">
           <p className="font-serif text-lg sm:text-xl text-offwhite truncate">{title}</p>
-          <p className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-gold/70 mt-0.5">
+          <p className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-gold/80 mt-0.5">
             {index + 1} {l.of} {count}
           </p>
         </div>
@@ -126,14 +128,20 @@ export default function Lightbox({ images, startIndex = 0, title, lang = 'fr', o
         className="relative flex-1 min-h-0 flex items-center justify-center px-2 sm:px-20"
         onClick={(e) => e.stopPropagation()}
       >
-        <img
-          key={current.src}
-          src={current.src}
-          alt={current.alt}
-          className="max-h-full max-w-full w-auto h-auto object-contain
-            animate-fade-in select-none"
-          draggable={false}
-        />
+        <picture key={current.name} className="contents">
+          <source type="image/avif" srcSet={currentPhoto.avif} sizes="100vw" />
+          <source type="image/webp" srcSet={currentPhoto.webp} sizes="100vw" />
+          <img
+            src={currentPhoto.src}
+            alt={current.alt}
+            width={currentPhoto.width}
+            height={currentPhoto.height}
+            decoding="async"
+            className="max-h-full max-w-full w-auto h-auto object-contain
+              animate-fade-in select-none"
+            draggable={false}
+          />
+        </picture>
 
         {count > 1 && (
           <>
@@ -156,7 +164,7 @@ export default function Lightbox({ images, startIndex = 0, title, lang = 'fr', o
           <div className="flex gap-2 justify-start sm:justify-center overflow-x-auto pb-1 -mx-1 px-1">
             {images.map((img, i) => (
               <button
-                key={img.src}
+                key={img.name}
                 type="button"
                 onClick={() => setIndex(i)}
                 aria-label={`${img.alt} (${i + 1} ${l.of} ${count})`}
@@ -167,7 +175,7 @@ export default function Lightbox({ images, startIndex = 0, title, lang = 'fr', o
                     ? 'border-gold opacity-100'
                     : 'border-divider opacity-50 hover:opacity-90 hover:border-gold/40'}`}
               >
-                <img src={img.src} alt="" className="w-full h-full object-cover" loading="lazy" />
+                <Thumb name={img.name} />
               </button>
             ))}
           </div>
@@ -175,6 +183,18 @@ export default function Lightbox({ images, startIndex = 0, title, lang = 'fr', o
       </div>
     </div>,
     document.body,
+  )
+}
+
+// ── Miniature (plus petite variante, 320 px) ──────────────────────────
+function Thumb({ name }) {
+  const p = photo(name)
+  return (
+    <picture className="contents">
+      <source type="image/avif" srcSet={p.thumb.avif} />
+      <img src={p.thumb.webp} alt="" width={p.width} height={p.height} loading="lazy" decoding="async"
+        className="w-full h-full object-cover" />
+    </picture>
   )
 }
 

@@ -3,9 +3,13 @@
 // Design : barre supérieure info + nav principale avec backdrop-blur
 // ────────────────────────────────────────────────────────────────────
 import { useState, useEffect } from 'react'
-import logo from '../../assets/logo.png'
+import Logo from '../Logo'
 
 const LANGS = ['FR', 'EN', 'RO', 'RU']
+
+// Noms accessibles des menus (repères de navigation distincts)
+const NAV_LABEL = { fr: 'Navigation principale', en: 'Main navigation', ru: 'Основная навигация', ro: 'Navigare principală' }
+const LANG_LABEL = { fr: 'Langue', en: 'Language', ru: 'Язык', ro: 'Limbă' }
 
 export default function Header({ t, lang, setLang }) {
   const [scrolled,  setScrolled]  = useState(false)
@@ -41,10 +45,12 @@ export default function Header({ t, lang, setLang }) {
               <span className="hidden sm:block">+33 6 65 69 96 78</span>
             </div>
             {/* Sélecteur langue dans la top bar */}
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1" role="group" aria-label={LANG_LABEL[lang]}>
               {LANGS.map((l) => (
                 <button
                   key={l}
+                  type="button"
+                  aria-pressed={lang === l.toLowerCase()}
                   onClick={() => setLang(l.toLowerCase())}
                   className={`px-2.5 py-1 text-[10px] font-semibold tracking-widest transition-all duration-200
                     ${lang === l.toLowerCase()
@@ -79,7 +85,7 @@ export default function Header({ t, lang, setLang }) {
 
             {/* ── Logo ── */}
             <a href="#hero" className="flex items-center gap-3 group flex-shrink-0">
-              <img src={logo} alt="CDG Transfert VTC" className="h-8 md:h-10 w-auto object-contain" />
+              <Logo className="h-8 md:h-10 w-auto object-contain" />
               <div className="hidden sm:block">
                 <p className="font-serif text-base font-semibold tracking-[0.2em] text-gold group-hover:text-gold-hover transition-colors duration-300 leading-none">
                   CDG TRANSFERT
@@ -89,7 +95,7 @@ export default function Header({ t, lang, setLang }) {
             </a>
 
             {/* ── Nav desktop ── */}
-            <nav className="hidden md:flex items-center gap-8" role="navigation">
+            <nav className="hidden md:flex items-center gap-8" aria-label={NAV_LABEL[lang]}>
               {navLinks.map(({ key, href, id }) => (
                 <a
                   key={key}
@@ -115,10 +121,12 @@ export default function Header({ t, lang, setLang }) {
               </a>
               {/* Langue desktop (si déjà scrollé et top bar invisible) */}
               {scrolled && (
-                <div className="hidden md:flex items-center gap-1 border-l border-divider pl-4">
+                <div className="hidden md:flex items-center gap-1 border-l border-divider pl-4" role="group" aria-label={LANG_LABEL[lang]}>
                   {LANGS.map((l) => (
                     <button
                       key={l}
+                      type="button"
+                      aria-pressed={lang === l.toLowerCase()}
                       onClick={() => setLang(l.toLowerCase())}
                       className={`px-2 py-1 text-[10px] font-semibold tracking-widest rounded-sm transition-all duration-200
                         ${lang === l.toLowerCase() ? 'bg-gold text-canvas' : 'text-silver-dim hover:text-silver'}`}
@@ -130,10 +138,12 @@ export default function Header({ t, lang, setLang }) {
               )}
               {/* Burger mobile */}
               <button
+                type="button"
                 className="md:hidden p-2 flex flex-col gap-[5px]"
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-label="Menu"
                 aria-expanded={menuOpen}
+                aria-controls="menu-mobile"
               >
                 <span className={`block w-6 h-0.5 bg-offwhite/80 transition-all duration-300 origin-center
                   ${menuOpen ? 'rotate-45 translate-y-[7px]' : ''}`} />
@@ -162,7 +172,7 @@ export default function Header({ t, lang, setLang }) {
           ${menuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
         style={{ top: scrolled ? '64px' : '101px' }}
       >
-        <div style={{ backgroundColor: '#0A0A0C' }}
+        <nav id="menu-mobile" aria-label={NAV_LABEL[lang]} style={{ backgroundColor: '#0A0A0C' }}
           className="border-t border-b border-divider px-6 py-6 flex flex-col gap-5 shadow-2xl shadow-black"
         >
           {navLinks.map(({ key, href }) => (
@@ -175,10 +185,12 @@ export default function Header({ t, lang, setLang }) {
               {t(key)}
             </a>
           ))}
-          <div className="pt-4 border-t border-divider flex items-center gap-3">
+          <div className="pt-4 border-t border-divider flex items-center gap-3" role="group" aria-label={LANG_LABEL[lang]}>
             {LANGS.map((l) => (
               <button
                 key={l}
+                type="button"
+                aria-pressed={lang === l.toLowerCase()}
                 onClick={() => { setLang(l.toLowerCase()); setMenuOpen(false) }}
                 className={`px-3 py-1.5 text-xs font-semibold tracking-widest transition-all duration-200
                   ${lang === l.toLowerCase() ? 'bg-gold text-canvas' : 'border border-divider text-silver'}`}
@@ -187,7 +199,7 @@ export default function Header({ t, lang, setLang }) {
               </button>
             ))}
           </div>
-        </div>
+        </nav>
       </div>
     </>
   )

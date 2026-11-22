@@ -92,6 +92,9 @@ export default function AddressAutocomplete({ id, name, value, onChange, placeho
   }
 
   // Icône type d'adresse
+  // Liste affichée (et référencée par l'ARIA) seulement si elle a des options
+  const listOpen = open && suggestions.length > 0
+
   const typeIcon = (type) => {
     if (type === 'housenumber') return '📍'
     if (type === 'street')      return '🛣️'
@@ -101,7 +104,7 @@ export default function AddressAutocomplete({ id, name, value, onChange, placeho
 
   return (
     <div ref={containerRef} className="relative">
-      <label htmlFor={id} className="label-luxury">{label} {required && '*'}</label>
+      <label htmlFor={id} id={`${id}-label`} className="label-luxury">{label} {required && '*'}</label>
 
       <div className="relative">
         <input
@@ -115,10 +118,11 @@ export default function AddressAutocomplete({ id, name, value, onChange, placeho
           placeholder={placeholder}
           required={required}
           autoComplete="off"
+          role="combobox"
           aria-autocomplete="list"
-          aria-expanded={open}
-          aria-controls={`${id}-listbox`}
-          aria-activedescendant={activeIdx >= 0 ? `${id}-option-${activeIdx}` : undefined}
+          aria-expanded={listOpen}
+          aria-controls={listOpen ? `${id}-listbox` : undefined}
+          aria-activedescendant={listOpen && activeIdx >= 0 ? `${id}-option-${activeIdx}` : undefined}
           className="input-luxury pr-10"
         />
 
@@ -127,7 +131,7 @@ export default function AddressAutocomplete({ id, name, value, onChange, placeho
           {loading ? (
             <span className="w-4 h-4 border border-gold/30 border-t-gold rounded-full animate-spin block" />
           ) : (
-            <svg viewBox="0 0 24 24" className="w-4 h-4 text-gold/40" fill="currentColor">
+            <svg viewBox="0 0 24 24" className="w-4 h-4 text-gold/40" fill="currentColor" aria-hidden="true">
               <path fillRule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-2.013 3.5-4.619 3.5-7.327A8.25 8.25 0 003 12c0 2.708 1.556 5.314 3.5 7.327a19.58 19.58 0 002.683 2.282 16.974 16.974 0 001.144.742zM21.75 12a9.75 9.75 0 11-19.5 0 9.75 9.75 0 0119.5 0zM12 10.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" clipRule="evenodd" />
             </svg>
           )}
@@ -135,39 +139,41 @@ export default function AddressAutocomplete({ id, name, value, onChange, placeho
       </div>
 
       {/* ── Liste de suggestions ── */}
-      {open && suggestions.length > 0 && (
-        <ul
-          id={`${id}-listbox`}
-          role="listbox"
-          className="absolute z-50 left-0 right-0 top-full mt-1
+      {listOpen && (
+        <div className="absolute z-50 left-0 right-0 top-full mt-1
             bg-canvas-2 border border-gold/20
-            shadow-[0_8px_32px_rgba(0,0,0,0.6)]
-            max-h-64 overflow-y-auto"
-        >
-          {suggestions.map((s, i) => (
-            <li
-              key={i}
-              id={`${id}-option-${i}`}
-              role="option"
-              aria-selected={i === activeIdx}
-              onMouseDown={(e) => { e.preventDefault(); handleSelect(s.label) }}
-              onMouseEnter={() => setActiveIdx(i)}
-              className={`flex items-start gap-3 px-4 py-3 cursor-pointer
-                border-b border-divider last:border-0
-                transition-colors duration-150
-                ${i === activeIdx ? 'bg-gold/10 text-gold' : 'text-offwhite hover:bg-gold/5'}`}
-            >
-              <span className="text-sm mt-0.5 flex-shrink-0">{typeIcon(s.type)}</span>
-              <div className="min-w-0">
-                <p className="text-sm font-sans leading-tight truncate">{s.label}</p>
-              </div>
-            </li>
-          ))}
-          {/* Attribution obligatoire */}
-          <li className="px-4 py-1.5 text-[9px] text-silver-dim/40 font-sans tracking-wide">
+            shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
+          <ul
+            id={`${id}-listbox`}
+            role="listbox"
+            aria-labelledby={`${id}-label`}
+            className="max-h-64 overflow-y-auto"
+          >
+            {suggestions.map((s, i) => (
+              <li
+                key={i}
+                id={`${id}-option-${i}`}
+                role="option"
+                aria-selected={i === activeIdx}
+                onMouseDown={(e) => { e.preventDefault(); handleSelect(s.label) }}
+                onMouseEnter={() => setActiveIdx(i)}
+                className={`flex items-start gap-3 px-4 py-3 cursor-pointer
+                  border-b border-divider last:border-0
+                  transition-colors duration-150
+                  ${i === activeIdx ? 'bg-gold/10 text-gold' : 'text-offwhite hover:bg-gold/5'}`}
+              >
+                <span className="text-sm mt-0.5 flex-shrink-0" aria-hidden="true">{typeIcon(s.type)}</span>
+                <div className="min-w-0">
+                  <p className="text-sm font-sans leading-tight truncate">{s.label}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+          {/* Attribution obligatoire (hors de la liste : seules les options y figurent) */}
+          <p className="px-4 py-1.5 text-[9px] text-silver-dim font-sans tracking-wide border-t border-divider">
             © Base Adresse Nationale — data.gouv.fr
-          </li>
-        </ul>
+          </p>
+        </div>
       )}
     </div>
   )

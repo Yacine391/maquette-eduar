@@ -25,8 +25,16 @@ export default function App() {
   return (
     <div className="min-h-screen bg-canvas text-offwhite font-sans overflow-x-hidden">
 
+      {/* Lien d'évitement (clavier) : visible seulement au focus */}
+      <a href="#contenu" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] btn-primary">
+        {{ fr: 'Aller au contenu', en: 'Skip to content', ru: 'Перейти к содержанию', ro: 'Salt la conținut' }[lang] ?? 'Aller au contenu'}
+      </a>
+
       {/* 1 · Header sticky avec barre info */}
       <Header t={t} lang={lang} setLang={setLang} />
+
+      {/* Contenu principal (repère <main> unique) */}
+      <main id="contenu">
 
       {/* 2 · Hero plein écran + stats bar */}
       <Hero t={t} lang={lang} />
@@ -48,6 +56,7 @@ export default function App() {
 
       {/* 7 · Contact */}
       <Contact t={t} lang={lang} />
+      </main>
 
       {/* 8 · Footer */}
       <Footer t={t} lang={lang} />

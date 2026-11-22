@@ -1,7 +1,8 @@
 // ── Hero — Section plein écran premium ──────────────────────────────
 // CDG TRANSFERT VTC — site en production (cdgtransfertvtc.fr)
 // Design : fond multi-couches, titre Cormorant Garamond, stats bar,
-// éléments décoratifs dorés animés.
+// éléments décoratifs dorés animés. Aucun fondu au chargement : le
+// contenu est visible dès le premier affichage (HTML pré-généré).
 // ────────────────────────────────────────────────────────────────────
 
 // Bandeau sous le hero : uniquement des éléments vrais et vérifiables,
@@ -78,14 +79,14 @@ export default function Hero({ t, lang }) {
           {/* Eyebrow = H1 SEO (mots-clés : chauffeur privé VTC Paris, CDG, Orly).
               Même style visuel que l'ancien eyebrow : font-sans force la police
               du texte courant (index.css applique font-serif à tous les h1). */}
-          <div className="flex items-center gap-4 mb-8 animate-fade-up">
-            <div className="h-px w-12 bg-gold/60 animate-line-grow" />
+          <div className="flex items-center gap-4 mb-8">
+            <div className="h-px w-12 bg-gold/60" />
             <h1 className="section-eyebrow mb-0 font-sans">{t('hero_h1')}</h1>
           </div>
 
           {/* Accroche visuelle — Cormorant Garamond ultra-luxe
               (balise <p> : le H1 de la page est l'eyebrow ci-dessus) */}
-          <p className="font-serif text-display text-offwhite mb-6 animate-fade-up delay-100">
+          <p className="font-serif text-display text-offwhite mb-6">
             {t('hero_headline')
               .split(' ')
               .map((word, i) => (
@@ -97,12 +98,12 @@ export default function Hero({ t, lang }) {
           </p>
 
           {/* Sous-titre */}
-          <p className="font-sans text-lg md:text-xl text-silver font-light leading-relaxed mb-10 max-w-xl animate-fade-up delay-200">
+          <p className="font-sans text-lg md:text-xl text-silver font-light leading-relaxed mb-10 max-w-xl">
             {t('hero_sub')}
           </p>
 
           {/* CTA group */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 animate-fade-up delay-300">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
             <a href="#booking" className="btn-primary">
               {t('hero_cta')}
               <svg viewBox="0 0 20 20" fill="currentColor" className="w-3.5 h-3.5">
@@ -117,7 +118,7 @@ export default function Hero({ t, lang }) {
       </div>
 
       {/* ── Stats bar ── */}
-      <div className="relative z-10 mt-20 md:mt-24 border-t border-divider animate-fade-up delay-400">
+      <div className="relative z-10 mt-20 md:mt-24 border-t border-divider">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 divide-x-0 md:divide-x divide-divider">
             {STATS.map(({ value, label }, i) => (
