@@ -68,6 +68,7 @@
 - [ ] Google Search Console : soumettre `https://cdgtransfertvtc.fr/sitemap.xml`, demander l'indexation des pages services
 - [ ] Fiche Google Business Profile : vérifier que nom, téléphone et zone sont identiques au site (NAP) et y ajouter le lien du site
 - [x] Blog : 10 articles dans transferts-cdg (novembre 2026)
-- [ ] Blog : rédiger les articles des 9 autres catégories (pages déjà en place, hors sitemap tant qu'elles sont vides)
+- [x] Blog : 10 articles dans transferts-orly (novembre 2026), liens croisés avec 3 articles CDG
+- [ ] Blog : rédiger les articles des 8 autres catégories (pages déjà en place, hors sitemap tant qu'elles sont vides)
 - [ ] Décider d'une politique Content-Signal (autorisation ou non de l'entraînement des IA) pour robots.txt
 - [ ] Optionnel : inscrire le domaine sur hstspreload.org (l'en-tête HSTS est prêt)

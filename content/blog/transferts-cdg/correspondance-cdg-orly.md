@@ -41,7 +41,7 @@ Cette distance fait du transfert entre les deux aéroports un véritable trajet,
 | VTC ou taxi, la nuit | Plus rapide | Attention aux fermetures de nuit pour travaux |
 | Transports en commun | Souvent 1 h 15 ou plus | RER B puis liaison vers Orly, avec changements |
 
-Ces durées sont indicatives : elles varient avec le jour, l’heure, la météo et les travaux. En transports en commun, il faut en général combiner le RER B depuis Roissy avec une liaison vers Orly, comme le métro ligne 14, ce qui implique des changements avec vos bagages.
+Ces durées sont indicatives : elles varient avec le jour, l’heure, la météo et les travaux. En transports en commun, il faut en général combiner le RER B depuis Roissy avec une liaison vers Orly, comme le métro ligne 14, ce qui implique des changements avec vos bagages. Nous comparons ces liaisons dans [Métro 14, Orlyval ou VTC : comment aller à Orly ?](/blog/transferts-orly/aller-a-orly-metro-14-orlyval-vtc).
 
 ## Combien de temps prévoir pour une correspondance
 
@@ -71,7 +71,7 @@ Pour une correspondance, le plus simple est de réserver le transfert à l’ava
 - **l’heure de départ de votre vol à Orly** et le terminal de départ (Orly 1, 2, 3 ou 4) ;
 - **le nombre de passagers et de bagages**.
 
-Une fois vos bagages récupérés à Roissy, appelez votre chauffeur, qui vous confirme le lieu exact de prise en charge. Il vous dépose ensuite devant votre terminal de départ à Orly. Vérifiez votre terminal à Orly sur votre carte d’embarquement : les quatre terminaux d’Orly sont reliés à pied, mais être déposé au bon endroit fait gagner de précieuses minutes.
+Une fois vos bagages récupérés à Roissy, appelez votre chauffeur, qui vous confirme le lieu exact de prise en charge. Il vous dépose ensuite devant votre terminal de départ à Orly. Vérifiez votre terminal à Orly sur votre carte d’embarquement : les quatre terminaux d’Orly sont reliés à pied, mais être déposé au bon endroit fait gagner de précieuses minutes. Notre article [Terminaux Orly 1, 2, 3 et 4 : comment s’y retrouver ?](/blog/transferts-orly/terminaux-orly-1-2-3-4) explique leur organisation.
 
 En cas de retard de votre premier vol, prévenez-nous dès que possible : notre article [Vol retardé à CDG : que faire avec votre chauffeur ?](/blog/transferts-cdg/vol-retarde-cdg-chauffeur) détaille la marche à suivre. Pour repérer votre terminal d’arrivée à Roissy, consultez [Quel terminal à CDG ? Trouver d’où part votre vol](/blog/transferts-cdg/quel-terminal-cdg).
 

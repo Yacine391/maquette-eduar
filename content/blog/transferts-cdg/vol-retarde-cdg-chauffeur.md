@@ -60,6 +60,8 @@ Chaque cas appelle une réaction un peu différente :
 
 Dans tous les cas, nous convenons avec vous de la suite par téléphone ou WhatsApp. Si le transfert doit partir d’un autre aéroport, par exemple [Orly](/vtc-aeroport-orly) ou [Beauvais](/vtc-aeroport-beauvais) après un déroutement, le prix est celui du [tableau des tarifs](/#rates) quand le trajet y figure, et il est établi sur devis dans les autres cas.
 
+À l’inverse, un vol à destination d’Orly trop retardé pour atterrir avant la fermeture nocturne de l’aéroport est souvent dérouté vers Roissy : nous expliquons ce cas dans [Couvre-feu d’Orly : ce qui se passe après 23 h 30](/blog/transferts-orly/couvre-feu-orly-apres-23h30).
+
 ## Et si votre vol arrive en avance ?
 
 Il arrive aussi qu’un vol atterrisse plus tôt que prévu, grâce à des vents favorables sur un long-courrier par exemple. Dans ce cas, la sortie du terminal prend de toute façon un certain temps : débarquement, contrôles et bagages. Envoyez simplement un message à votre chauffeur dès l’atterrissage pour qu’il sache où vous en êtes, puis appelez-le une fois vos bagages récupérés.
