@@ -2,7 +2,7 @@
 // Chaque page existe en 4 langues, chacune avec sa propre URL pré-rendue :
 //   français à la racine (/, /vtc-aeroport-cdg…), puis /en/…, /ru/…, /ro/…
 // scripts/prerender.mjs écrit un fichier HTML par route ; Vercel les sert
-// sans extension (cleanUrls dans vercel.json).
+// sans extension (redirects / rewrites de vercel.json).
 // ────────────────────────────────────────────────────────────────────
 
 export const SITE = 'https://cdgtransfertvtc.fr'

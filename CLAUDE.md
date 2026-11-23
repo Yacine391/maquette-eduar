@@ -39,7 +39,7 @@ python3 scripts/optimize-blog-images.py   # regenerate blog images after adding 
 
 ## Build Pipeline (performance)
 
-`npm run build` = `vite build` → `vite build --ssr src/entry-server.jsx` → `node scripts/prerender.mjs`. The `blog-content` Vite plugin (`vite.config.js`) first turns `content/blog/**/*.md` into JS modules (`scripts/blog/generate.mjs`). `prerender.mjs` uses `dist/index.html` as a template and writes **one HTML file per route** (`index.html`, `en.html`, `vtc-aeroport-cdg.html`, `en/vtc-aeroport-cdg.html`…, served without extension by Vercel: `cleanUrls`, `trailingSlash: false`):
+`npm run build` = `vite build` → `vite build --ssr src/entry-server.jsx` → `node scripts/prerender.mjs`. The `blog-content` Vite plugin (`vite.config.js`) first turns `content/blog/**/*.md` into JS modules (`scripts/blog/generate.mjs`). `prerender.mjs` uses `dist/index.html` as a template and writes **one HTML file per route** (`index.html`, `en.html`, `vtc-aeroport-cdg.html`, `en/vtc-aeroport-cdg.html`…, served without extension by Vercel through `vercel.json`: `redirects` `*.html` → URL without extension (308), `rewrites` URL → `.html` file, `trailingSlash: false`; `cleanUrls` is not used because it would also redirect the Google verification file):
 - `<html lang>` and the route's `<head>` (title, description, canonical, hreflang, Open Graph, Twitter, JSON-LD — `src/seo/head.js`) replace the `<!--app-head-->…<!--/app-head-->` placeholder of `index.html`;
 - the page HTML is pre-rendered at build time (`renderToString`) with the route in `data-lang` / `data-page` on `#root`, and hydrated in the browser (`hydrateRoot` inside `startTransition`, `src/main.jsx`);
 - code splitting: the page-type chunk (`HomePage`, `ServicePage`, `BlogList`, `BlogArticle`) and the page text (`src/content/services/pages/<slug>.js` or the generated article) are loaded before hydration — nothing from the other pages is downloaded; React is in its own `react` chunk (cached across deploys; keeps the « unused JavaScript » audit under its threshold on pages without a form);
@@ -61,6 +61,12 @@ Rules:
 - `scripts/optimize-images.py` writes AVIF + WebP variants to `src/assets/` (hashed by Vite, cached 1 year), `sizes.json`, the logo variants, the favicon and the background grain tile.
 - Fleet covers are cropped per card layout (`COVERS` in the script, `COVER_LARGE` / `COVER_SMALL` in `Fleet`), reproducing the `object-fit: cover` framing: update both if a cover photo or the card size changes.
 - Every `<img>` has `width` / `height`, `srcset` / `sizes`, `loading="lazy"` and `decoding="async"` (nothing above the fold is an image).
+
+## Google Search Console verification
+
+- `public/google9b82adfd484120a1.html` (served at `https://cdgtransfertvtc.fr/google9b82adfd484120a1.html`) verifies the site in Google Search Console. **Never delete, rename or modify it**, even if it looks unused: deleting it would remove the property's verification.
+- Its exact content is a single line: `google-site-verification: google9b82adfd484120a1.html`. Vite copies it from `public/` without changes.
+- It must be served with a 200 and no redirect: the `*.html` → clean URL redirect in `vercel.json` excludes it. Keep that exception (and do not switch back to `cleanUrls`). `npm test` checks the file and the exception.
 
 ## Security Headers (`vercel.json`)
 
@@ -134,8 +140,9 @@ content/blog/          <category>/<slug>.md articles + images.json (blog image m
 scripts/               prerender.mjs, app-loader.js, optimize-images.py, optimize-blog-images.py,
                        check-links.mjs, blog/generate.mjs
 images-src/            original photos and logo (not deployed); blog/ = blog image originals
-tests/                 priceZone.test.js, seo.test.js, blog.test.js, security.test.js
-public/                og-image.jpg (1200×630), img/blog/ (hashed AVIF / WebP / JPEG, cached 1 year)
+tests/                 priceZone.test.js, seo.test.js, blog.test.js, security.test.js, routing.test.js
+public/                og-image.jpg (1200×630), img/blog/ (hashed AVIF / WebP / JPEG, cached 1 year),
+                       google9b82adfd484120a1.html (Search Console verification — never delete)
 index.html             template: charset, viewport, favicon, robots + <!--app-head--> placeholder
 ```
 
