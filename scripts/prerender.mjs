@@ -4,11 +4,12 @@
 //   2. vite build --ssr …        → dist-ssr/entry-server.js
 //   3. node scripts/prerender.mjs (ce fichier)
 // À partir du gabarit, il écrit une page HTML complète par route (accueil +
-// 7 pages services, en FR à la racine et en /en, /ru, /ro — src/routes.js) :
+// 7 pages services, en FR à la racine et en /en, /ru, /ro — src/routes.js ;
+// blog : liste, catégories, articles — src/blog/routes.js) :
 //   • <html lang>, balises <head> SEO de la route (title, description,
 //     canonical, hreflang, Open Graph, Twitter, JSON-LD — src/seo/head.js)
 //   • HTML de la page (rendu React au build) dans <div id="root">, avec la
-//     route en data-lang / data-page (relue à l'hydratation, src/main.jsx)
+//     route en data-* (relue à l'hydratation, src/main.jsx)
 //   • CSS intégré dans un <style> (aucune requête bloquante)
 //   • préchargement des polices du haut de page, selon la langue (sous-
 //     ensembles latin, latin-ext, cyrillic) et le type de page
@@ -16,7 +17,8 @@
 //     autorisé par son empreinte sha256 dans la CSP de vercel.json (vérifié
 //     par tests/security.test.js) ; il crée le script module via la politique
 //     Trusted Types « loader » (seuls /assets/*.js passent).
-// Puis il génère sitemap.xml, robots.txt et llms.txt (src/seo/files.js).
+// Puis il génère sitemap.xml, robots.txt, llms.txt et blog/rss.xml
+// (src/seo/files.js).
 // ────────────────────────────────────────────────────────────────────
 import { readFileSync, writeFileSync, readdirSync, rmSync, mkdirSync } from 'node:fs'
 import { fileURLToPath, pathToFileURL } from 'node:url'
@@ -27,7 +29,7 @@ const dist    = path.join(root, 'dist')
 const ssrDir  = path.join(root, 'dist-ssr')
 const fail    = (msg) => { console.error(`prerender : ${msg}`); process.exit(1) }
 
-const { render, headFor, ROUTES, pageFile, sitemapXml, robotsTxt, llmsTxt } =
+const { render, headFor, ROUTES, BLOG_ROUTES, routeFile, sitemapXml, robotsTxt, llmsTxt, rssXml } =
   await import(pathToFileURL(path.join(ssrDir, 'entry-server.js')).href)
 
 let template = readFileSync(path.join(dist, 'index.html'), 'utf8')
@@ -77,8 +79,14 @@ if (!/<!--app-head-->[\s\S]*?<!--\/app-head-->/.test(template)) fail('marqueurs 
 if (!template.includes('<div id="root"></div>')) fail('<div id="root"></div> introuvable')
 if (!template.includes('<html lang="fr">')) fail('<html lang="fr"> introuvable')
 
+// Route → attributs data-* de #root (lus par src/main.jsx)
+const dataAttrs = (route) => Object.entries(route)
+  .filter(([, v]) => v !== undefined)
+  .map(([k, v]) => `data-${k}="${v}"`).join(' ')
+
 let total = 0
-for (const route of ROUTES) {
+const allRoutes = [...ROUTES, ...BLOG_ROUTES]
+for (const route of allRoutes) {
   const appHtml = render(route)
   const preloads = fontsFor(route)
     .map(f => `<link rel="preload" href="/assets/${f}" as="font" type="font/woff2" crossorigin>`).join('\n    ')
@@ -87,8 +95,8 @@ for (const route of ROUTES) {
     .replace(/<!--app-head-->[\s\S]*?<!--\/app-head-->/, () => headFor(route))
     .replace('<style>', () => `${preloads}\n    <style>`)
     .replace('<div id="root"></div>', () =>
-      `<div id="root" data-lang="${route.lang}" data-page="${route.page}">${appHtml}</div>`)
-  const file = path.join(dist, pageFile(route.lang, route.page))
+      `<div id="root" ${dataAttrs(route)}>${appHtml}</div>`)
+  const file = path.join(dist, routeFile(route))
   mkdirSync(path.dirname(file), { recursive: true })
   writeFileSync(file, html)
   total += html.length
@@ -99,6 +107,7 @@ const lastmod = new Date().toISOString().slice(0, 10)
 writeFileSync(path.join(dist, 'sitemap.xml'), sitemapXml(lastmod))
 writeFileSync(path.join(dist, 'robots.txt'), robotsTxt())
 writeFileSync(path.join(dist, 'llms.txt'), llmsTxt())
+writeFileSync(path.join(dist, 'blog', 'rss.xml'), rssXml())
 
 rmSync(ssrDir, { recursive: true, force: true })
-console.log(`prerender : ${ROUTES.length} pages (${(total / 1024).toFixed(0)} Ko au total), CSS intégré (${(css.length / 1024).toFixed(1)} Ko), sitemap.xml, robots.txt, llms.txt`)
+console.log(`prerender : ${allRoutes.length} pages dont ${BLOG_ROUTES.length} du blog (${(total / 1024).toFixed(0)} Ko au total), CSS intégré (${(css.length / 1024).toFixed(1)} Ko), sitemap.xml, robots.txt, llms.txt, blog/rss.xml`)

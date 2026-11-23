@@ -8,20 +8,23 @@ import Logo from '../Logo'
 import { BUSINESS, AREA } from '../../constants/business'
 import { UI } from '../../content/ui'
 import { SERVICE_META_LIST } from '../../content/services/meta'
-import { pagePath } from '../../routes'
+import { pagePath, hasBooking } from '../../routes'
 import { homeAnchor } from '../Header'
+import { BLOG_LINK } from '../../content/blog/link'
 
-export default function Footer({ t, lang }) {
+export default function Footer({ t, lang, route }) {
   // Année du build dans le HTML pré-généré, mise à jour côté navigateur
   const [year, setYear] = useState(__BUILD_YEAR__)
   useEffect(() => setYear(new Date().getFullYear()), [])
   const ui = UI[lang]
+  const bookingHref = hasBooking(route) ? '#booking' : homeAnchor(lang, 'booking')
 
   const navLinks = [
     { label: t('nav_home'),    href: pagePath(lang, 'home') },
     { label: ui.services,      href: homeAnchor(lang, 'services') },
     { label: t('nav_fleet'),   href: homeAnchor(lang, 'fleet') },
-    { label: t('nav_booking'), href: '#booking' },
+    { label: BLOG_LINK[lang].label, href: BLOG_LINK[lang].href },
+    { label: t('nav_booking'), href: bookingHref },
     { label: t('nav_contact'), href: homeAnchor(lang, 'contact') },
   ]
 
@@ -99,7 +102,7 @@ export default function Footer({ t, lang }) {
               <p className="text-sm text-silver font-sans">{ui.available}</p>
             </div>
             {/* CTA footer */}
-            <a href="#booking" className="inline-block mt-6 btn-primary py-2.5 px-6 text-xs">
+            <a href={bookingHref} className="inline-block mt-6 btn-primary py-2.5 px-6 text-xs">
               {t('hero_cta')}
             </a>
           </div>

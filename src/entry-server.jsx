@@ -8,14 +8,24 @@ import { renderToString } from 'react-dom/server'
 import App from './App'
 import HomePage from './components/Pages/HomePage'
 import ServicePage from './components/Pages/ServicePage'
+import BlogList from './components/Blog/BlogList'
+import BlogArticle from './components/Blog/BlogArticle'
 import { SERVICE_BODIES } from './content/services/index.js'
+import { ARTICLES } from './content/blog/generated/articles.js'
+
+function pageFor(route) {
+  if (route.page === 'home') return [HomePage]
+  if (route.page === 'blog' || route.page === 'blog-category') return [BlogList]
+  if (route.page === 'blog-article') return [BlogArticle, ARTICLES[`${route.category}/${route.slug}`]]
+  return [ServicePage, SERVICE_BODIES[route.page]]
+}
 
 export function render(route) {
-  const Page = route.page === 'home' ? HomePage : ServicePage
-  const body = SERVICE_BODIES[route.page]
+  const [Page, body] = pageFor(route)
   return renderToString(<StrictMode><App route={route} Page={Page} body={body} /></StrictMode>)
 }
 
 export { headFor } from './seo/head.js'
-export { sitemapXml, robotsTxt, llmsTxt } from './seo/files.js'
-export { ROUTES, pageFile } from './routes.js'
+export { sitemapXml, robotsTxt, llmsTxt, rssXml } from './seo/files.js'
+export { ROUTES, routeFile } from './routes.js'
+export { BLOG_ROUTES } from './blog/routes.js'

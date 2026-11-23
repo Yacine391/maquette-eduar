@@ -40,9 +40,53 @@ export function pageFile(lang, page) {
   return p === '/' ? 'index.html' : `${p.slice(1)}.html`
 }
 
+// ── Blog (/blog, /blog/<categorie>, /blog/<categorie>/<article>) ──────
+// Routes : { lang, page: 'blog', num } (liste, page num), { page:
+// 'blog-category', category, num }, { page: 'blog-article', category, slug }.
+// La liste des routes du blog (selon les articles publiés) est dans
+// src/blog/routes.js, chargé uniquement au build et sur les pages du blog.
+export const isBlog = (route) => route.page.startsWith('blog')
+const pageSuffix = (num) => (num > 1 ? `/page/${num}` : '')
+
+// Chemin de n'importe quelle route
+export function routePath(route) {
+  const { lang, page, category, slug, num } = route
+  if (page === 'blog') return `/blog${pageSuffix(num)}`
+  if (page === 'blog-category') return `/blog/${category}${pageSuffix(num)}`
+  if (page === 'blog-article') return `/blog/${category}/${slug}`
+  return pagePath(lang, page)
+}
+export const routeUrl = (route) => SITE + routePath(route)
+export const routeFile = (route) => {
+  const p = routePath(route)
+  return p === '/' ? 'index.html' : `${p.slice(1)}.html`
+}
+
+// Le formulaire de réservation (#booking) est présent sur l'accueil, les
+// pages services et les articles ; ailleurs, les liens « Réserver » mènent
+// au formulaire de l'accueil
+export const hasBooking = (route) => route.page !== 'blog' && route.page !== 'blog-category'
+
+// Lien de langue : même page dans l'autre langue ; sur le blog (français,
+// guides anglais dans english-guides), page la plus proche de chaque langue
+export function langPath(route, lang) {
+  if (!isBlog(route)) return pagePath(lang, route.page)
+  if (lang === 'fr') return '/blog'
+  if (lang === 'en') return '/blog/english-guides'
+  return pagePath(lang, 'home')
+}
+
 // Route d'un chemin d'URL (développement, et repli au chargement)
 export function parsePath(pathname = '/') {
   const parts = pathname.replace(/\.html$/, '').split('/').filter(Boolean)
+  if (parts[0] === 'blog') {
+    const [, a, b, c] = parts
+    if (!a) return { lang: 'fr', page: 'blog', num: 1 }
+    if (a === 'page') return { lang: 'fr', page: 'blog', num: Number(b) || 1 }
+    const lang = a === 'english-guides' ? 'en' : 'fr'
+    if (!b || b === 'page') return { lang, page: 'blog-category', category: a, num: Number(c) || 1 }
+    return { lang, page: 'blog-article', category: a, slug: b }
+  }
   let lang = 'fr'
   if (LANGS.includes(parts[0]) && parts[0] !== 'fr') lang = parts.shift()
   const page = parts[0] && SERVICE_SLUGS.includes(parts[0]) ? parts[0] : 'home'

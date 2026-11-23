@@ -16,7 +16,7 @@ import { UI } from '../src/content/ui.js'
 import { SERVICES } from '../src/content/services/index.js'
 import { headFor, pageMeta } from '../src/seo/head.js'
 import { jsonLd } from '../src/seo/schema.js'
-import { sitemapXml, robotsTxt, llmsTxt, ALLOWED_BOTS } from '../src/seo/files.js'
+import { sitemapXml, robotsTxt, llmsTxt, ALLOWED_BOTS, blogSitemapRoutes } from '../src/seo/files.js'
 
 const COLS = ['business', 'luxe', 'van', 'eco']
 const TABLE_PRICES = new Set(rateTable.flatMap(r => COLS.map(c => r[c])).filter(p => typeof p === 'number'))
@@ -145,7 +145,7 @@ test('JSON-LD : offres des services = lignes du tableau affiché', () => {
 
 test('sitemap.xml, robots.txt et llms.txt', () => {
   const sitemap = sitemapXml('2026-01-01')
-  assert.equal((sitemap.match(/<loc>/g) ?? []).length, 32)
+  assert.equal((sitemap.match(/<loc>/g) ?? []).length, 32 + blogSitemapRoutes().length)
   for (const route of ROUTES) assert.ok(sitemap.includes(`<loc>${pageUrl(route.lang, route.page)}</loc>`))
   const robots = robotsTxt()
   for (const bot of ['Googlebot', 'Bingbot', 'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'PerplexityBot', 'ClaudeBot', 'Google-Extended']) {

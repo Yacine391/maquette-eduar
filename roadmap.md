@@ -43,6 +43,13 @@
 - [x] Maillage interne : menu, pied de page « Nos services », cartes de l'accueil, services associés
 - [x] Lighthouse local maintenu à 100 / 100 / 100 / 100 (mobile et desktop), Navigation agentique 3/3
 
+### Phase 5 — Blog (novembre 2026) ✅
+- [x] Blog pré-rendu : `/blog` (12 articles par page, filtre par catégorie), 10 catégories avec intro unique, articles Markdown (`content/blog/<categorie>/<slug>.md`)
+- [x] Article : fil d'Ariane, dates, temps de lecture, sommaire automatique, encadré « Réservez votre chauffeur » au milieu et à la fin, FAQ, articles liés, services liés, formulaire de réservation
+- [x] JSON-LD BlogPosting + BreadcrumbList + FAQPage, flux RSS `/blog/rss.xml`, sitemap et llms.txt mis à jour à chaque article
+- [x] Article d'exemple : « Combien de temps entre l'aéroport CDG et Paris en VTC ? »
+- [x] Lighthouse local 100 / 100 / 100 / 100 sur `/blog`, catégorie et article (mobile et desktop), aucun lien interne cassé
+
 ---
 
 ## En attente du client
@@ -60,5 +67,6 @@
 - [ ] Après mise en ligne : vérifier les URL propres sur Vercel (`/en`, `/en/vtc-aeroport-cdg`, redirection de `/en/`), les scores PageSpeed Insights et le test des résultats enrichis de Google
 - [ ] Google Search Console : soumettre `https://cdgtransfertvtc.fr/sitemap.xml`, demander l'indexation des pages services
 - [ ] Fiche Google Business Profile : vérifier que nom, téléphone et zone sont identiques au site (NAP) et y ajouter le lien du site
+- [ ] Blog : rédiger les articles des 9 autres catégories (pages déjà en place, hors sitemap tant qu'elles sont vides)
 - [ ] Décider d'une politique Content-Signal (autorisation ou non de l'entraînement des IA) pour robots.txt
 - [ ] Optionnel : inscrire le domaine sur hstspreload.org (l'en-tête HSTS est prêt)

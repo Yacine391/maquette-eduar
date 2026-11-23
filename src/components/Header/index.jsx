@@ -2,13 +2,15 @@
 // CDG TRANSFERT VTC — site en production (cdgtransfertvtc.fr)
 // Design : barre supérieure info + nav principale avec backdrop-blur.
 // Le sélecteur de langue renvoie vers l'URL de la même page dans l'autre
-// langue (pages pré-rendues /, /en, /ru, /ro — voir src/routes.js).
+// langue (pages pré-rendues /, /en, /ru, /ro — voir src/routes.js) ; sur le
+// blog, vers la page la plus proche (langPath).
 // ────────────────────────────────────────────────────────────────────
 import { useState, useEffect } from 'react'
 import Logo from '../Logo'
 import { BUSINESS } from '../../constants/business'
 import { UI } from '../../content/ui'
-import { pagePath, LANG_NAMES } from '../../routes'
+import { pagePath, langPath, hasBooking, isBlog, LANG_NAMES } from '../../routes'
+import { BLOG_LINK } from '../../content/blog/link'
 
 const LANGS = ['fr', 'en', 'ro', 'ru']
 
@@ -20,13 +22,13 @@ const LANG_LABEL = { fr: 'Langue', en: 'Language', ru: 'Язык', ro: 'Limbă' 
 export const homeAnchor = (lang, id) => `${pagePath(lang, 'home')}#${id}`
 
 // Liens de langue (même page, autre langue)
-function LangLinks({ lang, page, className, itemClass, onNavigate }) {
+function LangLinks({ lang, route, className, itemClass, onNavigate }) {
   return (
     <div className={className} role="group" aria-label={LANG_LABEL[lang]}>
       {LANGS.map((l) => (
         <a
           key={l}
-          href={pagePath(l, page)}
+          href={langPath(route, l)}
           hrefLang={l}
           title={LANG_NAMES[l]}
           aria-current={l === lang ? 'true' : undefined}
@@ -40,10 +42,11 @@ function LangLinks({ lang, page, className, itemClass, onNavigate }) {
   )
 }
 
-export default function Header({ t, lang, page }) {
+export default function Header({ t, lang, route }) {
+  const { page } = route
   const [scrolled,  setScrolled]  = useState(false)
   const [menuOpen,  setMenuOpen]  = useState(false)
-  const [activeNav, setActiveNav] = useState(page === 'home' ? 'home' : 'services')
+  const [activeNav, setActiveNav] = useState(page === 'home' ? 'home' : isBlog(route) ? 'blog' : 'services')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80)
@@ -52,11 +55,14 @@ export default function Header({ t, lang, page }) {
   }, [])
 
   const ui = UI[lang]
+  // Formulaire sur la page (#booking) ou, à défaut, celui de l'accueil
+  const bookingHref = hasBooking(route) ? '#booking' : homeAnchor(lang, 'booking')
   const navLinks = [
     { id: 'home',     label: t('nav_home'),    href: pagePath(lang, 'home') },
     { id: 'services', label: ui.services,      href: homeAnchor(lang, 'services') },
     { id: 'fleet',    label: t('nav_fleet'),   href: homeAnchor(lang, 'fleet') },
-    { id: 'booking',  label: t('nav_booking'), href: '#booking' },
+    { id: 'blog',     label: BLOG_LINK[lang].label, href: BLOG_LINK[lang].href },
+    { id: 'booking',  label: t('nav_booking'), href: bookingHref },
     { id: 'contact',  label: t('nav_contact'), href: homeAnchor(lang, 'contact') },
   ]
 
@@ -76,7 +82,7 @@ export default function Header({ t, lang, page }) {
               <span className="hidden sm:block">{BUSINESS.phoneDisplay}</span>
             </div>
             {/* Sélecteur langue dans la top bar */}
-            <LangLinks lang={lang} page={page} className="flex items-center gap-1"
+            <LangLinks lang={lang} route={route} className="flex items-center gap-1"
               itemClass={(active) => `px-2.5 py-1 text-[10px] font-semibold tracking-widest transition-all duration-200
                 ${active ? 'text-gold border-b border-gold' : 'text-silver-dim hover:text-silver'}`} />
           </div>
@@ -112,14 +118,15 @@ export default function Header({ t, lang, page }) {
             </a>
 
             {/* ── Nav desktop ── */}
-            <nav className="hidden md:flex items-center gap-6 lg:gap-8" aria-label={NAV_LABEL[lang]}>
+            {/* Menu complet à partir de 1280 px (6 liens + bouton), menu burger en dessous */}
+            <nav className="hidden xl:flex items-center gap-6" aria-label={NAV_LABEL[lang]}>
               {navLinks.map(({ id, label, href }) => (
                 <a
                   key={id}
                   href={href}
                   onClick={() => setActiveNav(id)}
-                  aria-current={activeNav === id && id === 'home' && page === 'home' ? 'page' : undefined}
-                  className={`relative text-xs font-medium tracking-[0.2em] uppercase transition-colors duration-300 py-1
+                  aria-current={(id === 'home' && page === 'home') || (id === 'blog' && href === langPath(route, lang) && page === 'blog') ? 'page' : undefined}
+                  className={`relative text-xs font-medium tracking-[0.15em] uppercase whitespace-nowrap transition-colors duration-300 py-1
                     ${activeNav === id ? 'text-gold' : 'text-silver hover:text-offwhite'}
                     group`}
                 >
@@ -134,19 +141,19 @@ export default function Header({ t, lang, page }) {
 
             {/* ── CTA + Burger ── */}
             <div className="flex items-center gap-4">
-              <a href="#booking" className="hidden md:inline-flex btn-primary py-2.5 px-6">
+              <a href={bookingHref} className="hidden md:inline-flex btn-primary py-2.5 px-6 whitespace-nowrap">
                 {t('hero_cta')}
               </a>
               {/* Langue desktop (si déjà scrollé et top bar invisible) */}
               {scrolled && (
-                <LangLinks lang={lang} page={page} className="hidden md:flex items-center gap-1 border-l border-divider pl-4"
+                <LangLinks lang={lang} route={route} className="hidden 2xl:flex items-center gap-1 border-l border-divider pl-4"
                   itemClass={(active) => `px-2 py-1 text-[10px] font-semibold tracking-widest rounded-sm transition-all duration-200
                     ${active ? 'bg-gold text-canvas' : 'text-silver-dim hover:text-silver'}`} />
               )}
               {/* Burger mobile */}
               <button
                 type="button"
-                className="md:hidden p-2 flex flex-col gap-[5px]"
+                className="xl:hidden p-2 flex flex-col gap-[5px]"
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-label="Menu"
                 aria-expanded={menuOpen}
@@ -171,13 +178,13 @@ export default function Header({ t, lang, page }) {
         • backdrop-filter sur le parent créait un stacking context cassé
         • overflow-hidden + max-h animation clippait le fond sur Android
         Solution : fixed overlay séparé, fond solide (#0A0A0C), z-[55]
-        Position calculée : top bar (37px) + header (64px) = 101px quand
-        non-scrollé / 64px quand scrollé (top bar masquée)
+        Position calculée : top bar (37px) + header (64px, 80px dès 768 px)
+        = 101px / 117px quand non-scrollé, 64px / 80px quand scrollé
       */}
       <div
-        className={`md:hidden fixed left-0 right-0 z-[55] transition-all duration-300
+        className={`xl:hidden fixed left-0 right-0 z-[55] transition-all duration-300
+          ${scrolled ? 'top-16 md:top-20' : 'top-[101px] md:top-[117px]'}
           ${menuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
-        style={{ top: scrolled ? '64px' : '101px' }}
       >
         <nav id="menu-mobile" aria-label={NAV_LABEL[lang]} style={{ backgroundColor: '#0A0A0C' }}
           className="border-t border-b border-divider px-6 py-6 flex flex-col gap-5 shadow-2xl shadow-black"
@@ -192,7 +199,7 @@ export default function Header({ t, lang, page }) {
               {label}
             </a>
           ))}
-          <LangLinks lang={lang} page={page} className="pt-4 border-t border-divider flex items-center gap-3"
+          <LangLinks lang={lang} route={route} className="pt-4 border-t border-divider flex items-center gap-3"
             onNavigate={() => setMenuOpen(false)}
             itemClass={(active) => `px-3 py-1.5 text-xs font-semibold tracking-widest transition-all duration-200
               ${active ? 'bg-gold text-canvas' : 'border border-divider text-silver'}`} />

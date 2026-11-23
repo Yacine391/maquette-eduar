@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **CDG TRANSFERT VTC** — production website of a real client: private VTC chauffeur in Paris, airport transfers (CDG, Orly, Beauvais). Live at **https://cdgtransfertvtc.fr**.
 
-Pre-rendered multi-page React site, no backend: home + 7 service pages, each in 4 languages (32 URLs — French at the root, then `/en/…`, `/ru/…`, `/ro/…`). Booking requests are sent by e-mail through EmailJS. Everything shown to visitors must be true: this is no longer a mockup.
+Pre-rendered multi-page React site, no backend: home + 7 service pages, each in 4 languages (32 URLs — French at the root, then `/en/…`, `/ru/…`, `/ro/…`), plus a blog (`/blog`, 10 categories, Markdown articles). Booking requests are sent by e-mail through EmailJS. Everything shown to visitors must be true: this is no longer a mockup.
 
 ## Deployment
 
@@ -20,6 +20,7 @@ Pre-rendered multi-page React site, no backend: home + 7 service pages, each in 
 - **Tailwind CSS 3**
 - **@emailjs/browser** — booking e-mails (loaded on submit only)
 - **@fontsource-variable** — self-hosted Cormorant Garamond + Montserrat (variable woff2)
+- **marked** + **yaml** (dev dependencies, build time only) — blog Markdown and frontmatter
 - Tests: Node built-in test runner (`node --test`), no extra dependency
 
 ## Commands
@@ -27,22 +28,25 @@ Pre-rendered multi-page React site, no backend: home + 7 service pages, each in 
 ```bash
 npm install        # install dependencies
 npm run dev        # dev server
-npm test           # unit tests (price estimate, SEO / structured data / content, CSP hash)
+npm test           # blog generation + unit tests (price estimate, SEO / structured data / content, blog, CSP hash)
 npm run build      # production build: vite build + SSR build + scripts/prerender.mjs
+npm run check:links  # after a build: every internal link / anchor / image of dist/ resolves
+npm run blog       # regenerate src/content/blog/generated/ from content/blog/ (also done by dev / build / test)
 npm run preview    # preview the production build (no vercel.json headers, no clean URLs)
-python3 scripts/optimize-images.py   # regenerate AVIF/WebP after changing a photo
+python3 scripts/optimize-images.py        # regenerate AVIF/WebP after changing a fleet photo
+python3 scripts/optimize-blog-images.py   # regenerate blog images after adding one to images-src/blog/
 ```
 
 ## Build Pipeline (performance)
 
-`npm run build` = `vite build` → `vite build --ssr src/entry-server.jsx` → `node scripts/prerender.mjs`, which uses `dist/index.html` as a template and writes **one HTML file per route** (`index.html`, `en.html`, `vtc-aeroport-cdg.html`, `en/vtc-aeroport-cdg.html`…, served without extension by Vercel: `cleanUrls`, `trailingSlash: false`):
+`npm run build` = `vite build` → `vite build --ssr src/entry-server.jsx` → `node scripts/prerender.mjs`. The `blog-content` Vite plugin (`vite.config.js`) first turns `content/blog/**/*.md` into JS modules (`scripts/blog/generate.mjs`). `prerender.mjs` uses `dist/index.html` as a template and writes **one HTML file per route** (`index.html`, `en.html`, `vtc-aeroport-cdg.html`, `en/vtc-aeroport-cdg.html`…, served without extension by Vercel: `cleanUrls`, `trailingSlash: false`):
 - `<html lang>` and the route's `<head>` (title, description, canonical, hreflang, Open Graph, Twitter, JSON-LD — `src/seo/head.js`) replace the `<!--app-head-->…<!--/app-head-->` placeholder of `index.html`;
 - the page HTML is pre-rendered at build time (`renderToString`) with the route in `data-lang` / `data-page` on `#root`, and hydrated in the browser (`hydrateRoot` inside `startTransition`, `src/main.jsx`);
-- code splitting: the page-type chunk (`HomePage` or `ServicePage`) and, on a service page, its text (`src/content/services/pages/<slug>.js`) are loaded before hydration — nothing from the other pages is downloaded;
+- code splitting: the page-type chunk (`HomePage`, `ServicePage`, `BlogList`, `BlogArticle`) and the page text (`src/content/services/pages/<slug>.js` or the generated article) are loaded before hydration — nothing from the other pages is downloaded; React is in its own `react` chunk (cached across deploys; keeps the « unused JavaScript » audit under its threshold on pages without a form);
 - the CSS is inlined in a `<style>` (no render-blocking request); only woff2 subsets used by FR/EN/RU/RO are kept;
 - the above-the-fold fonts are preloaded per language (latin, + latin-ext for RO, + cyrillic for RU) and page type (Cormorant italic on the home page only);
 - the JS entry is loaded by the inline loader `scripts/app-loader.js` (low fetch priority), allowed by its **sha256 hash in the CSP** of `vercel.json`;
-- `sitemap.xml` (32 URLs with hreflang alternates), `robots.txt` (search engines and AI crawlers allowed) and `llms.txt` are generated from `src/seo/files.js`.
+- `sitemap.xml` (32 URLs with hreflang alternates + blog), `robots.txt` (search engines and AI crawlers allowed), `llms.txt` and `blog/rss.xml` are generated from `src/seo/files.js`.
 
 Rules:
 - Render code must not touch `window` / `document`; values that differ between build time and visit (today's date, current year) are set in `useEffect`.
@@ -78,10 +82,12 @@ Generous spacing between sections. Buttons transition to `#D6B471` on hover, `0.
 
 ## Page Architecture (DOM order)
 
-Every page: Header (language links → same page in the other language) → `<main>` → Footer (Navigation, « Nos services » links, NAP block), plus a floating WhatsApp button.
+Every page: Header (menu with « Blog »; full menu from 1280 px, burger below; language links → same page in the other language) → `<main>` → Footer (Navigation incl. « Blog », « Nos services » links, NAP block), plus a floating WhatsApp button. Booking links point to `#booking` when the page has the form, otherwise to the home page form (`hasBooking` in `src/routes.js`).
 
 - Home (`/`, `/en`, `/ru`, `/ro`): Hero → Booking → Fleet → Services (8 cards: 7 service pages + « Autre trajet » on quote) → WhyUs → Reviews (« Votre avis compte ») → Rates → FAQ → Contact.
 - Service pages (`/vtc-aeroport-cdg`, `/vtc-aeroport-orly`, `/vtc-aeroport-beauvais`, `/vtc-gares-paris`, `/vtc-disneyland-paris`, `/mise-a-disposition-chauffeur`, `/van-7-places-paris`, same slugs under `/en`, `/ru`, `/ro`): breadcrumb → H1 → intro + « Réserver » button (top) → sections (rates from `rateTable`, travel times, meeting point, what is included…) → vehicles → related services → FAQ → « Réserver » (bottom) → Booking form.
+
+- Blog: `/blog` (list, 12 per page, `/blog/page/2`…, filter = links to non-empty categories) → `/blog/<category>` (unique 150–250-word intro, own title / description, paginated) → `/blog/<category>/<article>` (breadcrumb, single h1, published / updated dates, reading time, lead = direct answer, automatic table of contents, cover image, text with a « Réservez votre chauffeur » box in the middle and at the end, FAQ, 3 related articles of the same category, related service pages, booking form).
 
 Fleet order (strict): **BUSINESS** — Mercedes Classe E (featured, gold border, « Recommandé ») → **Luxe** — Classe S → **Van** — Classe V → **Éco / Électrique** — Tesla Model Y.
 
@@ -114,13 +120,22 @@ src/
     rates.js           price table = single source of truth (+ derived priceEstimates)
     contact.js         phone / WhatsApp helpers (re-exported from business.js)
     vehiclePhotos.js   AVIF / WebP srcsets of the fleet photos
+  content/blog/
+    categories.js      the 10 categories (slug, name, lang, title, description, intro, services)
+    blog.js            /blog title / intro, blog labels (FR / EN), date format
+    link.js            « Blog » menu / footer link (4 languages)
+    generated/         (git-ignored) generated by scripts/blog/generate.mjs
+  blog/routes.js       blog routes (pagination), related posts, sitemap selection
+  components/Blog/     BlogList, BlogArticle, parts (breadcrumb, card, CTA box, pagination)
   config/emailjs.js    EmailJS service, templates, public key
   hooks/               useTranslation, usePriceEstimate
   utils/               priceZone.js (trip → price zone), estimatePrice.js
-scripts/               prerender.mjs, app-loader.js, optimize-images.py
-images-src/            original photos and logo (not deployed)
-tests/                 priceZone.test.js, seo.test.js, security.test.js
-public/                og-image.jpg (1200×630)
+content/blog/          <category>/<slug>.md articles + images.json (blog image manifest)
+scripts/               prerender.mjs, app-loader.js, optimize-images.py, optimize-blog-images.py,
+                       check-links.mjs, blog/generate.mjs
+images-src/            original photos and logo (not deployed); blog/ = blog image originals
+tests/                 priceZone.test.js, seo.test.js, blog.test.js, security.test.js
+public/                og-image.jpg (1200×630), img/blog/ (hashed AVIF / WebP / JPEG, cached 1 year)
 index.html             template: charset, viewport, favicon, robots + <!--app-head--> placeholder
 ```
 
@@ -153,6 +168,15 @@ index.html             template: charset, viewport, favicon, robots + <!--app-he
 - **Pending client confirmation — do not modify without the owner's approval:** the « Pourquoi nous choisir » arguments (`WhyUs`) and the highlights bar under the hero (`STATS` in `Hero`).
 - Every visible text exists in the 4 languages (FR / EN / RU / RO); `<html lang>` follows the displayed language.
 - Accessibility: text contrast ≥ 4.5:1 (`silver-dim` = `#808086` is the darkest allowed grey on the dark backgrounds), single `<main>`, labelled `<nav>`s, native buttons/links (no clickable divs), valid ARIA (address fields use the combobox pattern).
-- Target: Lighthouse 100 / 100 / 100 / 100 on mobile and desktop and Agentic Browsing 2/2, with no failing audit.
+- Target: Lighthouse 100 / 100 / 100 / 100 on mobile and desktop and Agentic Browsing 3/3 (with `llms.txt`), with no failing audit — including `/blog`, categories and articles.
 - Vehicle photos are the client's own photos (`public/vehicles/`). Do not copy text or images from other VTC sites.
+
+## Blog
+
+- New article: `content/blog/<category>/<slug>.md` (slug = file name: lowercase, digits, hyphens). Frontmatter: `title` (≤ 60 characters), `description` (≤ 155), `date` / `updated` (`"AAAA-MM-JJ"`), `category` (= folder), `tags`, `image` (name in `content/blog/images.json`), `imageAlt`, `faq` (list of `question` / `answer`), `lang` (fr; en for `english-guides`). `readingTime` and the table of contents are computed.
+- Text: start with a lead paragraph (direct answer, shown under the h1), then at least two `##` sections; no `#` (the h1 is the title). The « Réservez » box goes before the `##` closest to the middle. Internal links as `/vtc-aeroport-cdg`, `/#rates`…; prices only from the rate table with « tarif indicatif, confirmé avant la course ».
+- New image: put the original in `images-src/blog/<name>.jpg`, run `python3 scripts/optimize-blog-images.py`, commit `public/img/blog/` and `content/blog/images.json`. Images: AVIF + WebP, width / height, lazy except the first.
+- Everything else follows automatically at build: list, category, pagination, sitemap (article + its category), RSS, llms.txt, JSON-LD (BlogPosting + BreadcrumbList + FAQPage, author / publisher = the business, no review / rating). `npm test` rejects invalid content (missing field, `#` heading, unknown image or category, bad date, forbidden claims, prices outside the table).
+- A category without article is generated (intro + service links) but stays out of the sitemap and of the category filter until its first article.
+- Blog pages are in one language (French; English for `english-guides`): hreflang = the page itself + x-default; the language links of the header go to the closest page (`langPath`).
 - Code comments: short, in French, describing the production behaviour.

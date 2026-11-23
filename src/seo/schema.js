@@ -3,11 +3,17 @@
 // (rates.js), véhicules (vehicles.js) et contenus (content/). Aucune donnée
 // d'avis (Review / AggregateRating) : le site n'affiche pas d'avis.
 // Le texte des FAQ est strictement identique au texte affiché.
+// Blog : Blog + CollectionPage (listes), BlogPosting (auteur et éditeur =
+// l'entreprise), BreadcrumbList, FAQPage si l'article a une FAQ.
 // ────────────────────────────────────────────────────────────────────
 import { BUSINESS, DEPARTMENTS, AIRPORTS } from '../constants/business.js'
 import { rateTable } from '../constants/rates.js'
 import { vehicles } from '../constants/vehicles.js'
-import { SITE, LANGS, pageUrl } from '../routes.js'
+import { SITE, LANGS, pageUrl, routeUrl, isBlog } from '../routes.js'
+import { BLOG_HOME, BLOG_UI } from '../content/blog/blog.js'
+import { CATEGORY } from '../content/blog/categories.js'
+import { findPost } from '../blog/routes.js'
+import { ARTICLES } from '../content/blog/generated/articles.js'
 import { HOME } from '../content/home.js'
 import { UI } from '../content/ui.js'
 import { SERVICES, SERVICE_LIST } from '../content/services/index.js'
@@ -142,9 +148,64 @@ function webpageNode(lang, page, meta, withBreadcrumb) {
   return node
 }
 
+// ── Blog ─────────────────────────────────────────────────────────────
+const BLOG_ID = `${SITE}/blog#blog`
+const crumbs = (url, items) => ({
+  '@type': 'BreadcrumbList',
+  '@id': `${url}#breadcrumb`,
+  itemListElement: items.map(([name, item], i) => ({ '@type': 'ListItem', position: i + 1, name, item })),
+})
+
+function blogGraph(route) {
+  const { lang, page } = route
+  const ui = BLOG_UI[lang]
+  const url = routeUrl(route)
+  const home = [ui.home, pageUrl(lang, 'home')]
+  const blogCrumb = [ui.blog, `${SITE}/blog`]
+  const blogNode = {
+    '@type': 'Blog', '@id': BLOG_ID, url: `${SITE}/blog`, name: `${BUSINESS.name} — Blog`,
+    description: BLOG_HOME.description, inLanguage: 'fr', publisher: { '@id': BUSINESS_ID },
+  }
+  const page_ = (type, name, description, extra = {}) => ({
+    '@type': type, '@id': `${url}#webpage`, url, name, description, inLanguage: lang,
+    isPartOf: { '@id': WEBSITE_ID }, breadcrumb: { '@id': `${url}#breadcrumb` }, ...extra,
+  })
+
+  if (page === 'blog') {
+    return [blogNode, page_('CollectionPage', BLOG_HOME.title, BLOG_HOME.description, { mainEntity: { '@id': BLOG_ID } }), crumbs(url, [home, blogCrumb])]
+  }
+  if (page === 'blog-category') {
+    const cat = CATEGORY[route.category]
+    return [blogNode, page_('CollectionPage', cat.title, cat.description, { isPartOf: { '@id': BLOG_ID } }),
+      crumbs(url, [home, blogCrumb, [cat.name, `${SITE}/blog/${cat.slug}`]])]
+  }
+  const post = findPost(route.category, route.slug)
+  const full = ARTICLES[`${route.category}/${route.slug}`]
+  const cat = CATEGORY[post.category]
+  const org = { '@id': BUSINESS_ID, name: BUSINESS.name, url: BUSINESS.url }
+  const graph = [
+    blogNode,
+    page_('WebPage', post.title, post.description, { primaryImageOfPage: { '@id': `${url}#image` } }),
+    {
+      '@type': 'BlogPosting', '@id': `${url}#article`, mainEntityOfPage: { '@id': `${url}#webpage` },
+      headline: post.title, description: post.description, url,
+      image: { '@type': 'ImageObject', '@id': `${url}#image`, url: SITE + post.image.og.url, width: post.image.og.width, height: post.image.og.height, caption: post.image.alt },
+      datePublished: post.date, dateModified: post.updated, inLanguage: post.lang,
+      author: org, publisher: org, isPartOf: { '@id': BLOG_ID },
+      articleSection: cat.name, keywords: post.tags.join(', '),
+      wordCount: post.wordCount, timeRequired: `PT${post.readingTime}M`,
+    },
+    crumbs(url, [home, blogCrumb, [cat.name, `${SITE}/blog/${cat.slug}`], [post.title, url]]),
+  ]
+  if (full.faq.length) graph.push(faqNode(url, full.faq))
+  return graph
+}
+
 // Graphe JSON-LD complet d'une route
-export function jsonLd({ lang, page }) {
+export function jsonLd(route) {
+  const { lang, page } = route
   const graph = [businessNode(lang), websiteNode()]
+  if (isBlog(route)) return { '@context': 'https://schema.org', '@graph': [...graph, ...blogGraph(route)] }
   if (page === 'home') {
     const url = pageUrl(lang, 'home')
     graph.push(webpageNode(lang, 'home', HOME[lang], false))

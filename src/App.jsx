@@ -31,14 +31,14 @@ export default function App({ route, Page, body }) {
       </a>
 
       {/* Header sticky avec barre info et liens de langue */}
-      <Header t={t} lang={lang} page={page} />
+      <Header t={t} lang={lang} route={route} />
 
       {/* Contenu principal (repère <main> unique) */}
       <main id="contenu">
-        <Page slug={page} body={body} t={t} lang={lang} />
+        <Page slug={page} route={route} body={body} t={t} lang={lang} />
       </main>
 
-      <Footer t={t} lang={lang} />
+      <Footer t={t} lang={lang} route={route} />
 
       {/* ── Bouton WhatsApp flottant (visible mobile + desktop) ── */}
       <a
