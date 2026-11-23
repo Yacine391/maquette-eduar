@@ -39,7 +39,7 @@ python3 scripts/optimize-blog-images.py   # regenerate blog images after adding 
 
 ## Build Pipeline (performance)
 
-`npm run build` = `vite build` → `vite build --ssr src/entry-server.jsx` → `node scripts/prerender.mjs`. The `blog-content` Vite plugin (`vite.config.js`) first turns `content/blog/**/*.md` into JS modules (`scripts/blog/generate.mjs`). `prerender.mjs` uses `dist/index.html` as a template and writes **one HTML file per route** (`index.html`, `en.html`, `vtc-aeroport-cdg.html`, `en/vtc-aeroport-cdg.html`…, served without extension by Vercel: `cleanUrls`, `trailingSlash: false`):
+`npm run build` = `vite build` → `vite build --ssr src/entry-server.jsx` → `node scripts/prerender.mjs`. The `blog-content` Vite plugin (`vite.config.js`) first turns `content/blog/**/*.md` into JS modules (`scripts/blog/generate.mjs`). `prerender.mjs` uses `dist/index.html` as a template and writes **one HTML file per route** (`index.html`, `en.html`, `vtc-aeroport-cdg.html`, `en/vtc-aeroport-cdg.html`…, served without extension by Vercel through `vercel.json`: `redirects` `*.html` → URL without extension (308), `rewrites` URL → `.html` file, `trailingSlash: false`; `cleanUrls` is not used because it would also redirect the Google verification file):
 - `<html lang>` and the route's `<head>` (title, description, canonical, hreflang, Open Graph, Twitter, JSON-LD — `src/seo/head.js`) replace the `<!--app-head-->…<!--/app-head-->` placeholder of `index.html`;
 - the page HTML is pre-rendered at build time (`renderToString`) with the route in `data-lang` / `data-page` on `#root`, and hydrated in the browser (`hydrateRoot` inside `startTransition`, `src/main.jsx`);
 - code splitting: the page-type chunk (`HomePage`, `ServicePage`, `BlogList`, `BlogArticle`) and the page text (`src/content/services/pages/<slug>.js` or the generated article) are loaded before hydration — nothing from the other pages is downloaded; React is in its own `react` chunk (cached across deploys; keeps the « unused JavaScript » audit under its threshold on pages without a form);
@@ -61,6 +61,12 @@ Rules:
 - `scripts/optimize-images.py` writes AVIF + WebP variants to `src/assets/` (hashed by Vite, cached 1 year), `sizes.json`, the logo variants, the favicon and the background grain tile.
 - Fleet covers are cropped per card layout (`COVERS` in the script, `COVER_LARGE` / `COVER_SMALL` in `Fleet`), reproducing the `object-fit: cover` framing: update both if a cover photo or the card size changes.
 - Every `<img>` has `width` / `height`, `srcset` / `sizes`, `loading="lazy"` and `decoding="async"` (nothing above the fold is an image).
+
+## Google Search Console verification
+
+- `public/google9b82adfd484120a1.html` (served at `https://cdgtransfertvtc.fr/google9b82adfd484120a1.html`) verifies the site in Google Search Console. **Never delete, rename or modify it**, even if it looks unused: deleting it would remove the property's verification.
+- Its exact content is a single line: `google-site-verification: google9b82adfd484120a1.html`. Vite copies it from `public/` without changes.
+- It must be served with a 200 and no redirect: the `*.html` → clean URL redirect in `vercel.json` excludes it. Keep that exception (and do not switch back to `cleanUrls`). `npm test` checks the file and the exception.
 
 ## Security Headers (`vercel.json`)
 
@@ -134,8 +140,9 @@ content/blog/          <category>/<slug>.md articles + images.json (blog image m
 scripts/               prerender.mjs, app-loader.js, optimize-images.py, optimize-blog-images.py,
                        check-links.mjs, blog/generate.mjs
 images-src/            original photos and logo (not deployed); blog/ = blog image originals
-tests/                 priceZone.test.js, seo.test.js, blog.test.js, security.test.js
-public/                og-image.jpg (1200×630), img/blog/ (hashed AVIF / WebP / JPEG, cached 1 year)
+tests/                 priceZone.test.js, seo.test.js, blog.test.js, security.test.js, routing.test.js
+public/                og-image.jpg (1200×630), img/blog/ (hashed AVIF / WebP / JPEG, cached 1 year),
+                       google9b82adfd484120a1.html (Search Console verification — never delete)
 index.html             template: charset, viewport, favicon, robots + <!--app-head--> placeholder
 ```
 
@@ -174,8 +181,9 @@ index.html             template: charset, viewport, favicon, robots + <!--app-he
 ## Blog
 
 - New article: `content/blog/<category>/<slug>.md` (slug = file name: lowercase, digits, hyphens). Frontmatter: `title` (≤ 60 characters), `description` (≤ 155), `date` / `updated` (`"AAAA-MM-JJ"`), `category` (= folder), `tags`, `image` (name in `content/blog/images.json`), `imageAlt`, `faq` (list of `question` / `answer`), `lang` (fr; en for `english-guides`). `readingTime` and the table of contents are computed.
-- Text: start with a lead paragraph (direct answer, shown under the h1), then at least two `##` sections; no `#` (the h1 is the title). The « Réservez » box goes before the `##` closest to the middle. Internal links as `/vtc-aeroport-cdg`, `/#rates`…; prices only from the rate table with « tarif indicatif, confirmé avant la course ».
-- New image: put the original in `images-src/blog/<name>.jpg`, run `python3 scripts/optimize-blog-images.py`, commit `public/img/blog/` and `content/blog/images.json`. Images: AVIF + WebP, width / height, lazy except the first.
+- Text: 900–1,400 words, 3–5 FAQ questions, at least 2 links to service pages and 2 to other articles (all checked by `npm test`). Start with a lead paragraph (direct answer in the first 2 sentences, shown under the h1), then at least two `##` sections; no `#` (the h1 is the title). Quote frontmatter values that contain « : ». The « Réservez » box goes before the `##` closest to the middle. Internal links as `/vtc-aeroport-cdg`, `/#rates`…; prices only from the rate table with « tarif indicatif, confirmé avant la course ».
+- New image: only the client's own photos (no stock images), alt text describing the photo honestly. Put the original in `images-src/blog/<name>.jpg` (framing point in `FOCUS` of the script if needed), run `python3 scripts/optimize-blog-images.py` (deterministic: existing images keep their URLs), commit `public/img/blog/` and `content/blog/images.json`. Images: AVIF + WebP, width / height, lazy except the first. Do not use the Classe S interior photos (bottles visible) while « eau offerte » is not confirmed.
+- Publication date = the day the article is published, never backdated.
 - Everything else follows automatically at build: list, category, pagination, sitemap (article + its category), RSS, llms.txt, JSON-LD (BlogPosting + BreadcrumbList + FAQPage, author / publisher = the business, no review / rating). `npm test` rejects invalid content (missing field, `#` heading, unknown image or category, bad date, forbidden claims, prices outside the table).
 - A category without article is generated (intro + service links) but stays out of the sitemap and of the category filter until its first article.
 - Blog pages are in one language (French; English for `english-guides`): hreflang = the page itself + x-default; the language links of the header go to the closest page (`langPath`).

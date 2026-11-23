@@ -52,7 +52,8 @@ function parseArticle(file, category, images) {
   const raw = readFileSync(file, 'utf8').replace(/\r\n/g, '\n')
   const m = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/)
   if (!m) fail('frontmatter --- … --- manquant')
-  const fm = YAML.parse(m[1]) ?? {}
+  let fm
+  try { fm = YAML.parse(m[1]) ?? {} } catch (e) { fail(`frontmatter YAML invalide (mettre entre guillemets les valeurs contenant « : ») — ${e.message.split('\n')[0]}`) }
   const body = m[2]
   const slug = path.basename(file, '.md')
   if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug) || slug === 'page') fail(`nom de fichier invalide « ${slug} » (minuscules, chiffres et tirets)`)

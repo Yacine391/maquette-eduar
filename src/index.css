@@ -117,8 +117,8 @@
   .prose-blog .table-wrap { @apply overflow-x-auto border border-divider; }
   .prose-blog table { @apply w-full text-sm border-collapse; }
   .prose-blog thead tr { @apply bg-canvas-3/80; }
-  .prose-blog th { @apply py-3 px-4 text-left text-[10px] font-semibold tracking-[0.2em] uppercase text-silver-dim border-b border-divider; }
-  .prose-blog td { @apply py-3 px-4 border-b border-divider text-silver; }
+  .prose-blog th { @apply py-3 px-2.5 sm:px-4 text-left text-[10px] font-semibold tracking-[0.08em] sm:tracking-[0.2em] uppercase text-silver-dim border-b border-divider; }
+  .prose-blog td { @apply py-3 px-2.5 sm:px-4 border-b border-divider text-silver; }
   .prose-blog tr:last-child td { @apply border-b-0; }
   .prose-blog td:first-child { @apply text-offwhite font-normal; }
   .prose-blog picture img { @apply w-full h-auto; }

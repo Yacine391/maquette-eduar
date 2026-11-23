@@ -1,4 +1,115 @@
 {
+  "classe-e-arc-triomphe": {
+    "width": 734,
+    "height": 413,
+    "avif": [
+      [
+        400,
+        "/img/blog/classe-e-arc-triomphe-400-ce9be94f.avif"
+      ],
+      [
+        640,
+        "/img/blog/classe-e-arc-triomphe-640-39eb17da.avif"
+      ],
+      [
+        734,
+        "/img/blog/classe-e-arc-triomphe-734-dab2bf6d.avif"
+      ]
+    ],
+    "webp": [
+      [
+        400,
+        "/img/blog/classe-e-arc-triomphe-400-3f0fe930.webp"
+      ],
+      [
+        640,
+        "/img/blog/classe-e-arc-triomphe-640-bcd5fdea.webp"
+      ],
+      [
+        734,
+        "/img/blog/classe-e-arc-triomphe-734-24d1f0dc.webp"
+      ]
+    ],
+    "og": {
+      "url": "/img/blog/classe-e-arc-triomphe-og-1ef22640.jpg",
+      "width": 734,
+      "height": 384
+    }
+  },
+  "classe-e-profil": {
+    "width": 734,
+    "height": 413,
+    "avif": [
+      [
+        400,
+        "/img/blog/classe-e-profil-400-50169379.avif"
+      ],
+      [
+        640,
+        "/img/blog/classe-e-profil-640-f9e865b2.avif"
+      ],
+      [
+        734,
+        "/img/blog/classe-e-profil-734-6096462d.avif"
+      ]
+    ],
+    "webp": [
+      [
+        400,
+        "/img/blog/classe-e-profil-400-d59e00d6.webp"
+      ],
+      [
+        640,
+        "/img/blog/classe-e-profil-640-daa56ab6.webp"
+      ],
+      [
+        734,
+        "/img/blog/classe-e-profil-734-dabe24e6.webp"
+      ]
+    ],
+    "og": {
+      "url": "/img/blog/classe-e-profil-og-6d0cc700.jpg",
+      "width": 734,
+      "height": 384
+    }
+  },
+  "classe-s-face": {
+    "width": 908,
+    "height": 511,
+    "avif": [
+      [
+        400,
+        "/img/blog/classe-s-face-400-9096e947.avif"
+      ],
+      [
+        640,
+        "/img/blog/classe-s-face-640-8c2f535c.avif"
+      ],
+      [
+        908,
+        "/img/blog/classe-s-face-908-9205646e.avif"
+      ]
+    ],
+    "webp": [
+      [
+        400,
+        "/img/blog/classe-s-face-400-07a7dd1f.webp"
+      ],
+      [
+        640,
+        "/img/blog/classe-s-face-640-e9b6c7d1.webp"
+      ],
+      [
+        908,
+        "/img/blog/classe-s-face-908-d990d4d1.webp"
+      ]
+    ],
+    "og": {
+      "url": "/img/blog/classe-s-face-og-d8bb31a0.jpg",
+      "width": 908,
+      "height": 475
+    }
+  },
   "classe-s-tarmac": {
     "width": 959,
     "height": 539,
@@ -34,6 +145,43 @@
       "url": "/img/blog/classe-s-tarmac-og-f6f04580.jpg",
       "width": 959,
       "height": 502
+    }
+  },
+  "classe-v-arriere": {
+    "width": 722,
+    "height": 406,
+    "avif": [
+      [
+        400,
+        "/img/blog/classe-v-arriere-400-f1bbf581.avif"
+      ],
+      [
+        640,
+        "/img/blog/classe-v-arriere-640-9308c7bb.avif"
+      ],
+      [
+        722,
+        "/img/blog/classe-v-arriere-722-e89f0902.avif"
+      ]
+    ],
+    "webp": [
+      [
+        400,
+        "/img/blog/classe-v-arriere-400-e85a9044.webp"
+      ],
+      [
+        640,
+        "/img/blog/classe-v-arriere-640-df1029e0.webp"
+      ],
+      [
+        722,
+        "/img/blog/classe-v-arriere-722-93706734.webp"
+      ]
+    ],
+    "og": {
+      "url": "/img/blog/classe-v-arriere-og-1f4e4054.jpg",
+      "width": 722,
+      "height": 378
     }
   }
 }

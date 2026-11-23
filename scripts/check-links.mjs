@@ -2,7 +2,8 @@
 // CDG TRANSFERT VTC — node scripts/check-links.mjs (après npm run build)
 // Pour chaque page HTML : liens, ancres (#id), images, srcset, canonical,
 // hreflang, og:image, url du JSON-LD ; plus les URL de sitemap.xml,
-// blog/rss.xml et llms.txt. Les URL internes sont résolues comme sur Vercel (cleanUrls).
+// blog/rss.xml et llms.txt. Les URL internes sont résolues comme sur Vercel
+// (rewrites de vercel.json : /page → page.html).
 // Les liens externes sont listés (non appelés). Code de sortie 1 si un
 // lien interne est cassé.
 // ────────────────────────────────────────────────────────────────────
@@ -15,7 +16,7 @@ const SITE = 'https://cdgtransfertvtc.fr'
 const walk = (d) => readdirSync(d).flatMap(f => statSync(path.join(d, f)).isDirectory() ? walk(path.join(d, f)) : [path.join(d, f)])
 const pages = walk(dist).filter(f => f.endsWith('.html'))
 
-// Chemin d'URL → fichier servi (cleanUrls, trailingSlash: false)
+// Chemin d'URL → fichier servi (/page → page.html, trailingSlash: false)
 function fileFor(urlPath) {
   if (urlPath === '/' ) return path.join(dist, 'index.html')
   const p = path.join(dist, decodeURIComponent(urlPath))
