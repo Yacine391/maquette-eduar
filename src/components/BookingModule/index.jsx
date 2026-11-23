@@ -248,7 +248,7 @@ export default function BookingModule({ t, lang }) {
 
       <div className="relative z-10 max-w-5xl mx-auto">
         <div className="text-center mb-14">
-          <p className="section-eyebrow">Réservation</p>
+          <p className="section-eyebrow">{{ fr: 'Réservation', en: 'Booking', ru: 'Бронирование', ro: 'Rezervare' }[lang]}</p>
           <h2 className="section-title">{t('booking_title')}</h2>
           <div className="section-divider">
             <div className="h-px w-10 bg-gold/30" />

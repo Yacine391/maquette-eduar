@@ -1,11 +1,12 @@
 // ── Coordonnées de CDG Transfert VTC ─────────────────────────────────
-// Source unique pour le téléphone / WhatsApp utilisés dans le parcours de
-// réservation (message de secours) et le bouton WhatsApp flottant.
+// Raccourcis vers la source unique src/constants/business.js (téléphone /
+// WhatsApp du parcours de réservation et du bouton WhatsApp flottant).
 // ────────────────────────────────────────────────────────────────────
+import { BUSINESS } from './business.js'
 
-export const PHONE_E164      = '+33665699678'        // lien tel:
-export const PHONE_DISPLAY   = '06 65 69 96 78'      // affichage
-export const WHATSAPP_NUMBER = '33665699678'         // wa.me (sans + ni espaces)
+export const PHONE_E164      = BUSINESS.phoneE164     // lien tel:
+export const PHONE_DISPLAY   = BUSINESS.phoneDisplay  // affichage
+export const WHATSAPP_NUMBER = BUSINESS.whatsapp      // wa.me (sans + ni espaces)
 
 // Lien WhatsApp avec un message pré-rempli
 export const whatsappLink = (message) =>

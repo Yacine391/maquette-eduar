@@ -1,20 +1,49 @@
 // ── Header — Navigation premium avec glassmorphism ───────────────────
 // CDG TRANSFERT VTC — site en production (cdgtransfertvtc.fr)
-// Design : barre supérieure info + nav principale avec backdrop-blur
+// Design : barre supérieure info + nav principale avec backdrop-blur.
+// Le sélecteur de langue renvoie vers l'URL de la même page dans l'autre
+// langue (pages pré-rendues /, /en, /ru, /ro — voir src/routes.js).
 // ────────────────────────────────────────────────────────────────────
 import { useState, useEffect } from 'react'
 import Logo from '../Logo'
+import { BUSINESS } from '../../constants/business'
+import { UI } from '../../content/ui'
+import { pagePath, LANG_NAMES } from '../../routes'
 
-const LANGS = ['FR', 'EN', 'RO', 'RU']
+const LANGS = ['fr', 'en', 'ro', 'ru']
 
 // Noms accessibles des menus (repères de navigation distincts)
 const NAV_LABEL = { fr: 'Navigation principale', en: 'Main navigation', ru: 'Основная навигация', ro: 'Navigare principală' }
 const LANG_LABEL = { fr: 'Langue', en: 'Language', ru: 'Язык', ro: 'Limbă' }
 
-export default function Header({ t, lang, setLang }) {
+// Lien vers une section de l'accueil de la langue courante (#fleet, #contact…)
+export const homeAnchor = (lang, id) => `${pagePath(lang, 'home')}#${id}`
+
+// Liens de langue (même page, autre langue)
+function LangLinks({ lang, page, className, itemClass, onNavigate }) {
+  return (
+    <div className={className} role="group" aria-label={LANG_LABEL[lang]}>
+      {LANGS.map((l) => (
+        <a
+          key={l}
+          href={pagePath(l, page)}
+          hrefLang={l}
+          title={LANG_NAMES[l]}
+          aria-current={l === lang ? 'true' : undefined}
+          onClick={onNavigate}
+          className={itemClass(l === lang)}
+        >
+          {l.toUpperCase()}
+        </a>
+      ))}
+    </div>
+  )
+}
+
+export default function Header({ t, lang, page }) {
   const [scrolled,  setScrolled]  = useState(false)
   const [menuOpen,  setMenuOpen]  = useState(false)
-  const [activeNav, setActiveNav] = useState('hero')
+  const [activeNav, setActiveNav] = useState(page === 'home' ? 'home' : 'services')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80)
@@ -22,11 +51,13 @@ export default function Header({ t, lang, setLang }) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const ui = UI[lang]
   const navLinks = [
-    { key: 'nav_home',    href: '#hero',    id: 'hero'    },
-    { key: 'nav_fleet',   href: '#fleet',   id: 'fleet'   },
-    { key: 'nav_booking', href: '#booking', id: 'booking' },
-    { key: 'nav_contact', href: '#contact', id: 'contact' },
+    { id: 'home',     label: t('nav_home'),    href: pagePath(lang, 'home') },
+    { id: 'services', label: ui.services,      href: homeAnchor(lang, 'services') },
+    { id: 'fleet',    label: t('nav_fleet'),   href: homeAnchor(lang, 'fleet') },
+    { id: 'booking',  label: t('nav_booking'), href: '#booking' },
+    { id: 'contact',  label: t('nav_contact'), href: homeAnchor(lang, 'contact') },
   ]
 
   return (
@@ -40,28 +71,14 @@ export default function Header({ t, lang, setLang }) {
             <div className="flex items-center gap-6 text-[10px] tracking-widest text-silver-dim uppercase">
               <span className="flex items-center gap-2">
                 <span className="w-1 h-1 rounded-full bg-gold inline-block" />
-                Disponible 24h/24 · 7j/7
+                {ui.available}
               </span>
-              <span className="hidden sm:block">+33 6 65 69 96 78</span>
+              <span className="hidden sm:block">{BUSINESS.phoneDisplay}</span>
             </div>
             {/* Sélecteur langue dans la top bar */}
-            <div className="flex items-center gap-1" role="group" aria-label={LANG_LABEL[lang]}>
-              {LANGS.map((l) => (
-                <button
-                  key={l}
-                  type="button"
-                  aria-pressed={lang === l.toLowerCase()}
-                  onClick={() => setLang(l.toLowerCase())}
-                  className={`px-2.5 py-1 text-[10px] font-semibold tracking-widest transition-all duration-200
-                    ${lang === l.toLowerCase()
-                      ? 'text-gold border-b border-gold'
-                      : 'text-silver-dim hover:text-silver'
-                    }`}
-                >
-                  {l}
-                </button>
-              ))}
-            </div>
+            <LangLinks lang={lang} page={page} className="flex items-center gap-1"
+              itemClass={(active) => `px-2.5 py-1 text-[10px] font-semibold tracking-widest transition-all duration-200
+                ${active ? 'text-gold border-b border-gold' : 'text-silver-dim hover:text-silver'}`} />
           </div>
         </div>
       </div>
@@ -84,7 +101,7 @@ export default function Header({ t, lang, setLang }) {
           <div className="flex items-center justify-between h-16 md:h-20">
 
             {/* ── Logo ── */}
-            <a href="#hero" className="flex items-center gap-3 group flex-shrink-0">
+            <a href={pagePath(lang, 'home')} className="flex items-center gap-3 group flex-shrink-0">
               <Logo className="h-8 md:h-10 w-auto object-contain" />
               <div className="hidden sm:block">
                 <p className="font-serif text-base font-semibold tracking-[0.2em] text-gold group-hover:text-gold-hover transition-colors duration-300 leading-none">
@@ -95,17 +112,18 @@ export default function Header({ t, lang, setLang }) {
             </a>
 
             {/* ── Nav desktop ── */}
-            <nav className="hidden md:flex items-center gap-8" aria-label={NAV_LABEL[lang]}>
-              {navLinks.map(({ key, href, id }) => (
+            <nav className="hidden md:flex items-center gap-6 lg:gap-8" aria-label={NAV_LABEL[lang]}>
+              {navLinks.map(({ id, label, href }) => (
                 <a
-                  key={key}
+                  key={id}
                   href={href}
                   onClick={() => setActiveNav(id)}
+                  aria-current={activeNav === id && id === 'home' && page === 'home' ? 'page' : undefined}
                   className={`relative text-xs font-medium tracking-[0.2em] uppercase transition-colors duration-300 py-1
                     ${activeNav === id ? 'text-gold' : 'text-silver hover:text-offwhite'}
                     group`}
                 >
-                  {t(key)}
+                  {label}
                   {/* Underline animée */}
                   <span className={`absolute bottom-0 left-0 right-0 h-px bg-gold transition-transform duration-300 origin-left
                     ${activeNav === id ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
@@ -121,20 +139,9 @@ export default function Header({ t, lang, setLang }) {
               </a>
               {/* Langue desktop (si déjà scrollé et top bar invisible) */}
               {scrolled && (
-                <div className="hidden md:flex items-center gap-1 border-l border-divider pl-4" role="group" aria-label={LANG_LABEL[lang]}>
-                  {LANGS.map((l) => (
-                    <button
-                      key={l}
-                      type="button"
-                      aria-pressed={lang === l.toLowerCase()}
-                      onClick={() => setLang(l.toLowerCase())}
-                      className={`px-2 py-1 text-[10px] font-semibold tracking-widest rounded-sm transition-all duration-200
-                        ${lang === l.toLowerCase() ? 'bg-gold text-canvas' : 'text-silver-dim hover:text-silver'}`}
-                    >
-                      {l}
-                    </button>
-                  ))}
-                </div>
+                <LangLinks lang={lang} page={page} className="hidden md:flex items-center gap-1 border-l border-divider pl-4"
+                  itemClass={(active) => `px-2 py-1 text-[10px] font-semibold tracking-widest rounded-sm transition-all duration-200
+                    ${active ? 'bg-gold text-canvas' : 'text-silver-dim hover:text-silver'}`} />
               )}
               {/* Burger mobile */}
               <button
@@ -175,30 +182,20 @@ export default function Header({ t, lang, setLang }) {
         <nav id="menu-mobile" aria-label={NAV_LABEL[lang]} style={{ backgroundColor: '#0A0A0C' }}
           className="border-t border-b border-divider px-6 py-6 flex flex-col gap-5 shadow-2xl shadow-black"
         >
-          {navLinks.map(({ key, href }) => (
+          {navLinks.map(({ id, label, href }) => (
             <a
-              key={key}
+              key={id}
               href={href}
               onClick={() => setMenuOpen(false)}
               className="text-sm tracking-[0.2em] uppercase text-silver hover:text-gold transition-colors duration-300"
             >
-              {t(key)}
+              {label}
             </a>
           ))}
-          <div className="pt-4 border-t border-divider flex items-center gap-3" role="group" aria-label={LANG_LABEL[lang]}>
-            {LANGS.map((l) => (
-              <button
-                key={l}
-                type="button"
-                aria-pressed={lang === l.toLowerCase()}
-                onClick={() => { setLang(l.toLowerCase()); setMenuOpen(false) }}
-                className={`px-3 py-1.5 text-xs font-semibold tracking-widest transition-all duration-200
-                  ${lang === l.toLowerCase() ? 'bg-gold text-canvas' : 'border border-divider text-silver'}`}
-              >
-                {l}
-              </button>
-            ))}
-          </div>
+          <LangLinks lang={lang} page={page} className="pt-4 border-t border-divider flex items-center gap-3"
+            onNavigate={() => setMenuOpen(false)}
+            itemClass={(active) => `px-3 py-1.5 text-xs font-semibold tracking-widest transition-all duration-200
+              ${active ? 'bg-gold text-canvas' : 'border border-divider text-silver'}`} />
         </nav>
       </div>
     </>

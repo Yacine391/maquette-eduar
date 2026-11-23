@@ -105,7 +105,7 @@
    Le navigateur ne calcule le style et la mise en page des sections sous le
    hero qu'à leur approche (moins de travail au chargement, aucun effet
    visuel). `auto` mémorise la hauteur réelle une fois la section affichée. */
-main > section:not(#hero),
+main > section:not(:first-child),
 footer {
   content-visibility: auto;
   contain-intrinsic-size: auto 900px;

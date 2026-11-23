@@ -2,9 +2,13 @@
 // CDG TRANSFERT VTC — site en production (cdgtransfertvtc.fr)
 // Design : layout asymétrique — info à gauche, décoration géométrique
 // dorée à droite. Icônes SVG inline accessibles (aria-hidden).
+// Nom, téléphone et zone : source unique src/constants/business.js (NAP)
 // ────────────────────────────────────────────────────────────────────
+import { BUSINESS, AREA } from '../../constants/business'
 
 export default function Contact({ t, lang }) {
+  // Zone desservie : « Paris, Île-de-France et Beauvais » · « aéroports … »
+  const [areaMain, areaAirports] = AREA[lang].split(' · ')
   const items = [
     {
       icon: (
@@ -15,8 +19,8 @@ export default function Contact({ t, lang }) {
         </svg>
       ),
       label:   t('contact_phone'),
-      value:   '+33 6 65 69 96 78',
-      href:    'tel:+33665699678',
+      value:   BUSINESS.phoneDisplay,
+      href:    `tel:${BUSINESS.phoneE164}`,
       detail:  { fr: 'Disponible 24h/24', en: 'Available 24/7', ru: 'Доступно 24/7', ro: 'Disponibil 24/24' },
     },
     {
@@ -28,8 +32,8 @@ export default function Contact({ t, lang }) {
         </svg>
       ),
       label:  t('contact_email'),
-      value:  'cdgtransfertvtc@gmail.com',
-      href:   'mailto:cdgtransfertvtc@gmail.com',
+      value:  BUSINESS.email,
+      href:   `mailto:${BUSINESS.email}`,
       detail: { fr: 'Réponse sous 1h', en: 'Response within 1h', ru: 'Ответ за 1ч', ro: 'Răspuns în 1h' },
     },
     {
@@ -42,9 +46,9 @@ export default function Contact({ t, lang }) {
         </svg>
       ),
       label:  { fr: 'Zone d\'intervention', en: 'Coverage area', ru: 'Зона обслуживания', ro: 'Zonă de acoperire' },
-      value:  'Île-de-France',
+      value:  areaMain,
       href:   null,   // information, pas un lien
-      detail: { fr: 'Paris + tous aéroports', en: 'Paris + all airports', ru: 'Париж + аэропорты', ro: 'Paris + toate aeroporturile' },
+      detail: areaAirports,
     },
   ]
 
@@ -60,7 +64,7 @@ export default function Contact({ t, lang }) {
 
           {/* ── Colonne gauche : infos ── */}
           <div>
-            <p className="section-eyebrow">Contact</p>
+            <p className="section-eyebrow">{{ fr: 'Contact', en: 'Contact', ru: 'Контакты', ro: 'Contact' }[lang]}</p>
             <h2 className="section-title mb-6">{t('contact_title')}</h2>
             <p className="text-silver font-sans font-light leading-relaxed mb-12 max-w-md">
               {t('contact_desc')}

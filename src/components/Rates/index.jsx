@@ -1,5 +1,5 @@
 // ── Rates — Tableau des tarifs premium ──────────────────────────────
-// Tarifs réels (src/constants/rates.js), identiques au priceRange de index.html.
+// Tarifs réels (src/constants/rates.js), source du priceRange du JSON-LD.
 // Design : tableau sombre avec headers gold, lignes élégantes.
 // ────────────────────────────────────────────────────────────────────
 import { rateTable } from '../../constants/rates'
@@ -22,7 +22,7 @@ export default function Rates({ t, lang }) {
 
         {/* ── Titre ── */}
         <div className="text-center mb-14">
-          <p className="section-eyebrow">Tarifs</p>
+          <p className="section-eyebrow">{{ fr: 'Tarifs', en: 'Rates', ru: 'Тарифы', ro: 'Tarife' }[lang]}</p>
           <h2 className="section-title">{t('rates_title')}</h2>
           <div className="section-divider">
             <div className="h-px w-10 bg-gold/30" />

@@ -2,9 +2,9 @@
 // Tarifs réels du client, affichés dans la section Tarifs.
 // SOURCE UNIQUE : l'estimation du formulaire (priceEstimates ci-dessous)
 // est calculée à partir de ce tableau.
-// ⚠️ Si un prix change : mettre à jour "priceRange" dans index.html
-//    (min / max de ce tableau). Le test tests/priceZone.test.js échoue
-//    tant que les deux ne correspondent pas.
+// Les pages services, le JSON-LD (offres, priceRange = min / max) et
+// llms.txt sont aussi générés à partir de ce tableau. Si un prix change,
+// vérifier les FAQ qui citent des prix (tests/seo.test.js les contrôle).
 // ────────────────────────────────────────────────────────────────────
 
 export const rateTable = [
@@ -26,7 +26,7 @@ export const rateTable = [
   },
   {
     key:  'beauvais',
-    zone: { fr: 'Beauvais / Paris', en: 'Beauvais / Paris', ru: 'Бовэ / Париж', ro: 'Beauvais / Paris' },
+    zone: { fr: 'Beauvais / Paris', en: 'Beauvais / Paris', ru: 'Бове / Париж', ro: 'Beauvais / Paris' },
     business: 200,
     luxe:     300,
     van:      250,

@@ -34,7 +34,7 @@ export default function Fleet({ t, lang }) {
 
         {/* ── Titre ── */}
         <div className="text-center mb-16">
-          <p className="section-eyebrow">Flotte</p>
+          <p className="section-eyebrow">{{ fr: 'Flotte', en: 'Fleet', ru: 'Автопарк', ro: 'Flotă' }[lang]}</p>
           <h2 className="section-title">{t('fleet_title')}</h2>
           <div className="section-divider">
             <div className="h-px w-10 bg-gold/30" />
