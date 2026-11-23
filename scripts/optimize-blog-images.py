@@ -22,7 +22,12 @@ MANIFEST = ROOT / 'content' / 'blog' / 'images.json'
 WIDTHS = (400, 640, 960, 1280)       # cartes (≈ 400 px) → article (≤ 768 px, écrans denses)
 AVIF_Q, WEBP_Q, JPEG_Q = 50, 74, 82
 # Point de cadrage horizontal / vertical par image (0..1), centre par défaut
-FOCUS = {}
+FOCUS = {
+    'classe-s-face': (0.5, 0.62),
+    'classe-e-arc-triomphe': (0.5, 0.62),
+    'classe-e-profil': (0.5, 0.62),
+    'classe-v-arriere': (0.5, 0.45),
+}
 
 def crop(im, aspect, focus):
     fx, fy = focus

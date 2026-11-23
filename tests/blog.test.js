@@ -63,13 +63,27 @@ test('articles : frontmatter complet, temps de lecture calculé, un seul h1 (auc
   }
 })
 
-test('article d’exemple : 900 à 1 200 mots, réponse directe, aucun prix ni promesse non confirmée', () => {
+test('article d’exemple : réponse directe, renvoi aux tarifs', () => {
   const a = ARTICLES['transferts-cdg/temps-trajet-cdg-paris-vtc']
   assert.ok(a, 'article d’exemple manquant')
-  assert.ok(a.wordCount >= 900 && a.wordCount <= 1200, `${a.wordCount} mots`)
   assert.match(text(a.html[0]), /45 minutes à 1 heure/)
   assert.match(text(a.html.join(' ')), /tarif indicatif, confirmé avant la course/)
-  assert.ok(a.faq.length >= 3)
+})
+
+test('chaque article : 900 à 1 400 mots, 3 à 5 questions, liens vers services et articles, date non future', () => {
+  const today = new Date().toISOString().slice(0, 10)
+  const SERVICE = /^\/(?:(?:en|ru|ro)\/)?(?:vtc-|van-|mise-a-)/
+  for (const a of Object.values(ARTICLES)) {
+    assert.ok(a.wordCount >= 900 && a.wordCount <= 1400, `${a.url} : ${a.wordCount} mots`)
+    assert.ok(a.faq.length >= 3 && a.faq.length <= 5, `${a.url} : ${a.faq.length} questions`)
+    const links = [...a.html.join(' ').matchAll(/href="([^"]+)"/g)].map(m => m[1])
+    const services = new Set(links.filter(l => SERVICE.test(l)))
+    const articles = new Set(links.filter(l => l.startsWith('/blog/') && l !== a.url))
+    assert.ok(services.size >= 2, `${a.url} : ${services.size} lien(s) vers les pages services`)
+    if (POSTS.length >= 3) assert.ok(articles.size >= 2, `${a.url} : ${articles.size} lien(s) vers d’autres articles`)
+    for (const l of articles) assert.ok(POSTS.some(p => p.url === l), `${a.url} : lien vers un article inexistant ${l}`)
+    assert.ok(a.date <= today, `${a.url} : date de publication dans le futur`)
+  }
 })
 
 test('blog : prix = prix du tableau, aucune mention en attente de confirmation', () => {

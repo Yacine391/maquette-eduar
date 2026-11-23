@@ -10,18 +10,18 @@ tags:
   - temps de trajet
   - VTC Paris
 image: classe-s-tarmac
-imageAlt: Mercedes Classe S noire sur le tarmac d’un aéroport, portière arrière ouverte
+imageAlt: "Mercedes Classe S noire sur le tarmac d’un aéroport, portière arrière ouverte"
 faq:
-  - question: Combien de temps faut-il entre CDG et Paris la nuit ?
-    answer: En général 30 à 40 minutes entre l’aéroport et le centre de Paris, car la circulation est fluide entre 22 h et 6 h, sauf travaux ou fermetures de nuit.
-  - question: À quelle heure y a-t-il le plus de bouchons entre Roissy et Paris ?
-    answer: En semaine, de 7 h à 10 h, surtout dans le sens aéroport vers Paris, et de 16 h à 20 h, surtout dans le sens Paris vers l’aéroport. Le trajet peut alors atteindre 1 h 30.
-  - question: Le RER B est-il plus rapide qu’un VTC ?
-    answer: Entre la gare du Nord et l’aéroport, le RER B met une trentaine de minutes, sans compter l’accès à la gare ni les correspondances. Le VTC va de porte à porte, sans changement, ce qui est plus simple avec des bagages.
-  - question: Combien de temps prévoir avant un vol au départ de CDG ?
-    answer: Additionnez la durée du trajet selon l’heure de départ, le délai conseillé par votre compagnie aérienne et une marge de sécurité, plus large aux heures de pointe.
-  - question: Combien coûte un VTC entre CDG et Paris ?
-    answer: Le tarif dépend de la catégorie de véhicule et figure dans le tableau des tarifs du site. C’est un tarif indicatif, confirmé avant la course.
+  - question: "Combien de temps faut-il entre CDG et Paris la nuit ?"
+    answer: "En général 30 à 40 minutes entre l’aéroport et le centre de Paris, car la circulation est fluide entre 22 h et 6 h, sauf travaux ou fermetures de nuit."
+  - question: "À quelle heure y a-t-il le plus de bouchons entre Roissy et Paris ?"
+    answer: "En semaine, de 7 h à 10 h, surtout dans le sens aéroport vers Paris, et de 16 h à 20 h, surtout dans le sens Paris vers l’aéroport. Le trajet peut alors atteindre 1 h 30."
+  - question: "Le RER B est-il plus rapide qu’un VTC ?"
+    answer: "Entre la gare du Nord et l’aéroport, le RER B met une trentaine de minutes, sans compter l’accès à la gare ni les correspondances. Le VTC va de porte à porte, sans changement, ce qui est plus simple avec des bagages."
+  - question: "Combien de temps prévoir avant un vol au départ de CDG ?"
+    answer: "Additionnez la durée du trajet selon l’heure de départ, le délai conseillé par votre compagnie aérienne et une marge de sécurité, plus large aux heures de pointe."
+  - question: "Combien coûte un VTC entre CDG et Paris ?"
+    answer: "Le tarif dépend de la catégorie de véhicule et figure dans le tableau des tarifs du site. C’est un tarif indicatif, confirmé avant la course."
 ---
 
 Entre l’aéroport Paris-Charles-de-Gaulle et le centre de Paris, un trajet en VTC dure en général de 45 minutes à 1 heure. Comptez 30 à 40 minutes la nuit et jusqu’à 1 h 30 aux heures de pointe en semaine, selon la circulation sur l’autoroute A1 et le boulevard périphérique.
@@ -70,6 +70,8 @@ Pour retrouver votre chauffeur sans perdre de temps :
 - communiquez votre numéro de vol et votre terminal lors de la confirmation de votre course ;
 - appelez votre chauffeur une fois vos bagages récupérés : le lieu exact de prise en charge vous est confirmé par téléphone ou WhatsApp.
 
+Vous arrivez au terminal 2E ? Notre guide [Terminal 2E à CDG : où retrouver son chauffeur ?](/blog/transferts-cdg/terminal-2e-cdg-retrouver-chauffeur) donne des repères précis.
+
 ## Au départ : à quelle heure quitter Paris ?
 
 Pour un vol au départ de CDG, partez de l’heure à laquelle vous devez être à l’aéroport, puis retirez la durée du trajet correspondant au créneau et une marge de sécurité. L’heure d’arrivée conseillée à l’aéroport dépend de votre compagnie, de votre destination et de vos bagages : vérifiez-la toujours auprès de votre compagnie aérienne.
@@ -97,3 +99,4 @@ Le prix d’un transfert entre l’aéroport Charles-de-Gaulle et Paris est indi
 - Vérifiez votre terminal sur votre carte d’embarquement ou dans l’application de votre compagnie.
 - Vous êtes plus de 4 passagers ou avez plus de 3 bagages ? Choisissez le [van Mercedes Classe V](/van-7-places-paris), qui accueille jusqu’à 6 passagers et 6 bagages.
 - Vous arrivez en train avant de prendre l’avion ? Consultez notre page sur les [transferts depuis les gares de Paris](/vtc-gares-paris).
+- Votre vol part avant les premiers trains ? Lisez [CDG la nuit : comment y aller ou en revenir sans RER](/blog/transferts-cdg/cdg-la-nuit-sans-rer).
