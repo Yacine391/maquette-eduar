@@ -1,0 +1,1 @@
+(function(d){var u=d.currentScript.dataset.entry,ok=function(x){return /^\/assets\/[\w-]+\.js$/.test(x)?x:null},p=window.trustedTypes?trustedTypes.createPolicy('loader',{createScriptURL:ok}):{createScriptURL:ok},s;if(!ok(u))return;s=d.createElement('script');s.type='module';s.fetchPriority='low';s.src=p.createScriptURL(u);d.body.appendChild(s)})(document)

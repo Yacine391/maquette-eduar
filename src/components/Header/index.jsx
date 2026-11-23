@@ -1,16 +1,52 @@
 // ── Header — Navigation premium avec glassmorphism ───────────────────
 // CDG TRANSFERT VTC — site en production (cdgtransfertvtc.fr)
-// Design : barre supérieure info + nav principale avec backdrop-blur
+// Design : barre supérieure info + nav principale avec backdrop-blur.
+// Le sélecteur de langue renvoie vers l'URL de la même page dans l'autre
+// langue (pages pré-rendues /, /en, /ru, /ro — voir src/routes.js) ; sur le
+// blog, vers la page la plus proche (langPath).
 // ────────────────────────────────────────────────────────────────────
 import { useState, useEffect } from 'react'
-import logo from '../../assets/logo.png'
+import Logo from '../Logo'
+import { BUSINESS } from '../../constants/business'
+import { UI } from '../../content/ui'
+import { pagePath, langPath, hasBooking, isBlog, LANG_NAMES } from '../../routes'
+import { BLOG_LINK } from '../../content/blog/link'
 
-const LANGS = ['FR', 'EN', 'RO', 'RU']
+const LANGS = ['fr', 'en', 'ro', 'ru']
 
-export default function Header({ t, lang, setLang }) {
+// Noms accessibles des menus (repères de navigation distincts)
+const NAV_LABEL = { fr: 'Navigation principale', en: 'Main navigation', ru: 'Основная навигация', ro: 'Navigare principală' }
+const LANG_LABEL = { fr: 'Langue', en: 'Language', ru: 'Язык', ro: 'Limbă' }
+
+// Lien vers une section de l'accueil de la langue courante (#fleet, #contact…)
+export const homeAnchor = (lang, id) => `${pagePath(lang, 'home')}#${id}`
+
+// Liens de langue (même page, autre langue)
+function LangLinks({ lang, route, className, itemClass, onNavigate }) {
+  return (
+    <div className={className} role="group" aria-label={LANG_LABEL[lang]}>
+      {LANGS.map((l) => (
+        <a
+          key={l}
+          href={langPath(route, l)}
+          hrefLang={l}
+          title={LANG_NAMES[l]}
+          aria-current={l === lang ? 'true' : undefined}
+          onClick={onNavigate}
+          className={itemClass(l === lang)}
+        >
+          {l.toUpperCase()}
+        </a>
+      ))}
+    </div>
+  )
+}
+
+export default function Header({ t, lang, route }) {
+  const { page } = route
   const [scrolled,  setScrolled]  = useState(false)
   const [menuOpen,  setMenuOpen]  = useState(false)
-  const [activeNav, setActiveNav] = useState('hero')
+  const [activeNav, setActiveNav] = useState(page === 'home' ? 'home' : isBlog(route) ? 'blog' : 'services')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80)
@@ -18,11 +54,16 @@ export default function Header({ t, lang, setLang }) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const ui = UI[lang]
+  // Formulaire sur la page (#booking) ou, à défaut, celui de l'accueil
+  const bookingHref = hasBooking(route) ? '#booking' : homeAnchor(lang, 'booking')
   const navLinks = [
-    { key: 'nav_home',    href: '#hero',    id: 'hero'    },
-    { key: 'nav_fleet',   href: '#fleet',   id: 'fleet'   },
-    { key: 'nav_booking', href: '#booking', id: 'booking' },
-    { key: 'nav_contact', href: '#contact', id: 'contact' },
+    { id: 'home',     label: t('nav_home'),    href: pagePath(lang, 'home') },
+    { id: 'services', label: ui.services,      href: homeAnchor(lang, 'services') },
+    { id: 'fleet',    label: t('nav_fleet'),   href: homeAnchor(lang, 'fleet') },
+    { id: 'blog',     label: BLOG_LINK[lang].label, href: BLOG_LINK[lang].href },
+    { id: 'booking',  label: t('nav_booking'), href: bookingHref },
+    { id: 'contact',  label: t('nav_contact'), href: homeAnchor(lang, 'contact') },
   ]
 
   return (
@@ -36,26 +77,14 @@ export default function Header({ t, lang, setLang }) {
             <div className="flex items-center gap-6 text-[10px] tracking-widest text-silver-dim uppercase">
               <span className="flex items-center gap-2">
                 <span className="w-1 h-1 rounded-full bg-gold inline-block" />
-                Disponible 24h/24 · 7j/7
+                {ui.available}
               </span>
-              <span className="hidden sm:block">+33 6 65 69 96 78</span>
+              <span className="hidden sm:block">{BUSINESS.phoneDisplay}</span>
             </div>
             {/* Sélecteur langue dans la top bar */}
-            <div className="flex items-center gap-1">
-              {LANGS.map((l) => (
-                <button
-                  key={l}
-                  onClick={() => setLang(l.toLowerCase())}
-                  className={`px-2.5 py-1 text-[10px] font-semibold tracking-widest transition-all duration-200
-                    ${lang === l.toLowerCase()
-                      ? 'text-gold border-b border-gold'
-                      : 'text-silver-dim hover:text-silver'
-                    }`}
-                >
-                  {l}
-                </button>
-              ))}
-            </div>
+            <LangLinks lang={lang} route={route} className="flex items-center gap-1"
+              itemClass={(active) => `px-2.5 py-1 text-[10px] font-semibold tracking-widest transition-all duration-200
+                ${active ? 'text-gold border-b border-gold' : 'text-silver-dim hover:text-silver'}`} />
           </div>
         </div>
       </div>
@@ -78,8 +107,8 @@ export default function Header({ t, lang, setLang }) {
           <div className="flex items-center justify-between h-16 md:h-20">
 
             {/* ── Logo ── */}
-            <a href="#hero" className="flex items-center gap-3 group flex-shrink-0">
-              <img src={logo} alt="CDG Transfert VTC" className="h-8 md:h-10 w-auto object-contain" />
+            <a href={pagePath(lang, 'home')} className="flex items-center gap-3 group flex-shrink-0">
+              <Logo className="h-8 md:h-10 w-auto object-contain" />
               <div className="hidden sm:block">
                 <p className="font-serif text-base font-semibold tracking-[0.2em] text-gold group-hover:text-gold-hover transition-colors duration-300 leading-none">
                   CDG TRANSFERT
@@ -89,17 +118,19 @@ export default function Header({ t, lang, setLang }) {
             </a>
 
             {/* ── Nav desktop ── */}
-            <nav className="hidden md:flex items-center gap-8" role="navigation">
-              {navLinks.map(({ key, href, id }) => (
+            {/* Menu complet à partir de 1280 px (6 liens + bouton), menu burger en dessous */}
+            <nav className="hidden xl:flex items-center gap-6" aria-label={NAV_LABEL[lang]}>
+              {navLinks.map(({ id, label, href }) => (
                 <a
-                  key={key}
+                  key={id}
                   href={href}
                   onClick={() => setActiveNav(id)}
-                  className={`relative text-xs font-medium tracking-[0.2em] uppercase transition-colors duration-300 py-1
+                  aria-current={(id === 'home' && page === 'home') || (id === 'blog' && href === langPath(route, lang) && page === 'blog') ? 'page' : undefined}
+                  className={`relative text-xs font-medium tracking-[0.15em] uppercase whitespace-nowrap transition-colors duration-300 py-1
                     ${activeNav === id ? 'text-gold' : 'text-silver hover:text-offwhite'}
                     group`}
                 >
-                  {t(key)}
+                  {label}
                   {/* Underline animée */}
                   <span className={`absolute bottom-0 left-0 right-0 h-px bg-gold transition-transform duration-300 origin-left
                     ${activeNav === id ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
@@ -110,30 +141,23 @@ export default function Header({ t, lang, setLang }) {
 
             {/* ── CTA + Burger ── */}
             <div className="flex items-center gap-4">
-              <a href="#booking" className="hidden md:inline-flex btn-primary py-2.5 px-6">
+              <a href={bookingHref} className="hidden md:inline-flex btn-primary py-2.5 px-6 whitespace-nowrap">
                 {t('hero_cta')}
               </a>
               {/* Langue desktop (si déjà scrollé et top bar invisible) */}
               {scrolled && (
-                <div className="hidden md:flex items-center gap-1 border-l border-divider pl-4">
-                  {LANGS.map((l) => (
-                    <button
-                      key={l}
-                      onClick={() => setLang(l.toLowerCase())}
-                      className={`px-2 py-1 text-[10px] font-semibold tracking-widest rounded-sm transition-all duration-200
-                        ${lang === l.toLowerCase() ? 'bg-gold text-canvas' : 'text-silver-dim hover:text-silver'}`}
-                    >
-                      {l}
-                    </button>
-                  ))}
-                </div>
+                <LangLinks lang={lang} route={route} className="hidden 2xl:flex items-center gap-1 border-l border-divider pl-4"
+                  itemClass={(active) => `px-2 py-1 text-[10px] font-semibold tracking-widest rounded-sm transition-all duration-200
+                    ${active ? 'bg-gold text-canvas' : 'text-silver-dim hover:text-silver'}`} />
               )}
               {/* Burger mobile */}
               <button
-                className="md:hidden p-2 flex flex-col gap-[5px]"
+                type="button"
+                className="xl:hidden p-2 flex flex-col gap-[5px]"
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-label="Menu"
                 aria-expanded={menuOpen}
+                aria-controls="menu-mobile"
               >
                 <span className={`block w-6 h-0.5 bg-offwhite/80 transition-all duration-300 origin-center
                   ${menuOpen ? 'rotate-45 translate-y-[7px]' : ''}`} />
@@ -154,40 +178,32 @@ export default function Header({ t, lang, setLang }) {
         • backdrop-filter sur le parent créait un stacking context cassé
         • overflow-hidden + max-h animation clippait le fond sur Android
         Solution : fixed overlay séparé, fond solide (#0A0A0C), z-[55]
-        Position calculée : top bar (37px) + header (64px) = 101px quand
-        non-scrollé / 64px quand scrollé (top bar masquée)
+        Position calculée : top bar (37px) + header (64px, 80px dès 768 px)
+        = 101px / 117px quand non-scrollé, 64px / 80px quand scrollé
       */}
       <div
-        className={`md:hidden fixed left-0 right-0 z-[55] transition-all duration-300
+        className={`xl:hidden fixed left-0 right-0 z-[55] transition-all duration-300
+          ${scrolled ? 'top-16 md:top-20' : 'top-[101px] md:top-[117px]'}
           ${menuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
-        style={{ top: scrolled ? '64px' : '101px' }}
       >
-        <div style={{ backgroundColor: '#0A0A0C' }}
+        <nav id="menu-mobile" aria-label={NAV_LABEL[lang]} style={{ backgroundColor: '#0A0A0C' }}
           className="border-t border-b border-divider px-6 py-6 flex flex-col gap-5 shadow-2xl shadow-black"
         >
-          {navLinks.map(({ key, href }) => (
+          {navLinks.map(({ id, label, href }) => (
             <a
-              key={key}
+              key={id}
               href={href}
               onClick={() => setMenuOpen(false)}
               className="text-sm tracking-[0.2em] uppercase text-silver hover:text-gold transition-colors duration-300"
             >
-              {t(key)}
+              {label}
             </a>
           ))}
-          <div className="pt-4 border-t border-divider flex items-center gap-3">
-            {LANGS.map((l) => (
-              <button
-                key={l}
-                onClick={() => { setLang(l.toLowerCase()); setMenuOpen(false) }}
-                className={`px-3 py-1.5 text-xs font-semibold tracking-widest transition-all duration-200
-                  ${lang === l.toLowerCase() ? 'bg-gold text-canvas' : 'border border-divider text-silver'}`}
-              >
-                {l}
-              </button>
-            ))}
-          </div>
-        </div>
+          <LangLinks lang={lang} route={route} className="pt-4 border-t border-divider flex items-center gap-3"
+            onNavigate={() => setMenuOpen(false)}
+            itemClass={(active) => `px-3 py-1.5 text-xs font-semibold tracking-widest transition-all duration-200
+              ${active ? 'bg-gold text-canvas' : 'border border-divider text-silver'}`} />
+        </nav>
       </div>
     </>
   )

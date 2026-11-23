@@ -6,10 +6,11 @@
 // ────────────────────────────────────────────────────────────────────
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { readFileSync } from 'node:fs'
 import { classifyPlace, detectZone } from '../src/utils/priceZone.js'
 import { estimatePrice } from '../src/utils/estimatePrice.js'
 import { rateTable } from '../src/constants/rates.js'
+import { priceRange, jsonLd } from '../src/seo/schema.js'
+import { ROUTES } from '../src/routes.js'
 
 // 10 adresses parisiennes, dont les pièges de l'ancienne détection
 // (« saint- », « boulogne », « vincennes », numéro ou code postal > 100,
@@ -103,7 +104,12 @@ test('trajets absents de la grille : « Sur devis »', () => {
 test('données structurées : priceRange = prix min / max du tableau affiché', () => {
   const prices = rateTable.flatMap(r => ['business', 'luxe', 'van', 'eco'].map(k => r[k]))
     .filter(p => typeof p === 'number')
-  const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8')
-  const jsonLd = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])
-  assert.equal(jsonLd.priceRange, `${Math.min(...prices)} € – ${Math.max(...prices)} €`)
+  const expected = `${Math.min(...prices)} € – ${Math.max(...prices)} €`
+  assert.equal(priceRange(), expected)
+  assert.equal(expected, '50 € – 300 €')
+  // Chaque page (toutes langues) porte le même priceRange dans son JSON-LD
+  for (const route of ROUTES) {
+    const business = jsonLd(route)['@graph'].find(n => n['@id'].endsWith('/#entreprise'))
+    assert.equal(business.priceRange, expected, `${route.lang} ${route.page}`)
+  }
 })

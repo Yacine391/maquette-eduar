@@ -7,9 +7,25 @@
 // photos existent, la photo devient cliquable et ouvre la galerie plein
 // écran (flèches gauche/droite, miniatures, swipe mobile).
 // ────────────────────────────────────────────────────────────────────
-import { useState } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import { vehicles } from '../../constants/vehicles'
-import Lightbox from '../Gallery/Lightbox'
+import { CoverPicture } from '../Picture'
+
+// Galerie chargée seulement à la première ouverture (JS différé)
+const Lightbox = lazy(() => import('../Gallery/Lightbox'))
+
+// Couvertures : un recadrage par gabarit de carte (scripts/optimize-images.py
+// → COVERS), choisi par media query ; sizes = largeur réelle de la carte
+// (conteneur max 1232 px, grille 12 colonnes, gouttière 20 px, marges 24 px)
+const COVER_LARGE = [
+  { key: 'lg', media: '(min-width: 1024px)', sizes: '501px' },
+  { key: 'md', media: '(min-width: 640px)',  sizes: 'calc(100vw - 48px)' },
+  { key: 'xs', media: null,                  sizes: 'calc(100vw - 48px)' },
+]
+const COVER_SMALL = [
+  { key: 'sm', media: '(min-width: 640px)',  sizes: '(min-width: 1024px) 223px, calc((100vw - 88px) / 3)' },
+  { key: 'xs', media: null,                  sizes: 'calc(100vw - 48px)' },
+]
 
 export default function Fleet({ t, lang }) {
   return (
@@ -18,7 +34,7 @@ export default function Fleet({ t, lang }) {
 
         {/* ── Titre ── */}
         <div className="text-center mb-16">
-          <p className="section-eyebrow">Flotte</p>
+          <p className="section-eyebrow">{{ fr: 'Flotte', en: 'Fleet', ru: 'Автопарк', ro: 'Flotă' }[lang]}</p>
           <h2 className="section-title">{t('fleet_title')}</h2>
           <div className="section-divider">
             <div className="h-px w-10 bg-gold/30" />
@@ -60,8 +76,8 @@ function FleetCard({ vehicle, t, lang, large = false }) {
   // Index de la photo ouverte (null = galerie fermée)
   const [openAt, setOpenAt] = useState(null)
 
-  // La zone visuelle devient un <button> quand une galerie est disponible
-  const Visual = hasGallery ? 'button' : 'div'
+  // Galerie disponible → un bouton transparent couvre la photo (sans texte :
+  // les pastilles visibles restent à côté, son nom vient de aria-label)
   const galleryLabel = {
     fr: `Voir les ${images.length} photos — ${model}`,
     en: `View the ${images.length} photos — ${model}`,
@@ -91,23 +107,17 @@ function FleetCard({ vehicle, t, lang, large = false }) {
 
       {/* ── Visuel : photo réelle si disponible, sinon gradient CSS ──
           Cliquable (bouton) dès qu'il y a plusieurs photos → galerie. */}
-      <Visual
-        type={hasGallery ? 'button' : undefined}
-        onClick={hasGallery ? () => setOpenAt(0) : undefined}
-        aria-label={hasGallery ? galleryLabel : undefined}
+      <div
         className={`relative block w-full bg-gradient-to-br ${gradient} overflow-hidden
-          ${large ? 'h-56' : 'h-40'} flex-shrink-0
-          ${hasGallery ? 'cursor-zoom-in' : ''}`}
+          ${large ? 'h-56' : 'h-40'} flex-shrink-0`}
       >
         {/* Photo de couverture */}
         {cover && (
-          <img
-            src={cover.src}
+          <CoverPicture
+            name={cover.name}
+            sources={large ? COVER_LARGE : COVER_SMALL}
             alt={`${model} — CDG Transfert VTC`}
             className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out"
-            /* `position` permet de recadrer la couverture (défaut : centre) */
-            style={{ objectPosition: cover.position ?? 'center' }}
-            loading="lazy"
           />
         )}
         {/* Gold shimmer on hover */}
@@ -158,17 +168,28 @@ function FleetCard({ vehicle, t, lang, large = false }) {
         <div className="absolute bottom-3 right-3 text-[9px] font-bold tracking-[0.4em] text-gold/60 uppercase">
           {category}
         </div>
-      </Visual>
+        {/* Bouton d'ouverture de la galerie, au-dessus de toute la photo */}
+        {hasGallery && (
+          <button
+            type="button"
+            onClick={() => setOpenAt(0)}
+            aria-label={galleryLabel}
+            className="absolute inset-0 z-10 w-full h-full cursor-zoom-in"
+          />
+        )}
+      </div>
 
       {/* ── Galerie plein écran (portal sur <body>) ── */}
       {openAt !== null && (
-        <Lightbox
-          images={images}
-          startIndex={openAt}
-          title={`${model} — ${category}`}
-          lang={lang}
-          onClose={() => setOpenAt(null)}
-        />
+        <Suspense fallback={null}>
+          <Lightbox
+            images={images}
+            startIndex={openAt}
+            title={`${model} — ${category}`}
+            lang={lang}
+            onClose={() => setOpenAt(null)}
+          />
+        </Suspense>
       )}
 
       {/* ── Infos ── */}

@@ -2,82 +2,15 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/assets/logo.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/src/assets/favicon-48.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CDG Transfert VTC — Chauffeur Privé Paris, CDG, Orly | Réservation en ligne</title>
-    <meta name="description" content="CDG Transfert VTC : chauffeur privé premium à Paris, aéroports CDG et Orly. Mercedes Classe E, Classe S, Classe V, Tesla. Réservation rapide, tarifs fixes, disponible 24h/24." />
-    <meta name="keywords" content="VTC Paris, chauffeur privé Paris, transfert CDG, transfert Orly, taxi aéroport Paris, CDG transfert, Mercedes VTC, réservation chauffeur" />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://cdgtransfertvtc.fr/" />
+    <!-- Balises SEO de chaque page (title, description, robots, canonical, hreflang,
+         Open Graph, Twitter, JSON-LD) : écrites au build par
+         scripts/prerender.mjs (src/seo/head.js) entre ces deux marqueurs -->
+    <!--app-head--><title>CDG TRANSFERT VTC</title><!--/app-head-->
 
-    <!-- Versions linguistiques (hreflang). Ajouter hreflang="en" → /en/
-         uniquement quand les pages /en/ existeront réellement. -->
-    <link rel="alternate" hreflang="fr" href="https://cdgtransfertvtc.fr/" />
-    <link rel="alternate" hreflang="x-default" href="https://cdgtransfertvtc.fr/" />
-
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://cdgtransfertvtc.fr/" />
-    <meta property="og:title" content="CDG Transfert VTC — Chauffeur Privé Paris & Aéroports" />
-    <meta property="og:description" content="Chauffeur privé premium à Paris, CDG et Orly. Mercedes Classe E, S, V et Tesla. Tarifs fixes, disponible 24h/24." />
-    <meta property="og:image" content="https://cdgtransfertvtc.fr/og-image.jpg" />
-    <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="CDG Transfert VTC — Chauffeur privé Paris · CDG · Orly, Mercedes Classe S sur le tarmac" />
-    <meta property="og:locale" content="fr_FR" />
-    <meta property="og:site_name" content="CDG Transfert VTC" />
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="CDG Transfert VTC — Chauffeur Privé Paris & Aéroports" />
-    <meta name="twitter:description" content="Chauffeur privé premium à Paris, CDG et Orly. Mercedes Classe E, S, V et Tesla. Tarifs fixes, disponible 24h/24." />
-    <meta name="twitter:image" content="https://cdgtransfertvtc.fr/og-image.jpg" />
-    <meta name="twitter:image:alt" content="CDG Transfert VTC — Chauffeur privé Paris · CDG · Orly, Mercedes Classe S sur le tarmac" />
-
-    <!-- Données structurées JSON-LD — doivent correspondre exactement au site :
-         priceRange = prix min / max du tableau des tarifs (src/constants/rates.js). -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": ["TaxiService", "LocalBusiness"],
-      "@id": "https://cdgtransfertvtc.fr/#entreprise",
-      "name": "CDG Transfert VTC",
-      "description": "Chauffeur privé VTC à Paris – transferts aéroports CDG, Orly et Beauvais",
-      "url": "https://cdgtransfertvtc.fr/",
-      "telephone": "+33665699678",
-      "email": "cdgtransfertvtc@gmail.com",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Paris",
-        "addressRegion": "Île-de-France",
-        "addressCountry": "FR"
-      },
-      "areaServed": [
-        { "@type": "City", "name": "Paris" },
-        { "@type": "Airport", "name": "Aéroport Paris-Charles de Gaulle (CDG)", "iataCode": "CDG" },
-        { "@type": "Airport", "name": "Aéroport Paris-Orly", "iataCode": "ORY" },
-        { "@type": "Airport", "name": "Aéroport Paris-Beauvais", "iataCode": "BVA" },
-        { "@type": "AdministrativeArea", "name": "Île-de-France" }
-      ],
-      "priceRange": "50 € – 300 €",
-      "openingHours": "Mo-Su 00:00-24:00",
-      "sameAs": []
-    }
-    </script>
-
-    <!--
-      CDG TRANSFERT VTC
-      Typographie :
-        Cormorant Garamond → titres ultra-luxe
-        Montserrat         → corps / UI
-    -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Typographie : Cormorant Garamond (titres) + Montserrat (texte),
+         auto-hébergées (src/main.jsx) — aucune requête vers Google Fonts -->
   </head>
   <body>
     <div id="root"></div>

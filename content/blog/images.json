@@ -1,0 +1,39 @@
+{
+  "classe-s-tarmac": {
+    "width": 959,
+    "height": 539,
+    "avif": [
+      [
+        400,
+        "/img/blog/classe-s-tarmac-400-7468ff83.avif"
+      ],
+      [
+        640,
+        "/img/blog/classe-s-tarmac-640-2a1fc160.avif"
+      ],
+      [
+        959,
+        "/img/blog/classe-s-tarmac-959-6ef6eb39.avif"
+      ]
+    ],
+    "webp": [
+      [
+        400,
+        "/img/blog/classe-s-tarmac-400-f4870b5c.webp"
+      ],
+      [
+        640,
+        "/img/blog/classe-s-tarmac-640-44938c50.webp"
+      ],
+      [
+        959,
+        "/img/blog/classe-s-tarmac-959-e4825d09.webp"
+      ]
+    ],
+    "og": {
+      "url": "/img/blog/classe-s-tarmac-og-f6f04580.jpg",
+      "width": 959,
+      "height": 502
+    }
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "classe-e-1": {
+    "width": 734,
+    "height": 718,
+    "widths": [
+      240,
+      320,
+      512,
+      640,
+      734
+    ],
+    "cards": {
+      "lg": {
+        "width": 734,
+        "height": 328,
+        "widths": [
+          512,
+          734
+        ]
+      },
+      "md": {
+        "width": 734,
+        "height": 229,
+        "widths": [
+          512,
+          734
+        ]
+      },
+      "xs": {
+        "width": 734,
+        "height": 459,
+        "widths": [
+          448,
+          640,
+          734
+        ]
+      }
+    }
+  },
+  "classe-e-2": {
+    "width": 541,
+    "height": 720,
+    "widths": [
+      240,
+      320,
+      512,
+      541
+    ]
+  },
+  "classe-e-3": {
+    "width": 734,
+    "height": 718,
+    "widths": [
+      240,
+      320,
+      512,
+      640,
+      734
+    ]
+  },
+  "classe-s-1": {
+    "width": 959,
+    "height": 700,
+    "widths": [
+      240,
+      320,
+      512,
+      640,
+      800,
+      959
+    ],
+    "cards": {
+      "sm": {
+        "width": 959,
+        "height": 685,
+        "widths": [
+          240,
+          480
+        ]
+      },
+      "xs": {
+        "width": 959,
+        "height": 436,
+        "widths": [
+          400,
+          640,
+          800
+        ]
+      }
+    }
+  },
+  "classe-s-2": {
+    "width": 908,
+    "height": 681,
+    "widths": [
+      240,
+      320,
+      512,
+      640,
+      800,
+      908
+    ]
+  },
+  "classe-s-3": {
+    "width": 478,
+    "height": 715,
+    "widths": [
+      240,
+      320,
+      478
+    ]
+  },
+  "classe-s-4": {
+    "width": 478,
+    "height": 715,
+    "widths": [
+      240,
+      320,
+      478
+    ]
+  },
+  "classe-v-1": {
+    "width": 538,
+    "height": 720,
+    "widths": [
+      240,
+      320,
+      512,
+      538
+    ],
+    "cards": {
+      "sm": {
+        "width": 538,
+        "height": 384,
+        "widths": [
+          240,
+          480
+        ]
+      },
+      "xs": {
+        "width": 538,
+        "height": 245,
+        "widths": [
+          400,
+          538
+        ]
+      }
+    }
+  },
+  "classe-v-2": {
+    "width": 722,
+    "height": 718,
+    "widths": [
+      240,
+      320,
+      512,
+      640,
+      722
+    ]
+  },
+  "classe-v-3": {
+    "width": 405,
+    "height": 716,
+    "widths": [
+      240,
+      320,
+      405
+    ]
+  },
+  "classe-v-4": {
+    "width": 540,
+    "height": 720,
+    "widths": [
+      240,
+      320,
+      512,
+      540
+    ]
+  },
+  "tesla-model-y": {
+    "width": 561,
+    "height": 747,
+    "widths": [
+      240,
+      320,
+      512,
+      561
+    ],
+    "cards": {
+      "sm": {
+        "width": 561,
+        "height": 401,
+        "widths": [
+          240,
+          480
+        ]
+      },
+      "xs": {
+        "width": 561,
+        "height": 255,
+        "widths": [
+          400,
+          561
+        ]
+      }
+    }
+  }
+}

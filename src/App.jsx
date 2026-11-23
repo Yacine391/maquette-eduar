@@ -1,63 +1,51 @@
 // ── App — Composition de la page ────────────────────────────────────
 // CDG TRANSFERT VTC — site en production (cdgtransfertvtc.fr)
-// Ordre DOM :
-//   Header → Hero → Booking → Fleet → WhyUs → Reviews → Rates → Contact → Footer
+// Une page par route (accueil + 7 pages services) et par langue :
+//   Header → <main> (HomePage ou ServicePage) → Footer
 // + Bouton WhatsApp flottant (mobile + desktop) bas-droite
 // ────────────────────────────────────────────────────────────────────
 import { useTranslation } from './hooks/useTranslation'
-import Header        from './components/Header'
-import Hero          from './components/Hero'
-import BookingModule from './components/BookingModule'
-import Fleet         from './components/Fleet'
-import WhyUs         from './components/WhyUs'
-import Reviews       from './components/Reviews'
-import Rates         from './components/Rates'
-import Contact       from './components/Contact'
-import Footer        from './components/Footer'
+import Header      from './components/Header'
+import Footer      from './components/Footer'
 import { whatsappLink } from './constants/contact'
 
 // Message pré-rempli du bouton WhatsApp flottant
 const WHATSAPP_MSG = 'Bonjour je souhaite reserver un transfert avec CDG Transfert VTC'
+const SKIP = { fr: 'Aller au contenu', en: 'Skip to content', ru: 'Перейти к содержанию', ro: 'Salt la conținut' }
+const WA_LABEL = { fr: 'Contacter sur WhatsApp', en: 'Contact us on WhatsApp', ru: 'Написать в WhatsApp', ro: 'Contactați-ne pe WhatsApp' }
 
-export default function App() {
-  const { t, lang, setLang } = useTranslation()
+// route = { lang, page } : écrite au pré-rendu, relue à l'hydratation
+// Page  = composant de la page (HomePage ou ServicePage), chargé à part pour
+//         que chaque type de page n'embarque que son propre code
+// body  = texte de la page service affichée (src/content/services/pages/)
+export default function App({ route, Page, body }) {
+  const { lang, page } = route
+  const { t } = useTranslation(lang)
 
   return (
     <div className="min-h-screen bg-canvas text-offwhite font-sans overflow-x-hidden">
 
-      {/* 1 · Header sticky avec barre info */}
-      <Header t={t} lang={lang} setLang={setLang} />
+      {/* Lien d'évitement (clavier) : visible seulement au focus */}
+      <a href="#contenu" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] btn-primary">
+        {SKIP[lang]}
+      </a>
 
-      {/* 2 · Hero plein écran + stats bar */}
-      <Hero t={t} lang={lang} />
+      {/* Header sticky avec barre info et liens de langue */}
+      <Header t={t} lang={lang} route={route} />
 
-      {/* 3 · Module de réservation ⭐ */}
-      <BookingModule t={t} lang={lang} />
+      {/* Contenu principal (repère <main> unique) */}
+      <main id="contenu">
+        <Page slug={page} route={route} body={body} t={t} lang={lang} />
+      </main>
 
-      {/* 4 · Flotte (ordre strict CLAUDE.md) */}
-      <Fleet t={t} lang={lang} />
-
-      {/* 5 · Pourquoi nous (Trust & Authority — skill recommendation) */}
-      <WhyUs lang={lang} />
-
-      {/* 6 · Votre avis compte (lien vers avis Google) */}
-      <Reviews t={t} lang={lang} />
-
-      {/* 7 · Tarifs */}
-      <Rates t={t} lang={lang} />
-
-      {/* 7 · Contact */}
-      <Contact t={t} lang={lang} />
-
-      {/* 8 · Footer */}
-      <Footer t={t} lang={lang} />
+      <Footer t={t} lang={lang} route={route} />
 
       {/* ── Bouton WhatsApp flottant (visible mobile + desktop) ── */}
       <a
         href={whatsappLink(WHATSAPP_MSG)}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Contacter sur WhatsApp"
+        aria-label={WA_LABEL[lang]}
         className="fixed bottom-6 right-5 z-50
           flex items-center justify-center
           w-14 h-14 rounded-full

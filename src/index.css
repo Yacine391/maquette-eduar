@@ -17,8 +17,10 @@
 
   body {
     @apply bg-canvas text-offwhite font-sans;
-    /* Grain texture subtil — signe de qualité premium */
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    /* Grain texture subtil — signe de qualité premium. Tuile pré-calculée
+       (scripts/optimize-images.py) : même rendu que l'ancien filtre SVG
+       feTurbulence, sans son coût de rastérisation au chargement. */
+    background-image: url('./assets/grain.webp');
     background-repeat: repeat;
   }
 
@@ -97,6 +99,40 @@
     content: '';
     @apply flex-1 h-px bg-gold/20;
   }
+}
+
+/* ── Texte des articles du blog (HTML généré depuis le Markdown) ──────── */
+@layer components {
+  .prose-blog { @apply text-silver font-sans font-light leading-relaxed; }
+  .prose-blog > * + * { @apply mt-5; }
+  .prose-blog h2 { @apply font-serif text-3xl md:text-4xl text-offwhite font-normal leading-tight mt-12 mb-5 scroll-mt-28; }
+  .prose-blog h3 { @apply font-serif text-2xl text-offwhite font-normal leading-snug mt-8 mb-3 scroll-mt-28; }
+  .prose-blog h4 { @apply font-sans text-base text-offwhite font-semibold mt-6; }
+  .prose-blog strong { @apply text-offwhite font-medium; }
+  .prose-blog a { @apply text-gold underline underline-offset-4 decoration-gold/50 hover:text-gold-hover transition-colors duration-300; }
+  .prose-blog ul, .prose-blog ol { @apply pl-6 space-y-2; }
+  .prose-blog ul { @apply list-disc marker:text-gold/70; }
+  .prose-blog ol { @apply list-decimal marker:text-gold/70; }
+  .prose-blog blockquote { @apply border-l-2 border-gold/60 pl-5 italic; }
+  .prose-blog .table-wrap { @apply overflow-x-auto border border-divider; }
+  .prose-blog table { @apply w-full text-sm border-collapse; }
+  .prose-blog thead tr { @apply bg-canvas-3/80; }
+  .prose-blog th { @apply py-3 px-4 text-left text-[10px] font-semibold tracking-[0.2em] uppercase text-silver-dim border-b border-divider; }
+  .prose-blog td { @apply py-3 px-4 border-b border-divider text-silver; }
+  .prose-blog tr:last-child td { @apply border-b-0; }
+  .prose-blog td:first-child { @apply text-offwhite font-normal; }
+  .prose-blog picture img { @apply w-full h-auto; }
+  .prose-lead { @apply text-lg text-offwhite/90; }
+}
+
+/* ── Rendu différé des sections hors écran ──────────────────────────────
+   Le navigateur ne calcule le style et la mise en page des sections sous le
+   hero qu'à leur approche (moins de travail au chargement, aucun effet
+   visuel). `auto` mémorise la hauteur réelle une fois la section affichée. */
+main > section:not(:first-child),
+footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
 }
 
 /* ── Scrollbar custom ───────────────────────────────────────────────── */

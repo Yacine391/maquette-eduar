@@ -3,3 +3,5 @@ dist/
 .env
 .DS_Store
 .gstack/
+dist-ssr/
+src/content/blog/generated/

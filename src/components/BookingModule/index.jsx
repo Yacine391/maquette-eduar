@@ -6,8 +6,7 @@
 // Si la notification échoue : message de secours avec appel et WhatsApp
 // (demande pré-remplie).
 // ────────────────────────────────────────────────────────────────────
-import { useState } from 'react'
-import emailjs from '@emailjs/browser'
+import { useEffect, useState } from 'react'
 import { usePriceEstimate } from '../../hooks/usePriceEstimate'
 import { estimatePrice } from '../../utils/estimatePrice'
 import { vehicles } from '../../constants/vehicles'
@@ -43,6 +42,10 @@ export default function BookingModule({ t, lang }) {
   const [emailError, setEmailError] = useState(false)
   const [clientMailOk, setClientMailOk] = useState(true)  // récapitulatif client envoyé ?
   const [errors, setErrors] = useState([])                 // erreurs de saisie
+  // Date minimale = aujourd'hui, posée côté navigateur (le HTML pré-généré
+  // au build ne doit pas figer la date du build)
+  const [minDate, setMinDate] = useState(undefined)
+  useEffect(() => setMinDate(todayISO()), [])
 
   const selectedVehicle = vehicles.find(v => v.id === form.vehicleId)
 
@@ -109,6 +112,17 @@ export default function BookingModule({ t, lang }) {
       dropoff:      form.dropoff,
       vehicle:      `${selectedVehicle?.category} — ${selectedVehicle?.model}`,
       price:        priceLabel,
+    }
+
+    // EmailJS est chargé seulement à l'envoi (JS différé)
+    let emailjs
+    try {
+      emailjs = (await import('@emailjs/browser')).default
+    } catch (err) {
+      console.error('EmailJS (chargement) :', err)
+      setEmailError(true)   // → message de secours appel / WhatsApp
+      setSending(false)
+      return
     }
 
     // 1. Notification à CDG Transfert VTC — indispensable
@@ -234,7 +248,7 @@ export default function BookingModule({ t, lang }) {
 
       <div className="relative z-10 max-w-5xl mx-auto">
         <div className="text-center mb-14">
-          <p className="section-eyebrow">Réservation</p>
+          <p className="section-eyebrow">{{ fr: 'Réservation', en: 'Booking', ru: 'Бронирование', ro: 'Rezervare' }[lang]}</p>
           <h2 className="section-title">{t('booking_title')}</h2>
           <div className="section-divider">
             <div className="h-px w-10 bg-gold/30" />
@@ -248,7 +262,7 @@ export default function BookingModule({ t, lang }) {
 
             {/* ── Coordonnées ── */}
             <fieldset className="mb-8">
-              <legend className="text-[10px] font-bold tracking-[0.3em] uppercase text-gold/70 mb-4 pb-2 border-b border-divider w-full">
+              <legend className="text-[10px] font-bold tracking-[0.3em] uppercase text-gold/80 mb-4 pb-2 border-b border-divider w-full">
                 {lbl('coords')}
               </legend>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -272,13 +286,13 @@ export default function BookingModule({ t, lang }) {
 
             {/* ── Trajet ── */}
             <fieldset className="mb-8">
-              <legend className="text-[10px] font-bold tracking-[0.3em] uppercase text-gold/70 mb-4 pb-2 border-b border-divider w-full">
+              <legend className="text-[10px] font-bold tracking-[0.3em] uppercase text-gold/80 mb-4 pb-2 border-b border-divider w-full">
                 {lbl('journey')}
               </legend>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label htmlFor="date" className="label-luxury">{t('booking_date')} *</label>
-                  <input id="date" type="date" name="date" value={form.date} min={todayISO()}
+                  <input id="date" type="date" name="date" value={form.date} min={minDate}
                     onChange={handleChange} required className="input-luxury" />
                 </div>
                 <div>
@@ -309,8 +323,8 @@ export default function BookingModule({ t, lang }) {
 
             {/* ── Véhicule ── */}
             <div className="mb-8">
-              <p className="label-luxury mb-3">{t('booking_vehicle')}</p>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3" role="group">
+              <p id="vehicle-label" className="label-luxury mb-3">{t('booking_vehicle')}</p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3" role="group" aria-labelledby="vehicle-label">
                 {vehicles.map((v) => {
                   const active = form.vehicleId === v.id
                   return (
@@ -406,7 +420,7 @@ export default function BookingModule({ t, lang }) {
               }
             </button>
 
-            <p className="mt-4 text-[10px] text-silver-dim/50 italic tracking-wide">
+            <p className="mt-4 text-[10px] text-silver-dim italic tracking-wide">
               {t('booking_note')}
             </p>
 

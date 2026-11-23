@@ -14,14 +14,14 @@ export default {
         'gold-light': '#E8CC8C',   // Gold clair pour effets subtils
         offwhite:     '#F4F4F6',   // Texte principal
         silver:       '#8E8E93',   // Texte secondaire
-        'silver-dim': '#5A5A60',   // Texte tertiaire
+        'silver-dim': '#808086',   // Texte tertiaire (contraste ≥ 4.5:1 sur les fonds sombres)
         divider:      '#1E1E24',   // Séparateurs
       },
       fontFamily: {
         // Cormorant Garamond : ultra-luxe (skill: Luxury Serif)
-        serif:  ['"Cormorant Garamond"', '"Playfair Display"', 'Georgia', 'serif'],
+        serif:  ['"Cormorant Garamond Variable"', '"Cormorant Garamond"', 'Georgia', 'serif'],
         // Montserrat : géométrique, lisible (skill: Luxury Serif pairing)
-        sans:   ['Montserrat', 'Inter', 'sans-serif'],
+        sans:   ['"Montserrat Variable"', 'Montserrat', 'sans-serif'],
       },
       fontSize: {
         // Type scale luxury

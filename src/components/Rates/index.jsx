@@ -1,5 +1,5 @@
 // ── Rates — Tableau des tarifs premium ──────────────────────────────
-// Tarifs réels (src/constants/rates.js), identiques au priceRange de index.html.
+// Tarifs réels (src/constants/rates.js), source du priceRange du JSON-LD.
 // Design : tableau sombre avec headers gold, lignes élégantes.
 // ────────────────────────────────────────────────────────────────────
 import { rateTable } from '../../constants/rates'
@@ -22,7 +22,7 @@ export default function Rates({ t, lang }) {
 
         {/* ── Titre ── */}
         <div className="text-center mb-14">
-          <p className="section-eyebrow">Tarifs</p>
+          <p className="section-eyebrow">{{ fr: 'Tarifs', en: 'Rates', ru: 'Тарифы', ro: 'Tarife' }[lang]}</p>
           <h2 className="section-title">{t('rates_title')}</h2>
           <div className="section-divider">
             <div className="h-px w-10 bg-gold/30" />
@@ -107,7 +107,7 @@ export default function Rates({ t, lang }) {
         </div>
 
         {/* Note */}
-        <p className="mt-5 text-[11px] text-silver-dim/50 italic text-center tracking-wide">
+        <p className="mt-5 text-[11px] text-silver-dim italic text-center tracking-wide">
           {{ en: 'Fixed prices, tolls and waiting time included, confirmed before the ride', ru: 'Фиксированные тарифы, платные дороги и ожидание включены, цена сообщается до поездки', ro: 'Tarife fixe, taxe de autostradă și așteptare incluse, comunicate înainte de cursă' }[lang]
             ?? 'Tarifs fixes, péage et attente inclus, annoncés avant la course'}
         </p>
