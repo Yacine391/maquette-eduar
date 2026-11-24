@@ -73,8 +73,7 @@ export default function ServicePage({ slug, body, lang, t }) {
     <>
       {/* ── En-tête de page (au-dessus de la ligne de flottaison) ── */}
       <section className="relative pt-36 md:pt-44 pb-14 px-6 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none" aria-hidden="true"
-          style={{ background: 'radial-gradient(ellipse 70% 60% at 80% 0%, rgba(197,160,89,0.07) 0%, transparent 70%)' }} />
+        <div className="absolute inset-0 pointer-events-none bg-page-glow" aria-hidden="true" />
         <div className="relative max-w-4xl mx-auto">
           <nav aria-label={ui.breadcrumb} className="mb-8">
             <ol className="flex flex-wrap items-center gap-2 text-[11px] tracking-[0.2em] uppercase text-silver-dim">

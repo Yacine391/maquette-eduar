@@ -43,7 +43,8 @@ python3 scripts/optimize-blog-images.py   # regenerate blog images after adding 
 - `<html lang>` and the route's `<head>` (title, description, canonical, hreflang, Open Graph, Twitter, JSON-LD — `src/seo/head.js`) replace the `<!--app-head-->…<!--/app-head-->` placeholder of `index.html`;
 - the page HTML is pre-rendered at build time (`renderToString`) with the route in `data-lang` / `data-page` on `#root`, and hydrated in the browser (`hydrateRoot` inside `startTransition`, `src/main.jsx`);
 - code splitting: the page-type chunk (`HomePage`, `ServicePage`, `BlogList`, `BlogArticle`) and the page text (`src/content/services/pages/<slug>.js` or the generated article) are loaded before hydration — nothing from the other pages is downloaded; React is in its own `react` chunk (cached across deploys; keeps the « unused JavaScript » audit under its threshold on pages without a form);
-- the CSS is inlined in a `<style>` (no render-blocking request); only woff2 subsets used by FR/EN/RU/RO are kept;
+- the CSS is inlined in a `<style>` (no render-blocking request; one global stylesheet, `cssCodeSplit: false`, so no lazy chunk tries to preload the deleted CSS file); only woff2 subsets used by FR/EN/RU/RO are kept. Its **sha256 hash is the only `style-src` of the CSP**: `prerender.mjs` rewrites it in `vercel.json` when the CSS changes (commit `vercel.json` after a build); on Vercel (`VERCEL=1`) a stale hash fails the build;
+- `dist/404.html`: static not-found page (no JS, `noindex`), served by Vercel with a 404 status;
 - the above-the-fold fonts are preloaded per language (latin, + latin-ext for RO, + cyrillic for RU) and page type (Cormorant italic on the home page only);
 - the JS entry is loaded by the inline loader `scripts/app-loader.js` (low fetch priority), allowed by its **sha256 hash in the CSP** of `vercel.json`;
 - `sitemap.xml` (32 URLs with hreflang alternates + blog), `robots.txt` (search engines and AI crawlers allowed), `llms.txt` and `blog/rss.xml` are generated from `src/seo/files.js`.
@@ -51,6 +52,7 @@ python3 scripts/optimize-blog-images.py   # regenerate blog images after adding 
 Rules:
 - Render code must not touch `window` / `document`; values that differ between build time and visit (today's date, current year) are set in `useEffect`.
 - Changing `scripts/app-loader.js` changes its hash: update `script-src` in `vercel.json` (`npm test` fails until they match).
+- No `style` attribute in rendered HTML (blocked by the CSP): use CSS classes (`src/index.css`, e.g. `bg-hero-base`, `bg-dots-gold`); runtime styles set by React after hydration are fine.
 - No opacity-0 entrance animation in the hero, no SVG filters in backgrounds (use pre-rendered tiles), no base64-inlined assets (`assetsInlineLimit: 0`).
 - Below-the-fold sections use `content-visibility: auto` (`src/index.css`).
 - Non-critical JS is lazy-loaded (EmailJS on submit, gallery on first open).
@@ -70,7 +72,12 @@ Rules:
 
 ## Security Headers (`vercel.json`)
 
-Strict CSP (`script-src` hash + `'strict-dynamic'`, Trusted Types with the single `loader` policy, `connect-src` limited to `api.emailjs.com` and `api-adresse.data.gouv.fr`, `frame-ancestors 'none'`), HSTS `includeSubDomains; preload`, COOP `same-origin`, `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`, 1-year immutable cache on `/assets/`. A new third-party service (script, API, font, image host) must be added to the CSP, then checked in a browser (no CSP violation in the console).
+Strict CSP without `'unsafe-inline'` / `'unsafe-eval'` (`script-src` loader hash + `'strict-dynamic'` (+ `'self'` fallback for old browsers), `style-src` = hash of the inlined CSS only, Trusted Types with the single `loader` policy, `connect-src` limited to `api.emailjs.com` and `api-adresse.data.gouv.fr`, `object-src 'none'`, `base-uri 'none'`, `form-action 'self'`, `frame-ancestors 'none'`, `upgrade-insecure-requests`; the JSON-LD `<script type="application/ld+json">` is data, not executed, so it needs no hash), HSTS `includeSubDomains; preload`, COOP `same-origin`, CORP `same-origin`, `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy`, minimal `Permissions-Policy`, `X-Permitted-Cross-Domain-Policies: none`, 1-year immutable cache on `/assets/`. A new third-party service (script, API, font, image host) must be added to the CSP, then checked in a browser (no CSP violation in the console). No third-party script: if one is ever added, it needs Subresource Integrity.
+
+- `public/.well-known/security.txt`: contact, `Expires` (renew every year — `npm test` fails once expired), languages.
+- Secrets: none in the repository or in `dist/` (checked with gitleaks). Only the public EmailJS identifiers are allowed client-side (`src/config/emailjs.js`). `.env*` is git-ignored (`.env.example` documents that no variable is needed).
+- Dependencies: exact versions in `package.json` (`.npmrc` `save-exact=true`), `package-lock.json` committed, Dependabot weekly (`.github/dependabot.yml`, npm + GitHub Actions). Remaining `npm audit` findings concern only the Vite dev server (fix = Vite major upgrade): never expose `npm run dev` outside localhost.
+- External links with `target="_blank"` always have `rel="noopener noreferrer"` (checked by `npm test`).
 
 ## Design System (enforce strictly)
 
@@ -140,12 +147,12 @@ src/
   components/Blog/     BlogList, BlogArticle, parts (breadcrumb, card, CTA box, pagination)
   config/emailjs.js    EmailJS service, templates, public key
   hooks/               useTranslation, usePriceEstimate
-  utils/               priceZone.js (trip → price zone), estimatePrice.js
+  utils/               priceZone.js (trip → price zone), estimatePrice.js, bookingGuard.js (form validation / anti-spam)
 content/blog/          <category>/<slug>.md articles + images.json (blog image manifest)
 scripts/               prerender.mjs, app-loader.js, optimize-images.py, optimize-blog-images.py,
                        check-links.mjs, blog/generate.mjs
 images-src/            original photos and logo (not deployed); blog/ = blog image originals
-tests/                 priceZone.test.js, seo.test.js, blog.test.js, security.test.js, routing.test.js,
+tests/                 priceZone.test.js, seo.test.js, blog.test.js, security.test.js, routing.test.js, bookingGuard.test.js,
                        rules.js (forbidden claims shared by the tests)
 public/                og-image.jpg (1200×630), logo.png (512×512, JSON-LD logo), img/blog/ (hashed AVIF / WebP / JPEG, cached 1 year),
                        google9b82adfd484120a1.html (Search Console verification — never delete)
@@ -156,6 +163,7 @@ index.html             template: charset, viewport, favicon, robots + <!--app-he
 
 - Form fields: name, e-mail, phone (required: the client is called back by phone / WhatsApp), date (not in the past), time, pickup, drop-off, « Siège enfant / rehausseur (nombre) » (0–4), vehicle (default: BUSINESS / Classe E).
 - EmailJS template params (both templates): `client_name`, `client_email`, `client_phone`, `booking_date`, `booking_time`, `pickup`, `dropoff`, `vehicle`, `child_seats`, `price`. No recipient is sent by the code: the « To Email » of each template is set in the EmailJS dashboard (admin template = the business address; client template = `{{client_email}}`).
+- Anti-spam / injection (`src/utils/bookingGuard.js`, tested in `tests/bookingGuard.test.js`): strict validation of every field (name letters only 2–80, e-mail ≤ 254, phone 9–15 digits ≤ 20 chars, date + time in the future and ≤ 18 months, addresses 3–200, seats 0–4, known vehicle), `maxLength` on inputs, hidden honeypot field `website` (filled → fake success, nothing sent), minimum 3 s between display and submit, max 3 requests per browser in 10 min (localStorage; beyond → call / WhatsApp), every EmailJS parameter cleaned to plain text (no control chars, `< > { }`, length-limited), EmailJS SDK `blockHeadless: true`. In the EmailJS templates use `{{var}}` (escaped), never `{{{var}}}`. Playwright tests must set `navigator.webdriver` to false (otherwise the SDK refuses to send).
 - On submit, EmailJS sends 1) the notification to the business (`ADMIN_TEMPLATE_ID`, mandatory) and 2) a summary to the client (`CLIENT_TEMPLATE_ID`, best effort: its failure must not show an error).
 - If the notification fails: fallback message with a `tel:` link and a WhatsApp link pre-filled with the request.
 - Success message: « Demande de réservation envoyée ! Nous vous confirmons votre course rapidement par téléphone ou WhatsApp. » — it is a request, not a confirmed booking.

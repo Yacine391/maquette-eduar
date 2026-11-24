@@ -172,3 +172,20 @@ footer {
   @apply absolute bottom-0 left-0 right-0 h-32 pointer-events-none;
   background: linear-gradient(to bottom, transparent, #050507);
 }
+
+/* ── Fonds décoratifs (classes au lieu d'attributs style inline) ────────
+   Aucun attribut style dans le HTML : la CSP n'autorise que le <style>
+   intégré, par son empreinte sha256 (style-src sans 'unsafe-inline'). */
+.bg-hero-base    { background: linear-gradient(160deg, #0d0c0a 0%, #050507 45%, #080610 100%); }
+.bg-hero-glow-tr { background: radial-gradient(ellipse 70% 60% at 80% 10%, rgba(197,160,89,0.07) 0%, transparent 70%); }
+.bg-hero-glow-bl { background: radial-gradient(ellipse 60% 50% at 10% 90%, rgba(197,160,89,0.04) 0%, transparent 70%); }
+.bg-hero-lines   { background-image: repeating-linear-gradient(-45deg, #C5A059 0px, #C5A059 1px, transparent 1px, transparent 60px); }
+.bg-fade-bottom  { background: linear-gradient(to bottom, transparent, #050507); }
+.bg-fade-card    { background: linear-gradient(to top, rgba(17,17,21,0.9), transparent); }
+.bg-page-glow    { background: radial-gradient(ellipse 70% 60% at 80% 0%, rgba(197,160,89,0.07) 0%, transparent 70%); }
+.bg-dots-gold    { background-image: radial-gradient(circle at 1px 1px, #C5A059 1px, transparent 0); background-size: 40px 40px; }
+.bg-onyx         { background-color: #0A0A0C; }
+.hero-ring-inner { animation-delay: -2s; top: calc(25% + 24px); right: calc(15% + 24px); }
+
+/* Champ piège du formulaire (anti-robots) : hors écran, jamais visible */
+.hp-field { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }

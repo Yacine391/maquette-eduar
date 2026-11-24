@@ -72,6 +72,9 @@
 - [x] Conditions officielles du client (novembre 2026) : suivi des arrivées, 1 h d'attente incluse, annulation 24 h, péages / eau / facture, sièges enfants (champ du formulaire), capacités, flotte partenaire, mise à disposition à l'heure
 - [ ] Faire confirmer par le client le nombre de passagers du Classe V (6 sur le site)
 - [ ] EmailJS : vérifier l'adresse « To Email » du template de notification et ajouter {{child_seats}} aux deux templates
+- [x] Sécurité (novembre 2026) : CSP sans 'unsafe-inline', CORP, security.txt, 404, formulaire anti-spam, dépendances verrouillées, Dependabot, galerie réparée
+- [ ] Propriétaire : 2FA (GitHub, Vercel, Google, EmailJS, registraire), protection de main, DNS SPF / DMARC / CAA / DNSSEC, réglages de sécurité EmailJS
+- [ ] Renouveler public/.well-known/security.txt (Expires) avant novembre 2027
 - [ ] Blog : rédiger les articles des 8 autres catégories (pages déjà en place, hors sitemap tant qu'elles sont vides)
 - [ ] Décider d'une politique Content-Signal (autorisation ou non de l'entraînement des IA) pour robots.txt
 - [ ] Optionnel : inscrire le domaine sur hstspreload.org (l'en-tête HSTS est prêt)

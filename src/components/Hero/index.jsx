@@ -35,29 +35,15 @@ export default function Hero({ t, lang }) {
       {/* ── Fond : multi-couches radial + diagonal ── */}
       <div className="absolute inset-0" aria-hidden="true">
         {/* Couche base */}
-        <div className="absolute inset-0" style={{
-          background: 'linear-gradient(160deg, #0d0c0a 0%, #050507 45%, #080610 100%)',
-        }} />
+        <div className="absolute inset-0 bg-hero-base" />
         {/* Tache lumineuse dorée haut-droite */}
-        <div className="absolute top-0 right-0 w-[60vw] h-[60vh]" style={{
-          background: 'radial-gradient(ellipse 70% 60% at 80% 10%, rgba(197,160,89,0.07) 0%, transparent 70%)',
-        }} />
+        <div className="absolute top-0 right-0 w-[60vw] h-[60vh] bg-hero-glow-tr" />
         {/* Tache lumineuse bas-gauche */}
-        <div className="absolute bottom-0 left-0 w-[50vw] h-[50vh]" style={{
-          background: 'radial-gradient(ellipse 60% 50% at 10% 90%, rgba(197,160,89,0.04) 0%, transparent 70%)',
-        }} />
+        <div className="absolute bottom-0 left-0 w-[50vw] h-[50vh] bg-hero-glow-bl" />
         {/* Lignes diagonales fines */}
-        <div className="absolute inset-0 opacity-[0.035]" style={{
-          backgroundImage: `repeating-linear-gradient(
-            -45deg,
-            #C5A059 0px, #C5A059 1px,
-            transparent 1px, transparent 60px
-          )`,
-        }} />
+        <div className="absolute inset-0 opacity-[0.035] bg-hero-lines" />
         {/* Masque bas vers le contenu suivant */}
-        <div className="absolute bottom-0 left-0 right-0 h-40"
-          style={{ background: 'linear-gradient(to bottom, transparent, #050507)' }}
-        />
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-fade-bottom" />
       </div>
 
       {/* ── Éléments décoratifs dorés ── */}
@@ -68,8 +54,7 @@ export default function Hero({ t, lang }) {
         <div className="absolute right-8 top-1/3 bottom-1/3 w-px bg-gradient-to-b from-transparent via-gold/20 to-transparent" />
         {/* Cercle décoratif flottant */}
         <div className="absolute top-1/4 right-[15%] w-32 h-32 rounded-full border border-gold/10 animate-float hidden lg:block" />
-        <div className="absolute top-1/4 right-[15%] w-20 h-20 rounded-full border border-gold/15 animate-float hidden lg:block"
-          style={{ animationDelay: '-2s', top: 'calc(25% + 24px)', right: 'calc(15% + 24px)' }} />
+        <div className="absolute w-20 h-20 rounded-full border border-gold/15 animate-float hidden lg:block hero-ring-inner" />
       </div>
 
       {/* ── Contenu principal ── */}

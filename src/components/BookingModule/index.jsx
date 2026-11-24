@@ -8,14 +8,20 @@
 // Catégorie par défaut : BUSINESS (Mercedes Classe E). Champ « Siège enfant
 // / rehausseur (nombre) » → paramètre EmailJS `child_seats` (à afficher dans
 // les deux templates du tableau de bord EmailJS : {{child_seats}}).
+// Anti-spam et injections (src/utils/bookingGuard.js) : validation stricte
+// de chaque champ, champ piège invisible, délai minimal de 3 s avant envoi,
+// 3 demandes maximum par navigateur en 10 min, valeurs nettoyées (texte
+// brut, longueur limitée) avant l'envoi à EmailJS ; robots sans interface
+// (navigator.webdriver) refusés par le SDK EmailJS (blockHeadless).
 // ────────────────────────────────────────────────────────────────────
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { usePriceEstimate } from '../../hooks/usePriceEstimate'
 import { estimatePrice } from '../../utils/estimatePrice'
 import { vehicles } from '../../constants/vehicles'
 import { EMAILJS_CONFIG } from '../../config/emailjs'
 import AddressAutocomplete from './AddressAutocomplete'
 import { PHONE_E164, PHONE_DISPLAY, whatsappLink } from '../../constants/contact'
+import { LIMITS, checkBooking, cleanText, cleanParams, tooFast, rateLimited, recordSend } from '../../utils/bookingGuard'
 
 // Date du jour au format AAAA-MM-JJ (heure locale) : date minimale du formulaire
 const todayISO = () => {
@@ -23,8 +29,6 @@ const todayISO = () => {
   d.setMinutes(d.getMinutes() - d.getTimezoneOffset())
   return d.toISOString().slice(0, 10)
 }
-const EMAIL_RE    = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
-const phoneDigits = (s) => s.replace(/\D/g, '')
 
 export default function BookingModule({ t, lang }) {
   const { price, loading, compute, reset } = usePriceEstimate()
@@ -39,6 +43,7 @@ export default function BookingModule({ t, lang }) {
     dropoff:   '',
     vehicleId: 'business',
     childSeats: '0',
+    website:   '',   // champ piège : invisible, rempli seulement par les robots
   })
   const [submitted, setSubmitted] = useState(false)
   const [sending,   setSending]   = useState(false)
@@ -49,7 +54,9 @@ export default function BookingModule({ t, lang }) {
   // Date minimale = aujourd'hui, posée côté navigateur (le HTML pré-généré
   // au build ne doit pas figer la date du build)
   const [minDate, setMinDate] = useState(undefined)
-  useEffect(() => setMinDate(todayISO()), [])
+  // Heure d'affichage du formulaire (délai minimal avant envoi)
+  const shownAt = useRef(0)
+  useEffect(() => { setMinDate(todayISO()); shownAt.current = Date.now() }, [])
 
   const selectedVehicle = vehicles.find(v => v.id === form.vehicleId)
 
@@ -84,32 +91,36 @@ export default function BookingModule({ t, lang }) {
     compute({ vehicleId: form.vehicleId, pickup: form.pickup, dropoff: form.dropoff })
   }
 
-  // ── Vérification des champs avant envoi ──
-  const validate = () => {
-    const errs = []
-    if (!EMAIL_RE.test(form.email.trim()))  errs.push(lbl('errEmail'))
-    if (phoneDigits(form.phone).length < 9) errs.push(lbl('errPhone'))
-    if (form.date && form.date < todayISO()) errs.push(lbl('errDate'))
-    return errs
-  }
+  // ── Vérification des champs avant envoi (src/utils/bookingGuard.js) ──
+  const validate = () => checkBooking(form, new Date()).map(lbl)
 
   // ── Envoi de la demande + e-mails ──
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!form.name || !form.email || !form.phone || !form.date || !form.time || !form.pickup || !form.dropoff) return
+    // Champ piège rempli : robot → confirmation affichée, rien n'est envoyé
+    if (form.website) { setConfirmed(true); return }
     const errs = validate()
+    if (!errs.length && tooFast(shownAt.current, Date.now())) errs.push(lbl('errFast'))
     setErrors(errs)
     if (errs.length) return
+    // Plus de 3 demandes en 10 min depuis ce navigateur : appel / WhatsApp
+    if (rateLimited(Date.now())) {
+      setErrors([lbl('errLimit')])
+      setEmailError(true)
+      return
+    }
 
     setSending(true)
     setEmailError(false)
 
     const priceLabel = requestPrice()
 
-    const templateParams = {
+    // Texte brut uniquement, longueurs limitées (aucun HTML venant du visiteur)
+    const templateParams = cleanParams({
       client_name:  form.name,
       client_email: form.email,
-      client_phone: form.phone || 'Non renseigné',
+      client_phone: form.phone,
       booking_date: form.date,
       booking_time: form.time,
       pickup:       form.pickup,
@@ -117,7 +128,9 @@ export default function BookingModule({ t, lang }) {
       vehicle:      `${selectedVehicle?.category} — ${selectedVehicle?.model}`,
       child_seats:  form.childSeats,
       price:        priceLabel,
-    }
+    })
+    // Options du SDK : clé publique + refus des navigateurs automatisés
+    const options = { publicKey: EMAILJS_CONFIG.PUBLIC_KEY, blockHeadless: true }
 
     // EmailJS est chargé seulement à l'envoi (JS différé)
     let emailjs
@@ -136,8 +149,9 @@ export default function BookingModule({ t, lang }) {
         EMAILJS_CONFIG.SERVICE_ID,
         EMAILJS_CONFIG.ADMIN_TEMPLATE_ID,
         templateParams,
-        EMAILJS_CONFIG.PUBLIC_KEY,
+        options,
       )
+      recordSend(Date.now())
     } catch (err) {
       console.error('EmailJS (notification) :', err)
       setEmailError(true)   // → message de secours appel / WhatsApp
@@ -153,7 +167,7 @@ export default function BookingModule({ t, lang }) {
         EMAILJS_CONFIG.SERVICE_ID,
         EMAILJS_CONFIG.CLIENT_TEMPLATE_ID,
         templateParams,
-        EMAILJS_CONFIG.PUBLIC_KEY,
+        options,
       )
     } catch (err) {
       console.error('EmailJS (récapitulatif client) :', err)
@@ -164,17 +178,18 @@ export default function BookingModule({ t, lang }) {
     setSending(false)
   }
 
-  // Demande pré-remplie pour WhatsApp (message de secours)
+  // Demande pré-remplie pour WhatsApp (message de secours), valeurs nettoyées
+  const c = (v, max) => cleanText(v, max)
   const whatsappRequest = () => [
     'Bonjour, je souhaite réserver un transfert :',
-    `• Nom : ${form.name}`,
-    `• Téléphone : ${form.phone}`,
-    `• E-mail : ${form.email}`,
-    `• Date : ${form.date} à ${form.time}`,
-    `• Départ : ${form.pickup}`,
-    `• Arrivée : ${form.dropoff}`,
+    `• Nom : ${c(form.name, LIMITS.name)}`,
+    `• Téléphone : ${c(form.phone, LIMITS.phone)}`,
+    `• E-mail : ${c(form.email, LIMITS.email)}`,
+    `• Date : ${c(form.date, 10)} à ${c(form.time, 5)}`,
+    `• Départ : ${c(form.pickup, LIMITS.address)}`,
+    `• Arrivée : ${c(form.dropoff, LIMITS.address)}`,
     `• Véhicule : ${selectedVehicle?.category} — ${selectedVehicle?.model}`,
-    ...(form.childSeats !== '0' ? [`• Sièges enfant / rehausseurs : ${form.childSeats}`] : []),
+    ...(form.childSeats !== '0' ? [`• Sièges enfant / rehausseurs : ${c(form.childSeats, 1)}`] : []),
     `• Prix estimé : ${requestPrice()}`,
   ].join('\n')
 
@@ -193,7 +208,14 @@ export default function BookingModule({ t, lang }) {
     whatsapp: { fr: 'Envoyer ma demande par WhatsApp', en: 'Send my request via WhatsApp', ru: 'Отправить заявку в WhatsApp', ro: 'Trimiteți cererea pe WhatsApp' },
     errEmail: { fr: 'Adresse e-mail invalide.', en: 'Invalid email address.', ru: 'Неверный адрес эл. почты.', ro: 'Adresă de e-mail invalidă.' },
     errPhone: { fr: 'Numéro de téléphone invalide (nécessaire pour confirmer votre course).', en: 'Invalid phone number (needed to confirm your ride).', ru: 'Неверный номер телефона (нужен для подтверждения поездки).', ro: 'Număr de telefon invalid (necesar pentru confirmarea cursei).' },
-    errDate:  { fr: 'La date ne peut pas être dans le passé.', en: 'The date cannot be in the past.', ru: 'Дата не может быть в прошлом.', ro: 'Data nu poate fi în trecut.' },
+    errDate:  { fr: 'La date et l’heure doivent être dans le futur.', en: 'The date and time must be in the future.', ru: 'Дата и время должны быть в будущем.', ro: 'Data și ora trebuie să fie în viitor.' },
+    errDateFar:{ fr: 'La date ne peut pas dépasser 18 mois.', en: 'The date cannot be more than 18 months ahead.', ru: 'Дата не может быть позже чем через 18 месяцев.', ro: 'Data nu poate depăși 18 luni.' },
+    errName:  { fr: 'Nom invalide (lettres, espaces, apostrophes et tirets, 2 à 80 caractères).', en: 'Invalid name (letters, spaces, apostrophes and hyphens, 2 to 80 characters).', ru: 'Неверное имя (буквы, пробелы, апострофы и дефисы, от 2 до 80 символов).', ro: 'Nume invalid (litere, spații, apostrofuri și cratime, 2–80 de caractere).' },
+    errAddr:  { fr: 'Adresses de départ et d’arrivée : 3 à 200 caractères.', en: 'Pick-up and destination addresses: 3 to 200 characters.', ru: 'Адреса отправления и назначения: от 3 до 200 символов.', ro: 'Adresele de plecare și de destinație: 3–200 de caractere.' },
+    errFast:  { fr: 'Merci de vérifier votre demande quelques secondes avant de l’envoyer.', en: 'Please take a few seconds to check your request before sending it.', ru: 'Пожалуйста, проверьте заявку несколько секунд перед отправкой.', ro: 'Vă rugăm să verificați cererea câteva secunde înainte de a o trimite.' },
+    errLimit: { fr: 'Plusieurs demandes ont déjà été envoyées depuis cet appareil. Pour une nouvelle demande, appelez-nous ou écrivez-nous sur WhatsApp.', en: 'Several requests have already been sent from this device. For a new request, please call us or send a WhatsApp message.', ru: 'С этого устройства уже отправлено несколько заявок. Для новой заявки позвоните нам или напишите в WhatsApp.', ro: 'Din acest dispozitiv au fost deja trimise mai multe cereri. Pentru o cerere nouă, sunați-ne sau scrieți-ne pe WhatsApp.' },
+    errInvalid:{ fr: 'Un champ contient une valeur invalide.', en: 'A field contains an invalid value.', ru: 'Одно из полей содержит недопустимое значение.', ro: 'Un câmp conține o valoare invalidă.' },
+    hp:       { fr: 'Ne pas remplir ce champ', en: 'Do not fill in this field', ru: 'Не заполняйте это поле', ro: 'Nu completați acest câmp' },
     newbook:  { fr: 'Nouvelle réservation', en: 'New booking', ru: 'Новое бронирование', ro: 'Rezervare nouă' },
     calc:     { fr: 'Calcul…', en: 'Calculating…', ru: 'Расчёт…', ro: 'Calcul…' },
     sending:  { fr: 'Envoi…', en: 'Sending…', ru: 'Отправка…', ro: 'Trimitere…' },
@@ -251,10 +273,7 @@ export default function BookingModule({ t, lang }) {
   return (
     <section id="booking" className="py-section px-6 relative">
       <div className="absolute inset-0 bg-canvas-2/50" aria-hidden="true" />
-      <div className="absolute inset-0 opacity-[0.03]" aria-hidden="true" style={{
-        backgroundImage: 'radial-gradient(circle at 1px 1px, #C5A059 1px, transparent 0)',
-        backgroundSize: '40px 40px',
-      }} />
+      <div className="absolute inset-0 opacity-[0.03] bg-dots-gold" aria-hidden="true" />
 
       <div className="relative z-10 max-w-5xl mx-auto">
         <div className="text-center mb-14">
@@ -278,18 +297,25 @@ export default function BookingModule({ t, lang }) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label htmlFor="name" className="label-luxury">{lbl('name')} *</label>
-                  <input id="name" type="text" name="name" value={form.name} autoComplete="name"
+                  <input id="name" type="text" name="name" value={form.name} autoComplete="name" maxLength={LIMITS.name}
                     onChange={handleChange} placeholder="Jean Dupont" required className="input-luxury" />
                 </div>
                 <div>
                   <label htmlFor="email" className="label-luxury">Email *</label>
-                  <input id="email" type="email" name="email" value={form.email} autoComplete="email" inputMode="email"
+                  <input id="email" type="email" name="email" value={form.email} autoComplete="email" inputMode="email" maxLength={LIMITS.email}
                     onChange={handleChange} placeholder="jean@example.com" required className="input-luxury" />
                 </div>
                 <div className="sm:col-span-2">
                   <label htmlFor="phone" className="label-luxury">{lbl('phone')} *</label>
-                  <input id="phone" type="tel" name="phone" value={form.phone} autoComplete="tel" inputMode="tel"
+                  <input id="phone" type="tel" name="phone" value={form.phone} autoComplete="tel" inputMode="tel" maxLength={LIMITS.phone}
                     onChange={handleChange} placeholder="+33 6 XX XX XX XX" required className="input-luxury" />
+                </div>
+                {/* Champ piège anti-robots : hors écran, ignoré par le clavier
+                    et les lecteurs d'écran ; un humain ne le remplit jamais */}
+                <div className="hp-field" aria-hidden="true">
+                  <label htmlFor="website">{lbl('hp')}</label>
+                  <input id="website" type="text" name="website" value={form.website}
+                    onChange={handleChange} tabIndex={-1} autoComplete="off" />
                 </div>
               </div>
             </fieldset>
@@ -317,6 +343,7 @@ export default function BookingModule({ t, lang }) {
                   onChange={handleChange}
                   placeholder="Paris 8ème, CDG Terminal 2…"
                   required
+                  maxLength={LIMITS.address}
                   label={t('booking_pickup')}
                 />
                 <AddressAutocomplete
@@ -326,6 +353,7 @@ export default function BookingModule({ t, lang }) {
                   onChange={handleChange}
                   placeholder="CDG T1, Beauvais, Paris…"
                   required
+                  maxLength={LIMITS.address}
                   label={t('booking_dropoff')}
                 />
                 <div>

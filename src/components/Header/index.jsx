@@ -186,8 +186,8 @@ export default function Header({ t, lang, route }) {
           ${scrolled ? 'top-16 md:top-20' : 'top-[101px] md:top-[117px]'}
           ${menuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
       >
-        <nav id="menu-mobile" aria-label={NAV_LABEL[lang]} style={{ backgroundColor: '#0A0A0C' }}
-          className="border-t border-b border-divider px-6 py-6 flex flex-col gap-5 shadow-2xl shadow-black"
+        <nav id="menu-mobile" aria-label={NAV_LABEL[lang]}
+          className="bg-onyx border-t border-b border-divider px-6 py-6 flex flex-col gap-5 shadow-2xl shadow-black"
         >
           {navLinks.map(({ id, label, href }) => (
             <a

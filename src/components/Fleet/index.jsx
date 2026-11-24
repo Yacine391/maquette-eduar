@@ -95,13 +95,12 @@ function FleetCard({ vehicle, t, lang, large = false }) {
   return (
     <article
       className={`relative flex flex-col overflow-hidden group cursor-pointer
-        transition-all duration-500 ease-out
+        transition-all duration-500 ease-out ${large ? 'h-full min-h-[420px]' : 'min-h-[320px]'}
         border hover:scale-[1.02]
         ${featured
           ? 'border-gold/40 hover:border-gold hover:shadow-[0_0_40px_rgba(197,160,89,0.12),inset_0_0_0_1px_rgba(197,160,89,0.3)]'
           : 'border-divider hover:border-gold/30 hover:shadow-[0_0_24px_rgba(197,160,89,0.08),inset_0_0_0_1px_rgba(197,160,89,0.15)]'
         }`}
-      style={{ height: large ? '100%' : undefined, minHeight: large ? '420px' : '320px' }}
     >
       {/* ── Badge Recommandé ── */}
       {featured && (
@@ -130,9 +129,7 @@ function FleetCard({ vehicle, t, lang, large = false }) {
         {/* Gold shimmer on hover */}
         <div className="absolute inset-0 gold-shimmer opacity-0 group-hover:opacity-100 group-hover:animate-shimmer transition-opacity duration-500" />
         {/* Vignette bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-20"
-          style={{ background: 'linear-gradient(to top, rgba(17,17,21,0.9), transparent)' }}
-        />
+        <div className="absolute bottom-0 left-0 right-0 h-20 bg-fade-card" />
         {/* Silhouette SVG véhicule — masqué si photo réelle */}
         {!cover && (
           <div className="absolute inset-0 flex items-center justify-center">

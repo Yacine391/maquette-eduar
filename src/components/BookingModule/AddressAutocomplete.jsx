@@ -7,7 +7,7 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 // Délai de debounce en ms (évite de spammer l'API à chaque frappe)
 const DEBOUNCE_MS = 300
 
-export default function AddressAutocomplete({ id, name, value, onChange, placeholder, required, label }) {
+export default function AddressAutocomplete({ id, name, value, onChange, placeholder, required, label, maxLength }) {
   const [suggestions, setSuggestions] = useState([])
   const [open,        setOpen]        = useState(false)
   const [loading,     setLoading]     = useState(false)
@@ -117,6 +117,7 @@ export default function AddressAutocomplete({ id, name, value, onChange, placeho
           onFocus={() => suggestions.length > 0 && setOpen(true)}
           placeholder={placeholder}
           required={required}
+          maxLength={maxLength}
           autoComplete="off"
           role="combobox"
           aria-autocomplete="list"
