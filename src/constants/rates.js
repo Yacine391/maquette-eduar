@@ -5,6 +5,8 @@
 // Les pages services, le JSON-LD (offres, priceRange = min / max) et
 // llms.txt sont aussi générés à partir de ce tableau. Si un prix change,
 // vérifier les FAQ qui citent des prix (tests/seo.test.js les contrôle).
+// Ligne `unit: 'hour'` : mise à disposition, prix par heure (conditions :
+// HOURLY ci-dessous) ; c'est aussi le tarif de l'attente au-delà de 1 h.
 // ────────────────────────────────────────────────────────────────────
 
 export const rateTable = [
@@ -33,6 +35,15 @@ export const rateTable = [
     eco:      150,
   },
   {
+    key:  'hourly',
+    unit: 'hour',
+    zone: { fr: 'Mise à disposition, à l’heure', en: 'Chauffeur by the hour', ru: 'Водитель на час, почасово', ro: 'Șofer la dispoziție, cu ora' },
+    business: 70,
+    luxe:     100,
+    van:      80,
+    eco:      55,
+  },
+  {
     key:  'long',
     zone: { fr: 'Longue distance (> 100 km)', en: 'Long distance (> 100 km)', ru: 'Дальние поездки (> 100 км)', ro: 'Distanță lungă (> 100 km)' },
     business: 'Sur devis',
@@ -41,6 +52,14 @@ export const rateTable = [
     eco:      'Sur devis',
   },
 ]
+
+// ── Mise à disposition : conditions (données du client) ──────────────
+// Minimum 3 h ; 20 km inclus par heure réservée (ex. 5 h → 100 km), quelle
+// que soit la catégorie ; au-delà : sur devis.
+export const HOURLY = { minHours: 3, kmPerHour: 20 }
+
+// Suffixe des prix à l'heure, par langue (« 70 €/h »)
+export const PER_HOUR = { fr: '/h', en: '/h', ru: '/ч', ro: '/oră' }
 
 // ── Table d'estimation des prix (BookingModule) ──────────────────────
 // Calculée à partir de rateTable : vehicleId → zone → prix (€) ou 'Sur devis'.

@@ -1,8 +1,8 @@
 ---
 title: "Objet oublié à Orly ou dans le VTC : que faire ?"
 description: "Objet oublié dans l’avion, à l’aéroport d’Orly ou dans la voiture, valise non livrée : qui contacter, quelles informations donner et comment l’éviter."
-date: "2026-11-23"
-updated: "2026-11-23"
+date: "2026-11-24"
+updated: "2026-11-24"
 category: transferts-orly
 tags:
   - objet perdu
@@ -52,7 +52,7 @@ Ces circuits sont les plus courants, mais ils peuvent varier : en cas de doute, 
 
 Si votre bagage ne sort pas sur le tapis, ne quittez pas la salle de livraison : déclarez-le au comptoir bagages de votre compagnie ou de son représentant. Vous recevez un numéro de dossier qui permet de suivre la recherche, et la valise est en général livrée à l’adresse indiquée une fois retrouvée.
 
-Prévenez votre chauffeur que la déclaration prend un peu de temps : envoyez-lui un message avant de faire la queue au comptoir. Une fois la déclaration faite, appelez-le : il vous confirme le lieu exact de rendez-vous. Notre article [Arrivée à Orly : où retrouver son chauffeur ?](/blog/transferts-orly/arrivee-orly-retrouver-chauffeur) détaille ces étapes, et [Vol retardé à CDG : que faire avec votre chauffeur ?](/blog/transferts-cdg/vol-retarde-cdg-chauffeur) donne les bons réflexes en cas d’imprévu.
+Prévenez votre chauffeur que la déclaration prend un peu de temps : envoyez-lui un message avant de faire la queue au comptoir. L’attente est incluse jusqu’à 1 h après l’atterrissage, puis facturée au tarif horaire de la catégorie du véhicule. Une fois la déclaration faite, appelez-le : il vous confirme le lieu exact de rendez-vous. Notre article [Arrivée à Orly : où retrouver son chauffeur ?](/blog/transferts-orly/arrivee-orly-retrouver-chauffeur) détaille ces étapes, et [Vol retardé à CDG : que faire avec votre chauffeur ?](/blog/transferts-cdg/vol-retarde-cdg-chauffeur) donne les bons réflexes en cas d’imprévu.
 
 ## Dans notre voiture
 

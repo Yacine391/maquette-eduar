@@ -1,8 +1,8 @@
 ---
 title: "Mobilité réduite à Orly : assistance et transfert VTC"
 description: "Mobilité réduite à Orly : assistance gratuite de l’aéroport, délai pour la demander, fauteuil roulant et transfert en voiture avec chauffeur."
-date: "2026-11-23"
-updated: "2026-11-23"
+date: "2026-11-24"
+updated: "2026-11-24"
 category: transferts-orly
 tags:
   - mobilité réduite
@@ -18,7 +18,7 @@ faq:
   - question: "Un fauteuil roulant pliant peut-il voyager dans le coffre ?"
     answer: "Un fauteuil pliant se transporte en général dans le coffre, comme un bagage. Signalez-le lors de la confirmation de la course pour que nous vous confirmions le véhicule adapté."
   - question: "Vos véhicules sont-ils adaptés aux fauteuils roulants ?"
-    answer: "Nos véhicules sont des berlines, un SUV et un van ; ils ne permettent pas de voyager assis dans son fauteuil. Décrivez vos besoins : nous vous indiquons ce qui est possible."
+    answer: "Nos véhicules sont des berlines Mercedes, des Tesla et des vans Mercedes Classe V ; ils ne permettent pas de voyager assis dans son fauteuil. Décrivez vos besoins : nous vous indiquons ce qui est possible."
 ---
 
 À Orly, les voyageurs à mobilité réduite peuvent bénéficier d’une assistance gratuite dans l’aéroport, à demander en général au moins 48 heures avant le vol auprès de la compagnie aérienne. Pour le trajet entre Paris et l’aéroport, décrivez vos besoins lors de la confirmation de la course : nous vous indiquons ce qui est possible et le véhicule le plus adapté.
@@ -66,7 +66,7 @@ Pour que le trajet se passe bien, décrivez vos besoins lors de la confirmation 
 - **la hauteur de siège qui vous convient** : l’accès diffère entre une berline et un van ;
 - **les bagages et les accompagnants**, pour choisir un véhicule assez grand.
 
-Nos véhicules sont des berlines Mercedes Classe E et Classe S, une Tesla Model Y et un van Mercedes Classe V. Ils ne sont pas équipés pour transporter une personne qui reste assise dans son fauteuil roulant. Un fauteuil pliant se transporte en général dans le coffre, comme un bagage. Nous vous indiquons ce qui est possible selon votre situation.
+Nos véhicules sont des berlines Mercedes Classe E et Classe S, des Tesla et des vans Mercedes Classe V. Ils ne sont pas équipés pour transporter une personne qui reste assise dans son fauteuil roulant. Un fauteuil pliant se transporte en général dans le coffre, comme un bagage. Nous vous indiquons ce qui est possible selon votre situation.
 
 ## Voyager avec un accompagnant
 
@@ -74,7 +74,7 @@ Un proche peut vous accompagner jusqu’à l’aéroport, et parfois jusqu’au 
 
 ## Prévoir un peu plus de temps
 
-Les voyageurs qui bénéficient de l’assistance débarquent souvent après les autres passagers, le temps que le personnel arrive à l’avion. À l’arrivée, la sortie peut donc prendre plus longtemps que pour un voyageur sans assistance. Au départ, arrivez tôt à l’aéroport pour que l’assistance s’organise sans précipitation. Indiquez-le lors de la confirmation : l’heure de prise en charge est convenue avec vous en conséquence.
+Les voyageurs qui bénéficient de l’assistance débarquent souvent après les autres passagers, le temps que le personnel arrive à l’avion. À l’arrivée, la sortie peut donc prendre plus longtemps que pour un voyageur sans assistance. L’attente est incluse jusqu’à 1 h après l’atterrissage ; au-delà, elle est facturée au tarif horaire de la catégorie du véhicule. Au départ, arrivez tôt à l’aéroport pour que l’assistance s’organise sans précipitation. Indiquez-le lors de la confirmation : l’heure de prise en charge est convenue avec vous en conséquence.
 
 ## Bagages et équipements médicaux
 

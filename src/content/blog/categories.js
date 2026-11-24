@@ -87,7 +87,7 @@ export const CATEGORIES = [
     intro: [
       'Paris se visite à pied, mais les distances entre les grands sites sont parfois longues : de la tour Eiffel à Montmartre, du Louvre au château de Versailles, il faut souvent traverser la ville ou en sortir. Avec un chauffeur et un véhicule à disposition, vous enchaînez les visites à votre rythme, sans chercher de station de métro ni de place pour vous garer, et vous gardez vos achats dans la voiture.',
       'Cette rubrique propose des idées d’itinéraires et des conseils pratiques pour organiser une journée de visite : quels quartiers regrouper, combien de temps prévoir entre deux sites selon la circulation, comment combiner Paris et Versailles, que faire avec des enfants ou des personnes qui marchent peu. Les durées indiquées sont des repères, à adapter selon le jour et la saison.',
-      'Pour une journée ou une demi-journée avec chauffeur, consultez notre page consacrée à la mise à disposition : le prix est établi sur devis selon la durée, les horaires et le véhicule, et il vous est confirmé avant la prestation.',
+      'Pour une journée ou une demi-journée avec chauffeur, consultez notre page consacrée à la mise à disposition : elle est facturée à l’heure selon le véhicule, avec un minimum de 3 heures et 20 km inclus par heure réservée, et le prix vous est confirmé avant la prestation.',
     ],
   },
   {

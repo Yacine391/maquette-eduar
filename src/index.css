@@ -80,6 +80,14 @@
       placeholder:text-silver-dim font-sans;
   }
 
+  /* Liste déroulante (sièges enfant) : options lisibles sur fond sombre */
+  select.input-luxury {
+    color-scheme: dark;
+  }
+  select.input-luxury option {
+    @apply bg-canvas text-offwhite;
+  }
+
   /* Label luxury */
   .label-luxury {
     @apply block text-[10px] font-semibold tracking-[0.35em] uppercase text-silver-dim mb-2;

@@ -5,10 +5,10 @@
 // contenu est visible dès le premier affichage (HTML pré-généré).
 // ────────────────────────────────────────────────────────────────────
 
-// Bandeau sous le hero : uniquement des éléments vrais et vérifiables,
-// aucun chiffre inventé. Cohérents avec le reste du site : disponibilité 24/7
-// (en-tête, données structurées), flotte (constants/vehicles.js), tarifs fixes
-// et attente incluse (note sous le tableau des tarifs).
+// Bandeau sous le hero : uniquement des informations confirmées par le
+// client, aucun chiffre inventé. Cohérentes avec le reste du site :
+// disponibilité 24/7, flotte (constants/vehicles.js), prix fixe péages
+// inclus, suivi des arrivées et 1 h d'attente incluse (content/conditions.js).
 const STATS = [
   {
     value: { fr: '24/7', en: '24/7', ru: '24/7', ro: '24/7' },
@@ -16,15 +16,15 @@ const STATS = [
   },
   {
     value: { fr: 'Mercedes & Tesla', en: 'Mercedes & Tesla', ru: 'Mercedes и Tesla', ro: 'Mercedes & Tesla' },
-    label: { fr: 'Classe E, S, V et Tesla Model Y', en: 'E-Class, S-Class, V-Class and Tesla Model Y', ru: 'E-, S-, V-класс и Tesla Model Y', ro: 'Clasa E, S, V și Tesla Model Y' },
+    label: { fr: 'Classe E, S, V et Tesla', en: 'E-Class, S-Class, V-Class and Tesla', ru: 'E-, S-, V-класс и Tesla', ro: 'Clasa E, S, V și Tesla' },
   },
   {
     value: { fr: 'Prix fixe', en: 'Fixed price', ru: 'Цена заранее', ro: 'Preț fix' },
-    label: { fr: 'Confirmé avant la course', en: 'Confirmed before the ride', ru: 'Подтверждается до поездки', ro: 'Confirmat înainte de cursă' },
+    label: { fr: 'Péages inclus, confirmé avant la course', en: 'Tolls included, confirmed before the ride', ru: 'Платные дороги включены, цена до поездки', ro: 'Taxe de autostradă incluse, confirmat înainte' },
   },
   {
     value: { fr: 'Suivi de vol', en: 'Flight tracking', ru: 'Следим за рейсом', ro: 'Urmărire zbor' },
-    label: { fr: 'Attente incluse en cas de retard', en: 'Waiting time included if delayed', ru: 'Ожидание при задержке включено', ro: 'Așteptare inclusă în caz de întârziere' },
+    label: { fr: 'Retard jamais facturé, 1 h d’attente incluse', en: 'Delays never charged, 1 h of waiting included', ru: 'Задержка не оплачивается, 1 час ожидания включён', ro: 'Întârzierea nu se facturează, 1 oră de așteptare inclusă' },
   },
 ]
 

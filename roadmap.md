@@ -69,6 +69,9 @@
 - [ ] Fiche Google Business Profile : vérifier que nom, téléphone et zone sont identiques au site (NAP) et y ajouter le lien du site
 - [x] Blog : 10 articles dans transferts-cdg (novembre 2026)
 - [x] Blog : 10 articles dans transferts-orly (novembre 2026), liens croisés avec 3 articles CDG
+- [x] Conditions officielles du client (novembre 2026) : suivi des arrivées, 1 h d'attente incluse, annulation 24 h, péages / eau / facture, sièges enfants (champ du formulaire), capacités, flotte partenaire, mise à disposition à l'heure
+- [ ] Faire confirmer par le client le nombre de passagers du Classe V (6 sur le site)
+- [ ] EmailJS : vérifier l'adresse « To Email » du template de notification et ajouter {{child_seats}} aux deux templates
 - [ ] Blog : rédiger les articles des 8 autres catégories (pages déjà en place, hors sitemap tant qu'elles sont vides)
 - [ ] Décider d'une politique Content-Signal (autorisation ou non de l'entraînement des IA) pour robots.txt
 - [ ] Optionnel : inscrire le domaine sur hstspreload.org (l'en-tête HSTS est prêt)

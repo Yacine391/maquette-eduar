@@ -95,7 +95,9 @@ Every page: Header (menu with « Blog »; full menu from 1280 px, burger below; 
 
 - Blog: `/blog` (list, 12 per page, `/blog/page/2`…, filter = links to non-empty categories) → `/blog/<category>` (unique 150–250-word intro, own title / description, paginated) → `/blog/<category>/<article>` (breadcrumb, single h1, published / updated dates, reading time, lead = direct answer, automatic table of contents, cover image, text with a « Réservez votre chauffeur » box in the middle and at the end, FAQ, 3 related articles of the same category, related service pages, booking form).
 
-Fleet order (strict): **BUSINESS** — Mercedes Classe E (featured, gold border, « Recommandé ») → **Luxe** — Classe S → **Van** — Classe V → **Éco / Électrique** — Tesla Model Y.
+Fleet order (strict): **BUSINESS** — Mercedes Classe E (featured, gold border, « Recommandé », default category of the booking form; the owner drives it himself) → **Luxe** — Classe S → **Van** — Classe V → **Éco / Électrique** — Tesla (never « Model Y »).
+
+Official capacities (`src/constants/vehicles.js`, label `luggageLabel()`): Classe E and Classe S 3 passengers, 2 large + 2 small suitcases max; Classe V 6 passengers (value to be confirmed by the client), 7 suitcases max; Tesla 4 passengers, 4 suitcases. Beyond: several vehicles, thanks to the network of vetted partner chauffeurs (`PARTNER_FLEET`: 4 Classe S, 4 Classe V, 3 Classe E, 7 Tesla).
 
 ## Code Map
 
@@ -108,6 +110,8 @@ src/
                        ServicesSection, ServiceRates, Faq, Picture (+ CoverPicture), Logo
     Pages/             HomePage, ServicePage (one chunk each)
   content/
+    conditions.js      official client conditions (waiting, cancellation, included,
+                       child seats, partner fleet, hourly hire) — 4 languages
     ui.js              shared labels of the new pages (4 languages)
     home.js            home title / description / FAQ (4 languages)
     services/meta.js   per service: rates rows, vehicle columns, related pages, JSON-LD
@@ -123,7 +127,8 @@ src/
     business.js        NAP single source: name, phone, e-mail, Google profile, hours, area
     translations.js    FR / EN / RU / RO texts (original sections)
     vehicles.js        real fleet + client photos
-    rates.js           price table = single source of truth (+ derived priceEstimates)
+    rates.js           price table = single source of truth (+ derived priceEstimates,
+                       hourly row « Mise à disposition » + HOURLY conditions)
     contact.js         phone / WhatsApp helpers (re-exported from business.js)
     vehiclePhotos.js   AVIF / WebP srcsets of the fleet photos
   content/blog/
@@ -140,15 +145,17 @@ content/blog/          <category>/<slug>.md articles + images.json (blog image m
 scripts/               prerender.mjs, app-loader.js, optimize-images.py, optimize-blog-images.py,
                        check-links.mjs, blog/generate.mjs
 images-src/            original photos and logo (not deployed); blog/ = blog image originals
-tests/                 priceZone.test.js, seo.test.js, blog.test.js, security.test.js, routing.test.js
-public/                og-image.jpg (1200×630), img/blog/ (hashed AVIF / WebP / JPEG, cached 1 year),
+tests/                 priceZone.test.js, seo.test.js, blog.test.js, security.test.js, routing.test.js,
+                       rules.js (forbidden claims shared by the tests)
+public/                og-image.jpg (1200×630), logo.png (512×512, JSON-LD logo), img/blog/ (hashed AVIF / WebP / JPEG, cached 1 year),
                        google9b82adfd484120a1.html (Search Console verification — never delete)
 index.html             template: charset, viewport, favicon, robots + <!--app-head--> placeholder
 ```
 
 ## Booking Flow
 
-- Form fields: name, e-mail, phone (required: the client is called back by phone / WhatsApp), date (not in the past), time, pickup, drop-off, vehicle.
+- Form fields: name, e-mail, phone (required: the client is called back by phone / WhatsApp), date (not in the past), time, pickup, drop-off, « Siège enfant / rehausseur (nombre) » (0–4), vehicle (default: BUSINESS / Classe E).
+- EmailJS template params (both templates): `client_name`, `client_email`, `client_phone`, `booking_date`, `booking_time`, `pickup`, `dropoff`, `vehicle`, `child_seats`, `price`. No recipient is sent by the code: the « To Email » of each template is set in the EmailJS dashboard (admin template = the business address; client template = `{{client_email}}`).
 - On submit, EmailJS sends 1) the notification to the business (`ADMIN_TEMPLATE_ID`, mandatory) and 2) a summary to the client (`CLIENT_TEMPLATE_ID`, best effort: its failure must not show an error).
 - If the notification fails: fallback message with a `tel:` link and a WhatsApp link pre-filled with the request.
 - Success message: « Demande de réservation envoyée ! Nous vous confirmons votre course rapidement par téléphone ou WhatsApp. » — it is a request, not a confirmed booking.
@@ -158,21 +165,30 @@ index.html             template: charset, viewport, favicon, robots + <!--app-he
 ## Prices
 
 - `src/constants/rates.js` → `rateTable` is the only place where prices are written; the booking estimate is derived from it.
+- Hourly hire (« Mise à disposition, à l'heure », row `unit: 'hour'`, shown « 70 €/h »): Classe E 70 €, Classe V 80 €, Classe S 100 €, Tesla 55 € per hour; minimum 3 h; 20 km included per hour booked (5 h → 100 km), any category; beyond: on quote (`HOURLY`). It is also the rate of waiting beyond 1 h. Not computed by the trip form (no duration field).
 - Zones (`src/utils/priceZone.js`): Paris ↔ Paris → Paris Centre-ville; Paris ↔ CDG / Orly → airport flat rate; Paris ↔ Beauvais → Beauvais / Paris; anything else → « Sur devis ». Never show a price for a trip that is not in the displayed table.
 - Addresses are classified by postal code first (75001–75020, 75116 = Paris), then airport keywords. Add a test in `tests/priceZone.test.js` for every new case.
 
 ## Content & SEO Rules (production)
 
 - Only true, verifiable content: no fake reviews, ratings, statistics or invented claims; no « démo / simulé / maquette » wording.
-- Structured data is generated from the displayed sources (`src/seo/schema.js`) and must match them: `priceRange` = min – max of `rateTable`, offers = rows of the displayed rate table, FAQPage = displayed FAQ text; no street address; never add `aggregateRating` / `review` markup (all checked by `npm test`).
+- Structured data is generated from the displayed sources (`src/seo/schema.js`) and must match them: `priceRange` = min – max of `rateTable`, offers = rows of the displayed rate table (hourly hire: `UnitPriceSpecification`, `unitCode` `HUR`, `eligibleQuantity` min 3), FAQPage = displayed FAQ text, `logo` = `public/logo.png`, article dates in full ISO 8601 with the Paris offset (`parisDateTime`, e.g. `2026-11-23T09:00:00+01:00`); no street address; never add `aggregateRating` / `review` markup (all checked by `npm test`).
 - NAP (name « CDG TRANSFERT VTC », phone +33 6 65 69 96 78, area) comes only from `src/constants/business.js` and must stay identical to the Google Business Profile.
 - Google review button: `https://g.page/r/CfqSDSmBkk6BEBM/review` (direct link, no third-party shortener).
 - `hreflang`: `fr`, `en`, `ru`, `ro` + `x-default` (= French), reciprocal on every page; canonical = the page's own URL.
 - Every page: unique `<title>` ≤ 60 characters and meta description ≤ 155 (checked by `npm test`); service pages ≥ 600 words per language.
-- Service pages: prices only from `rateTable`, always with « tarif indicatif, confirmé avant la course »; trips outside the table (Disneyland, mise à disposition, other towns) are « sur devis ». Pending client confirmation, never write « attente incluse », « péages inclus », « 30 minutes d'avance », « eau offerte » or « véhicule banalisé » in new content (checked by `npm test` in the 4 languages).
+- Service pages: prices only from `rateTable`, always with « tarif indicatif, confirmé avant la course »; trips outside the table (Disneyland, other towns, CDG ↔ Orly, extra mileage of hourly hire) are « sur devis ». Each service page shows the official conditions block (`src/content/conditions.js`).
+- **Official client information (allowed, use these exact terms, 4 languages):**
+  - Real-time tracking of arrivals (airports and stations): a flight or train delay is never charged, even 4 or 5 hours.
+  - Waiting included up to 1 h after landing (or the train's arrival); beyond (baggage, formalities…), charged at the hourly rate of the vehicle category (hourly hire rates). Always write « 1 h » with « attente incluse ».
+  - Cancellation free up to 24 h before pick-up; less than 24 h before, the ride is charged 100 %. Always write « 24 h » with « annulation gratuite ».
+  - Tolls always included; water on board (« eau offerte » allowed); an invoice for every ride.
+  - Child seats and boosters on request, for every vehicle (requested in the booking form).
+  - Fleet: the owner drives a Mercedes Classe E; « réseau de chauffeurs partenaires vérifiés » with 4 Classe S, 4 Classe V, 3 Classe E and 7 Tesla → several vehicles possible for groups.
+- **Still forbidden (not confirmed — checked by `npm test`, list in `tests/rules.js`):** « 30 minutes d'avance » (systematic early arrival), « véhicule(s) banalisé(s) », « Model Y » (write « Tesla »), unlimited or free waiting beyond 1 h, any other cancellation rule, any review / rating / invented statistic.
 - The booking form has no flight / train number field: these details are given when the ride is confirmed by phone or WhatsApp.
 - New service page: add the slug to `SERVICE_SLUGS` (`src/routes.js`), its metadata to `src/content/services/meta.js`, its text to `src/content/services/pages/<slug>.js` and `src/content/services/index.js`; sitemap, footer, home cards and JSON-LD follow automatically.
-- **Pending client confirmation — do not modify without the owner's approval:** the « Pourquoi nous choisir » arguments (`WhyUs`) and the highlights bar under the hero (`STATS` in `Hero`).
+- The « Pourquoi nous choisir » arguments (`WhyUs`) and the highlights bar under the hero (`STATS` in `Hero`) contain only official client information (list above): change them only with the owner's approval.
 - Every visible text exists in the 4 languages (FR / EN / RU / RO); `<html lang>` follows the displayed language.
 - Accessibility: text contrast ≥ 4.5:1 (`silver-dim` = `#808086` is the darkest allowed grey on the dark backgrounds), single `<main>`, labelled `<nav>`s, native buttons/links (no clickable divs), valid ARIA (address fields use the combobox pattern).
 - Target: Lighthouse 100 / 100 / 100 / 100 on mobile and desktop and Agentic Browsing 3/3 (with `llms.txt`), with no failing audit — including `/blog`, categories and articles.
@@ -182,7 +198,7 @@ index.html             template: charset, viewport, favicon, robots + <!--app-he
 
 - New article: `content/blog/<category>/<slug>.md` (slug = file name: lowercase, digits, hyphens). Frontmatter: `title` (≤ 60 characters), `description` (≤ 155), `date` / `updated` (`"AAAA-MM-JJ"`), `category` (= folder), `tags`, `image` (name in `content/blog/images.json`), `imageAlt`, `faq` (list of `question` / `answer`), `lang` (fr; en for `english-guides`). `readingTime` and the table of contents are computed.
 - Text: 900–1,400 words, 3–5 FAQ questions, at least 2 links to service pages and 2 to other articles (all checked by `npm test`). Start with a lead paragraph (direct answer in the first 2 sentences, shown under the h1), then at least two `##` sections; no `#` (the h1 is the title). Quote frontmatter values that contain « : ». The « Réservez » box goes before the `##` closest to the middle. Internal links as `/vtc-aeroport-cdg`, `/#rates`…; prices only from the rate table with « tarif indicatif, confirmé avant la course ».
-- New image: only the client's own photos (no stock images), alt text describing the photo honestly. Put the original in `images-src/blog/<name>.jpg` (framing point in `FOCUS` of the script if needed), run `python3 scripts/optimize-blog-images.py` (deterministic: existing images keep their URLs), commit `public/img/blog/` and `content/blog/images.json`. Images: AVIF + WebP, width / height, lazy except the first. Do not use the Classe S interior photos (bottles visible) while « eau offerte » is not confirmed.
+- New image: only the client's own photos (no stock images), alt text describing the photo honestly. Put the original in `images-src/blog/<name>.jpg` (framing point in `FOCUS` of the script if needed), run `python3 scripts/optimize-blog-images.py` (deterministic: existing images keep their URLs), commit `public/img/blog/` and `content/blog/images.json`. Images: AVIF + WebP, width / height, lazy except the first. The Classe S interior photos (bottles visible) may be used: water on board is confirmed.
 - Publication date = the day the article is published, never backdated.
 - Everything else follows automatically at build: list, category, pagination, sitemap (article + its category), RSS, llms.txt, JSON-LD (BlogPosting + BreadcrumbList + FAQPage, author / publisher = the business, no review / rating). `npm test` rejects invalid content (missing field, `#` heading, unknown image or category, bad date, forbidden claims, prices outside the table).
 - A category without article is generated (intro + service links) but stays out of the sitemap and of the category filter until its first article.

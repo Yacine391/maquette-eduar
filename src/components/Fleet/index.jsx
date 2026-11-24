@@ -6,9 +6,11 @@
 // Photos : chaque véhicule affiche sa photo de couverture. Si plusieurs
 // photos existent, la photo devient cliquable et ouvre la galerie plein
 // écran (flèches gauche/droite, miniatures, swipe mobile).
+// Sous la grille : réseau de chauffeurs partenaires (content/conditions.js).
 // ────────────────────────────────────────────────────────────────────
 import { lazy, Suspense, useState } from 'react'
-import { vehicles } from '../../constants/vehicles'
+import { vehicles, luggageLabel } from '../../constants/vehicles'
+import { CONDITIONS } from '../../content/conditions'
 import { CoverPicture } from '../Picture'
 
 // Galerie chargée seulement à la première ouverture (JS différé)
@@ -60,6 +62,11 @@ export default function Fleet({ t, lang }) {
             ))}
           </div>
         </div>
+
+        {/* ── Réseau de chauffeurs partenaires vérifiés ── */}
+        <p className="mt-10 max-w-3xl mx-auto text-center text-sm text-silver font-sans font-light leading-relaxed">
+          {CONDITIONS[lang].fleet}
+        </p>
       </div>
     </section>
   )
@@ -67,7 +74,7 @@ export default function Fleet({ t, lang }) {
 
 // ── Carte individuelle ────────────────────────────────────────────────
 function FleetCard({ vehicle, t, lang, large = false }) {
-  const { category, model, seats, luggage, gradient, featured, description } = vehicle
+  const { category, model, seats, gradient, featured, description } = vehicle
 
   // ── Galerie photo ──
   const images     = vehicle.images ?? []
@@ -208,9 +215,9 @@ function FleetCard({ vehicle, t, lang, large = false }) {
         )}
 
         {/* Capacités */}
-        <div className="flex items-center gap-4 mt-auto pt-3 border-t border-divider">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 mt-auto pt-3 border-t border-divider">
           <Spec icon="person" value={`${seats} ${t('fleet_seats')}`} />
-          <Spec icon="bag" value={`${luggage} ${t('fleet_luggage')}`} />
+          <Spec icon="bag" value={luggageLabel(vehicle, lang)} />
         </div>
 
         {/* CTA */}

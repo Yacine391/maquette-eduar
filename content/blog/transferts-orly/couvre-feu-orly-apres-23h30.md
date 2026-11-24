@@ -1,8 +1,8 @@
 ---
 title: "Couvre-feu d’Orly : ce qui se passe après 23 h 30"
 description: "Couvre-feu d’Orly : horaires, vols du soir retardés, déroutement vers Roissy-CDG et réorganisation de votre transfert avec votre chauffeur."
-date: "2026-11-23"
-updated: "2026-11-23"
+date: "2026-11-24"
+updated: "2026-11-24"
 category: transferts-orly
 tags:
   - couvre-feu Orly
@@ -56,7 +56,7 @@ Si vous aviez réservé un transfert depuis Orly et que votre vol est dérouté,
 - **indiquez l’aéroport d’arrivée réel** et, si vous le connaissez, le terminal ;
 - **appelez votre chauffeur une fois vos bagages récupérés** : il vous confirme le lieu exact de rendez-vous.
 
-Nous réorganisons alors avec vous la prise en charge à l’aéroport où vous avez atterri. Entre Paris et Roissy-CDG, le tarif est le même qu’entre Paris et Orly : il figure dans le [tableau des tarifs du site](/#rates), selon le véhicule choisi. Tarif indicatif, confirmé avant la course. Si le trajet ne figure pas dans le tableau, par exemple vers une adresse hors de Paris, le prix est établi sur devis.
+Nous réorganisons alors avec vous la prise en charge à l’aéroport où vous avez atterri. Le retard du vol, lui, n’est jamais facturé : nous suivons votre vol en temps réel. Entre Paris et Roissy-CDG, le tarif est le même qu’entre Paris et Orly : il figure dans le [tableau des tarifs du site](/#rates), selon le véhicule choisi. Tarif indicatif, confirmé avant la course. Si le trajet ne figure pas dans le tableau, par exemple vers une adresse hors de Paris, le prix est établi sur devis.
 
 Pour vous repérer à Roissy, consultez notre page [VTC aéroport CDG](/vtc-aeroport-cdg) et notre article [Quel terminal à CDG ? Trouver d’où part votre vol](/blog/transferts-cdg/quel-terminal-cdg). Les bons réflexes en cas de retard sont détaillés dans [Vol retardé à CDG : que faire avec votre chauffeur ?](/blog/transferts-cdg/vol-retarde-cdg-chauffeur).
 

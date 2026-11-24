@@ -1,8 +1,8 @@
 ---
 title: "Vol retardé à CDG : que faire avec votre chauffeur ?"
-description: "Vol en retard, annulé ou dérouté vers un autre aéroport ? Les bons réflexes pour prévenir votre chauffeur et réorganiser votre transfert à CDG."
+description: "Vol en retard, annulé ou dérouté à CDG ? Suivi du vol en temps réel, retard jamais facturé, 1 h d’attente incluse : ce qui se passe pour votre transfert."
 date: "2026-11-23"
-updated: "2026-11-23"
+updated: "2026-11-24"
 category: transferts-cdg
 tags:
   - vol retardé
@@ -13,7 +13,9 @@ image: classe-s-face
 imageAlt: "Mercedes Classe S noire vue de face, garée devant l’entrée vitrée d’un bâtiment"
 faq:
   - question: "Que faire si mon vol arrive en retard à CDG ?"
-    answer: "Prévenez-nous dès que possible par téléphone ou WhatsApp, en indiquant la nouvelle heure d’arrivée prévue. Nous convenons alors avec vous de la suite de votre transfert."
+    answer: "Rien de particulier : nous suivons votre vol en temps réel et un retard n’est jamais facturé, même de 4 ou 5 heures. Un message par téléphone ou WhatsApp reste utile en cas de changement de terminal ou de déroutement."
+  - question: "L’attente à l’aéroport est-elle facturée ?"
+    answer: "L’attente est incluse jusqu’à 1 h après l’atterrissage. Au-delà (bagages, formalités…), elle est facturée au tarif horaire de la catégorie du véhicule, de 55 € à 100 € de l’heure."
   - question: "Faut-il donner mon numéro de vol lors de la réservation ?"
     answer: "Oui, communiquez votre numéro de vol et votre terminal lors de la confirmation de la course. Ces informations permettent d’organiser la prise en charge et de réagir plus vite en cas de changement."
   - question: "Que se passe-t-il si mon vol est dérouté vers Orly ou Beauvais ?"
@@ -22,7 +24,7 @@ faq:
     answer: "Selon le règlement européen sur les droits des passagers aériens, un retard important à l’arrivée peut ouvrir droit à une indemnisation, sous conditions. Renseignez-vous auprès de votre compagnie aérienne."
 ---
 
-Si votre vol arrive en retard à Roissy-Charles-de-Gaulle, prévenez-nous dès que possible par téléphone ou WhatsApp en indiquant la nouvelle heure d’arrivée prévue : nous convenons alors avec vous de la suite de votre transfert. Plus l’information arrive tôt, plus il est simple de réorganiser la prise en charge.
+Si votre vol arrive en retard à Roissy-Charles-de-Gaulle, pas d’inquiétude : nous suivons votre vol en temps réel, et un retard n’est jamais facturé, même de 4 ou 5 heures. L’attente est ensuite incluse jusqu’à 1 h après l’atterrissage ; un message par téléphone ou WhatsApp reste utile en cas de changement de terminal, de déroutement ou d’annulation.
 
 Les retards font partie des aléas du voyage, en particulier sur les vols long-courriers et en fin de journée, quand les retards s’accumulent. Voici comment réagir dans chaque situation, à l’arrivée comme au départ, pour que votre trajet entre l’aéroport et Paris se passe au mieux.
 
@@ -30,7 +32,7 @@ Les retards font partie des aléas du voyage, en particulier sur les vols long-c
 
 Un retard se gère d’autant mieux que votre chauffeur dispose des bonnes informations. Lors de la confirmation de votre course par téléphone ou WhatsApp, pensez à communiquer :
 
-- **votre numéro de vol**, qui permet de vérifier l’heure d’arrivée prévue ;
+- **votre numéro de vol**, qui nous permet de suivre votre vol en temps réel ;
 - **votre terminal**, s’il est connu (par exemple 2E ou 2F) ;
 - **un numéro de téléphone joignable à l’arrivée**, avec WhatsApp si possible, utile quand vous arrivez de l’étranger.
 
@@ -44,7 +46,7 @@ Plusieurs sources indiquent en temps réel l’heure d’arrivée prévue d’un
 2. **le site et l’application de l’aéroport**, avec une recherche par numéro de vol ;
 3. **les écrans d’information** à bord ou dans l’aéroport de départ.
 
-Dès que vous apprenez un retard, avant l’embarquement ou pendant une escale, envoyez-nous un message : c’est le moyen le plus simple de tout réajuster. Un message court suffit, par exemple : « Vol XY 1234 retardé, nouvelle arrivée prévue à 22 h 40 au terminal 2E ». Si vous voyagez avec un forfait téléphonique limité à l’étranger, le Wi-Fi de l’aéroport de départ ou de l’avion permet souvent d’envoyer un message WhatsApp avant d’atterrir.
+De notre côté, nous suivons votre vol en temps réel grâce à son numéro : vous n’avez pas besoin de nous prévenir d’un simple retard. Un message reste utile si la situation change davantage, par exemple en cas de nouveau terminal ou d’escale manquée. Un message court suffit, par exemple : « Vol XY 1234 retardé, nouvelle arrivée prévue à 22 h 40 au terminal 2E ». Si vous voyagez avec un forfait téléphonique limité à l’étranger, le Wi-Fi de l’aéroport de départ ou de l’avion permet souvent d’envoyer un message WhatsApp avant d’atterrir.
 
 ## Que faire selon la situation
 
@@ -52,15 +54,19 @@ Chaque cas appelle une réaction un peu différente :
 
 | Situation | Que faire |
 |---|---|
-| Retard annoncé avant le départ | Prévenez-nous avec la nouvelle heure d’arrivée prévue. |
+| Retard annoncé avant le départ | Rien à faire : le vol est suivi en temps réel et le retard n’est pas facturé. |
 | Retard constaté à l’atterrissage | Envoyez un message ou appelez dès que votre téléphone est rallumé. |
-| Bagages qui tardent ou bagage perdu | Signalez-le à votre chauffeur avant de faire la déclaration au comptoir. |
+| Bagages qui tardent ou bagage perdu | Signalez-le à votre chauffeur : l’attente est incluse jusqu’à 1 h après l’atterrissage. |
 | Vol dérouté vers un autre aéroport | Contactez-nous dès l’atterrissage pour réorganiser le trajet. |
-| Vol annulé | Prévenez-nous pour modifier ou annuler votre réservation. |
+| Vol annulé | Prévenez-nous au plus vite : l’annulation est gratuite jusqu’à 24 h avant la prise en charge. |
 
 Dans tous les cas, nous convenons avec vous de la suite par téléphone ou WhatsApp. Si le transfert doit partir d’un autre aéroport, par exemple [Orly](/vtc-aeroport-orly) ou [Beauvais](/vtc-aeroport-beauvais) après un déroutement, le prix est celui du [tableau des tarifs](/#rates) quand le trajet y figure, et il est établi sur devis dans les autres cas.
 
 À l’inverse, un vol à destination d’Orly trop retardé pour atterrir avant la fermeture nocturne de l’aéroport est souvent dérouté vers Roissy : nous expliquons ce cas dans [Couvre-feu d’Orly : ce qui se passe après 23 h 30](/blog/transferts-orly/couvre-feu-orly-apres-23h30).
+
+## L’attente : incluse jusqu’à 1 h après l’atterrissage
+
+Le temps d’attente se compte à partir de l’atterrissage réel de votre vol, et non de l’heure prévue sur le billet. Il est inclus jusqu’à 1 h, ce qui couvre en général le débarquement, les contrôles et la livraison des bagages. Au-delà, par exemple en cas de longue file aux frontières ou de déclaration de bagage perdu, l’attente est facturée au tarif horaire de la catégorie du véhicule : 70 € de l’heure en Mercedes Classe E, 100 € en Classe S, 80 € en Classe V et 55 € en Tesla, soit les tarifs de [mise à disposition](/mise-a-disposition-chauffeur).
 
 ## Et si votre vol arrive en avance ?
 
@@ -74,7 +80,7 @@ Si votre vol vers Paris était la première étape d’un voyage, son retard peu
 
 Quand c’est votre vol de départ qui est retardé, votre transfert vers l’aéroport n’est en général pas concerné : partez à l’heure prévue, car l’enregistrement et les contrôles de sûreté restent nécessaires, et un retard annoncé peut être réduit ensuite.
 
-En revanche, si votre vol est annulé avant votre départ pour l’aéroport, ou s’il est déplacé de plusieurs heures, prévenez-nous pour décaler ou annuler la course. Pour estimer la nouvelle heure de départ de Paris, appuyez-vous sur les durées de notre guide [Combien de temps entre l’aéroport CDG et Paris en VTC ?](/blog/transferts-cdg/temps-trajet-cdg-paris-vtc).
+En revanche, si votre vol est annulé avant votre départ pour l’aéroport, ou s’il est déplacé de plusieurs heures, prévenez-nous pour décaler ou annuler la course. L’annulation est gratuite jusqu’à 24 h avant la prise en charge ; moins de 24 h avant, la course est facturée à 100 %. Pour estimer la nouvelle heure de départ de Paris, appuyez-vous sur les durées de notre guide [Combien de temps entre l’aéroport CDG et Paris en VTC ?](/blog/transferts-cdg/temps-trajet-cdg-paris-vtc).
 
 ## Arrivée tardive : les transports en commun ne circulent plus
 
@@ -89,6 +95,6 @@ Le règlement européen sur les droits des passagers aériens prévoit, sous cer
 ## En résumé
 
 - Communiquez votre numéro de vol et votre terminal lors de la confirmation de la course.
-- En cas de retard, prévenez-nous dès que possible par téléphone ou WhatsApp, avec la nouvelle heure prévue.
-- En cas de déroutement ou d’annulation, contactez-nous pour réorganiser ou annuler le transfert.
+- Votre vol est suivi en temps réel : un retard n’est jamais facturé, et l’attente est incluse jusqu’à 1 h après l’atterrissage.
+- En cas de déroutement ou d’annulation, contactez-nous pour réorganiser ou annuler le transfert (annulation gratuite jusqu’à 24 h avant).
 - Les tarifs entre Paris et l’aéroport figurent sur la page [VTC aéroport CDG](/vtc-aeroport-cdg) : tarif indicatif, confirmé avant la course.

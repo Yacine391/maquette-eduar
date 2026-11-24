@@ -1,8 +1,8 @@
 ---
 title: "Combien de valises dans un VTC pour aller à CDG ?"
-description: "Berline, Tesla ou van Classe V : passagers et bagages pour un transfert vers Roissy-CDG, et que faire avec une poussette, des skis ou beaucoup de valises."
+description: "Berline, Tesla ou van Classe V : passagers et valises pour un transfert vers Roissy-CDG, et que faire avec une poussette, des skis ou un grand groupe."
 date: "2026-11-23"
-updated: "2026-11-23"
+updated: "2026-11-24"
 category: transferts-cdg
 tags:
   - bagages
@@ -13,31 +13,31 @@ image: classe-v-arriere
 imageAlt: "Van Mercedes Classe V noir vu de trois quarts arrière sur un parking"
 faq:
   - question: "Combien de valises tiennent dans une Mercedes Classe E ?"
-    answer: "Nous indiquons 3 bagages pour 3 passagers en Mercedes Classe E, comme en Mercedes Classe S. La place réelle dépend de la taille des valises."
+    answer: "Au maximum 2 grandes valises et 2 petites, pour 3 passagers au plus. La Mercedes Classe S offre la même capacité."
   - question: "Quel véhicule choisir avec beaucoup de bagages ?"
-    answer: "Le van Mercedes Classe V accueille jusqu’à 6 passagers et 6 bagages. Au-delà, deux véhicules peuvent être nécessaires."
+    answer: "Le van Mercedes Classe V accueille jusqu’à 6 passagers et 7 valises. Au-delà, plusieurs véhicules peuvent être réservés ensemble grâce à notre réseau de chauffeurs partenaires vérifiés."
   - question: "Une poussette compte-t-elle comme un bagage ?"
-    answer: "Oui, comptez-la parmi vos bagages et signalez-la lors de la confirmation, tout comme un siège auto, une housse de skis ou un sac de golf."
+    answer: "Oui, comptez-la parmi vos bagages et signalez-la lors de la confirmation, tout comme une housse de skis ou un sac de golf. Les sièges auto et rehausseurs, eux, sont fournis sur demande."
   - question: "Faut-il préciser le nombre de bagages lors de la réservation ?"
     answer: "Oui. Indiquez le nombre et le type de bagages lors de la confirmation de la course pour que nous vous confirmions le véhicule adapté."
 ---
 
-Pour un transfert vers l’aéroport Charles-de-Gaulle, comptez 3 bagages pour 3 passagers dans une berline Mercedes Classe E ou Classe S, 3 bagages pour 4 passagers dans une Tesla Model Y, et jusqu’à 6 bagages pour 6 passagers dans le van Mercedes Classe V. Au-delà, ou avec des objets volumineux, choisissez le van ou signalez-le pour que nous vous proposions le véhicule adapté.
+Pour un transfert vers l’aéroport Charles-de-Gaulle, une berline Mercedes Classe E ou Classe S emporte au maximum 2 grandes valises et 2 petites pour 3 passagers, une Tesla 4 valises pour 4 passagers, et le van Mercedes Classe V jusqu’à 7 valises pour 6 passagers. Au-delà, plusieurs véhicules peuvent être réservés ensemble : signalez vos bagages pour que nous vous proposions la bonne solution.
 
 Le nombre de valises est souvent ce qui décide du véhicule, bien plus que le nombre de passagers. Voici les capacités de notre flotte, ce qu’il faut savoir sur les bagages volumineux et nos conseils pour bien préparer votre départ.
 
 ## Capacité de chaque véhicule
 
-Les capacités ci-dessous sont celles indiquées pour chaque véhicule de notre flotte. Ce sont des repères : la place réelle dépend de la taille et de la forme des bagages.
+Les capacités ci-dessous sont les maximums de chaque véhicule de notre flotte. Une « grande » valise correspond à un bagage de soute, une « petite » à un bagage cabine.
 
-| Véhicule | Catégorie | Passagers | Bagages |
+| Véhicule | Catégorie | Passagers | Valises (maximum) |
 |---|---|---|---|
-| Mercedes Classe E | Business | 3 | 3 |
-| Mercedes Classe S | Luxe | 3 | 3 |
-| Mercedes Classe V | Van | 6 | 6 |
-| Tesla Model Y | Éco / Électrique | 4 | 3 |
+| Mercedes Classe E | Business | 3 | 2 grandes + 2 petites |
+| Mercedes Classe S | Luxe | 3 | 2 grandes + 2 petites |
+| Mercedes Classe V | Van | 6 | 7 |
+| Tesla | Éco / Électrique | 4 | 4 |
 
-Vous voyagez à deux avec deux grandes valises et deux bagages cabine ? Une berline convient en général. Vous partez en famille à quatre avec une valise chacun ? Le van Mercedes Classe V est plus confortable, même si vous n’êtes pas six : il évite de tasser les bagages ou de garder des sacs sur les genoux pendant le trajet.
+Vous voyagez à deux avec deux grandes valises et deux bagages cabine ? Une berline Mercedes Classe E convient. Vous partez à quatre avec une valise chacun ? La Tesla emporte 4 valises ; avec des bagages plus nombreux ou plus volumineux, le van Mercedes Classe V est plus confortable, même si vous n’êtes pas six : il évite de tasser les bagages ou de garder des sacs sur les genoux pendant le trajet.
 
 ## Ce qui compte comme un bagage
 
@@ -55,13 +55,13 @@ Les petits sacs que vous gardez avec vous pendant le vol, comme un sac à dos ou
 
 Certains objets demandent d’être signalés à l’avance, car ils ne se rangent pas comme une valise :
 
-- **une poussette** ou un **siège auto**, fréquents quand on voyage en famille ;
+- **une poussette** ou un **lit parapluie**, fréquents quand on voyage en famille ;
 - **une housse de skis** ou de snowboard ;
 - **un sac de golf** ;
 - **un instrument de musique** dans son étui ;
 - **un carton** ou un colis encombrant.
 
-Indiquez-les lors de la confirmation de votre course. Selon leur taille, le van Mercedes Classe V peut être nécessaire même pour un petit nombre de passagers. Si vous voyagez avec des enfants, notre article [CDG – Paris en VTC avec un bébé ou des enfants](/blog/transferts-cdg/cdg-paris-avec-enfants) détaille aussi la question des poussettes et des sièges.
+Indiquez-les lors de la confirmation de votre course. Selon leur taille, le van Mercedes Classe V peut être nécessaire même pour un petit nombre de passagers. Les sièges auto et rehausseurs sont disponibles sur demande pour tous les véhicules : indiquez leur nombre dans le formulaire de réservation. Si vous voyagez avec des enfants, notre article [CDG – Paris en VTC avec un bébé ou des enfants](/blog/transferts-cdg/cdg-paris-avec-enfants) détaille aussi la question des poussettes.
 
 ## Court-courrier ou long-courrier : des besoins différents
 
@@ -69,9 +69,9 @@ Le volume de bagages varie beaucoup selon le voyage. Pour un aller-retour de que
 
 Au retour aussi, les bagages ont tendance à se multiplier : achats, cadeaux, sacs supplémentaires. Si vous réservez à la fois l’aller et le retour, pensez à signaler un éventuel changement du nombre de bagages pour le trajet retour.
 
-## Plus de 6 bagages ou de 6 passagers
+## Plus de 7 valises ou de 6 passagers
 
-Au-delà de la capacité d’un seul van, deux véhicules peuvent être nécessaires : par exemple un van et une berline, ou deux berlines. Précisez le nombre de passagers et de bagages dans votre demande, puis lors de la confirmation : la solution vous est proposée, avec son prix, avant la course.
+Au-delà de la capacité d’un seul van, plusieurs véhicules peuvent être réservés ensemble : par exemple un van et une berline, ou deux vans. Avec notre réseau de chauffeurs partenaires vérifiés, nous disposons de plusieurs véhicules de chaque catégorie, dont 4 Classe V et 7 Tesla. Précisez le nombre de passagers et de bagages dans votre demande, puis lors de la confirmation : la solution vous est proposée, avec son prix, avant la course.
 
 Pour les groupes, notre page [van 7 places avec chauffeur](/van-7-places-paris) présente le Mercedes Classe V en détail.
 
@@ -87,10 +87,10 @@ Quelques réflexes simples font gagner du temps au départ comme à l’arrivée
 
 ## Bagage retardé ou perdu à l’arrivée
 
-Il arrive qu’un bagage n’apparaisse pas sur le tapis de livraison. Dans ce cas, signalez-le d’abord au comptoir des bagages de votre compagnie, dans la zone de livraison, avant de sortir : une déclaration y est établie, et la compagnie vous indique la suite. Prévenez votre chauffeur par téléphone ou WhatsApp que vous serez un peu plus long : il vaut mieux faire cette démarche sur place que revenir à l’aéroport plus tard.
+Il arrive qu’un bagage n’apparaisse pas sur le tapis de livraison. Dans ce cas, signalez-le d’abord au comptoir des bagages de votre compagnie, dans la zone de livraison, avant de sortir : une déclaration y est établie, et la compagnie vous indique la suite. Prévenez votre chauffeur par téléphone ou WhatsApp que vous serez un peu plus long : l’attente est incluse jusqu’à 1 h après l’atterrissage, puis facturée au tarif horaire de la catégorie du véhicule. Il vaut mieux faire cette démarche sur place que revenir à l’aéroport plus tard.
 
 ## Le prix dépend du véhicule
 
-Le prix d’un transfert entre Paris et l’aéroport dépend de la catégorie de véhicule choisie, et non du nombre de valises. Vous le trouvez dans le [tableau des tarifs du site](/#rates) et sur la page [VTC aéroport CDG](/vtc-aeroport-cdg) : tarif indicatif, confirmé avant la course.
+Le prix d’un transfert entre Paris et l’aéroport dépend de la catégorie de véhicule choisie, et non du nombre de valises ; les péages sont inclus. Vous le trouvez dans le [tableau des tarifs du site](/#rates) et sur la page [VTC aéroport CDG](/vtc-aeroport-cdg) : tarif indicatif, confirmé avant la course.
 
 Pour estimer la durée du trajet selon l’heure de départ, consultez notre guide [Combien de temps entre l’aéroport CDG et Paris en VTC ?](/blog/transferts-cdg/temps-trajet-cdg-paris-vtc), et pour les étapes de la réservation, notre article [Réserver un VTC pour CDG : comment ça se passe ?](/blog/transferts-cdg/reserver-vtc-cdg-etapes).

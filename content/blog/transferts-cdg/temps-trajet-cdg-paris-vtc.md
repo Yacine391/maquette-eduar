@@ -2,7 +2,7 @@
 title: "Combien de temps entre l’aéroport CDG et Paris en VTC ?"
 description: "En VTC, comptez 45 min à 1 h entre Roissy-CDG et le centre de Paris : 30 à 40 min la nuit, jusqu’à 1 h 30 aux heures de pointe. Repères et conseils."
 date: "2026-11-23"
-updated: "2026-11-23"
+updated: "2026-11-24"
 category: transferts-cdg
 tags:
   - aéroport CDG
@@ -97,6 +97,6 @@ Le prix d’un transfert entre l’aéroport Charles-de-Gaulle et Paris est indi
 - Réservez à l’avance, surtout pour un vol tôt le matin ou un retour tard le soir.
 - Prévoyez une marge plus large les vendredis soir, les veilles de vacances scolaires et les jours de grands salons.
 - Vérifiez votre terminal sur votre carte d’embarquement ou dans l’application de votre compagnie.
-- Vous êtes plus de 4 passagers ou avez plus de 3 bagages ? Choisissez le [van Mercedes Classe V](/van-7-places-paris), qui accueille jusqu’à 6 passagers et 6 bagages.
+- Vous êtes plus de 4 passagers ou avez plus de 4 valises ? Choisissez le [van Mercedes Classe V](/van-7-places-paris), qui accueille jusqu’à 6 passagers et 7 valises.
 - Vous arrivez en train avant de prendre l’avion ? Consultez notre page sur les [transferts depuis les gares de Paris](/vtc-gares-paris).
 - Votre vol part avant les premiers trains ? Lisez [CDG la nuit : comment y aller ou en revenir sans RER](/blog/transferts-cdg/cdg-la-nuit-sans-rer).

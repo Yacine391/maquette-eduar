@@ -2,7 +2,7 @@
 title: "CDG la nuit : comment y aller ou en revenir sans RER"
 description: "Vol très tôt le matin ou arrivée tardive à Roissy-CDG : RER, bus de nuit, taxi ou VTC réservé à l’avance. Les solutions pour voyager la nuit."
 date: "2026-11-23"
-updated: "2026-11-23"
+updated: "2026-11-24"
 category: transferts-cdg
 tags:
   - aéroport CDG
@@ -63,7 +63,7 @@ Réserver un chauffeur avant le départ permet d’avoir une solution prête à 
 2. à l’atterrissage, rallumez votre téléphone pour rester joignable ;
 3. une fois vos bagages récupérés, appelez votre chauffeur, qui vous confirme le lieu exact de rendez-vous.
 
-Si votre vol a du retard, ce qui arrive plus souvent en fin de journée, prévenez-nous dès que possible : notre article [Vol retardé à CDG : que faire avec votre chauffeur ?](/blog/transferts-cdg/vol-retarde-cdg-chauffeur) explique la marche à suivre.
+Si votre vol a du retard, ce qui arrive plus souvent en fin de journée, pas d’inquiétude : il est suivi en temps réel, un retard n’est jamais facturé et l’attente est incluse jusqu’à 1 h après l’atterrissage. Notre article [Vol retardé à CDG : que faire avec votre chauffeur ?](/blog/transferts-cdg/vol-retarde-cdg-chauffeur) explique la marche à suivre.
 
 ## Combien de temps prévoir la nuit
 
@@ -87,6 +87,6 @@ Si vous logez en banlieue ou dans une autre ville d’Île-de-France, la questio
 - **Préparez vos bagages et vos documents la veille** pour partir à l’heure convenue.
 - **Gardez votre téléphone chargé** : c’est par là que votre chauffeur vous joint.
 - **Vérifiez votre terminal** la veille, sur votre carte d’embarquement ou dans l’application de votre compagnie.
-- **En groupe ou en famille**, choisissez un véhicule assez grand : le [van Mercedes Classe V](/van-7-places-paris) accueille jusqu’à 6 passagers et 6 bagages.
+- **En groupe ou en famille**, choisissez un véhicule assez grand : le [van Mercedes Classe V](/van-7-places-paris) accueille jusqu’à 6 passagers et 7 valises.
 
 CDG TRANSFERT VTC assure les transferts vers et depuis l’aéroport 24 h/24 et 7 j/7. Le prix d’un trajet entre Paris et l’aéroport figure dans notre [tableau des tarifs](/#rates) et sur la page [VTC aéroport CDG](/vtc-aeroport-cdg) : tarif indicatif, confirmé avant la course.

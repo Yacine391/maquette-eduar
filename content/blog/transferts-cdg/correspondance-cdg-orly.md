@@ -2,7 +2,7 @@
 title: "Correspondance CDG – Orly : combien de temps prévoir ?"
 description: "Changer d’aéroport entre Roissy-CDG et Orly : durée du trajet, bagages à récupérer, marge de sécurité et organisation du transfert avec chauffeur."
 date: "2026-11-23"
-updated: "2026-11-23"
+updated: "2026-11-24"
 category: transferts-cdg
 tags:
   - correspondance
@@ -73,7 +73,7 @@ Pour une correspondance, le plus simple est de réserver le transfert à l’ava
 
 Une fois vos bagages récupérés à Roissy, appelez votre chauffeur, qui vous confirme le lieu exact de prise en charge. Il vous dépose ensuite devant votre terminal de départ à Orly. Vérifiez votre terminal à Orly sur votre carte d’embarquement : les quatre terminaux d’Orly sont reliés à pied, mais être déposé au bon endroit fait gagner de précieuses minutes. Notre article [Terminaux Orly 1, 2, 3 et 4 : comment s’y retrouver ?](/blog/transferts-orly/terminaux-orly-1-2-3-4) explique leur organisation.
 
-En cas de retard de votre premier vol, prévenez-nous dès que possible : notre article [Vol retardé à CDG : que faire avec votre chauffeur ?](/blog/transferts-cdg/vol-retarde-cdg-chauffeur) détaille la marche à suivre. Pour repérer votre terminal d’arrivée à Roissy, consultez [Quel terminal à CDG ? Trouver d’où part votre vol](/blog/transferts-cdg/quel-terminal-cdg).
+En cas de retard de votre premier vol, le transfert n’est pas compromis : le vol est suivi en temps réel et un retard n’est jamais facturé. Prévenez-nous surtout si votre correspondance à Orly change ; notre article [Vol retardé à CDG : que faire avec votre chauffeur ?](/blog/transferts-cdg/vol-retarde-cdg-chauffeur) détaille la marche à suivre. Pour repérer votre terminal d’arrivée à Roissy, consultez [Quel terminal à CDG ? Trouver d’où part votre vol](/blog/transferts-cdg/quel-terminal-cdg).
 
 ## Le prix d’un transfert CDG – Orly
 
@@ -83,7 +83,7 @@ Les trajets entre Paris et chacun des deux aéroports, eux, figurent dans le [ta
 
 ## Et si vous passez une nuit à Paris entre les deux vols ?
 
-Avec une correspondance le lendemain, vous pouvez aussi faire deux trajets : de CDG à votre hôtel à Paris, puis de Paris à Orly. Pour estimer la durée du premier trajet, consultez [Combien de temps entre l’aéroport CDG et Paris en VTC ?](/blog/transferts-cdg/temps-trajet-cdg-paris-vtc). En groupe ou avec beaucoup de bagages, le [van Mercedes Classe V](/van-7-places-paris) accueille jusqu’à 6 passagers et 6 bagages.
+Avec une correspondance le lendemain, vous pouvez aussi faire deux trajets : de CDG à votre hôtel à Paris, puis de Paris à Orly. Pour estimer la durée du premier trajet, consultez [Combien de temps entre l’aéroport CDG et Paris en VTC ?](/blog/transferts-cdg/temps-trajet-cdg-paris-vtc). En groupe ou avec beaucoup de bagages, le [van Mercedes Classe V](/van-7-places-paris) accueille jusqu’à 6 passagers et 7 valises.
 
 ## En résumé
 

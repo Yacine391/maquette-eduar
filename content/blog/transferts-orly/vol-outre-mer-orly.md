@@ -1,8 +1,8 @@
 ---
 title: "Vol vers l’outre-mer depuis Orly : préparer le trajet"
 description: "Antilles, La Réunion, Guyane : préparer son trajet vers Orly pour un vol long-courrier vers l’outre-mer, avec des bagages lourds, en famille ou en groupe."
-date: "2026-11-23"
-updated: "2026-11-23"
+date: "2026-11-24"
+updated: "2026-11-24"
 category: transferts-orly
 tags:
   - outre-mer
@@ -17,7 +17,7 @@ faq:
   - question: "À quelle heure arriver à Orly pour un vol vers l’outre-mer ?"
     answer: "Pour un long-courrier, les compagnies conseillent souvent d’arriver deux à trois heures avant le départ. Suivez la recommandation de votre compagnie, surtout en période de vacances."
   - question: "Quel véhicule choisir avec beaucoup de bagages ?"
-    answer: "Le van Mercedes Classe V accueille jusqu’à 6 passagers et 6 bagages. Signalez le nombre et la taille de vos valises, ainsi que les objets volumineux, lors de la confirmation."
+    answer: "Le van Mercedes Classe V accueille jusqu’à 6 passagers et 7 valises. Signalez le nombre et la taille de vos valises, ainsi que les objets volumineux, lors de la confirmation."
   - question: "Peut-on réserver un transfert pour le retour d’outre-mer à Orly ?"
     answer: "Oui. Communiquez votre numéro de vol et votre terminal ; une fois vos bagages récupérés, appelez votre chauffeur, qui vous confirme le lieu exact de rendez-vous."
 ---
@@ -44,19 +44,19 @@ Pour le transfert, ce qui compte, c’est le volume total. Lors de la confirmati
 
 1. **le nombre de valises en soute** et leur taille approximative ;
 2. **les bagages cabine**, sacs et sacs à dos ;
-3. **les objets volumineux** : cartons, poussette, siège auto, matériel de sport ;
+3. **les objets volumineux** : cartons, poussette, matériel de sport ;
 4. **le nombre de passagers**, enfants compris.
 
 Nous vous confirmons alors le véhicule adapté. Notre guide [Combien de valises dans un VTC pour aller à CDG ?](/blog/transferts-cdg/valises-vtc-cdg) détaille les capacités, valables aussi pour Orly.
 
 | Véhicule | Passagers | Bagages |
 |---|---|---|
-| Tesla Model Y | Jusqu’à 4 | Jusqu’à 3 |
-| Mercedes Classe E | Jusqu’à 3 | Jusqu’à 3 |
-| Mercedes Classe S | Jusqu’à 3 | Jusqu’à 3 |
-| Mercedes Classe V | Jusqu’à 6 | Jusqu’à 6 |
+| Tesla | Jusqu’à 4 | Jusqu’à 4 valises |
+| Mercedes Classe E | Jusqu’à 3 | 2 grandes + 2 petites |
+| Mercedes Classe S | Jusqu’à 3 | 2 grandes + 2 petites |
+| Mercedes Classe V | Jusqu’à 6 | Jusqu’à 7 valises |
 
-Ces capacités sont des repères : de très grandes valises ou des cartons prennent plus de place qu’un bagage standard. En famille ou en groupe, le [van Mercedes Classe V](/van-7-places-paris) évite de répartir les voyageurs et les bagages dans deux voitures.
+Ces capacités sont des maximums : de très grandes valises ou des cartons prennent plus de place qu’un bagage standard. Les sièges auto et rehausseurs, eux, sont fournis sur demande : indiquez leur nombre dans le formulaire de réservation. En famille ou en groupe, le [van Mercedes Classe V](/van-7-places-paris) évite de répartir les voyageurs et les bagages dans deux voitures.
 
 ## Calculer l’heure de départ de Paris
 
@@ -82,7 +82,7 @@ Le détail de cette étape se trouve dans [Arrivée à Orly : où retrouver son 
 
 ## Familles nombreuses et groupes
 
-Un départ en vacances vers les Antilles ou La Réunion réunit parfois toute une famille. Au-delà de 6 passagers ou de 6 bagages, un seul véhicule ne suffit plus. Indiquez le nombre exact de voyageurs et de bagages dans votre demande, ainsi que les objets volumineux : nous vous indiquons ce qui est possible pour votre groupe. Pensez aussi à regrouper les bagages de toute la famille la veille, pour que le chargement se fasse rapidement le jour du départ.
+Un départ en vacances vers les Antilles ou La Réunion réunit parfois toute une famille. Au-delà de 6 passagers ou de 7 valises, un seul véhicule ne suffit plus : plusieurs véhicules peuvent alors être réservés ensemble, par exemple un van et une berline, grâce à notre réseau de chauffeurs partenaires vérifiés. Indiquez le nombre exact de voyageurs et de bagages dans votre demande, ainsi que les objets volumineux : nous vous proposons la bonne combinaison. Pensez aussi à regrouper les bagages de toute la famille la veille, pour que le chargement se fasse rapidement le jour du départ.
 
 ## Les documents de voyage
 

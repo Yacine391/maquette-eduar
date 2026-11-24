@@ -5,6 +5,9 @@
 //   2. récapitulatif au client (facultatif : un échec n'annule pas la demande)
 // Si la notification échoue : message de secours avec appel et WhatsApp
 // (demande pré-remplie).
+// Catégorie par défaut : BUSINESS (Mercedes Classe E). Champ « Siège enfant
+// / rehausseur (nombre) » → paramètre EmailJS `child_seats` (à afficher dans
+// les deux templates du tableau de bord EmailJS : {{child_seats}}).
 // ────────────────────────────────────────────────────────────────────
 import { useEffect, useState } from 'react'
 import { usePriceEstimate } from '../../hooks/usePriceEstimate'
@@ -35,6 +38,7 @@ export default function BookingModule({ t, lang }) {
     pickup:    '',
     dropoff:   '',
     vehicleId: 'business',
+    childSeats: '0',
   })
   const [submitted, setSubmitted] = useState(false)
   const [sending,   setSending]   = useState(false)
@@ -111,6 +115,7 @@ export default function BookingModule({ t, lang }) {
       pickup:       form.pickup,
       dropoff:      form.dropoff,
       vehicle:      `${selectedVehicle?.category} — ${selectedVehicle?.model}`,
+      child_seats:  form.childSeats,
       price:        priceLabel,
     }
 
@@ -169,6 +174,7 @@ export default function BookingModule({ t, lang }) {
     `• Départ : ${form.pickup}`,
     `• Arrivée : ${form.dropoff}`,
     `• Véhicule : ${selectedVehicle?.category} — ${selectedVehicle?.model}`,
+    ...(form.childSeats !== '0' ? [`• Sièges enfant / rehausseurs : ${form.childSeats}`] : []),
     `• Prix estimé : ${requestPrice()}`,
   ].join('\n')
 
@@ -191,6 +197,9 @@ export default function BookingModule({ t, lang }) {
     newbook:  { fr: 'Nouvelle réservation', en: 'New booking', ru: 'Новое бронирование', ro: 'Rezervare nouă' },
     calc:     { fr: 'Calcul…', en: 'Calculating…', ru: 'Расчёт…', ro: 'Calcul…' },
     sending:  { fr: 'Envoi…', en: 'Sending…', ru: 'Отправка…', ro: 'Trimitere…' },
+    seats:    { fr: 'Siège enfant / rehausseur (nombre)', en: 'Child seat / booster (number)', ru: 'Детское кресло / бустер (количество)', ro: 'Scaun copil / înălțător (număr)' },
+    seatsNone:{ fr: 'Aucun', en: 'None', ru: 'Не нужно', ro: 'Niciunul' },
+    seatsShort:{ fr: 'Sièges enfant / rehausseurs', en: 'Child seats / boosters', ru: 'Детские кресла / бустеры', ro: 'Scaune copil / înălțătoare' },
   }
   const lbl = (key) => L[key]?.[lang] ?? L[key]?.fr ?? ''
 
@@ -218,6 +227,7 @@ export default function BookingModule({ t, lang }) {
               <SummaryRow label={form.name} value={`${form.date} · ${form.time}`} />
               <SummaryRow label={form.pickup} value="→" />
               <SummaryRow label={form.dropoff} value="" />
+              {form.childSeats !== '0' && <SummaryRow label={lbl('seatsShort')} value={form.childSeats} />}
               <SummaryRow label={`${selectedVehicle?.category} — ${selectedVehicle?.model}`} value={typeof price === 'number' ? `${price} €` : (price ?? '')} gold />
             </div>
             <button
@@ -226,7 +236,7 @@ export default function BookingModule({ t, lang }) {
                 setClientMailOk(true)
                 setErrors([])
                 reset()
-                setForm(f => ({ ...f, name: '', email: '', phone: '', date: '', time: '', pickup: '', dropoff: '' }))
+                setForm(f => ({ ...f, name: '', email: '', phone: '', date: '', time: '', pickup: '', dropoff: '', childSeats: '0' }))
               }}
               className="btn-primary"
             >
@@ -318,6 +328,15 @@ export default function BookingModule({ t, lang }) {
                   required
                   label={t('booking_dropoff')}
                 />
+                <div>
+                  <label htmlFor="childSeats" className="label-luxury">{lbl('seats')}</label>
+                  <select id="childSeats" name="childSeats" value={form.childSeats}
+                    onChange={handleChange} className="input-luxury">
+                    {['0', '1', '2', '3', '4'].map(n => (
+                      <option key={n} value={n}>{n === '0' ? lbl('seatsNone') : n}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
             </fieldset>
 

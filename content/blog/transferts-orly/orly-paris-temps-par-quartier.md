@@ -1,8 +1,8 @@
 ---
 title: "Orly – Paris : combien de temps selon votre quartier ?"
 description: "Rive gauche, centre, Rive droite, ouest parisien : repères de temps de trajet entre l’aéroport d’Orly et votre quartier de Paris, selon l’heure."
-date: "2026-11-23"
-updated: "2026-11-23"
+date: "2026-11-24"
+updated: "2026-11-24"
 category: transferts-orly
 tags:
   - Orly Paris
@@ -88,7 +88,7 @@ Si vous hésitez entre les deux aéroports, sachez que Roissy, au nord, est en g
 
 ## Choisir le bon véhicule
 
-Pour un ou deux voyageurs, la Tesla Model Y ou la Mercedes Classe E conviennent en général. Pour un groupe ou une famille avec beaucoup de valises, le [van Mercedes Classe V](/van-7-places-paris) accueille jusqu’à 6 passagers et 6 bagages. Si vous vous rendez à Orly tôt le matin, consultez aussi [Orly tôt le matin ou tard le soir : comment y aller ?](/blog/transferts-orly/orly-la-nuit-tot-le-matin).
+Pour un ou deux voyageurs, la Tesla ou la Mercedes Classe E conviennent en général. Pour un groupe ou une famille avec beaucoup de valises, le [van Mercedes Classe V](/van-7-places-paris) accueille jusqu’à 6 passagers et 7 valises. Si vous vous rendez à Orly tôt le matin, consultez aussi [Orly tôt le matin ou tard le soir : comment y aller ?](/blog/transferts-orly/orly-la-nuit-tot-le-matin).
 
 ## En résumé
 

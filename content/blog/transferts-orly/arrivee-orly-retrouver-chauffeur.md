@@ -1,8 +1,8 @@
 ---
 title: "Arrivée à Orly : où retrouver son chauffeur ?"
 description: "Vous atterrissez à Orly ? Les étapes jusqu’à la sortie du terminal, comment joindre votre chauffeur et le retrouver, selon votre vol et vos bagages."
-date: "2026-11-23"
-updated: "2026-11-23"
+date: "2026-11-24"
+updated: "2026-11-24"
 category: transferts-orly
 tags:
   - arrivée Orly
@@ -17,8 +17,8 @@ faq:
     answer: "Selon le vol et l’affluence, comptez souvent de 20 minutes à plus d’une heure entre l’atterrissage et la sortie, contrôles aux frontières et bagages compris."
   - question: "Que faire si je ne trouve pas mon chauffeur ?"
     answer: "Restez à l’intérieur du terminal et appelez-le ou écrivez-lui sur WhatsApp en indiquant votre terminal et la sortie près de laquelle vous vous trouvez."
-  - question: "Faut-il prévenir le chauffeur si mon vol a du retard ?"
-    answer: "Oui, prévenez-nous dès que possible par téléphone ou WhatsApp avec la nouvelle heure d’arrivée prévue, pour que nous convenions ensemble de la suite."
+  - question: "Que se passe-t-il si mon vol a du retard ?"
+    answer: "Votre vol est suivi en temps réel : un retard n’est jamais facturé, même de 4 ou 5 heures, et l’attente est incluse jusqu’à 1 h après l’atterrissage. Un message reste utile en cas de déroutement."
 ---
 
 À l’arrivée à Orly, vous retrouvez votre chauffeur après avoir récupéré vos bagages : appelez-le au numéro communiqué lors de la confirmation, et il vous indique le point de rendez-vous exact. Communiquer votre numéro de vol et votre terminal à l’avance, puis garder votre téléphone allumé dès l’atterrissage, suffit en général à se retrouver rapidement.
@@ -60,7 +60,7 @@ Le lieu exact de prise en charge vous est toujours confirmé par téléphone ou 
 
 ## Si votre vol a du retard ou arrive tard
 
-Les retards sont fréquents en fin de journée. Prévenez-nous dès que possible par téléphone ou WhatsApp en indiquant la nouvelle heure d’arrivée prévue : nous convenons alors avec vous de la suite. Notre article [Vol retardé à CDG : que faire avec votre chauffeur ?](/blog/transferts-cdg/vol-retarde-cdg-chauffeur) détaille les bons réflexes, valables aussi à Orly.
+Les retards sont fréquents en fin de journée. Votre vol est suivi en temps réel grâce à son numéro : un retard n’est jamais facturé, même de 4 ou 5 heures. L’attente est ensuite incluse jusqu’à 1 h après l’atterrissage ; au-delà (bagages, formalités…), elle est facturée au tarif horaire de la catégorie du véhicule. Notre article [Vol retardé à CDG : que faire avec votre chauffeur ?](/blog/transferts-cdg/vol-retarde-cdg-chauffeur) détaille les bons réflexes, valables aussi à Orly.
 
 À Orly, un retard important peut avoir une conséquence particulière : en raison du couvre-feu nocturne de l’aéroport, un vol qui ne peut pas atterrir avant l’heure limite est en général dérouté vers un autre aéroport. Nous expliquons ce cas dans [Couvre-feu d’Orly : ce qui se passe après 23 h 30](/blog/transferts-orly/couvre-feu-orly-apres-23h30).
 
@@ -83,7 +83,7 @@ Vous pouvez réserver un transfert pour quelqu’un d’autre : un parent, un co
 
 ## Choisir le bon véhicule pour votre arrivée
 
-Les capacités de notre flotte sont des repères : 3 passagers et 3 bagages en Mercedes Classe E ou Classe S, 4 passagers et 3 bagages en Tesla Model Y, et jusqu’à 6 passagers et 6 bagages dans le [van Mercedes Classe V](/van-7-places-paris). Signalez vos bagages lors de la confirmation pour que nous vous confirmions le véhicule adapté.
+Voici les capacités maximales de notre flotte : 3 passagers, 2 grandes valises et 2 petites en Mercedes Classe E ou Classe S, 4 passagers et 4 valises en Tesla, et jusqu’à 6 passagers et 7 valises dans le [van Mercedes Classe V](/van-7-places-paris). Au-delà, plusieurs véhicules peuvent être réservés ensemble. Signalez vos bagages lors de la confirmation pour que nous vous confirmions le véhicule adapté.
 
 Le prix d’un transfert entre Orly et Paris figure dans le [tableau des tarifs du site](/#rates) et sur la page [VTC aéroport d’Orly](/vtc-aeroport-orly) : tarif indicatif, confirmé avant la course. Pour une destination hors de Paris, le prix est établi sur devis.
 
@@ -96,4 +96,4 @@ Une fois en voiture, la durée du trajet dépend surtout de l’heure et de votr
 - Donnez votre numéro de vol, votre terminal et vos bagages lors de la confirmation.
 - Rallumez votre téléphone dès l’atterrissage et récupérez tous vos bagages avant d’appeler votre chauffeur.
 - Le lieu exact de prise en charge vous est confirmé par téléphone ou WhatsApp.
-- En cas de retard, prévenez-nous dès que possible.
+- Votre vol est suivi en temps réel : un retard n’est jamais facturé et l’attente est incluse jusqu’à 1 h après l’atterrissage.

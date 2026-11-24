@@ -2,7 +2,7 @@
 title: "Terminal 2E à CDG : où retrouver son chauffeur ?"
 description: "Arrivée ou départ au terminal 2E de Roissy-CDG : halls K, L et M, sortie après les bagages, dépose devant le terminal. Nos repères pour votre chauffeur."
 date: "2026-11-23"
-updated: "2026-11-23"
+updated: "2026-11-24"
 category: transferts-cdg
 tags:
   - terminal 2E
@@ -55,7 +55,7 @@ Pour retrouver votre chauffeur simplement :
 3. **Une fois vos bagages récupérés**, appelez votre chauffeur : il vous indique le lieu exact de rendez-vous.
 4. **Restez à l’endroit convenu**, surtout si vous voyagez avec plusieurs bagages ou des enfants : c’est le plus sûr moyen de vous retrouver rapidement.
 
-Si votre vol a du retard, prévenez-nous dès que possible par téléphone ou WhatsApp. Nous avons détaillé les bons réflexes dans notre article [Vol retardé à CDG : que faire avec votre chauffeur ?](/blog/transferts-cdg/vol-retarde-cdg-chauffeur).
+Votre vol est suivi en temps réel : un retard n’est jamais facturé, et l’attente est incluse jusqu’à 1 h après l’atterrissage, ce qui couvre en général les contrôles et la livraison des bagages. Nous avons détaillé les bons réflexes dans notre article [Vol retardé à CDG : que faire avec votre chauffeur ?](/blog/transferts-cdg/vol-retarde-cdg-chauffeur).
 
 ## Au départ : être déposé au bon endroit
 
@@ -77,7 +77,7 @@ Vous continuez votre voyage en train ? La gare TGV et RER de l’aéroport se tr
 
 ## Choisir le bon véhicule pour un vol long-courrier
 
-Les vols long-courriers du terminal 2E riment souvent avec plusieurs valises. Les berlines Mercedes Classe E et Classe S accueillent 3 passagers et 3 bagages, la Tesla Model Y 4 passagers et 3 bagages. En famille ou en groupe, le [van Mercedes Classe V](/van-7-places-paris) accueille jusqu’à 6 passagers et 6 bagages en un seul véhicule.
+Les vols long-courriers du terminal 2E riment souvent avec plusieurs valises. Les berlines Mercedes Classe E et Classe S accueillent 3 passagers, 2 grandes valises et 2 petites, la Tesla 4 passagers et 4 valises. En famille ou en groupe, le [van Mercedes Classe V](/van-7-places-paris) accueille jusqu’à 6 passagers et 7 valises en un seul véhicule.
 
 Le prix d’un transfert entre Paris et l’aéroport figure dans le [tableau des tarifs du site](/#rates) et sur notre page [VTC aéroport CDG](/vtc-aeroport-cdg) : tarif indicatif, confirmé avant la course.
 

@@ -13,9 +13,10 @@ import { BLOG_HOME, BLOG_UI } from '../src/content/blog/blog.js'
 import { POSTS, BLOG_ROUTES, postsIn, pageCount, pageOf, inSitemap } from '../src/blog/routes.js'
 import { ARTICLES } from '../src/content/blog/generated/articles.js'
 import { headFor, pageMeta } from '../src/seo/head.js'
-import { jsonLd } from '../src/seo/schema.js'
+import { jsonLd, parisDateTime } from '../src/seo/schema.js'
 import { sitemapXml, rssXml, llmsTxt } from '../src/seo/files.js'
 import { loadPosts } from '../scripts/blog/generate.mjs'
+import { FORBIDDEN } from './rules.js'
 
 const words = (s) => s.split(/\s+/).filter(w => /[\p{L}\p{N}]/u.test(w)).length
 const text = (html) => html.replace(/<[^>]+>/g, ' ').replace(/&[a-z#0-9]+;/gi, ' ')
@@ -86,7 +87,7 @@ test('chaque article : 900 à 1 400 mots, 3 à 5 questions, liens vers services 
   }
 })
 
-test('blog : prix = prix du tableau, aucune mention en attente de confirmation', () => {
+test('blog : prix = prix du tableau, aucune mention non confirmée, conditions officielles exactes', () => {
   const all = [
     BLOG_HOME.title, BLOG_HOME.description, BLOG_HOME.intro,
     ...Object.values(BLOG_UI).flatMap(ui => Object.values(ui).filter(v => typeof v === 'string')),
@@ -94,10 +95,15 @@ test('blog : prix = prix du tableau, aucune mention en attente de confirmation',
     ...Object.values(ARTICLES).flatMap(a => [a.title, a.description, text(a.html.join(' ')), ...a.faq.flatMap(f => [f.q, f.a])]),
   ].join('\n')
   for (const m of all.matchAll(/(?:€\s?(\d+)|(\d+)\s?€)/g)) assert.ok(TABLE_PRICES.has(Number(m[1] ?? m[2])), `prix hors tableau : ${m[0]}`)
-  for (const re of [/attente/i, /péage/i, /minutes d.avance/i, /eau offerte/i, /banalis/i, /suivi de vol/i, /waiting/i, /\btolls?\b/i, /unmarked/i]) {
+  for (const re of FORBIDDEN) {
     const m = all.match(re)
     assert.equal(m, null, `mention interdite ${re} : « ${m && all.slice(Math.max(0, m.index - 40), m.index + 40)} »`)
   }
+  // Attente incluse : toujours « 1 h » ; annulation gratuite : toujours « 24 h »
+  for (const m of all.matchAll(/[^.;]*attente (?:est |est ensuite )?incluse[^.;]*/gi)) assert.match(m[0], /1 h/, `attente incluse sans « 1 h » : ${m[0]}`)
+  for (const m of all.matchAll(/[^.;]*annulation (?:est )?gratuite[^.;]*/gi)) assert.match(m[0], /24 h/, `annulation sans « 24 h » : ${m[0]}`)
+  // Anciennes capacités (3 bagages en berline, 6 bagages en van)
+  assert.doesNotMatch(all, /\b[36] bagages\b|4 passagers et 3|Jusqu’à 3 \|/, 'ancienne capacité de bagages')
 })
 
 test('JSON-LD article : BlogPosting (auteur et éditeur = l’entreprise), BreadcrumbList, FAQPage, aucun avis', () => {
@@ -107,13 +113,16 @@ test('JSON-LD article : BlogPosting (auteur et éditeur = l’entreprise), Bread
     assert.doesNotMatch(JSON.stringify(graph), /"Review"|"AggregateRating"|aggregateRating|"review"/)
     const post = graph.find(n => n['@type'] === 'BlogPosting')
     assert.equal(post.headline, p.title)
-    assert.equal(post.datePublished, p.date)
-    assert.equal(post.dateModified, p.updated)
+    // ISO 8601 complet avec le fuseau de Paris (ex. 2026-11-23T09:00:00+01:00)
+    assert.equal(post.datePublished, parisDateTime(p.date))
+    assert.equal(post.dateModified, parisDateTime(p.updated))
+    assert.match(post.datePublished, /^\d{4}-\d{2}-\d{2}T09:00:00\+0[12]:00$/)
     assert.equal(post.inLanguage, p.lang)
     assert.ok(post.image.url.startsWith('https://cdgtransfertvtc.fr/img/blog/'))
     for (const who of [post.author, post.publisher]) {
       assert.equal(who['@id'], 'https://cdgtransfertvtc.fr/#entreprise')
       assert.equal(who.name, 'CDG TRANSFERT VTC')
+      assert.equal(who.logo.url, 'https://cdgtransfertvtc.fr/logo.png')
     }
     const crumbs = graph.find(n => n['@type'] === 'BreadcrumbList').itemListElement
     assert.equal(crumbs.length, 4)

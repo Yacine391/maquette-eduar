@@ -1,8 +1,8 @@
 ---
 title: "Orly tôt le matin ou tard le soir : comment y aller ?"
 description: "Premier vol du matin ou arrivée tardive à Orly : horaires des transports, couvre-feu, durée du trajet de nuit et solutions pour l’aéroport ou Paris."
-date: "2026-11-23"
-updated: "2026-11-23"
+date: "2026-11-24"
+updated: "2026-11-24"
 category: transferts-orly
 tags:
   - aéroport d’Orly
@@ -92,6 +92,6 @@ Si vous partez de Roissy-Charles-de-Gaulle plutôt que d’Orly, la situation es
 - **Préparez vos bagages et vos documents la veille**.
 - **Gardez votre téléphone chargé** pour rester joignable.
 - **Vérifiez votre terminal**, Orly 1, 2, 3 ou 4, sur votre carte d’embarquement.
-- **En groupe ou en famille**, choisissez le [van Mercedes Classe V](/van-7-places-paris), qui accueille jusqu’à 6 passagers et 6 bagages.
+- **En groupe ou en famille**, choisissez le [van Mercedes Classe V](/van-7-places-paris), qui accueille jusqu’à 6 passagers et 7 valises.
 
 CDG TRANSFERT VTC est disponible 24 h/24 et 7 j/7. Le prix d’un trajet entre Paris et Orly figure dans le [tableau des tarifs du site](/#rates) : tarif indicatif, confirmé avant la course.
