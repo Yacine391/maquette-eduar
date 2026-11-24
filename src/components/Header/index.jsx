@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react'
 import Logo from '../Logo'
 import { BUSINESS } from '../../constants/business'
 import { UI } from '../../content/ui'
-import { pagePath, langPath, hasBooking, isBlog, LANG_NAMES } from '../../routes'
+import { pagePath, langPath, hasBooking, isBlog, isLegal, LANG_NAMES } from '../../routes'
 import { BLOG_LINK } from '../../content/blog/link'
 
 const LANGS = ['fr', 'en', 'ro', 'ru']
@@ -46,7 +46,7 @@ export default function Header({ t, lang, route }) {
   const { page } = route
   const [scrolled,  setScrolled]  = useState(false)
   const [menuOpen,  setMenuOpen]  = useState(false)
-  const [activeNav, setActiveNav] = useState(page === 'home' ? 'home' : isBlog(route) ? 'blog' : 'services')
+  const [activeNav, setActiveNav] = useState(page === 'home' ? 'home' : isBlog(route) ? 'blog' : isLegal(route) ? null : 'services')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80)

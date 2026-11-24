@@ -20,6 +20,7 @@ import { ARTICLES } from '../content/blog/generated/articles.js'
 import { HOME } from '../content/home.js'
 import { UI } from '../content/ui.js'
 import { SERVICES, SERVICE_LIST } from '../content/services/index.js'
+import { LEGAL_META } from '../content/legal/meta.js'
 
 const BUSINESS_ID = `${SITE}/#entreprise`
 const WEBSITE_ID  = `${SITE}/#website`
@@ -240,6 +241,18 @@ export function jsonLd(route) {
       description: LONG_DISTANCE[lang].description, url: `${url}#rates`, provider: { '@id': BUSINESS_ID }, areaServed: area(FULL_AREA),
     })
     graph.push(faqNode(url, HOME[lang].faq))
+  } else if (LEGAL_META[page]) {
+    // Page légale : WebPage + fil d'Ariane (ni service, ni FAQ, ni adresse)
+    const meta = LEGAL_META[page][lang]
+    const url = pageUrl(lang, page)
+    graph.push(webpageNode(lang, page, meta, true))
+    graph.push({
+      '@type': 'BreadcrumbList', '@id': `${url}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: UI[lang].home, item: pageUrl(lang, 'home') },
+        { '@type': 'ListItem', position: 2, name: meta.nav, item: url },
+      ],
+    })
   } else {
     const s = SERVICES[page]
     graph.push(webpageNode(lang, page, s.i18n[lang], true))

@@ -11,7 +11,7 @@ import { test } from 'node:test'
 import { readFileSync, readdirSync, statSync } from 'node:fs'
 import path from 'node:path'
 import assert from 'node:assert/strict'
-import { ROUTES, LANGS, SERVICE_SLUGS, pageUrl } from '../src/routes.js'
+import { ROUTES, LANGS, SERVICE_SLUGS, LEGAL_SLUGS, pageUrl } from '../src/routes.js'
 import { BUSINESS, DEPARTMENTS } from '../src/constants/business.js'
 import { rateTable, HOURLY } from '../src/constants/rates.js'
 import { vehicles, luggageLabel, PARTNER_FLEET } from '../src/constants/vehicles.js'
@@ -57,8 +57,8 @@ const ALL_TEXT = [
   ...LANGS.flatMap(l => Object.values(CONDITIONS[l])),
 ].join('\n')
 
-test('title ≤ 60 caractères et description ≤ 155, uniques sur les 32 pages', () => {
-  assert.equal(ROUTES.length, 32)
+test('title ≤ 60 caractères et description ≤ 155, uniques sur les 44 pages (dont 12 pages légales)', () => {
+  assert.equal(ROUTES.length, 44)
   const titles = new Set(), descs = new Set()
   for (const route of ROUTES) {
     const { title, description } = pageMeta(route)
@@ -67,8 +67,8 @@ test('title ≤ 60 caractères et description ≤ 155, uniques sur les 32 pages'
     assert.ok(description.length <= 155, `description trop longue (${description.length}) : ${where}`)
     titles.add(title); descs.add(description)
   }
-  assert.equal(titles.size, 32, 'titles en double')
-  assert.equal(descs.size, 32, 'descriptions en double')
+  assert.equal(titles.size, ROUTES.length, 'titles en double')
+  assert.equal(descs.size, ROUTES.length, 'descriptions en double')
 })
 
 test('canonical, hreflang réciproques (fr, en, ru, ro, x-default), Open Graph et Twitter', () => {
@@ -187,7 +187,7 @@ test('JSON-LD : TaxiService / LocalBusiness conforme, sans adresse de rue ni avi
     for (const d of DEPARTMENTS) assert.ok(areas.includes(d), `zone ${d}`)
     assert.ok(areas.includes('Beauvais'))
     assert.deepEqual(biz.areaServed.filter(a => a['@type'] === 'Airport').map(a => a.iataCode), ['CDG', 'ORY', 'BVA'])
-    assert.ok(graph.some(n => n['@type'] === 'FAQPage'))
+    if (!LEGAL_SLUGS.includes(route.page)) assert.ok(graph.some(n => n['@type'] === 'FAQPage'))
     if (route.page !== 'home') assert.ok(graph.some(n => n['@type'] === 'BreadcrumbList'), 'BreadcrumbList manquant')
   }
 })
@@ -216,7 +216,7 @@ test('JSON-LD : offres des services = lignes du tableau affiché', () => {
 
 test('sitemap.xml, robots.txt et llms.txt', () => {
   const sitemap = sitemapXml('2026-01-01')
-  assert.equal((sitemap.match(/<loc>/g) ?? []).length, 32 + blogSitemapRoutes().length)
+  assert.equal((sitemap.match(/<loc>/g) ?? []).length, ROUTES.length + blogSitemapRoutes().length)
   for (const route of ROUTES) assert.ok(sitemap.includes(`<loc>${pageUrl(route.lang, route.page)}</loc>`))
   const robots = robotsTxt()
   for (const bot of ['Googlebot', 'Bingbot', 'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'PerplexityBot', 'ClaudeBot', 'Google-Extended']) {

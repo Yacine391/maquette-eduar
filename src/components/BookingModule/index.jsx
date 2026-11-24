@@ -8,6 +8,9 @@
 // Catégorie par défaut : BUSINESS (Mercedes Classe E). Champ « Siège enfant
 // / rehausseur (nombre) » → paramètre EmailJS `child_seats` (à afficher dans
 // les deux templates du tableau de bord EmailJS : {{child_seats}}).
+// Données minimales (RGPD) : e-mail facultatif (récapitulatif envoyé
+// seulement s'il est renseigné, sans le téléphone) ; mention d'information
+// et lien vers la politique de confidentialité sous le bouton d'envoi.
 // Anti-spam et injections (src/utils/bookingGuard.js) : validation stricte
 // de chaque champ, champ piège invisible, délai minimal de 3 s avant envoi,
 // 3 demandes maximum par navigateur en 10 min, valeurs nettoyées (texte
@@ -21,6 +24,7 @@ import { vehicles } from '../../constants/vehicles'
 import { EMAILJS_CONFIG } from '../../config/emailjs'
 import AddressAutocomplete from './AddressAutocomplete'
 import { PHONE_E164, PHONE_DISPLAY, whatsappLink } from '../../constants/contact'
+import { pagePath } from '../../routes'
 import { LIMITS, checkBooking, cleanText, cleanParams, tooFast, rateLimited, recordSend } from '../../utils/bookingGuard'
 
 // Date du jour au format AAAA-MM-JJ (heure locale) : date minimale du formulaire
@@ -97,7 +101,7 @@ export default function BookingModule({ t, lang }) {
   // ── Envoi de la demande + e-mails ──
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!form.name || !form.email || !form.phone || !form.date || !form.time || !form.pickup || !form.dropoff) return
+    if (!form.name || !form.phone || !form.date || !form.time || !form.pickup || !form.dropoff) return
     // Champ piège rempli : robot → confirmation affichée, rien n'est envoyé
     if (form.website) { setConfirmed(true); return }
     const errs = validate()
@@ -159,19 +163,23 @@ export default function BookingModule({ t, lang }) {
       return
     }
 
-    // 2. Récapitulatif au client — la demande est déjà arrivée : un échec
-    //    ici ne doit pas afficher d'erreur (risque de doublon)
-    let clientOk = true
-    try {
-      await emailjs.send(
-        EMAILJS_CONFIG.SERVICE_ID,
-        EMAILJS_CONFIG.CLIENT_TEMPLATE_ID,
-        templateParams,
-        options,
-      )
-    } catch (err) {
-      console.error('EmailJS (récapitulatif client) :', err)
-      clientOk = false
+    // 2. Récapitulatif au client, seulement s'il a donné son e-mail — la
+    //    demande est déjà arrivée : un échec ici ne doit pas afficher
+    //    d'erreur (risque de doublon). Données minimales : pas de téléphone.
+    let clientOk = false
+    if (templateParams.client_email) {
+      const { client_phone, ...clientParams } = templateParams
+      try {
+        await emailjs.send(
+          EMAILJS_CONFIG.SERVICE_ID,
+          EMAILJS_CONFIG.CLIENT_TEMPLATE_ID,
+          clientParams,
+          options,
+        )
+        clientOk = true
+      } catch (err) {
+        console.error('EmailJS (récapitulatif client) :', err)
+      }
     }
     setClientMailOk(clientOk)
     setConfirmed(true)
@@ -184,7 +192,7 @@ export default function BookingModule({ t, lang }) {
     'Bonjour, je souhaite réserver un transfert :',
     `• Nom : ${c(form.name, LIMITS.name)}`,
     `• Téléphone : ${c(form.phone, LIMITS.phone)}`,
-    `• E-mail : ${c(form.email, LIMITS.email)}`,
+    ...(form.email.trim() ? [`• E-mail : ${c(form.email, LIMITS.email)}`] : []),
     `• Date : ${c(form.date, 10)} à ${c(form.time, 5)}`,
     `• Départ : ${c(form.pickup, LIMITS.address)}`,
     `• Arrivée : ${c(form.dropoff, LIMITS.address)}`,
@@ -215,6 +223,9 @@ export default function BookingModule({ t, lang }) {
     errFast:  { fr: 'Merci de vérifier votre demande quelques secondes avant de l’envoyer.', en: 'Please take a few seconds to check your request before sending it.', ru: 'Пожалуйста, проверьте заявку несколько секунд перед отправкой.', ro: 'Vă rugăm să verificați cererea câteva secunde înainte de a o trimite.' },
     errLimit: { fr: 'Plusieurs demandes ont déjà été envoyées depuis cet appareil. Pour une nouvelle demande, appelez-nous ou écrivez-nous sur WhatsApp.', en: 'Several requests have already been sent from this device. For a new request, please call us or send a WhatsApp message.', ru: 'С этого устройства уже отправлено несколько заявок. Для новой заявки позвоните нам или напишите в WhatsApp.', ro: 'Din acest dispozitiv au fost deja trimise mai multe cereri. Pentru o cerere nouă, sunați-ne sau scrieți-ne pe WhatsApp.' },
     errInvalid:{ fr: 'Un champ contient une valeur invalide.', en: 'A field contains an invalid value.', ru: 'Одно из полей содержит недопустимое значение.', ro: 'Un câmp conține o valoare invalidă.' },
+    optional: { fr: 'facultatif', en: 'optional', ru: 'необязательно', ro: 'opțional' },
+    privacy:  { fr: 'Vos données servent uniquement à traiter votre demande de réservation. En savoir plus :', en: 'Your data is used only to process your booking request. Learn more:', ru: 'Ваши данные используются только для обработки заявки на бронирование. Подробнее:', ro: 'Datele dumneavoastră sunt folosite doar pentru a procesa cererea de rezervare. Aflați mai multe:' },
+    privacyLink: { fr: 'politique de confidentialité', en: 'privacy policy', ru: 'политика конфиденциальности', ro: 'politica de confidențialitate' },
     hp:       { fr: 'Ne pas remplir ce champ', en: 'Do not fill in this field', ru: 'Не заполняйте это поле', ro: 'Nu completați acest câmp' },
     newbook:  { fr: 'Nouvelle réservation', en: 'New booking', ru: 'Новое бронирование', ro: 'Rezervare nouă' },
     calc:     { fr: 'Calcul…', en: 'Calculating…', ru: 'Расчёт…', ro: 'Calcul…' },
@@ -301,9 +312,9 @@ export default function BookingModule({ t, lang }) {
                     onChange={handleChange} placeholder="Jean Dupont" required className="input-luxury" />
                 </div>
                 <div>
-                  <label htmlFor="email" className="label-luxury">Email *</label>
+                  <label htmlFor="email" className="label-luxury">Email <span className="normal-case tracking-normal">({lbl('optional')})</span></label>
                   <input id="email" type="email" name="email" value={form.email} autoComplete="email" inputMode="email" maxLength={LIMITS.email}
-                    onChange={handleChange} placeholder="jean@example.com" required className="input-luxury" />
+                    onChange={handleChange} placeholder="jean@example.com" className="input-luxury" />
                 </div>
                 <div className="sm:col-span-2">
                   <label htmlFor="phone" className="label-luxury">{lbl('phone')} *</label>
@@ -455,7 +466,7 @@ export default function BookingModule({ t, lang }) {
 
             {/* ── Submit ── */}
             <button type="submit"
-              disabled={sending || !form.name || !form.email || !form.phone || !form.date || !form.time || !form.pickup || !form.dropoff}
+              disabled={sending || !form.name || !form.phone || !form.date || !form.time || !form.pickup || !form.dropoff}
               className="btn-primary w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {sending
@@ -469,6 +480,11 @@ export default function BookingModule({ t, lang }) {
 
             <p className="mt-4 text-[10px] text-silver-dim italic tracking-wide">
               {t('booking_note')}
+            </p>
+            {/* Information RGPD (art. 13) : finalité + lien vers la politique */}
+            <p className="mt-2 text-[11px] text-silver-dim tracking-wide">
+              {lbl('privacy')}{' '}
+              <a href={pagePath(lang, 'confidentialite')} className="text-gold underline underline-offset-2 hover:text-gold-hover transition-colors duration-300">{lbl('privacyLink')}</a>
             </p>
 
           </form>

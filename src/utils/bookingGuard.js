@@ -49,8 +49,9 @@ export function checkBooking(form, now = new Date()) {
   const name = cleanText(form.name, 200)
   if (name.length < 2 || name.length > LIMITS.name || !NAME_RE.test(name)) errs.push('errName')
 
+  // E-mail facultatif : vérifié seulement s'il est renseigné
   const email = String(form.email ?? '').trim()
-  if (email.length > LIMITS.email || !EMAIL_RE.test(email)) errs.push('errEmail')
+  if (email && (email.length > LIMITS.email || !EMAIL_RE.test(email))) errs.push('errEmail')
 
   const phone = String(form.phone ?? '').trim()
   const digits = phone.replace(/\D/g, '').length

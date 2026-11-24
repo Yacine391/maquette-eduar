@@ -189,3 +189,6 @@ footer {
 
 /* Champ piège du formulaire (anti-robots) : hors écran, jamais visible */
 .hp-field { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+
+/* Pages légales : informations à compléter ou à vérifier par le client */
+.todo-mark { background: rgba(197, 160, 89, 0.16); color: #D6B471; border: 1px dashed rgba(197, 160, 89, 0.7); padding: 0 0.3em; font-weight: 500; }

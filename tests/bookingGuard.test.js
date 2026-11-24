@@ -24,6 +24,7 @@ test('validation : chaque champ est contrôlé', () => {
   assert.deepEqual(errs({ name: 'A' }), ['errName'])
   assert.deepEqual(errs({ name: '<script>alert(1)</script>' }), ['errName'])
   assert.deepEqual(errs({ name: 'x'.repeat(LIMITS.name + 1) }), ['errName'])
+  assert.deepEqual(errs({ email: '' }), [])                                  // e-mail facultatif
   assert.deepEqual(errs({ email: 'jean@example' }), ['errEmail'])
   assert.deepEqual(errs({ email: 'jean<x>@example.com' }), ['errEmail'])
   assert.deepEqual(errs({ phone: '12345' }), ['errPhone'])

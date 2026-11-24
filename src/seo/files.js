@@ -10,7 +10,8 @@ import { rateTable, HOURLY } from '../constants/rates.js'
 import { vehicles, luggageLabel } from '../constants/vehicles.js'
 import { CONDITIONS } from '../content/conditions.js'
 import { parisDateTime } from './schema.js'
-import { SITE, LANGS, ROUTES, pageUrl, routeUrl, LANG_NAMES } from '../routes.js'
+import { SITE, LANGS, ROUTES, pageUrl, routeUrl, LANG_NAMES, LEGAL_SLUGS } from '../routes.js'
+import { LEGAL_META } from '../content/legal/meta.js'
 import { SERVICE_LIST } from '../content/services/index.js'
 import { BLOG_HOME } from '../content/blog/blog.js'
 import { CATEGORIES } from '../content/blog/categories.js'
@@ -85,7 +86,7 @@ export function llmsTxt() {
 
 > Chauffeur privé VTC à Paris et en Île-de-France : transferts vers les aéroports Paris-Charles-de-Gaulle (CDG), Orly et Beauvais, les gares parisiennes et Disneyland Paris, mise à disposition avec chauffeur et van pour les groupes. Disponible 24 h/24, 7 j/7.
 
-Réservation par le formulaire du site, par téléphone ou par WhatsApp ; chaque course est confirmée par téléphone ou WhatsApp. Les tarifs sont indicatifs et confirmés avant la course ; aucun paiement en ligne.
+Réservation par le formulaire du site, par téléphone ou par WhatsApp ; chaque course est confirmée par téléphone ou WhatsApp. Les tarifs sont indicatifs et confirmés avant la course ; aucun paiement en ligne. Aucun cookie ni traceur publicitaire.
 
 ## Contact
 
@@ -135,6 +136,7 @@ ${c.description}${postsIn(c.slug).length ? '\n\n' + postsIn(c.slug).map(p => `- 
 ## Pages
 
 - [Accueil et réservation](${pageUrl('fr', 'home')})
+${LEGAL_SLUGS.map(slug => `- [${LEGAL_META[slug].fr.nav}](${pageUrl('fr', slug)})`).join('\n')}
 ${LANGS.filter(l => l !== 'fr').map(l => `- [${LANG_NAMES[l]}](${pageUrl(l, 'home')})`).join('\n')}
 - [Plan du site](${SITE}/sitemap.xml)
 `

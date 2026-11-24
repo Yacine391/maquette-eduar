@@ -10,6 +10,8 @@ import HomePage from './components/Pages/HomePage'
 import ServicePage from './components/Pages/ServicePage'
 import BlogList from './components/Blog/BlogList'
 import BlogArticle from './components/Blog/BlogArticle'
+import LegalPage from './components/Pages/LegalPage'
+import { LEGAL_BODIES } from './content/legal/index.js'
 import { SERVICE_BODIES } from './content/services/index.js'
 import { ARTICLES } from './content/blog/generated/articles.js'
 
@@ -17,6 +19,7 @@ function pageFor(route) {
   if (route.page === 'home') return [HomePage]
   if (route.page === 'blog' || route.page === 'blog-category') return [BlogList]
   if (route.page === 'blog-article') return [BlogArticle, ARTICLES[`${route.category}/${route.slug}`]]
+  if (LEGAL_BODIES[route.page]) return [LegalPage, LEGAL_BODIES[route.page]]
   return [ServicePage, SERVICE_BODIES[route.page]]
 }
 

@@ -10,6 +10,7 @@
 import { StrictMode, startTransition } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
 import App from './App'
+import { LEGAL_SLUGS } from './routes'
 // Polices auto-hébergées, variables (woff2, font-display: swap) : un seul
 // fichier par famille et par style couvre toutes les graisses utilisées
 import '@fontsource-variable/cormorant-garamond/wght.css'
@@ -28,12 +29,14 @@ async function currentRoute() {
   return parsePath(location.pathname)
 }
 const pages    = import.meta.glob('./content/services/pages/*.js')
+const legal    = import.meta.glob('./content/legal/pages/*.js')
 const articles = import.meta.glob('./content/blog/generated/articles/*.js')
 
 function pageModule({ page }) {
   if (page === 'home') return import('./components/Pages/HomePage')
   if (page === 'blog' || page === 'blog-category') return import('./components/Blog/BlogList')
   if (page === 'blog-article') return import('./components/Blog/BlogArticle')
+  if (LEGAL_SLUGS.includes(page)) return import('./components/Pages/LegalPage')
   return import('./components/Pages/ServicePage')
 }
 
@@ -41,7 +44,7 @@ async function start() {
   const route = await currentRoute()
   const load = route.page === 'blog-article'
     ? articles[`./content/blog/generated/articles/${route.category}--${route.slug}.js`]
-    : pages[`./content/services/pages/${route.page}.js`]
+    : pages[`./content/services/pages/${route.page}.js`] ?? legal[`./content/legal/pages/${route.page}.js`]
   const [{ default: Page }, body] = await Promise.all([
     pageModule(route),
     load ? load().then(m => m.default) : undefined,

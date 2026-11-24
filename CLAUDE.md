@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **CDG TRANSFERT VTC** — production website of a real client: private VTC chauffeur in Paris, airport transfers (CDG, Orly, Beauvais). Live at **https://cdgtransfertvtc.fr**.
 
-Pre-rendered multi-page React site, no backend: home + 7 service pages, each in 4 languages (32 URLs — French at the root, then `/en/…`, `/ru/…`, `/ro/…`), plus a blog (`/blog`, 10 categories, Markdown articles). Booking requests are sent by e-mail through EmailJS. Everything shown to visitors must be true: this is no longer a mockup.
+Pre-rendered multi-page React site, no backend: home + 7 service pages + 3 legal pages (`/mentions-legales`, `/confidentialite`, `/cgv`), each in 4 languages (44 URLs — French at the root, then `/en/…`, `/ru/…`, `/ro/…`), plus a blog (`/blog`, 10 categories, Markdown articles). Booking requests are sent by e-mail through EmailJS. Everything shown to visitors must be true: this is no longer a mockup.
 
 ## Deployment
 
@@ -47,7 +47,7 @@ python3 scripts/optimize-blog-images.py   # regenerate blog images after adding 
 - `dist/404.html`: static not-found page (no JS, `noindex`), served by Vercel with a 404 status;
 - the above-the-fold fonts are preloaded per language (latin, + latin-ext for RO, + cyrillic for RU) and page type (Cormorant italic on the home page only);
 - the JS entry is loaded by the inline loader `scripts/app-loader.js` (low fetch priority), allowed by its **sha256 hash in the CSP** of `vercel.json`;
-- `sitemap.xml` (32 URLs with hreflang alternates + blog), `robots.txt` (search engines and AI crawlers allowed), `llms.txt` and `blog/rss.xml` are generated from `src/seo/files.js`.
+- `sitemap.xml` (44 URLs with hreflang alternates + blog), `robots.txt` (search engines and AI crawlers allowed), `llms.txt` and `blog/rss.xml` are generated from `src/seo/files.js`.
 
 Rules:
 - Render code must not touch `window` / `document`; values that differ between build time and visit (today's date, current year) are set in `useEffect`.
@@ -100,6 +100,8 @@ Every page: Header (menu with « Blog »; full menu from 1280 px, burger below; 
 - Home (`/`, `/en`, `/ru`, `/ro`): Hero → Booking → Fleet → Services (8 cards: 7 service pages + « Autre trajet » on quote) → WhyUs → Reviews (« Votre avis compte ») → Rates → FAQ → Contact.
 - Service pages (`/vtc-aeroport-cdg`, `/vtc-aeroport-orly`, `/vtc-aeroport-beauvais`, `/vtc-gares-paris`, `/vtc-disneyland-paris`, `/mise-a-disposition-chauffeur`, `/van-7-places-paris`, same slugs under `/en`, `/ru`, `/ro`): breadcrumb → H1 → intro + « Réserver » button (top) → sections (rates from `rateTable`, travel times, meeting point, what is included…) → vehicles → related services → FAQ → « Réserver » (bottom) → Booking form.
 
+- Legal pages (`LEGAL_SLUGS`, `src/content/legal/`, component `LegalPage`): breadcrumb → H1 → last update → « Projet à valider par le client » banner while `[À COMPLÉTER : …]` / `[À VÉRIFIER : …]` markers remain (highlighted) → note « the French version prevails » on EN / RU / RO → sections. No booking form (booking links go to the home form). Footer links « Mentions légales · Confidentialité · CGV » on every page and language. Texts support `[label](url)` links.
+
 - Blog: `/blog` (list, 12 per page, `/blog/page/2`…, filter = links to non-empty categories) → `/blog/<category>` (unique 150–250-word intro, own title / description, paginated) → `/blog/<category>/<article>` (breadcrumb, single h1, published / updated dates, reading time, lead = direct answer, automatic table of contents, cover image, text with a « Réservez votre chauffeur » box in the middle and at the end, FAQ, 3 related articles of the same category, related service pages, booking form).
 
 Fleet order (strict): **BUSINESS** — Mercedes Classe E (featured, gold border, « Recommandé », default category of the booking form; the owner drives it himself) → **Luxe** — Classe S → **Van** — Classe V → **Éco / Électrique** — Tesla (never « Model Y »).
@@ -119,6 +121,8 @@ src/
   content/
     conditions.js      official client conditions (waiting, cancellation, included,
                        child seats, partner fleet, hourly hire) — 4 languages
+    legal/             meta.js (labels, title, description), pages/<slug>.js (mentions légales,
+                       confidentialité, CGV — 4 languages, French prevails), index.js
     ui.js              shared labels of the new pages (4 languages)
     home.js            home title / description / FAQ (4 languages)
     services/meta.js   per service: rates rows, vehicle columns, related pages, JSON-LD
@@ -152,7 +156,7 @@ content/blog/          <category>/<slug>.md articles + images.json (blog image m
 scripts/               prerender.mjs, app-loader.js, optimize-images.py, optimize-blog-images.py,
                        check-links.mjs, blog/generate.mjs
 images-src/            original photos and logo (not deployed); blog/ = blog image originals
-tests/                 priceZone.test.js, seo.test.js, blog.test.js, security.test.js, routing.test.js, bookingGuard.test.js,
+tests/                 priceZone.test.js, seo.test.js, blog.test.js, security.test.js, routing.test.js, bookingGuard.test.js, legal.test.js,
                        rules.js (forbidden claims shared by the tests)
 public/                og-image.jpg (1200×630), logo.png (512×512, JSON-LD logo), img/blog/ (hashed AVIF / WebP / JPEG, cached 1 year),
                        google9b82adfd484120a1.html (Search Console verification — never delete)
@@ -161,7 +165,7 @@ index.html             template: charset, viewport, favicon, robots + <!--app-he
 
 ## Booking Flow
 
-- Form fields: name, e-mail, phone (required: the client is called back by phone / WhatsApp), date (not in the past), time, pickup, drop-off, « Siège enfant / rehausseur (nombre) » (0–4), vehicle (default: BUSINESS / Classe E).
+- Form fields: name, e-mail (optional: only for the summary e-mail), phone (required: the client is called back by phone / WhatsApp), date (not in the past), time, pickup, drop-off, « Siège enfant / rehausseur (nombre) » (0–4), vehicle (default: BUSINESS / Classe E).
 - EmailJS template params (both templates): `client_name`, `client_email`, `client_phone`, `booking_date`, `booking_time`, `pickup`, `dropoff`, `vehicle`, `child_seats`, `price`. No recipient is sent by the code: the « To Email » of each template is set in the EmailJS dashboard (admin template = the business address; client template = `{{client_email}}`).
 - Anti-spam / injection (`src/utils/bookingGuard.js`, tested in `tests/bookingGuard.test.js`): strict validation of every field (name letters only 2–80, e-mail ≤ 254, phone 9–15 digits ≤ 20 chars, date + time in the future and ≤ 18 months, addresses 3–200, seats 0–4, known vehicle), `maxLength` on inputs, hidden honeypot field `website` (filled → fake success, nothing sent), minimum 3 s between display and submit, max 3 requests per browser in 10 min (localStorage; beyond → call / WhatsApp), every EmailJS parameter cleaned to plain text (no control chars, `< > { }`, length-limited), EmailJS SDK `blockHeadless: true`. In the EmailJS templates use `{{var}}` (escaped), never `{{{var}}}`. Playwright tests must set `navigator.webdriver` to false (otherwise the SDK refuses to send).
 - On submit, EmailJS sends 1) the notification to the business (`ADMIN_TEMPLATE_ID`, mandatory) and 2) a summary to the client (`CLIENT_TEMPLATE_ID`, best effort: its failure must not show an error).
@@ -169,6 +173,14 @@ index.html             template: charset, viewport, favicon, robots + <!--app-he
 - Success message: « Demande de réservation envoyée ! Nous vous confirmons votre course rapidement par téléphone ou WhatsApp. » — it is a request, not a confirmed booking.
 - Recipient addresses and template contents live in the EmailJS dashboard, not in the code.
 - **Never send real booking e-mails while testing** without the owner's approval: intercept `api.emailjs.com` in the browser (e.g. Playwright `page.route`).
+
+## Legal / GDPR (RGPD, LCEN, CNIL)
+
+- Publisher identity: `LEGAL_ENTITY` in `src/constants/business.js` (SAS, SIREN / SIRET, registered office, host Vercel). The street address appears only on the legal pages, never in JSON-LD or the NAP.
+- Missing information is written `[À COMPLÉTER : …]` (to ask the client) and facts not verifiable here `[À VÉRIFIER : …]`: never invent them. Remove the markers once the client answers (the draft banner then disappears).
+- Privacy policy = what the site really does: form fields (e-mail optional), EmailJS, Gmail, Vercel, API Adresse, the anti-spam localStorage key (`RATE.key`, timestamps only, strictly necessary → exempt from consent). **No cookie, no analytics, no third-party script, no embedded map or video, self-hosted fonts → no consent banner.** Adding any tracker or third-party embed requires updating the policy and, if not exempt, a CNIL-compliant consent banner (refuse as easy as accept, nothing loaded before consent).
+- Booking form: privacy notice + link under the submit button; only necessary fields are required; no pre-checked box; client summary e-mail sent only if an e-mail is given, without the phone number.
+- `npm test` (`tests/legal.test.js`) checks the 3 pages × 4 languages, mandatory content, sitemap, footer links, no tracker in `dist/`.
 
 ## Prices
 

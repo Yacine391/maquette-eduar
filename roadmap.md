@@ -75,6 +75,8 @@
 - [x] Sécurité (novembre 2026) : CSP sans 'unsafe-inline', CORP, security.txt, 404, formulaire anti-spam, dépendances verrouillées, Dependabot, galerie réparée
 - [ ] Propriétaire : 2FA (GitHub, Vercel, Google, EmailJS, registraire), protection de main, DNS SPF / DMARC / CAA / DNSSEC, réglages de sécurité EmailJS
 - [ ] Renouveler public/.well-known/security.txt (Expires) avant novembre 2027
+- [x] RGPD / LCEN (novembre 2026) : mentions légales, politique de confidentialité, CGV (4 langues), mention d'information du formulaire, e-mail facultatif, inventaire des traceurs (aucun cookie)
+- [ ] Compléter les [À COMPLÉTER] / [À VÉRIFIER] des pages légales avec le client (capital, RCS, TVA, président, EVTC, carte VTC, médiateur, paiement, assurance…)
 - [ ] Blog : rédiger les articles des 8 autres catégories (pages déjà en place, hors sitemap tant qu'elles sont vides)
 - [ ] Décider d'une politique Content-Signal (autorisation ou non de l'entraînement des IA) pour robots.txt
 - [ ] Optionnel : inscrire le domaine sur hstspreload.org (l'en-tête HSTS est prêt)

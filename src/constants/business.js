@@ -37,3 +37,19 @@ export const AIRPORTS = [
   { name: 'Aéroport Paris-Orly (ORY)',              iataCode: 'ORY' },
   { name: 'Aéroport Paris-Beauvais (BVA)',          iataCode: 'BVA' },
 ]
+
+// ── Identité légale (pages Mentions légales, Confidentialité, CGV) ────
+// Affichée uniquement sur les pages légales (obligation LCEN) : l'adresse
+// du siège n'est PAS reprise dans les données structurées ni dans le NAP.
+// Les informations manquantes sont marquées [À COMPLÉTER] dans les textes.
+export const LEGAL_ENTITY = {
+  form:    { fr: 'société par actions simplifiée (SAS)', en: 'simplified joint-stock company (SAS)', ru: 'упрощённое акционерное общество (SAS)', ro: 'societate pe acțiuni simplificată (SAS)' },
+  siren:   '945 208 445',
+  siret:   '945 208 445 00011',
+  address: '58 rue de Monceau, 75008 Paris, France',
+  host: {
+    name:    'Vercel Inc.',
+    address: '440 N Barranca Ave #4133, Covina, CA 91723, USA',
+    site:    'https://vercel.com',
+  },
+}

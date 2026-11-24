@@ -10,6 +10,7 @@ import { BUSINESS } from '../constants/business.js'
 import { SITE, LANGS, pageUrl, routeUrl, isBlog, OG_LOCALE } from '../routes.js'
 import { HOME } from '../content/home.js'
 import { SERVICES } from '../content/services/index.js'
+import { LEGAL_META } from '../content/legal/meta.js'
 import { BLOG_HOME } from '../content/blog/blog.js'
 import { CATEGORY } from '../content/blog/categories.js'
 import { findPost } from '../blog/routes.js'
@@ -33,6 +34,7 @@ export const withBrand = (title) => (title.length + BRAND.length <= 60 ? title +
 export function pageMeta(route) {
   const { lang, page, num = 1 } = route
   if (page === 'home') return HOME[lang]
+  if (LEGAL_META[page]) return LEGAL_META[page][lang]
   if (!isBlog(route)) return SERVICES[page].i18n[lang]
   if (page === 'blog-article') {
     const post = findPost(route.category, route.slug)
