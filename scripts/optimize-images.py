@@ -35,7 +35,7 @@ COVERS = {
     'classe-e-1':    ((0.5, 0.72), {'lg': (2.24, (512, 734)), 'md': (3.2, (512, 734)), 'xs': (1.6, (448, 640, 734))}),
     'classe-s-1':    ((0.5, 0.5), SMALL),
     'classe-v-1':    ((0.5, 0.5), SMALL),
-    'tesla-model-y': ((0.5, 0.5), SMALL),
+    'tesla':         ((0.5, 0.5), SMALL),
 }
 
 def save_variants(im, stem, widths, out_dir):
@@ -88,6 +88,17 @@ fav = Image.new('RGB', (48, 48), (0, 0, 0))
 thumb = logo.copy(); thumb.thumbnail((48, 48), Image.LANCZOS)
 fav.paste(thumb, ((48 - thumb.width) // 2, (48 - thumb.height) // 2))
 fav.save(OUT / 'favicon-48.png', optimize=True)
+
+# Logo des données structurées (JSON-LD logo de l'entreprise) : texte du logo
+# recadré, centré sur un carré noir 512×512, URL stable public/logo.png
+LOGO_SIZE = 512
+box = logo.convert('L').point(lambda v: 255 if v > 40 else 0).getbbox()
+mark = logo.crop(box)
+mark.thumbnail((round(LOGO_SIZE * 0.84), round(LOGO_SIZE * 0.84)), Image.LANCZOS)
+square = Image.new('RGB', (LOGO_SIZE, LOGO_SIZE), (0, 0, 0))
+square.paste(mark, ((LOGO_SIZE - mark.width) // 2, (LOGO_SIZE - mark.height) // 2))
+square.save(ROOT / 'public' / 'logo.png', optimize=True)
+print(f'logo JSON-LD : {LOGO_SIZE}×{LOGO_SIZE} (public/logo.png)')
 
 # Grain du fond : tuile 128×128 pré-calculée. Remplace l'ancien filtre SVG
 # feTurbulence (opacité 3 %), identique à l'œil mais très coûteux à

@@ -2,7 +2,7 @@
 title: "VTC ou taxi pour Roissy-CDG : quelles différences ?"
 description: "Taxi ou VTC entre Paris et l’aéroport Charles-de-Gaulle : réservation, prix, prise en charge, véhicule. Les vraies différences pour bien choisir."
 date: "2026-11-23"
-updated: "2026-11-23"
+updated: "2026-11-24"
 category: transferts-cdg
 tags:
   - VTC ou taxi
@@ -63,10 +63,11 @@ Aux heures d’arrivée chargées, les files aux stations de taxis peuvent toute
 Réserver un VTC à l’avance est souvent plus confortable dans les cas suivants :
 
 - **un départ très tôt le matin ou une arrivée de nuit**, quand il vaut mieux avoir une solution prête : notre article [CDG la nuit : comment y aller ou en revenir sans RER](/blog/transferts-cdg/cdg-la-nuit-sans-rer) détaille ces situations ;
-- **un voyage en famille ou en groupe**, avec un véhicule choisi à l’avance, comme le [van Mercedes Classe V](/van-7-places-paris) pour 6 passagers et 6 bagages ;
+- **un voyage en famille ou en groupe**, avec un véhicule choisi à l’avance, comme le [van Mercedes Classe V](/van-7-places-paris) pour 6 passagers et 7 valises ;
 - **beaucoup de bagages** ou des objets volumineux, à signaler lors de la réservation : voir [Combien de valises dans un VTC pour aller à CDG ?](/blog/transferts-cdg/valises-vtc-cdg) ;
 - **un voyage professionnel**, quand on veut connaître le prix à l’avance et choisir la catégorie du véhicule ;
-- **une prise en charge organisée**, avec un chauffeur joignable par téléphone ou WhatsApp.
+- **une prise en charge organisée**, avec un chauffeur joignable par téléphone ou WhatsApp ;
+- **un vol dont l’heure d’arrivée est incertaine** : avec CDG TRANSFERT VTC, le vol est suivi en temps réel, un retard n’est jamais facturé et l’attente est incluse jusqu’à 1 h après l’atterrissage.
 
 ## Méfiez-vous des sollicitations dans le hall des arrivées
 
@@ -88,6 +89,6 @@ Dans le sens Paris – aéroport, la question se pose différemment : il n’y a
 
 ## Nos tarifs VTC pour CDG
 
-Avec CDG TRANSFERT VTC, le prix d’un transfert entre Paris et l’aéroport dépend de la catégorie de véhicule choisie : Mercedes Classe E, Classe S, van Classe V ou Tesla Model Y. Vous le trouvez dans le [tableau des tarifs du site](/#rates) et sur la page [VTC aéroport CDG](/vtc-aeroport-cdg) : tarif indicatif, confirmé avant la course.
+Avec CDG TRANSFERT VTC, le prix d’un transfert entre Paris et l’aéroport dépend de la catégorie de véhicule choisie : Mercedes Classe E, Classe S, van Classe V ou Tesla. Vous le trouvez dans le [tableau des tarifs du site](/#rates) et sur la page [VTC aéroport CDG](/vtc-aeroport-cdg) : tarif indicatif, confirmé avant la course. Les péages sont toujours inclus, et une facture vous est fournie pour chaque course, pratique pour une note de frais.
 
 Pour réserver, envoyez une demande avec le formulaire du site ou appelez-nous : votre course est ensuite confirmée par téléphone ou WhatsApp. Les étapes sont détaillées dans [Réserver un VTC pour CDG : comment ça se passe ?](/blog/transferts-cdg/reserver-vtc-cdg-etapes).

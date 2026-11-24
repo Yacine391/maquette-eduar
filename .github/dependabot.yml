@@ -1,0 +1,24 @@
+# Mises à jour automatiques des dépendances (une PR par mise à jour, chaque
+# semaine). Avant de fusionner : npm test, npm run build, Lighthouse.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: Europe/Paris
+    open-pull-requests-limit: 5
+    versioning-strategy: increase
+    groups:
+      outils-de-build:
+        dependency-type: development
+        update-types: [minor, patch]
+    labels: [dependencies]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: Europe/Paris
+    labels: [dependencies]

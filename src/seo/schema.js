@@ -4,10 +4,13 @@
 // d'avis (Review / AggregateRating) : le site n'affiche pas d'avis.
 // Le texte des FAQ est strictement identique au texte affiché.
 // Blog : Blog + CollectionPage (listes), BlogPosting (auteur et éditeur =
-// l'entreprise), BreadcrumbList, FAQPage si l'article a une FAQ.
+// l'entreprise, dates ISO 8601 avec fuseau de Paris), BreadcrumbList,
+// FAQPage si l'article a une FAQ.
+// Logo de l'entreprise : public/logo.png (ImageObject). Mise à disposition :
+// offres à l'heure (UnitPriceSpecification, unitCode HUR, minimum 3 h).
 // ────────────────────────────────────────────────────────────────────
 import { BUSINESS, DEPARTMENTS, AIRPORTS } from '../constants/business.js'
-import { rateTable } from '../constants/rates.js'
+import { rateTable, HOURLY } from '../constants/rates.js'
 import { vehicles } from '../constants/vehicles.js'
 import { SITE, LANGS, pageUrl, routeUrl, isBlog } from '../routes.js'
 import { BLOG_HOME, BLOG_UI } from '../content/blog/blog.js'
@@ -17,9 +20,22 @@ import { ARTICLES } from '../content/blog/generated/articles.js'
 import { HOME } from '../content/home.js'
 import { UI } from '../content/ui.js'
 import { SERVICES, SERVICE_LIST } from '../content/services/index.js'
+import { LEGAL_META } from '../content/legal/meta.js'
 
 const BUSINESS_ID = `${SITE}/#entreprise`
 const WEBSITE_ID  = `${SITE}/#website`
+const LOGO_ID     = `${SITE}/#logo`
+const LOGO = { '@type': 'ImageObject', '@id': LOGO_ID, url: `${SITE}/logo.png`, contentUrl: `${SITE}/logo.png`, width: 512, height: 512, caption: BUSINESS.name }
+
+// Date d'un article (AAAA-MM-JJ) → ISO 8601 complet à 9 h, heure de Paris
+// (décalage +01:00 en hiver, +02:00 en été), ex. 2026-11-23T09:00:00+01:00
+export function parisDateTime(date, time = '09:00') {
+  const utc = new Date(`${date}T${time}:00Z`)
+  const name = new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Paris', timeZoneName: 'longOffset' })
+    .formatToParts(utc).find(p => p.type === 'timeZoneName').value   // « GMT+01:00 »
+  const offset = name === 'GMT' ? '+00:00' : name.slice(3)
+  return `${date}T${time}:00${offset}`
+}
 const COLS = ['business', 'luxe', 'van', 'eco']
 
 const DESCRIPTION = {
@@ -65,6 +81,7 @@ function businessNode(lang) {
     telephone: BUSINESS.phoneE164,
     email: BUSINESS.email,
     image: `${SITE}/og-image.jpg`,
+    logo: LOGO,
     description: DESCRIPTION[lang],
     // Zone desservie sans adresse de rue (comme la fiche Google)
     address: { '@type': 'PostalAddress', addressLocality: 'Paris', addressRegion: 'Île-de-France', addressCountry: 'FR' },
@@ -79,7 +96,8 @@ function websiteNode() {
   return { '@type': 'WebSite', '@id': WEBSITE_ID, url: `${SITE}/`, name: BUSINESS.name, inLanguage: LANGS, publisher: { '@id': BUSINESS_ID } }
 }
 
-// Offres d'un service : une par ligne du tableau et par catégorie de véhicule
+// Offres d'un service : une par ligne du tableau et par catégorie de véhicule.
+// Ligne à l'heure : prix unitaire par heure (HUR), quantité minimale 3 h.
 function offers(service, lang) {
   const url = pageUrl(lang, service.slug)
   const cols = service.vehicleCols ?? COLS
@@ -87,7 +105,7 @@ function offers(service, lang) {
     const row = rateTable.find(r => r.key === key)
     return cols.filter(c => typeof row[c] === 'number').map(c => {
       const v = vehicles.find(x => x.id === c)
-      return {
+      const offer = {
         '@type': 'Offer',
         name: `${row.zone[lang] ?? row.zone.fr} — ${v.model}`,
         price: String(row[c]),
@@ -95,6 +113,14 @@ function offers(service, lang) {
         description: UI[lang].ratesNote,
         url: `${url}#booking`,
       }
+      if (row.unit === 'hour') {
+        offer.priceSpecification = {
+          '@type': 'UnitPriceSpecification', price: String(row[c]), priceCurrency: 'EUR',
+          unitCode: 'HUR', unitText: { fr: 'heure', en: 'hour', ru: 'час', ro: 'oră' }[lang],
+        }
+        offer.eligibleQuantity = { '@type': 'QuantitativeValue', minValue: HOURLY.minHours, unitCode: 'HUR' }
+      }
+      return offer
     })
   })
 }
@@ -182,7 +208,7 @@ function blogGraph(route) {
   const post = findPost(route.category, route.slug)
   const full = ARTICLES[`${route.category}/${route.slug}`]
   const cat = CATEGORY[post.category]
-  const org = { '@id': BUSINESS_ID, name: BUSINESS.name, url: BUSINESS.url }
+  const org = { '@id': BUSINESS_ID, name: BUSINESS.name, url: BUSINESS.url, logo: LOGO }
   const graph = [
     blogNode,
     page_('WebPage', post.title, post.description, { primaryImageOfPage: { '@id': `${url}#image` } }),
@@ -190,7 +216,7 @@ function blogGraph(route) {
       '@type': 'BlogPosting', '@id': `${url}#article`, mainEntityOfPage: { '@id': `${url}#webpage` },
       headline: post.title, description: post.description, url,
       image: { '@type': 'ImageObject', '@id': `${url}#image`, url: SITE + post.image.og.url, width: post.image.og.width, height: post.image.og.height, caption: post.image.alt },
-      datePublished: post.date, dateModified: post.updated, inLanguage: post.lang,
+      datePublished: parisDateTime(post.date), dateModified: parisDateTime(post.updated), inLanguage: post.lang,
       author: org, publisher: org, isPartOf: { '@id': BLOG_ID },
       articleSection: cat.name, keywords: post.tags.join(', '),
       wordCount: post.wordCount, timeRequired: `PT${post.readingTime}M`,
@@ -215,6 +241,18 @@ export function jsonLd(route) {
       description: LONG_DISTANCE[lang].description, url: `${url}#rates`, provider: { '@id': BUSINESS_ID }, areaServed: area(FULL_AREA),
     })
     graph.push(faqNode(url, HOME[lang].faq))
+  } else if (LEGAL_META[page]) {
+    // Page légale : WebPage + fil d'Ariane (ni service, ni FAQ, ni adresse)
+    const meta = LEGAL_META[page][lang]
+    const url = pageUrl(lang, page)
+    graph.push(webpageNode(lang, page, meta, true))
+    graph.push({
+      '@type': 'BreadcrumbList', '@id': `${url}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: UI[lang].home, item: pageUrl(lang, 'home') },
+        { '@type': 'ListItem', position: 2, name: meta.nav, item: url },
+      ],
+    })
   } else {
     const s = SERVICES[page]
     graph.push(webpageNode(lang, page, s.i18n[lang], true))

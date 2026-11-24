@@ -10,10 +10,11 @@ import { BUSINESS } from '../constants/business.js'
 import { SITE, LANGS, pageUrl, routeUrl, isBlog, OG_LOCALE } from '../routes.js'
 import { HOME } from '../content/home.js'
 import { SERVICES } from '../content/services/index.js'
+import { LEGAL_META } from '../content/legal/meta.js'
 import { BLOG_HOME } from '../content/blog/blog.js'
 import { CATEGORY } from '../content/blog/categories.js'
 import { findPost } from '../blog/routes.js'
-import { jsonLd } from './schema.js'
+import { jsonLd, parisDateTime } from './schema.js'
 
 const OG_ALT = {
   fr: 'CDG TRANSFERT VTC — chauffeur privé Paris · CDG · Orly, Mercedes Classe S sur le tarmac',
@@ -33,6 +34,7 @@ export const withBrand = (title) => (title.length + BRAND.length <= 60 ? title +
 export function pageMeta(route) {
   const { lang, page, num = 1 } = route
   if (page === 'home') return HOME[lang]
+  if (LEGAL_META[page]) return LEGAL_META[page][lang]
   if (!isBlog(route)) return SERVICES[page].i18n[lang]
   if (page === 'blog-article') {
     const post = findPost(route.category, route.slug)
@@ -79,8 +81,8 @@ export function headFor(route) {
     `<meta property="og:image:height" content="${image.height}" />`,
     `<meta property="og:image:alt" content="${esc(image.alt)}" />`,
     ...(post ? [
-      `<meta property="article:published_time" content="${post.date}" />`,
-      `<meta property="article:modified_time" content="${post.updated}" />`,
+      `<meta property="article:published_time" content="${parisDateTime(post.date)}" />`,
+      `<meta property="article:modified_time" content="${parisDateTime(post.updated)}" />`,
       `<meta property="article:section" content="${esc(CATEGORY[post.category].name)}" />`,
       ...post.tags.map(tag => `<meta property="article:tag" content="${esc(tag)}" />`),
     ] : []),

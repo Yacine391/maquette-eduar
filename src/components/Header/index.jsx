@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react'
 import Logo from '../Logo'
 import { BUSINESS } from '../../constants/business'
 import { UI } from '../../content/ui'
-import { pagePath, langPath, hasBooking, isBlog, LANG_NAMES } from '../../routes'
+import { pagePath, langPath, hasBooking, isBlog, isLegal, LANG_NAMES } from '../../routes'
 import { BLOG_LINK } from '../../content/blog/link'
 
 const LANGS = ['fr', 'en', 'ro', 'ru']
@@ -46,7 +46,7 @@ export default function Header({ t, lang, route }) {
   const { page } = route
   const [scrolled,  setScrolled]  = useState(false)
   const [menuOpen,  setMenuOpen]  = useState(false)
-  const [activeNav, setActiveNav] = useState(page === 'home' ? 'home' : isBlog(route) ? 'blog' : 'services')
+  const [activeNav, setActiveNav] = useState(page === 'home' ? 'home' : isBlog(route) ? 'blog' : isLegal(route) ? null : 'services')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80)
@@ -186,8 +186,8 @@ export default function Header({ t, lang, route }) {
           ${scrolled ? 'top-16 md:top-20' : 'top-[101px] md:top-[117px]'}
           ${menuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
       >
-        <nav id="menu-mobile" aria-label={NAV_LABEL[lang]} style={{ backgroundColor: '#0A0A0C' }}
-          className="border-t border-b border-divider px-6 py-6 flex flex-col gap-5 shadow-2xl shadow-black"
+        <nav id="menu-mobile" aria-label={NAV_LABEL[lang]}
+          className="bg-onyx border-t border-b border-divider px-6 py-6 flex flex-col gap-5 shadow-2xl shadow-black"
         >
           {navLinks.map(({ id, label, href }) => (
             <a

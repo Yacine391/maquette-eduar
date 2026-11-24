@@ -3,12 +3,13 @@
 // Marque · Navigation · Nos services (7 pages) · Contact rapide (NAP : nom,
 // téléphone, zone — identiques à la fiche Google, src/constants/business.js)
 // ────────────────────────────────────────────────────────────────────
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import Logo from '../Logo'
 import { BUSINESS, AREA } from '../../constants/business'
 import { UI } from '../../content/ui'
 import { SERVICE_META_LIST } from '../../content/services/meta'
-import { pagePath, hasBooking } from '../../routes'
+import { pagePath, hasBooking, LEGAL_SLUGS } from '../../routes'
+import { LEGAL_META, LEGAL_UI } from '../../content/legal/meta'
 import { homeAnchor } from '../Header'
 import { BLOG_LINK } from '../../content/blog/link'
 
@@ -28,12 +29,6 @@ export default function Footer({ t, lang, route }) {
     { label: t('nav_contact'), href: homeAnchor(lang, 'contact') },
   ]
 
-  const legalText = {
-    fr: ['Mentions légales', 'Politique de confidentialité', 'CGV'],
-    en: ['Legal notice', 'Privacy policy', 'T&C'],
-    ru: ['Правовая информация', 'Конфиденциальность', 'Условия'],
-    ro: ['Mențiuni legale', 'Confidențialitate', 'T&C'],
-  }
 
   const linkClass = 'flex items-center gap-2 text-sm text-silver hover:text-gold transition-colors duration-300 group'
   const dash = <span className="w-3 h-px bg-silver-dim group-hover:bg-gold group-hover:w-5 transition-all duration-300 flex-shrink-0" />
@@ -115,15 +110,18 @@ export default function Footer({ t, lang, route }) {
           <p className="text-xs text-silver-dim font-sans">
             © {year} {BUSINESS.name} — {t('footer_rights')}
           </p>
-          <div className="flex items-center gap-4">
-            {/* Pages légales à venir : simple texte tant qu'elles n'existent pas
-                (pas de faux bouton ni de lien mort) */}
-            {(legalText[lang] ?? legalText.fr).map((item) => (
-              <span key={item} className="text-[11px] text-silver-dim">
-                {item}
-              </span>
+          {/* Pages légales (toutes les pages, toutes les langues) */}
+          <nav aria-label={LEGAL_UI[lang].legal} className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
+            {LEGAL_SLUGS.map((slug, i) => (
+              <Fragment key={slug}>
+                {i > 0 && <span aria-hidden="true" className="text-[11px] text-silver-dim">·</span>}
+                <a href={pagePath(lang, slug)} aria-current={route.page === slug ? 'page' : undefined}
+                  className="text-[11px] text-silver-dim hover:text-gold underline-offset-4 hover:underline transition-colors duration-300 py-1">
+                  {LEGAL_META[slug][lang].nav}
+                </a>
+              </Fragment>
             ))}
-          </div>
+          </nav>
         </div>
       </div>
 

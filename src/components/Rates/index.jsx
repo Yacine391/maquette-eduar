@@ -1,8 +1,11 @@
 // ── Rates — Tableau des tarifs premium ──────────────────────────────
 // Tarifs réels (src/constants/rates.js), source du priceRange du JSON-LD.
+// Ligne « Mise à disposition, à l'heure » : prix suivis de « /h ».
+// Notes : conditions officielles (content/conditions.js).
 // Design : tableau sombre avec headers gold, lignes élégantes.
 // ────────────────────────────────────────────────────────────────────
-import { rateTable } from '../../constants/rates'
+import { rateTable, PER_HOUR } from '../../constants/rates'
+import { CONDITIONS } from '../../content/conditions'
 import { vehicles } from '../../constants/vehicles'
 
 export default function Rates({ t, lang }) {
@@ -89,7 +92,7 @@ export default function Rates({ t, lang }) {
                             ${featured ? 'text-gold' : 'text-offwhite'}`}
                           >
                             {row[col]}
-                            <span className="text-sm ml-0.5 font-sans font-normal text-silver-dim">€</span>
+                            <span className="text-sm ml-0.5 font-sans font-normal text-silver-dim">€{row.unit === 'hour' ? PER_HOUR[lang] : ''}</span>
                           </span>
                         ) : (
                           <span className="text-xs italic text-silver-dim">
@@ -106,10 +109,12 @@ export default function Rates({ t, lang }) {
           </div>
         </div>
 
-        {/* Note */}
+        {/* Notes : conditions officielles */}
         <p className="mt-5 text-[11px] text-silver-dim italic text-center tracking-wide">
-          {{ en: 'Fixed prices, tolls and waiting time included, confirmed before the ride', ru: 'Фиксированные тарифы, платные дороги и ожидание включены, цена сообщается до поездки', ro: 'Tarife fixe, taxe de autostradă și așteptare incluse, comunicate înainte de cursă' }[lang]
-            ?? 'Tarifs fixes, péage et attente inclus, annoncés avant la course'}
+          {CONDITIONS[lang].ratesNote}
+        </p>
+        <p className="mt-2 text-[11px] text-silver-dim italic text-center tracking-wide">
+          {CONDITIONS[lang].hourly}
         </p>
       </div>
     </section>

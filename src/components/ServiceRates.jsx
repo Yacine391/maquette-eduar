@@ -1,10 +1,13 @@
 // ── Tableau des tarifs d'une page service ────────────────────────────
 // Lignes du tableau principal (src/constants/rates.js) uniquement : aucun
 // prix inventé. Mention « tarif indicatif, confirmé avant la course ».
+// Ligne à l'heure (mise à disposition) : « 70 €/h » + conditions (minimum,
+// kilométrage inclus).
 // Orientation : véhicules en lignes quand il y a moins de trajets que de
 // véhicules (lisible sur mobile), sinon trajets en lignes.
 // ────────────────────────────────────────────────────────────────────
-import { rateTable } from '../constants/rates'
+import { rateTable, PER_HOUR } from '../constants/rates'
+import { CONDITIONS } from '../content/conditions'
 import { vehicles } from '../constants/vehicles'
 import { UI } from '../content/ui'
 
@@ -17,7 +20,7 @@ export default function ServiceRates({ rows, cols = ALL_COLS, lang, t }) {
   const tripRows = rows.map(key => rateTable.find(r => r.key === key))
   const zone = (row) => row.zone[lang] ?? row.zone.fr
   const price = (row, c) => typeof row[c] === 'number'
-    ? <span className="font-serif text-lg font-semibold text-offwhite whitespace-nowrap">{row[c]}<span className="text-sm ml-0.5 font-sans font-normal text-silver-dim">€</span></span>
+    ? <span className="font-serif text-lg font-semibold text-offwhite whitespace-nowrap">{row[c]}<span className="text-sm ml-0.5 font-sans font-normal text-silver-dim">€{row.unit === 'hour' ? PER_HOUR[lang] : ''}</span></span>
     : <span className="text-xs italic text-silver-dim">{ui.onQuote}</span>
   const vehicleCell = (c) => (
     <>
@@ -57,6 +60,7 @@ export default function ServiceRates({ rows, cols = ALL_COLS, lang, t }) {
         </table>
       </div>
       <p className="mt-3 text-xs text-silver-dim italic">{ui.ratesNote}</p>
+      {tripRows.some(r => r.unit === 'hour') && <p className="mt-2 text-xs text-silver-dim italic">{CONDITIONS[lang].hourly}</p>}
     </div>
   )
 }

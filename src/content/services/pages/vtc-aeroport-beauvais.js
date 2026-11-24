@@ -15,7 +15,7 @@ export default {
         { h2: 'Tarif d’un VTC entre Paris et l’aéroport de Beauvais', rates: true, paras: [
           'Le prix d’un transfert entre Paris et Beauvais dépend de la catégorie de véhicule. Les montants ci-dessous sont ceux de notre grille de tarifs : ils sont indicatifs et vous sont confirmés avant la course.',
           'Si vous partez d’une commune hors de Paris ou d’un autre aéroport (Roissy-CDG, Orly), le prix est établi sur devis : indiquez simplement vos adresses dans le formulaire de réservation.',
-          'À plusieurs, le prix de la course se partage : un van Mercedes Classe V transporte jusqu’à 6 passagers et 6 bagages en un seul trajet.',
+          'À plusieurs, le prix de la course se partage : un van Mercedes Classe V transporte jusqu’à 6 passagers et 7 valises en un seul trajet.',
         ] },
         { h2: 'Temps de trajet entre Paris et Beauvais selon l’heure', paras: [
           'Comptez en moyenne entre 1 h 15 et 1 h 30 depuis le centre de Paris. Le trajet emprunte principalement l’autoroute A16 ; la sortie de Paris par le nord, souvent encombrée aux heures de pointe, peut allonger sensiblement la durée.',
@@ -39,23 +39,25 @@ export default {
           'Le trajet direct entre votre adresse à Paris et l’aéroport de Beauvais, ou l’inverse.',
           'Le véhicule de la catégorie choisie, avec son chauffeur.',
           'Le prix confirmé avant la course, selon le tableau des tarifs.',
-          'Vos bagages dans la limite de la capacité du véhicule : 3 en Mercedes Classe E, Classe S ou Tesla Model Y, 6 en Mercedes Classe V.',
+          'Vos bagages dans la limite de la capacité du véhicule : 2 grandes valises et 2 petites en Mercedes Classe E ou Classe S, 4 valises en Tesla, 7 valises en Mercedes Classe V.',
+          'Les péages, l’eau à bord, la facture et jusqu’à 1 h d’attente après l’atterrissage ; un retard de vol n’est jamais facturé.',
           'La confirmation de votre course par téléphone ou WhatsApp.',
         ], paras: [
           'Aucun paiement n’est demandé sur le site : vous envoyez une demande de réservation et le prix vous est confirmé avant le départ.',
         ] },
         { h2: 'Pourquoi choisir un VTC pour aller à Beauvais ?', paras: [
           'Pour un vol à 6 h ou 7 h du matin, rejoindre Beauvais en transports en commun impose souvent de partir en pleine nuit. Un chauffeur vient vous chercher à l’heure convenue, à votre porte, et vous dépose directement à l’aéroport. Au retour, il vous ramène à votre adresse sans changement ni correspondance, même tard le soir.',
-          'Pour un trajet de plus d’une heure, le confort compte : la Tesla Model Y et la Mercedes Classe E conviennent à un ou deux voyageurs, la Mercedes Classe S offre le plus haut niveau de confort, et le van Mercedes Classe V accueille les familles et les groupes.',
+          'Pour un trajet de plus d’une heure, le confort compte : la Tesla et la Mercedes Classe E conviennent à un ou deux voyageurs, la Mercedes Classe S offre le plus haut niveau de confort, et le van Mercedes Classe V accueille les familles et les groupes.',
         ] },
       ],
       faq: [
-        { q: 'Combien coûte un VTC entre Paris et l’aéroport de Beauvais ?', a: 'Selon le véhicule : 150 € en Tesla Model Y, 200 € en Mercedes Classe E, 250 € en Mercedes Classe V et 300 € en Mercedes Classe S. Ces tarifs sont indicatifs et confirmés avant la course.' },
+        { q: 'Combien coûte un VTC entre Paris et l’aéroport de Beauvais ?', a: 'Selon le véhicule : 150 € en Tesla, 200 € en Mercedes Classe E, 250 € en Mercedes Classe V et 300 € en Mercedes Classe S. Ces tarifs sont indicatifs et confirmés avant la course.' },
         { q: 'Combien de temps dure le trajet entre Paris et Beauvais ?', a: 'Environ 1 h à 1 h 15 la nuit, 1 h 15 à 1 h 30 en journée hors heures de pointe et jusqu’à 2 h 15 aux heures de pointe, selon le trafic.' },
         { q: 'Pouvez-vous m’emmener à Beauvais pour un vol très tôt le matin ?', a: 'Oui, CDG TRANSFERT VTC est disponible 24 h/24 et 7 j/7. Précisez l’heure de votre vol lors de la confirmation de votre course pour convenir de l’heure de prise en charge.' },
         { q: 'À quelle distance de Paris se trouve l’aéroport de Beauvais ?', a: 'L’aéroport de Paris-Beauvais se trouve à Tillé, dans l’Oise, à environ 85 kilomètres au nord de Paris.' },
         { q: 'Faites-vous le trajet entre Beauvais et Roissy-CDG ou Orly ?', a: 'Oui, sur devis, car ces trajets ne figurent pas dans le tableau des tarifs. Indiquez vos adresses dans le formulaire pour recevoir une proposition.' },
-        { q: 'Combien de passagers pour un transfert vers Beauvais ?', a: 'Jusqu’à 3 passagers en Mercedes Classe E ou Classe S, 4 en Tesla Model Y et 6 en van Mercedes Classe V.' },
+        { q: 'Combien de passagers pour un transfert vers Beauvais ?', a: 'Jusqu’à 3 passagers en Mercedes Classe E ou Classe S, 4 en Tesla et 6 en van Mercedes Classe V.' },
+        { q: 'Que se passe-t-il si mon vol a du retard ?', a: 'Votre vol est suivi en temps réel : un retard n’est jamais facturé, même de 4 ou 5 heures. L’attente est incluse jusqu’à 1 h après l’atterrissage ; au-delà (bagages, formalités…), elle est facturée au tarif horaire de la catégorie du véhicule.' },
       ],
     },
     en: {
@@ -68,7 +70,7 @@ export default {
         { h2: 'Fares for a chauffeur between Paris and Beauvais airport', rates: true, paras: [
           'The price of a transfer between Paris and Beauvais depends on the vehicle category. The amounts below come from our price list: they are indicative and confirmed before the ride.',
           'If you are leaving from a town outside Paris or from another airport (Roissy-CDG, Orly), the price is given on quote: simply enter your addresses in the booking form.',
-          'When travelling as a group, the fare is shared: a Mercedes V-Class van carries up to 6 passengers and 6 bags in a single trip.',
+          'When travelling as a group, the fare is shared: a Mercedes V-Class van carries up to 6 passengers and 7 suitcases in a single trip.',
         ] },
         { h2: 'Travel time between Paris and Beauvais by time of day', paras: [
           'Allow 1 h 15 to 1 h 30 on average from central Paris. The route mainly follows the A16 motorway; leaving Paris to the north, often congested at rush hour, can add a lot of time.',
@@ -92,23 +94,25 @@ export default {
           'The direct trip between your address in Paris and Beauvais airport, or the other way round.',
           'A vehicle of the category you chose, with its chauffeur.',
           'The fare confirmed before the ride, based on the price list.',
-          'Your luggage within the vehicle’s capacity: 3 bags in a Mercedes E-Class, S-Class or Tesla Model Y, 6 in a Mercedes V-Class.',
+          'Your luggage within the vehicle’s capacity: 2 large and 2 small suitcases in a Mercedes E-Class or S-Class, 4 suitcases in a Tesla, 7 suitcases in a Mercedes V-Class.',
+          'Tolls, water on board, an invoice and up to 1 hour of waiting after landing; flight delays are never charged.',
           'Confirmation of your ride by phone or WhatsApp.',
         ], paras: [
           'No payment is taken on the website: you send a booking request and the fare is confirmed before departure.',
         ] },
         { h2: 'Why choose a private chauffeur for Beauvais?', paras: [
           'For a 6 or 7 am flight, getting to Beauvais by public transport often means leaving in the middle of the night. A chauffeur picks you up at the agreed time, at your door, and drops you off right at the airport. On the way back, you are driven to your address with no changes or connections, even late at night.',
-          'On a trip of more than an hour, comfort matters: the Tesla Model Y and the Mercedes E-Class suit one or two travellers, the Mercedes S-Class offers the highest level of comfort, and the Mercedes V-Class van welcomes families and groups.',
+          'On a trip of more than an hour, comfort matters: the Tesla and the Mercedes E-Class suit one or two travellers, the Mercedes S-Class offers the highest level of comfort, and the Mercedes V-Class van welcomes families and groups.',
         ] },
       ],
       faq: [
-        { q: 'How much is a chauffeur between Paris and Beauvais airport?', a: 'It depends on the vehicle: €150 in a Tesla Model Y, €200 in a Mercedes E-Class, €250 in a Mercedes V-Class and €300 in a Mercedes S-Class. These fares are indicative and confirmed before the ride.' },
+        { q: 'How much is a chauffeur between Paris and Beauvais airport?', a: 'It depends on the vehicle: €150 in a Tesla, €200 in a Mercedes E-Class, €250 in a Mercedes V-Class and €300 in a Mercedes S-Class. These fares are indicative and confirmed before the ride.' },
         { q: 'How long is the drive between Paris and Beauvais?', a: 'About 1 h to 1 h 15 at night, 1 h 15 to 1 h 30 during off-peak daytime hours and up to 2 h 15 at rush hour, depending on traffic.' },
         { q: 'Can you take me to Beauvais for a very early flight?', a: 'Yes, CDG TRANSFERT VTC is available 24/7. Give us your flight time when we confirm your ride so that we can agree on the pick-up time.' },
         { q: 'How far is Beauvais airport from Paris?', a: 'Paris-Beauvais airport is in Tillé, in the Oise department, about 85 kilometres north of Paris.' },
         { q: 'Do you drive between Beauvais and Roissy-CDG or Orly?', a: 'Yes, on quote, as these trips are not in the price list. Enter your addresses in the form to receive a proposal.' },
-        { q: 'How many passengers can travel to Beauvais?', a: 'Up to 3 passengers in a Mercedes E-Class or S-Class, 4 in a Tesla Model Y and 6 in a Mercedes V-Class van.' },
+        { q: 'How many passengers can travel to Beauvais?', a: 'Up to 3 passengers in a Mercedes E-Class or S-Class, 4 in a Tesla and 6 in a Mercedes V-Class van.' },
+        { q: 'What happens if my flight is delayed?', a: 'Your flight is tracked in real time: a delay is never charged, even one of 4 or 5 hours. Waiting time is included for up to 1 hour after landing; beyond that (baggage, formalities…), it is charged at the hourly rate of the vehicle category.' },
       ],
     },
     ru: {
@@ -121,7 +125,7 @@ export default {
         { h2: 'Стоимость трансфера между Парижем и аэропортом Бове', rates: true, paras: [
           'Цена трансфера между Парижем и Бове зависит от категории автомобиля. Суммы ниже взяты из нашего прайс-листа: они ориентировочные и подтверждаются до поездки.',
           'Если вы выезжаете из города за пределами Парижа или из другого аэропорта (Руасси-CDG, Орли), стоимость рассчитывается по запросу: просто укажите адреса в форме бронирования.',
-          'В компании стоимость поездки делится на всех: минивэн Mercedes V-класса перевозит до 6 пассажиров и 6 мест багажа за одну поездку.',
+          'В компании стоимость поездки делится на всех: минивэн Mercedes V-класса перевозит до 6 пассажиров и 7 чемоданов за одну поездку.',
         ] },
         { h2: 'Время в пути между Парижем и Бове в зависимости от часа', paras: [
           'От центра Парижа в среднем 1 ч 15 мин – 1 ч 30 мин. Маршрут проходит в основном по автомагистрали A16; выезд из Парижа на север, часто загруженный в часы пик, может заметно увеличить время в пути.',
@@ -145,23 +149,25 @@ export default {
           'Прямая поездка между вашим адресом в Париже и аэропортом Бове или в обратном направлении.',
           'Автомобиль выбранной категории с водителем.',
           'Цена, подтверждённая до поездки, согласно таблице тарифов.',
-          'Багаж в пределах вместимости автомобиля: 3 места в Mercedes E-класса, S-класса или Tesla Model Y, 6 мест в Mercedes V-класса.',
+          'Багаж в пределах вместимости автомобиля: 2 больших и 2 маленьких чемодана в Mercedes E-класса или S-класса, 4 чемодана в Tesla, 7 чемоданов в Mercedes V-класса.',
+          'Платные дороги, вода в салоне, счёт и до 1 часа ожидания после посадки; задержка рейса не оплачивается.',
           'Подтверждение поездки по телефону или в WhatsApp.',
         ], paras: [
           'На сайте ничего не нужно оплачивать: вы отправляете заявку на бронирование, а цена подтверждается до выезда.',
         ] },
         { h2: 'Почему стоит выбрать частного водителя до Бове?', paras: [
           'Чтобы успеть на рейс в 6 или 7 утра на общественном транспорте, часто приходится выезжать посреди ночи. Водитель заберёт вас в согласованное время прямо от двери и высадит у аэропорта. На обратном пути он доставит вас по вашему адресу без пересадок, даже поздно вечером.',
-          'В поездке дольше часа важен комфорт: Tesla Model Y и Mercedes E-класса подходят для одного-двух пассажиров, Mercedes S-класса — самый комфортный автомобиль нашего автопарка, а минивэн Mercedes V-класса рассчитан на семьи и группы.',
+          'В поездке дольше часа важен комфорт: Tesla и Mercedes E-класса подходят для одного-двух пассажиров, Mercedes S-класса — самый комфортный автомобиль нашего автопарка, а минивэн Mercedes V-класса рассчитан на семьи и группы.',
         ] },
       ],
       faq: [
-        { q: 'Сколько стоит трансфер между Парижем и аэропортом Бове?', a: 'В зависимости от автомобиля: 150 € на Tesla Model Y, 200 € на Mercedes E-класса, 250 € на Mercedes V-класса и 300 € на Mercedes S-класса. Тарифы ориентировочные и подтверждаются до поездки.' },
+        { q: 'Сколько стоит трансфер между Парижем и аэропортом Бове?', a: 'В зависимости от автомобиля: 150 € на Tesla, 200 € на Mercedes E-класса, 250 € на Mercedes V-класса и 300 € на Mercedes S-класса. Тарифы ориентировочные и подтверждаются до поездки.' },
         { q: 'Сколько времени ехать из Парижа в Бове?', a: 'Ночью около 1 ч – 1 ч 15 мин, днём вне часов пик 1 ч 15 мин – 1 ч 30 мин, а в часы пик — до 2 ч 15 мин, в зависимости от трафика.' },
         { q: 'Можно ли поехать в Бове к очень раннему рейсу?', a: 'Да, CDG TRANSFERT VTC работает круглосуточно и без выходных. Сообщите время вылета при подтверждении поездки, чтобы согласовать время подачи автомобиля.' },
         { q: 'Как далеко аэропорт Бове от Парижа?', a: 'Аэропорт Париж — Бове находится в коммуне Тилле (департамент Уаза), примерно в 85 километрах к северу от Парижа.' },
         { q: 'Вы ездите между Бове и аэропортами Руасси-CDG или Орли?', a: 'Да, по запросу, так как этих маршрутов нет в таблице тарифов. Укажите адреса в форме, чтобы получить предложение.' },
-        { q: 'Сколько пассажиров можно отвезти в Бове?', a: 'До 3 пассажиров в Mercedes E-класса или S-класса, 4 — в Tesla Model Y и 6 — в минивэне Mercedes V-класса.' },
+        { q: 'Сколько пассажиров можно отвезти в Бове?', a: 'До 3 пассажиров в Mercedes E-класса или S-класса, 4 — в Tesla и 6 — в минивэне Mercedes V-класса.' },
+        { q: 'Что будет, если мой рейс задержится?', a: 'Мы отслеживаем ваш рейс в реальном времени: задержка никогда не оплачивается, даже на 4–5 часов. Ожидание включено в течение 1 часа после посадки; сверх этого (багаж, формальности…) оно оплачивается по почасовому тарифу категории автомобиля.' },
       ],
     },
     ro: {
@@ -174,7 +180,7 @@ export default {
         { h2: 'Tariful unui VTC între Paris și aeroportul Beauvais', rates: true, paras: [
           'Prețul unui transfer între Paris și Beauvais depinde de categoria vehiculului. Sumele de mai jos provin din lista noastră de prețuri: sunt orientative și vă sunt confirmate înainte de cursă.',
           'Dacă plecați dintr-o localitate din afara Parisului sau de pe alt aeroport (Roissy-CDG, Orly), prețul se stabilește la cerere: completați adresele în formularul de rezervare.',
-          'În grup, prețul cursei se împarte: un van Mercedes Clasa V transportă până la 6 pasageri și 6 bagaje într-o singură cursă.',
+          'În grup, prețul cursei se împarte: un van Mercedes Clasa V transportă până la 6 pasageri și 7 valize într-o singură cursă.',
         ] },
         { h2: 'Durata drumului între Paris și Beauvais în funcție de oră', paras: [
           'Socotiți în medie între 1 h 15 și 1 h 30 din centrul Parisului. Traseul urmează în principal autostrada A16; ieșirea din Paris spre nord, des aglomerată la orele de vârf, poate prelungi considerabil durata.',
@@ -198,23 +204,25 @@ export default {
           'Cursa directă între adresa dumneavoastră din Paris și aeroportul Beauvais, sau invers.',
           'Vehiculul din categoria aleasă, cu șoferul său.',
           'Prețul confirmat înainte de cursă, conform tabelului de tarife.',
-          'Bagajele în limita capacității vehiculului: 3 în Mercedes Clasa E, Clasa S sau Tesla Model Y, 6 în Mercedes Clasa V.',
+          'Bagajele în limita capacității vehiculului: 2 valize mari și 2 mici în Mercedes Clasa E sau Clasa S, 4 valize în Tesla, 7 valize în Mercedes Clasa V.',
+          'Taxele de autostradă, apa la bord, factura și până la 1 oră de așteptare după aterizare; întârzierea zborului nu se facturează.',
           'Confirmarea cursei prin telefon sau WhatsApp.',
         ], paras: [
           'Site-ul nu cere nicio plată: trimiteți o cerere de rezervare, iar prețul vă este confirmat înainte de plecare.',
         ] },
         { h2: 'De ce să alegeți un șofer privat pentru Beauvais?', paras: [
           'Pentru un zbor la 6 sau 7 dimineața, a ajunge la Beauvais cu transportul public înseamnă adesea să plecați în miez de noapte. Un șofer vă ia de la ușă la ora convenită și vă lasă direct la aeroport. La întoarcere, vă duce la adresa dumneavoastră fără schimbări, chiar și seara târziu.',
-          'Pe un drum de peste o oră, confortul contează: Tesla Model Y și Mercedes Clasa E sunt potrivite pentru unul sau doi călători, Mercedes Clasa S oferă cel mai înalt nivel de confort, iar van-ul Mercedes Clasa V primește familiile și grupurile.',
+          'Pe un drum de peste o oră, confortul contează: Tesla și Mercedes Clasa E sunt potrivite pentru unul sau doi călători, Mercedes Clasa S oferă cel mai înalt nivel de confort, iar van-ul Mercedes Clasa V primește familiile și grupurile.',
         ] },
       ],
       faq: [
-        { q: 'Cât costă un VTC între Paris și aeroportul Beauvais?', a: 'În funcție de vehicul: 150 € cu Tesla Model Y, 200 € cu Mercedes Clasa E, 250 € cu Mercedes Clasa V și 300 € cu Mercedes Clasa S. Tarifele sunt orientative și confirmate înainte de cursă.' },
+        { q: 'Cât costă un VTC între Paris și aeroportul Beauvais?', a: 'În funcție de vehicul: 150 € cu Tesla, 200 € cu Mercedes Clasa E, 250 € cu Mercedes Clasa V și 300 € cu Mercedes Clasa S. Tarifele sunt orientative și confirmate înainte de cursă.' },
         { q: 'Cât durează drumul între Paris și Beauvais?', a: 'Aproximativ 1 h – 1 h 15 noaptea, 1 h 15 – 1 h 30 ziua în afara orelor de vârf și până la 2 h 15 la orele de vârf, în funcție de trafic.' },
         { q: 'Mă puteți duce la Beauvais pentru un zbor foarte devreme?', a: 'Da, CDG TRANSFERT VTC este disponibil 24/7. Comunicați-ne ora zborului la confirmarea cursei pentru a stabili ora de preluare.' },
         { q: 'La ce distanță de Paris se află aeroportul Beauvais?', a: 'Aeroportul Paris-Beauvais se află la Tillé, în departamentul Oise, la aproximativ 85 de kilometri nord de Paris.' },
         { q: 'Faceți cursa între Beauvais și Roissy-CDG sau Orly?', a: 'Da, la cerere, deoarece aceste trasee nu figurează în tabelul de tarife. Completați adresele în formular pentru a primi o ofertă.' },
-        { q: 'Câți pasageri pot merge la Beauvais?', a: 'Până la 3 pasageri în Mercedes Clasa E sau Clasa S, 4 în Tesla Model Y și 6 în van-ul Mercedes Clasa V.' },
+        { q: 'Câți pasageri pot merge la Beauvais?', a: 'Până la 3 pasageri în Mercedes Clasa E sau Clasa S, 4 în Tesla și 6 în van-ul Mercedes Clasa V.' },
+        { q: 'Ce se întâmplă dacă zborul meu întârzie?', a: 'Zborul dumneavoastră este urmărit în timp real: o întârziere nu este niciodată facturată, chiar și de 4 sau 5 ore. Așteptarea este inclusă până la 1 oră după aterizare; peste acest timp (bagaje, formalități…), se facturează la tariful orar al categoriei vehiculului.' },
       ],
     },
   },

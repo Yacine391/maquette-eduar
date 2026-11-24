@@ -26,13 +26,12 @@ export const translations = {
     booking_vehicle: 'Catégorie de véhicule',
     booking_submit:  'Obtenir un prix estimatif',
     booking_price_label: 'Prix estimé',
-    booking_note:    '* Estimation indicative — prix confirmé avant la course, aucun paiement en ligne.',
+    booking_note:    '* Estimation indicative — prix confirmé avant la course, aucun paiement en ligne. Annulation gratuite jusqu’à 24 h avant la prise en charge.',
 
     // Fleet
     fleet_title:     'Notre Flotte',
     fleet_badge:     'Recommandé',
     fleet_seats:     'places',
-    fleet_luggage:   'bagages',
 
     // Rates
     rates_title:     'Nos Tarifs',
@@ -77,12 +76,11 @@ export const translations = {
     booking_vehicle: 'Vehicle category',
     booking_submit:  'Get an estimated price',
     booking_price_label: 'Estimated price',
-    booking_note:    '* Indicative estimate — price confirmed before the ride, no online payment.',
+    booking_note:    '* Indicative estimate — price confirmed before the ride, no online payment. Free cancellation up to 24 hours before pick-up.',
 
     fleet_title:     'Our Fleet',
     fleet_badge:     'Recommended',
     fleet_seats:     'seats',
-    fleet_luggage:   'luggage',
 
     rates_title:     'Our Rates',
     rates_zone:      'Zone / Package',
@@ -123,12 +121,11 @@ export const translations = {
     booking_vehicle: 'Категория автомобиля',
     booking_submit:  'Получить оценку стоимости',
     booking_price_label: 'Примерная стоимость',
-    booking_note:    '* Ориентировочная оценка — цена подтверждается до поездки, без онлайн-оплаты.',
+    booking_note:    '* Ориентировочная оценка — цена подтверждается до поездки, без онлайн-оплаты. Бесплатная отмена не позднее чем за 24 часа до подачи автомобиля.',
 
     fleet_title:     'Наш автопарк',
     fleet_badge:     'Рекомендуется',
     fleet_seats:     'мест',
-    fleet_luggage:   'багаж',
 
     rates_title:     'Наши тарифы',
     rates_zone:      'Зона / Пакет',
@@ -172,13 +169,12 @@ export const translations = {
     booking_vehicle: 'Categorie vehicul',
     booking_submit:  'Obțineți un preț estimativ',
     booking_price_label: 'Preț estimat',
-    booking_note:    '* Estimare orientativă — prețul este confirmat înainte de cursă, fără plată online.',
+    booking_note:    '* Estimare orientativă — prețul este confirmat înainte de cursă, fără plată online. Anulare gratuită cu până la 24 de ore înainte de preluare.',
 
     // Fleet
     fleet_title:     'Flota Noastră',
     fleet_badge:     'Recomandat',
     fleet_seats:     'locuri',
-    fleet_luggage:   'bagaje',
 
     // Rates
     rates_title:     'Tarifele Noastre',

@@ -1,6 +1,10 @@
 // ── Données véhicules ────────────────────────────────────────────────
 // Flotte réelle du client. Ordre strict (voir CLAUDE.md) :
-// BUSINESS > Luxe > Van > Éco
+// BUSINESS > Luxe > Van > Éco. La Classe E (conduite par le responsable
+// lui-même) est mise en avant et choisie par défaut dans le formulaire.
+// Capacités officielles du client : `seats` (passagers) et `luggage`
+// ({ large, small } = grandes / petites valises, ou { total } valises) ;
+// libellé affiché : luggageLabel(vehicle, lang).
 //
 // PHOTOS : photos réelles de la flotte fournies par le client (originaux dans
 // images-src/vehicles/, variantes AVIF/WebP générées par
@@ -18,7 +22,7 @@ export const vehicles = [
     category: 'BUSINESS',
     model:    'Mercedes Classe E',
     seats:    3,
-    luggage:  3,
+    luggage:  { large: 2, small: 2 },
     gradient: 'from-zinc-900 via-zinc-800 to-neutral-900',
     // 3 photos client — couverture : la Classe E devant l'Arc de Triomphe
     images: [
@@ -30,10 +34,10 @@ export const vehicles = [
     ],
     featured: true,  // → bordure gold + badge "Recommandé"
     description: {
-      fr: 'Confort et élégance pour vos déplacements professionnels.',
-      en: 'Comfort and elegance for your business travel.',
-      ru: 'Комфорт и элегантность для деловых поездок.',
-      ro: 'Confort și eleganță pentru deplasările dvs. profesionale.',
+      fr: 'Notre véhicule de référence, conduit par le responsable de CDG TRANSFERT VTC lui-même : confort et élégance pour tous vos trajets.',
+      en: 'Our flagship car, driven by the head of CDG TRANSFERT VTC himself: comfort and elegance for every trip.',
+      ru: 'Наш основной автомобиль, за рулём — сам руководитель CDG TRANSFERT VTC: комфорт и элегантность в каждой поездке.',
+      ro: 'Vehiculul nostru de referință, condus chiar de responsabilul CDG TRANSFERT VTC: confort și eleganță la fiecare cursă.',
     },
   },
   {
@@ -41,7 +45,7 @@ export const vehicles = [
     category: 'Luxe',
     model:    'Mercedes Classe S',
     seats:    3,
-    luggage:  3,
+    luggage:  { large: 2, small: 2 },
     gradient: 'from-stone-900 via-zinc-900 to-black',
     // 4 photos client — 2 extérieures + 2 intérieures (demande client)
     images: [
@@ -62,8 +66,8 @@ export const vehicles = [
     id:       'van',
     category: 'Van',
     model:    'Mercedes Classe V',
-    seats:    6,
-    luggage:  6,
+    seats:    6,            // à confirmer par le client (7 places au total, chauffeur compris)
+    luggage:  { total: 7 },
     gradient: 'from-neutral-900 via-stone-900 to-zinc-900',
     // 4 photos client — 2 extérieures + 2 intérieures (demande client)
     images: [
@@ -83,20 +87,44 @@ export const vehicles = [
   {
     id:       'eco',
     category: 'Éco / Électrique',
-    model:    'Tesla Model Y',
+    model:    'Tesla',
     seats:    4,
-    luggage:  3,
+    luggage:  { total: 4 },
     gradient: 'from-gray-900 via-zinc-800 to-gray-900',
     // Une seule photo pour l'instant → pas de galerie sur cette carte
     images: [
-      { name: 'tesla-model-y', alt: 'Tesla Model Y 100% électrique' },
+      { name: 'tesla', alt: 'Rangée de Tesla noires et blanches 100 % électriques, garées le long d’un trottoir' },
     ],
     featured: false,
     description: {
-      fr: 'Transfert écologique et moderne avec la Tesla Model Y 100% électrique.',
-      en: 'Eco-friendly modern transfer with the fully electric Tesla Model Y.',
-      ru: 'Экологичная поездка на полностью электрическом Tesla Model Y.',
-      ro: 'Transfer modern și ecologic cu Tesla Model Y 100% electric.',
+      fr: 'Transfert écologique et moderne en Tesla 100 % électrique.',
+      en: 'Eco-friendly, modern transfer in a fully electric Tesla.',
+      ru: 'Экологичная и современная поездка на полностью электрической Tesla.',
+      ro: 'Transfer modern și ecologic cu Tesla 100 % electrică.',
     },
   },
 ]
+
+// ── Capacité bagages : libellé par langue ─────────────────────────────
+// { large: 2, small: 2 } → « 2 grandes valises + 2 petites » ; { total: 7 } → « 7 valises »
+const SUITCASES = {
+  fr: (n) => `${n} valise${n > 1 ? 's' : ''}`,
+  en: (n) => `${n} suitcase${n > 1 ? 's' : ''}`,
+  ru: (n) => `${n} ${n % 10 === 1 && n % 100 !== 11 ? 'чемодан' : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 'чемодана' : 'чемоданов'}`,
+  ro: (n) => `${n} ${n === 1 ? 'valiză' : 'valize'}`,
+}
+const LARGE_SMALL = {
+  fr: (l, s) => `${l} grandes valises + ${s} petites`,
+  en: (l, s) => `${l} large + ${s} small suitcases`,
+  ru: (l, s) => `${l} больших + ${s} маленьких чемодана`,
+  ro: (l, s) => `${l} valize mari + ${s} mici`,
+}
+export function luggageLabel(vehicle, lang = 'fr') {
+  const { large, small, total } = vehicle.luggage
+  return total ? SUITCASES[lang](total) : LARGE_SMALL[lang](large, small)
+}
+
+// ── Réseau de chauffeurs partenaires vérifiés (données du client) ─────
+// Véhicules disponibles en plus de la Classe E du responsable : plusieurs
+// véhicules peuvent être réservés ensemble pour un groupe.
+export const PARTNER_FLEET = { luxe: 4, van: 4, business: 3, eco: 7 }

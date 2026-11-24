@@ -18,9 +18,15 @@
 //     par tests/security.test.js) ; il crée le script module via la politique
 //     Trusted Types « loader » (seuls /assets/*.js passent).
 // Puis il génère sitemap.xml, robots.txt, llms.txt et blog/rss.xml
-// (src/seo/files.js).
+// (src/seo/files.js), et la page 404.html (sans JavaScript, noindex).
+// CSP : le <style> intégré est autorisé par son empreinte sha256 dans
+// style-src (vercel.json, sans 'unsafe-inline'). Si le CSS change, l'empreinte
+// de vercel.json est mise à jour ici (à committer) ; sur Vercel (VERCEL=1),
+// une empreinte périmée arrête le build plutôt que de publier un site sans styles.
 // ────────────────────────────────────────────────────────────────────
-import { readFileSync, writeFileSync, readdirSync, rmSync, mkdirSync } from 'node:fs'
+import { readFileSync, writeFileSync, readdirSync, rmSync, mkdirSync, existsSync } from 'node:fs'
+import { createHash } from 'node:crypto'
+import { BUSINESS } from '../src/constants/business.js'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import path from 'node:path'
 
@@ -47,6 +53,18 @@ css = css
   .replace(/@font-face\{[^}]*-(?:vietnamese|cyrillic-ext)-[^}]*\}/g, '')
 template = template.replace(cssTag[0], () => `<style>${css}</style>`)
 rmSync(cssFile)
+
+// Empreinte du CSS intégré → style-src de la CSP (vercel.json)
+const cssHash = `'sha256-${createHash('sha256').update(css).digest('base64')}'`
+const vercelFile = path.join(root, 'vercel.json')
+const vercelText = readFileSync(vercelFile, 'utf8')
+const cspStyle = vercelText.match(/style-src ([^;"]+)/)
+if (!cspStyle) fail('style-src introuvable dans la CSP de vercel.json')
+if (cspStyle[1].trim() !== cssHash) {
+  if (process.env.VERCEL) fail(`CSS modifié : style-src de vercel.json doit valoir ${cssHash} (lancer npm run build en local et committer vercel.json)`)
+  writeFileSync(vercelFile, vercelText.replace(cspStyle[0], `style-src ${cssHash}`))
+  console.warn(`prerender : CSP mise à jour dans vercel.json (style-src ${cssHash}) — à committer`)
+}
 
 // Fichiers de police plus référencés → supprimés de dist/
 for (const f of readdirSync(path.join(dist, 'assets'))) {
@@ -102,7 +120,31 @@ for (const route of allRoutes) {
   total += html.length
 }
 
-// 5. Fichiers d'indexation
+// 5. Page 404 (servie par Vercel pour toute adresse inconnue, statut 404) :
+// HTML statique, sans JavaScript ni information technique, non indexée
+const notFound = template
+  .replace(/<!--app-head-->[\s\S]*?<!--\/app-head-->/, () =>
+    '<title>Page introuvable | CDG TRANSFERT VTC</title>\n    <meta name="robots" content="noindex" />\n    <meta name="description" content="Cette page n’existe pas ou a été déplacée." />')
+  .replace('<style>', () => `${fontsFor({ lang: 'fr', page: '404' }).map(f => `<link rel="preload" href="/assets/${f}" as="font" type="font/woff2" crossorigin>`).join('\n    ')}\n    <style>`)
+  .replace(/<script data-entry="[^"]*">[\s\S]*?<\/script>/, '')
+  .replace('<div id="root"></div>', () => `<main id="root" class="min-h-screen flex items-center justify-center px-6 py-section">
+      <div class="max-w-3xl mx-auto text-center">
+        <p class="section-eyebrow">Erreur 404</p>
+        <h1 class="section-title">Page introuvable</h1>
+        <p class="text-silver font-sans font-light leading-relaxed mb-8">La page demandée n’existe pas ou a été déplacée.</p>
+        <p class="mb-10"><a href="/" class="btn-primary">Retour à l’accueil</a></p>
+        <ul class="space-y-2 text-sm text-silver font-sans">
+          <li lang="en">Page not found — <a href="/en" class="text-gold underline">English home page</a></li>
+          <li lang="ru">Страница не найдена — <a href="/ru" class="text-gold underline">главная страница</a></li>
+          <li lang="ro">Pagina nu a fost găsită — <a href="/ro" class="text-gold underline">pagina principală</a></li>
+          <li><a href="/blog" class="text-gold underline">Blog</a> · <a href="tel:${BUSINESS.phoneE164}" class="text-gold underline">${BUSINESS.phoneDisplay}</a></li>
+        </ul>
+      </div>
+    </main>`)
+if (notFound.includes('<script data-entry')) fail('404 : loader non retiré')
+writeFileSync(path.join(dist, '404.html'), notFound)
+
+// 6. Fichiers d'indexation
 const lastmod = new Date().toISOString().slice(0, 10)
 writeFileSync(path.join(dist, 'sitemap.xml'), sitemapXml(lastmod))
 writeFileSync(path.join(dist, 'robots.txt'), robotsTxt())

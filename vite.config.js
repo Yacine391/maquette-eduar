@@ -33,6 +33,12 @@ export default defineConfig({
     // Pas de <link rel="modulepreload"> : le JS est chargé par le loader
     // inline (voir scripts/prerender.mjs et la CSP de vercel.json).
     modulePreload: false,
+    // Une seule feuille CSS, intégrée à chaque page par le pré-rendu puis
+    // supprimée : aucun import différé (galerie, EmailJS…) ne doit la
+    // précharger (404, bloquée par la CSP, l'import échouerait)
+    cssCodeSplit: false,
+    // Aucune source map publiée en production
+    sourcemap: false,
     // Aucune image intégrée en base64 : fichiers séparés, mis en cache un an
     // et chargés en différé (et pas de « data: » à autoriser dans la CSP)
     assetsInlineLimit: 0,

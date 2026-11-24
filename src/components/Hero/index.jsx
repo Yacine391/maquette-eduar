@@ -5,10 +5,10 @@
 // contenu est visible dès le premier affichage (HTML pré-généré).
 // ────────────────────────────────────────────────────────────────────
 
-// Bandeau sous le hero : uniquement des éléments vrais et vérifiables,
-// aucun chiffre inventé. Cohérents avec le reste du site : disponibilité 24/7
-// (en-tête, données structurées), flotte (constants/vehicles.js), tarifs fixes
-// et attente incluse (note sous le tableau des tarifs).
+// Bandeau sous le hero : uniquement des informations confirmées par le
+// client, aucun chiffre inventé. Cohérentes avec le reste du site :
+// disponibilité 24/7, flotte (constants/vehicles.js), prix fixe péages
+// inclus, suivi des arrivées et 1 h d'attente incluse (content/conditions.js).
 const STATS = [
   {
     value: { fr: '24/7', en: '24/7', ru: '24/7', ro: '24/7' },
@@ -16,15 +16,15 @@ const STATS = [
   },
   {
     value: { fr: 'Mercedes & Tesla', en: 'Mercedes & Tesla', ru: 'Mercedes и Tesla', ro: 'Mercedes & Tesla' },
-    label: { fr: 'Classe E, S, V et Tesla Model Y', en: 'E-Class, S-Class, V-Class and Tesla Model Y', ru: 'E-, S-, V-класс и Tesla Model Y', ro: 'Clasa E, S, V și Tesla Model Y' },
+    label: { fr: 'Classe E, S, V et Tesla', en: 'E-Class, S-Class, V-Class and Tesla', ru: 'E-, S-, V-класс и Tesla', ro: 'Clasa E, S, V și Tesla' },
   },
   {
     value: { fr: 'Prix fixe', en: 'Fixed price', ru: 'Цена заранее', ro: 'Preț fix' },
-    label: { fr: 'Confirmé avant la course', en: 'Confirmed before the ride', ru: 'Подтверждается до поездки', ro: 'Confirmat înainte de cursă' },
+    label: { fr: 'Péages inclus, confirmé avant la course', en: 'Tolls included, confirmed before the ride', ru: 'Платные дороги включены, цена до поездки', ro: 'Taxe de autostradă incluse, confirmat înainte' },
   },
   {
     value: { fr: 'Suivi de vol', en: 'Flight tracking', ru: 'Следим за рейсом', ro: 'Urmărire zbor' },
-    label: { fr: 'Attente incluse en cas de retard', en: 'Waiting time included if delayed', ru: 'Ожидание при задержке включено', ro: 'Așteptare inclusă în caz de întârziere' },
+    label: { fr: 'Retard jamais facturé, 1 h d’attente incluse', en: 'Delays never charged, 1 h of waiting included', ru: 'Задержка не оплачивается, 1 час ожидания включён', ro: 'Întârzierea nu se facturează, 1 oră de așteptare inclusă' },
   },
 ]
 
@@ -35,29 +35,15 @@ export default function Hero({ t, lang }) {
       {/* ── Fond : multi-couches radial + diagonal ── */}
       <div className="absolute inset-0" aria-hidden="true">
         {/* Couche base */}
-        <div className="absolute inset-0" style={{
-          background: 'linear-gradient(160deg, #0d0c0a 0%, #050507 45%, #080610 100%)',
-        }} />
+        <div className="absolute inset-0 bg-hero-base" />
         {/* Tache lumineuse dorée haut-droite */}
-        <div className="absolute top-0 right-0 w-[60vw] h-[60vh]" style={{
-          background: 'radial-gradient(ellipse 70% 60% at 80% 10%, rgba(197,160,89,0.07) 0%, transparent 70%)',
-        }} />
+        <div className="absolute top-0 right-0 w-[60vw] h-[60vh] bg-hero-glow-tr" />
         {/* Tache lumineuse bas-gauche */}
-        <div className="absolute bottom-0 left-0 w-[50vw] h-[50vh]" style={{
-          background: 'radial-gradient(ellipse 60% 50% at 10% 90%, rgba(197,160,89,0.04) 0%, transparent 70%)',
-        }} />
+        <div className="absolute bottom-0 left-0 w-[50vw] h-[50vh] bg-hero-glow-bl" />
         {/* Lignes diagonales fines */}
-        <div className="absolute inset-0 opacity-[0.035]" style={{
-          backgroundImage: `repeating-linear-gradient(
-            -45deg,
-            #C5A059 0px, #C5A059 1px,
-            transparent 1px, transparent 60px
-          )`,
-        }} />
+        <div className="absolute inset-0 opacity-[0.035] bg-hero-lines" />
         {/* Masque bas vers le contenu suivant */}
-        <div className="absolute bottom-0 left-0 right-0 h-40"
-          style={{ background: 'linear-gradient(to bottom, transparent, #050507)' }}
-        />
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-fade-bottom" />
       </div>
 
       {/* ── Éléments décoratifs dorés ── */}
@@ -68,8 +54,7 @@ export default function Hero({ t, lang }) {
         <div className="absolute right-8 top-1/3 bottom-1/3 w-px bg-gradient-to-b from-transparent via-gold/20 to-transparent" />
         {/* Cercle décoratif flottant */}
         <div className="absolute top-1/4 right-[15%] w-32 h-32 rounded-full border border-gold/10 animate-float hidden lg:block" />
-        <div className="absolute top-1/4 right-[15%] w-20 h-20 rounded-full border border-gold/15 animate-float hidden lg:block"
-          style={{ animationDelay: '-2s', top: 'calc(25% + 24px)', right: 'calc(15% + 24px)' }} />
+        <div className="absolute w-20 h-20 rounded-full border border-gold/15 animate-float hidden lg:block hero-ring-inner" />
       </div>
 
       {/* ── Contenu principal ── */}

@@ -2,13 +2,15 @@
 // disposition, van) — métadonnées : src/content/services/meta.js,
 // texte : src/content/services/pages/<slug>.js (prop body) ──────────────
 // Structure : fil d'Ariane, H1, intro + bouton Réserver (haut), sections
-// (tarifs du tableau, temps de trajet, rendez-vous, inclus…), véhicules,
-// services associés, FAQ, appel à réserver (bas) + formulaire (#booking).
+// (tarifs du tableau, temps de trajet, rendez-vous, inclus…), conditions
+// officielles (attente, annulation, inclus : content/conditions.js),
+// véhicules, services associés, FAQ, appel à réserver (bas) + formulaire.
 // ────────────────────────────────────────────────────────────────────
 import { SERVICE_META } from '../../content/services/meta'
 import { UI } from '../../content/ui'
 import { BUSINESS, AREA } from '../../constants/business'
-import { vehicles } from '../../constants/vehicles'
+import { vehicles, luggageLabel } from '../../constants/vehicles'
+import { CONDITIONS, conditionsList } from '../../content/conditions'
 import { pagePath } from '../../routes'
 import { homeAnchor } from '../Header'
 import ServiceRates from '../ServiceRates'
@@ -71,8 +73,7 @@ export default function ServicePage({ slug, body, lang, t }) {
     <>
       {/* ── En-tête de page (au-dessus de la ligne de flottaison) ── */}
       <section className="relative pt-36 md:pt-44 pb-14 px-6 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none" aria-hidden="true"
-          style={{ background: 'radial-gradient(ellipse 70% 60% at 80% 0%, rgba(197,160,89,0.07) 0%, transparent 70%)' }} />
+        <div className="absolute inset-0 pointer-events-none bg-page-glow" aria-hidden="true" />
         <div className="relative max-w-4xl mx-auto">
           <nav aria-label={ui.breadcrumb} className="mb-8">
             <ol className="flex flex-wrap items-center gap-2 text-[11px] tracking-[0.2em] uppercase text-silver-dim">
@@ -105,6 +106,14 @@ export default function ServicePage({ slug, body, lang, t }) {
         </section>
       ))}
 
+      {/* ── Conditions officielles : attente, annulation, inclus ── */}
+      <section className="py-12 md:py-14 px-6 border-t border-divider/60">
+        <div className="max-w-3xl mx-auto">
+          <H2>{CONDITIONS[lang].title}</H2>
+          <List items={conditionsList(lang)} />
+        </div>
+      </section>
+
       {/* ── Véhicules ── */}
       <section className="py-12 md:py-14 px-6 border-t border-divider/60">
         <div className="max-w-3xl mx-auto">
@@ -115,7 +124,7 @@ export default function ServicePage({ slug, body, lang, t }) {
                 <p className="text-[10px] font-bold tracking-[0.3em] uppercase text-gold mb-1">{v.category}</p>
                 <p className="font-serif text-xl text-offwhite mb-2">{v.model}</p>
                 <p className="text-sm text-silver font-sans font-light">{v.description[lang] ?? v.description.fr}</p>
-                <p className="mt-3 text-xs text-silver-dim">{v.seats} {t('fleet_seats')} · {v.luggage} {t('fleet_luggage')}</p>
+                <p className="mt-3 text-xs text-silver-dim">{v.seats} {t('fleet_seats')} · {luggageLabel(v, lang)}</p>
               </li>
             ))}
           </ul>

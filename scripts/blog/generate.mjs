@@ -76,7 +76,7 @@ function parseArticle(file, category, images) {
   })
 
   // Markdown → HTML : ancres sur les titres, images optimisées, tableaux
-  // défilants sur mobile, liens externes en rel="noopener"
+  // défilants sur mobile, liens externes en rel="noopener noreferrer"
   const ids = new Set()
   const toc = []
   const marked = new Marked({ gfm: true })
@@ -89,7 +89,7 @@ function parseArticle(file, category, images) {
       link(token) {
         const text = this.parser.parseInline(token.tokens)
         const ext = /^https?:\/\//.test(token.href)
-        return `<a href="${esc(token.href)}"${token.title ? ` title="${esc(token.title)}"` : ''}${ext ? ' rel="noopener"' : ''}>${text}</a>`
+        return `<a href="${esc(token.href)}"${token.title ? ` title="${esc(token.title)}"` : ''}${ext ? ' rel="noopener noreferrer"' : ''}>${text}</a>`
       },
       image(token) {
         const img = imageFor(token.href, token.text, images, where)

@@ -1,7 +1,8 @@
 // ── WhyUs — Section "Pourquoi Nous" (Trust & Authority) ─────────────
 // CDG TRANSFERT VTC — site en production (cdgtransfertvtc.fr)
-// Skill recommendation : Trust & Authority pattern → credentials,
-// badges, expert signals. Conversion avant les tarifs.
+// Arguments confirmés par le client (suivi des arrivées et attente,
+// chauffeurs partenaires vérifiés, eau offerte, péages inclus et facture).
+// Conversion avant les tarifs.
 // ────────────────────────────────────────────────────────────────────
 
 const PILLARS = [
@@ -11,12 +12,12 @@ const PILLARS = [
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
-    title: { fr: 'Ponctualité garantie', en: 'Punctuality guaranteed', ru: 'Гарантия пунктуальности', ro: 'Punctualitate garantată' },
+    title: { fr: 'Suivi en temps réel', en: 'Real-time tracking', ru: 'Отслеживание в реальном времени', ro: 'Urmărire în timp real' },
     desc: {
-      fr: 'Suivi en temps réel, 30 minutes d\'avance systématique. Aucune attente.',
-      en: 'Real-time tracking, 30 minutes early every time. Zero waiting.',
-      ru: 'Отслеживание в реальном времени, приезд за 30 минут. Никакого ожидания.',
-      ro: 'Urmărire în timp real, 30 minute avans sistematic. Nicio așteptare.',
+      fr: 'Votre vol ou votre train est suivi en temps réel : un retard n\'est jamais facturé, et l\'attente est incluse jusqu\'à 1 h après l\'arrivée.',
+      en: 'Your flight or train is tracked in real time: delays are never charged, and waiting is included for up to 1 hour after arrival.',
+      ru: 'Мы отслеживаем рейс или поезд в реальном времени: задержка не оплачивается, ожидание до 1 часа после прибытия включено.',
+      ro: 'Zborul sau trenul este urmărit în timp real: întârzierile nu se facturează, iar așteptarea este inclusă până la 1 oră după sosire.',
     },
   },
   {
@@ -27,10 +28,10 @@ const PILLARS = [
     ),
     title: { fr: 'Discrétion absolue', en: 'Absolute discretion', ru: 'Полная конфиденциальность', ro: 'Discreție absolută' },
     desc: {
-      fr: 'Confidentialité professionnelle, véhicules banalisés sur demande.',
-      en: 'Professional confidentiality, unmarked vehicles on request.',
-      ru: 'Профессиональная конфиденциальность, автомобили без опознавательных знаков.',
-      ro: 'Confidențialitate profesională, vehicule discrete la cerere.',
+      fr: 'Confidentialité professionnelle à chaque course, avec un réseau de chauffeurs partenaires vérifiés.',
+      en: 'Professional confidentiality on every ride, with a network of vetted partner chauffeurs.',
+      ru: 'Профессиональная конфиденциальность в каждой поездке и сеть проверенных водителей-партнёров.',
+      ro: 'Confidențialitate profesională la fiecare cursă, cu o rețea de șoferi parteneri verificați.',
     },
   },
   {
@@ -55,10 +56,10 @@ const PILLARS = [
     ),
     title: { fr: 'Tarifs transparents', en: 'Transparent pricing', ru: 'Прозрачные тарифы', ro: 'Tarife transparente' },
     desc: {
-      fr: 'Prix fixés à l\'avance, aucune surprise. Facturation électronique immédiate.',
-      en: 'Fixed price in advance, no surprises. Instant electronic invoicing.',
-      ru: 'Фиксированные цены, никаких сюрпризов. Моментальная электронная фактура.',
-      ro: 'Prețuri fixe în avans, nicio surpriză. Facturare electronică imediată.',
+      fr: 'Prix confirmé avant la course, péages toujours inclus. Une facture est fournie pour chaque course.',
+      en: 'Fare confirmed before the ride, tolls always included. An invoice is provided for every ride.',
+      ru: 'Цена подтверждается до поездки, платные дороги всегда включены. Счёт выдаётся за каждую поездку.',
+      ro: 'Preț confirmat înainte de cursă, taxele de autostradă mereu incluse. Pentru fiecare cursă primiți factură.',
     },
   },
 ]

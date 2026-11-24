@@ -6,9 +6,12 @@
 // Écrits dans dist/ par scripts/prerender.mjs.
 // ────────────────────────────────────────────────────────────────────
 import { BUSINESS, AREA, DEPARTMENTS } from '../constants/business.js'
-import { rateTable } from '../constants/rates.js'
-import { vehicles } from '../constants/vehicles.js'
-import { SITE, LANGS, ROUTES, pageUrl, routeUrl, LANG_NAMES } from '../routes.js'
+import { rateTable, HOURLY } from '../constants/rates.js'
+import { vehicles, luggageLabel } from '../constants/vehicles.js'
+import { CONDITIONS } from '../content/conditions.js'
+import { parisDateTime } from './schema.js'
+import { SITE, LANGS, ROUTES, pageUrl, routeUrl, LANG_NAMES, LEGAL_SLUGS } from '../routes.js'
+import { LEGAL_META } from '../content/legal/meta.js'
 import { SERVICE_LIST } from '../content/services/index.js'
 import { BLOG_HOME } from '../content/blog/blog.js'
 import { CATEGORIES } from '../content/blog/categories.js'
@@ -39,7 +42,7 @@ export function sitemapXml(lastmod) {
 
 // Flux RSS 2.0 du blog (tous les articles, du plus récent au plus ancien)
 export function rssXml() {
-  const rfc822 = (d) => new Date(`${d}T00:00:00Z`).toUTCString()
+  const rfc822 = (d) => new Date(parisDateTime(d)).toUTCString()
   const items = POSTS.map(p => `    <item>
       <title>${xml(p.title)}</title>
       <link>${SITE}${p.url}</link>
@@ -74,16 +77,16 @@ export function llmsTxt() {
   const row = (key) => rateTable.find(r => r.key === key)
   const price = (key) => {
     const r = row(key)
-    return ['eco', 'business', 'van', 'luxe'].map(c => {
+    return ['business', 'luxe', 'van', 'eco'].map(c => {
       const v = vehicles.find(x => x.id === c)
-      return `${v.model} ${typeof r[c] === 'number' ? `${r[c]} €` : 'sur devis'}`
+      return `${v.model} ${typeof r[c] === 'number' ? `${r[c]} €${r.unit === 'hour' ? '/h' : ''}` : 'sur devis'}`
     }).join(', ')
   }
   return `# ${BUSINESS.name}
 
 > Chauffeur privé VTC à Paris et en Île-de-France : transferts vers les aéroports Paris-Charles-de-Gaulle (CDG), Orly et Beauvais, les gares parisiennes et Disneyland Paris, mise à disposition avec chauffeur et van pour les groupes. Disponible 24 h/24, 7 j/7.
 
-Réservation par le formulaire du site, par téléphone ou par WhatsApp ; chaque course est confirmée par téléphone ou WhatsApp. Les tarifs sont indicatifs et confirmés avant la course ; aucun paiement en ligne.
+Réservation par le formulaire du site, par téléphone ou par WhatsApp ; chaque course est confirmée par téléphone ou WhatsApp. Les tarifs sont indicatifs et confirmés avant la course ; aucun paiement en ligne. Aucun cookie ni traceur publicitaire.
 
 ## Contact
 
@@ -105,11 +108,22 @@ ${SERVICE_LIST.map(s => `- [${s.i18n.fr.nav}](${pageUrl('fr', s.slug)}) : ${s.i1
 - CDG ou Orly ↔ Paris : ${price('airport')}
 - Paris (trajet dans Paris) : ${price('city')}
 - Beauvais ↔ Paris : ${price('beauvais')}
+- Mise à disposition, à l'heure : ${price('hourly')} (minimum ${HOURLY.minHours} h ; ${HOURLY.kmPerHour} km inclus par heure réservée, au-delà sur devis)
 - Longue distance (plus de 100 km) : sur devis
+
+## Conditions
+
+- ${CONDITIONS.fr.tracking}
+- ${CONDITIONS.fr.waiting}
+- ${CONDITIONS.fr.cancel}
+- ${CONDITIONS.fr.included}
+- ${CONDITIONS.fr.childSeats}
 
 ## Véhicules
 
-${vehicles.map(v => `- ${v.model} (${v.category}) : ${v.seats} passagers, ${v.luggage} bagages`).join('\n')}
+${vehicles.map(v => `- ${v.model} (${v.category}) : ${v.seats} passagers, ${luggageLabel(v, 'fr')}`).join('\n')}
+
+${CONDITIONS.fr.fleet}
 
 ## Blog
 
@@ -122,6 +136,7 @@ ${c.description}${postsIn(c.slug).length ? '\n\n' + postsIn(c.slug).map(p => `- 
 ## Pages
 
 - [Accueil et réservation](${pageUrl('fr', 'home')})
+${LEGAL_SLUGS.map(slug => `- [${LEGAL_META[slug].fr.nav}](${pageUrl('fr', slug)})`).join('\n')}
 ${LANGS.filter(l => l !== 'fr').map(l => `- [${LANG_NAMES[l]}](${pageUrl(l, 'home')})`).join('\n')}
 - [Plan du site](${SITE}/sitemap.xml)
 `

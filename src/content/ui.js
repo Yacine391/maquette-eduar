@@ -1,6 +1,6 @@
 // ── Libellés d'interface partagés (pages services, accueil, menu) ─────
-// 4 langues. Aucune promesse non confirmée par le client : pas de mention
-// d'attente, de péages, d'avance, de boissons ni de véhicule banalisé.
+// 4 langues. Conditions officielles du client (attente, annulation, inclus) :
+// content/conditions.js. Jamais d'« avance » systématique ni de véhicule banalisé.
 // ────────────────────────────────────────────────────────────────────
 
 export const UI = {

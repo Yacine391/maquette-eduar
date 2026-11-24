@@ -2,7 +2,7 @@
 title: "Réserver un VTC pour CDG : comment ça se passe ?"
 description: "Réserver un chauffeur pour Roissy-CDG étape par étape : formulaire, estimation, confirmation par téléphone ou WhatsApp et déroulement du jour du trajet."
 date: "2026-11-23"
-updated: "2026-11-23"
+updated: "2026-11-24"
 category: transferts-cdg
 tags:
   - réservation
@@ -21,7 +21,7 @@ faq:
   - question: "Combien de temps à l’avance faut-il réserver ?"
     answer: "Le plus tôt possible, surtout pour un vol très tôt le matin, une arrivée de nuit ou pendant les vacances scolaires."
   - question: "Comment modifier ou annuler une réservation ?"
-    answer: "Contactez-nous par téléphone ou WhatsApp en indiquant la date et l’heure de votre course."
+    answer: "Contactez-nous par téléphone ou WhatsApp en indiquant la date et l’heure de votre course. L’annulation est gratuite jusqu’à 24 h avant la prise en charge ; moins de 24 h avant, la course est facturée à 100 %."
 ---
 
 Pour réserver un VTC pour l’aéroport Charles-de-Gaulle, remplissez le formulaire de réservation du site ou appelez-nous : vous obtenez une estimation du prix, puis votre course est confirmée par téléphone ou WhatsApp. Aucun paiement n’est demandé en ligne, et le prix vous est confirmé avant la course.
@@ -44,7 +44,8 @@ Le [formulaire de réservation](/#booking) se trouve sur la page d’accueil, su
 - **votre nom, votre e-mail et votre téléphone**, indispensable car votre course est confirmée par téléphone ou WhatsApp ;
 - **la date et l’heure** de prise en charge ;
 - **l’adresse de départ et la destination**, par exemple votre adresse à Paris et « Aéroport Paris-Charles de Gaulle » ;
-- **la catégorie de véhicule** : Mercedes Classe E, Classe S, van Classe V ou Tesla Model Y.
+- **la catégorie de véhicule** : Mercedes Classe E, proposée par défaut, Classe S, van Classe V ou Tesla ;
+- **le nombre de sièges auto ou rehausseurs** si vous voyagez avec des enfants : ils sont fournis sur demande, pour tous les véhicules.
 
 Vous préférez parler à quelqu’un ? Appelez le +33 6 65 69 96 78 ou écrivez-nous sur WhatsApp.
 
@@ -62,7 +63,7 @@ L’envoi du formulaire est une demande de réservation, pas une réservation co
 
 - **votre numéro de vol** et votre terminal, à l’arrivée comme au départ ;
 - **le nombre de passagers et de bagages**, et les objets volumineux comme une poussette ou des skis ;
-- **l’âge des enfants** si vous voyagez en famille ;
+- **l’âge des enfants**, pour des sièges auto ou rehausseurs adaptés ;
 - **toute question pratique** sur votre trajet.
 
 Pour les bagages, notre article [Combien de valises dans un VTC pour aller à CDG ?](/blog/transferts-cdg/valises-vtc-cdg) vous aide à choisir le véhicule. En famille, consultez aussi [CDG – Paris en VTC avec un bébé ou des enfants](/blog/transferts-cdg/cdg-paris-avec-enfants).
@@ -73,7 +74,7 @@ Au départ de Paris, le chauffeur vous prend en charge à l’adresse et à l’
 
 À l’arrivée à Roissy, récupérez vos bagages puis appelez votre chauffeur : le lieu exact de prise en charge vous est confirmé par téléphone ou WhatsApp. Gardez votre téléphone allumé dès l’atterrissage.
 
-Si votre vol a du retard, prévenez-nous dès que possible : notre article [Vol retardé à CDG : que faire avec votre chauffeur ?](/blog/transferts-cdg/vol-retarde-cdg-chauffeur) explique la marche à suivre.
+Votre vol est suivi en temps réel : un retard n’est jamais facturé, et l’attente est incluse jusqu’à 1 h après l’atterrissage. Notre article [Vol retardé à CDG : que faire avec votre chauffeur ?](/blog/transferts-cdg/vol-retarde-cdg-chauffeur) explique la marche à suivre.
 
 ## Réserver pour quelqu’un d’autre
 
@@ -83,7 +84,7 @@ Vous pouvez réserver un transfert pour un proche, un client ou un collaborateur
 - **son numéro de vol** et son terminal s’il arrive à Roissy ;
 - **le nombre de bagages** qu’il transporte.
 
-C’est une solution pratique pour accueillir un client à sa descente d’avion ou organiser le retour de parents à l’aéroport. Pour plusieurs voyageurs arrivant ensemble, le [van Mercedes Classe V](/van-7-places-paris) accueille jusqu’à 6 passagers.
+C’est une solution pratique pour accueillir un client à sa descente d’avion ou organiser le retour de parents à l’aéroport. Pour plusieurs voyageurs arrivant ensemble, le [van Mercedes Classe V](/van-7-places-paris) accueille jusqu’à 6 passagers et 7 valises, et plusieurs véhicules peuvent être réservés pour un groupe plus nombreux.
 
 ## Quand réserver ?
 
@@ -98,9 +99,11 @@ Réservez le plus tôt possible, en particulier :
 
 Un changement d’horaire, de vol ou de programme ? Contactez-nous par téléphone ou WhatsApp en rappelant la date et l’heure de votre course : nous convenons avec vous de la suite. Plus vous nous prévenez tôt, plus il est simple de s’adapter.
 
+L’annulation est gratuite jusqu’à 24 h avant l’heure de prise en charge. Moins de 24 h avant, la course est facturée à 100 %. Pensez-y si votre programme est encore incertain : prévenez-nous dès que vous savez que vous n’aurez pas besoin du transfert.
+
 ## En résumé
 
 - Envoyez une demande avec le formulaire ou appelez le +33 6 65 69 96 78.
 - L’estimation affichée est un tarif indicatif, confirmé avant la course.
 - La course est confirmée par téléphone ou WhatsApp : donnez alors votre numéro de vol, votre terminal et vos bagages.
-- Aucun paiement n’est demandé en ligne.
+- Aucun paiement n’est demandé en ligne ; l’annulation est gratuite jusqu’à 24 h avant la prise en charge.

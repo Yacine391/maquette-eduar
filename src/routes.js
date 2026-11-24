@@ -19,7 +19,12 @@ export const SERVICE_SLUGS = [
   'van-7-places-paris',
 ]
 
-export const PAGES = ['home', ...SERVICE_SLUGS]
+// Pages légales (mentions légales, confidentialité, CGV) : même adresse
+// dans chaque langue ; le texte français fait foi (src/content/legal/)
+export const LEGAL_SLUGS = ['mentions-legales', 'confidentialite', 'cgv']
+export const isLegal = (route) => LEGAL_SLUGS.includes(route.page)
+
+export const PAGES = ['home', ...SERVICE_SLUGS, ...LEGAL_SLUGS]
 
 // Toutes les routes à pré-rendre
 export const ROUTES = LANGS.flatMap(lang => PAGES.map(page => ({ lang, page })))
@@ -63,9 +68,9 @@ export const routeFile = (route) => {
 }
 
 // Le formulaire de réservation (#booking) est présent sur l'accueil, les
-// pages services et les articles ; ailleurs, les liens « Réserver » mènent
-// au formulaire de l'accueil
-export const hasBooking = (route) => route.page !== 'blog' && route.page !== 'blog-category'
+// pages services et les articles ; ailleurs (listes du blog, pages légales),
+// les liens « Réserver » mènent au formulaire de l'accueil
+export const hasBooking = (route) => route.page !== 'blog' && route.page !== 'blog-category' && !isLegal(route)
 
 // Lien de langue : même page dans l'autre langue ; sur le blog (français,
 // guides anglais dans english-guides), page la plus proche de chaque langue
@@ -89,7 +94,7 @@ export function parsePath(pathname = '/') {
   }
   let lang = 'fr'
   if (LANGS.includes(parts[0]) && parts[0] !== 'fr') lang = parts.shift()
-  const page = parts[0] && SERVICE_SLUGS.includes(parts[0]) ? parts[0] : 'home'
+  const page = parts[0] && (SERVICE_SLUGS.includes(parts[0]) || LEGAL_SLUGS.includes(parts[0])) ? parts[0] : 'home'
   return { lang, page }
 }
 
