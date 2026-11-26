@@ -6,6 +6,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
+import { ROUTES } from '../src/routes.js'
 
 const read = (p) => readFileSync(new URL(`../${p}`, import.meta.url), 'utf8')
 const vercel = JSON.parse(read('vercel.json'))
@@ -39,4 +40,12 @@ test('réécriture des URL propres vers les fichiers .html (pas les fichiers à 
   const re = toRegex(rw.source)
   for (const u of ['/en', '/vtc-aeroport-cdg', '/blog', '/blog/transferts-cdg/valises-vtc-cdg']) assert.ok(re.test(u), u)
   for (const u of ['/sitemap.xml', '/robots.txt', '/llms.txt', '/blog/rss.xml', `/${GOOGLE}`, '/assets/x.js']) assert.ok(!re.test(u), u)
+})
+
+test('ancienne page van 7 places : redirection 308 vers /van-6-places-paris (4 langues)', () => {
+  const fr = vercel.redirects.find(r => r.source === '/van-7-places-paris')
+  assert.ok(fr && fr.destination === '/van-6-places-paris' && fr.permanent === true)
+  const other = vercel.redirects.find(r => r.source === '/:lang(en|ru|ro)/van-7-places-paris')
+  assert.ok(other && other.destination === '/:lang/van-6-places-paris' && other.permanent === true)
+  assert.ok(!ROUTES.some(r => r.page === 'van-7-places-paris'))
 })

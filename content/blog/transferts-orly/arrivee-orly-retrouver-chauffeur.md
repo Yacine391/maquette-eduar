@@ -2,7 +2,7 @@
 title: "Arrivée à Orly : où retrouver son chauffeur ?"
 description: "Vous atterrissez à Orly ? Les étapes jusqu’à la sortie du terminal, comment joindre votre chauffeur et le retrouver, selon votre vol et vos bagages."
 date: "2026-11-24"
-updated: "2026-11-24"
+updated: "2026-11-26"
 category: transferts-orly
 tags:
   - arrivée Orly
@@ -83,7 +83,7 @@ Vous pouvez réserver un transfert pour quelqu’un d’autre : un parent, un co
 
 ## Choisir le bon véhicule pour votre arrivée
 
-Voici les capacités maximales de notre flotte : 3 passagers, 2 grandes valises et 2 petites en Mercedes Classe E ou Classe S, 4 passagers et 4 valises en Tesla, et jusqu’à 6 passagers et 7 valises dans le [van Mercedes Classe V](/van-7-places-paris). Au-delà, plusieurs véhicules peuvent être réservés ensemble. Signalez vos bagages lors de la confirmation pour que nous vous confirmions le véhicule adapté.
+Voici les capacités maximales de notre flotte : 3 passagers, 2 grandes valises et 2 petites en Mercedes Classe E ou Classe S, 4 passagers et 4 valises en Tesla, et jusqu’à 6 passagers et 6 valises dans le [van Mercedes Classe V](/van-6-places-paris). Au-delà, plusieurs véhicules peuvent être réservés ensemble. Signalez vos bagages lors de la confirmation pour que nous vous confirmions le véhicule adapté.
 
 Le prix d’un transfert entre Orly et Paris figure dans le [tableau des tarifs du site](/#rates) et sur la page [VTC aéroport d’Orly](/vtc-aeroport-orly) : tarif indicatif, confirmé avant la course. Pour une destination hors de Paris, le prix est établi sur devis.
 

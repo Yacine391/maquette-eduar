@@ -2,7 +2,7 @@
 title: "Métro 14, Orlyval ou VTC : comment aller à Orly ?"
 description: "Métro 14, Orlyval et RER B, tramway, bus, taxi ou VTC : les solutions pour aller à l’aéroport d’Orly depuis Paris, avec leurs avantages et leurs limites."
 date: "2026-11-24"
-updated: "2026-11-24"
+updated: "2026-11-26"
 category: transferts-orly
 tags:
   - aller à Orly
@@ -79,7 +79,7 @@ Le prix entre Paris et Orly figure dans le [tableau des tarifs du site](/#rates)
 
 - **Vous voyagez léger, en journée, près d’une station de la ligne 14** : le métro est souvent la solution la plus économique et rapide.
 - **Vous partez très tôt le matin** : les transports en commun ne circulent pas encore ou viennent de reprendre ; voir [Orly tôt le matin ou tard le soir : comment y aller ?](/blog/transferts-orly/orly-la-nuit-tot-le-matin).
-- **Vous voyagez en famille ou avec beaucoup de valises** : un véhicule réservé évite les correspondances. Le [van Mercedes Classe V](/van-7-places-paris) accueille jusqu’à 6 passagers et 7 valises.
+- **Vous voyagez en famille ou avec beaucoup de valises** : un véhicule réservé évite les correspondances. Le [van Mercedes Classe V](/van-6-places-paris) accueille jusqu’à 6 passagers et 6 valises.
 - **Vous arrivez en train à Paris** : un transfert direct depuis la gare évite de traverser la ville en métro avec vos bagages ; voir notre page [transferts depuis les gares de Paris](/vtc-gares-paris).
 
 ## Voyager à plusieurs : comparer le coût total

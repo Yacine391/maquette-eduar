@@ -12,7 +12,7 @@ import { SERVICE_SLUGS } from '../../routes.js'
 const META = {
   'vtc-aeroport-cdg': {
     rates: ['airport'],
-    related: ['vtc-aeroport-orly', 'vtc-gares-paris', 'van-7-places-paris', 'vtc-disneyland-paris'],
+    related: ['vtc-aeroport-orly', 'vtc-gares-paris', 'van-6-places-paris', 'vtc-disneyland-paris'],
     areaServed: ['Paris', 'CDG'],
     i18n: {
       fr: {
@@ -82,7 +82,7 @@ const META = {
   },
   'vtc-aeroport-beauvais': {
     rates: ['beauvais'],
-    related: ['vtc-aeroport-cdg', 'vtc-aeroport-orly', 'van-7-places-paris', 'vtc-gares-paris'],
+    related: ['vtc-aeroport-cdg', 'vtc-aeroport-orly', 'van-6-places-paris', 'vtc-gares-paris'],
     areaServed: ['Paris', 'Beauvais', 'BVA'],
     i18n: {
       fr: {
@@ -117,7 +117,7 @@ const META = {
   },
   'vtc-gares-paris': {
     rates: ['city', 'airport'],
-    related: ['vtc-aeroport-cdg', 'vtc-aeroport-orly', 'mise-a-disposition-chauffeur', 'van-7-places-paris'],
+    related: ['vtc-aeroport-cdg', 'vtc-aeroport-orly', 'mise-a-disposition-chauffeur', 'van-6-places-paris'],
     areaServed: ['Paris', 'CDG', 'ORY'],
     i18n: {
       fr: {
@@ -152,7 +152,7 @@ const META = {
   },
   'vtc-disneyland-paris': {
     rates: [],
-    related: ['van-7-places-paris', 'vtc-aeroport-cdg', 'vtc-aeroport-orly', 'vtc-gares-paris'],
+    related: ['van-6-places-paris', 'vtc-aeroport-cdg', 'vtc-aeroport-orly', 'vtc-gares-paris'],
     areaServed: ['Paris', 'IDF', 'CDG', 'ORY'],
     i18n: {
       fr: {
@@ -187,7 +187,7 @@ const META = {
   },
   'mise-a-disposition-chauffeur': {
     rates: ['hourly'],
-    related: ['vtc-aeroport-cdg', 'vtc-gares-paris', 'van-7-places-paris', 'vtc-disneyland-paris'],
+    related: ['vtc-aeroport-cdg', 'vtc-gares-paris', 'van-6-places-paris', 'vtc-disneyland-paris'],
     areaServed: ['Paris', 'IDF'],
     i18n: {
       fr: {
@@ -220,37 +220,37 @@ const META = {
       },
     },
   },
-  'van-7-places-paris': {
+  'van-6-places-paris': {
     rates: ['airport', 'city', 'beauvais'],
     vehicleCols: ['van'],
     related: ['vtc-disneyland-paris', 'vtc-aeroport-cdg', 'vtc-aeroport-beauvais', 'mise-a-disposition-chauffeur'],
     i18n: {
       fr: {
-        nav: 'Van 7 places',
-        title: 'Van 7 places avec chauffeur à Paris | CDG Transfert VTC',
-        description: 'Van Mercedes Classe V avec chauffeur à Paris : 6 passagers et 7 valises. Aéroports CDG et Orly 130 €, Beauvais 250 €. Tarif confirmé avant la course.',
-        card: 'Mercedes Classe V pour 6 passagers et 7 valises : familles, groupes et équipes, vers les aéroports et partout à Paris.',
+        nav: 'Van 6 places',
+        title: 'Van 6 places avec chauffeur à Paris | CDG Transfert VTC',
+        description: 'Van Mercedes Classe V avec chauffeur à Paris : 6 passagers et 6 valises. Aéroports CDG et Orly 130 €, Beauvais 250 €. Tarif confirmé avant la course.',
+        card: 'Mercedes Classe V pour 6 passagers et 6 valises : familles, groupes et équipes, vers les aéroports et partout à Paris.',
         serviceType: 'Van avec chauffeur (Mercedes Classe V, 6 passagers)',
       },
       en: {
-        nav: '7-seater van',
-        title: '7-seater van with driver in Paris | CDG Transfert VTC',
-        description: 'Mercedes V-Class van with driver in Paris: 6 passengers and 7 suitcases. CDG and Orly airports €130, Beauvais €250. Fare confirmed before the ride.',
-        card: 'Mercedes V-Class for 6 passengers and 7 suitcases: families, groups and teams, to the airports and anywhere in Paris.',
+        nav: '6-seater van',
+        title: '6-seater van with driver in Paris | CDG Transfert VTC',
+        description: 'Mercedes V-Class van with driver in Paris: 6 passengers and 6 suitcases. CDG and Orly airports €130, Beauvais €250. Fare confirmed before the ride.',
+        card: 'Mercedes V-Class for 6 passengers and 6 suitcases: families, groups and teams, to the airports and anywhere in Paris.',
         serviceType: 'Van with driver (Mercedes V-Class, 6 passengers)',
       },
       ru: {
-        nav: 'Минивэн на 7 мест',
-        title: 'Минивэн на 7 мест с водителем в Париже | CDG Transfert VTC',
-        description: 'Минивэн Mercedes V-класса с водителем в Париже: 6 пассажиров и 7 чемоданов. Аэропорты CDG и Орли 130 €, Бове 250 €. Цена подтверждается до поездки.',
-        card: 'Mercedes V-класса для 6 пассажиров и 7 чемоданов: семьи, группы и команды — в аэропорты и по всему Парижу.',
+        nav: 'Минивэн на 6 мест',
+        title: 'Минивэн на 6 мест с водителем в Париже | CDG Transfert VTC',
+        description: 'Минивэн Mercedes V-класса с водителем в Париже: 6 пассажиров и 6 чемоданов. Аэропорты CDG и Орли 130 €, Бове 250 €. Цена подтверждается до поездки.',
+        card: 'Mercedes V-класса для 6 пассажиров и 6 чемоданов: семьи, группы и команды — в аэропорты и по всему Парижу.',
         serviceType: 'Минивэн с водителем (Mercedes V-класса, 6 пассажиров)',
       },
       ro: {
-        nav: 'Van de 7 locuri',
-        title: 'Van de 7 locuri cu șofer în Paris | CDG Transfert VTC',
-        description: 'Van Mercedes Clasa V cu șofer în Paris: 6 pasageri și 7 valize. Aeroporturile CDG și Orly 130 €, Beauvais 250 €. Tarif confirmat înainte de cursă.',
-        card: 'Mercedes Clasa V pentru 6 pasageri și 7 valize: familii, grupuri și echipe, spre aeroporturi și oriunde în Paris.',
+        nav: 'Van de 6 locuri',
+        title: 'Van de 6 locuri cu șofer în Paris | CDG Transfert VTC',
+        description: 'Van Mercedes Clasa V cu șofer în Paris: 6 pasageri și 6 valize. Aeroporturile CDG și Orly 130 €, Beauvais 250 €. Tarif confirmat înainte de cursă.',
+        card: 'Mercedes Clasa V pentru 6 pasageri și 6 valize: familii, grupuri și echipe, spre aeroporturi și oriunde în Paris.',
         serviceType: 'Van cu șofer (Mercedes Clasa V, 6 pasageri)',
       },
     },

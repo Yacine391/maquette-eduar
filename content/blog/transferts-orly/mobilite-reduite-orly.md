@@ -2,7 +2,7 @@
 title: "Mobilité réduite à Orly : assistance et transfert VTC"
 description: "Mobilité réduite à Orly : assistance gratuite de l’aéroport, délai pour la demander, fauteuil roulant et transfert en voiture avec chauffeur."
 date: "2026-11-24"
-updated: "2026-11-24"
+updated: "2026-11-26"
 category: transferts-orly
 tags:
   - mobilité réduite
@@ -78,7 +78,7 @@ Les voyageurs qui bénéficient de l’assistance débarquent souvent après les
 
 ## Bagages et équipements médicaux
 
-Un fauteuil, un déambulateur, des cannes ou un équipement médical comptent dans l’encombrement total. Signalez-les avec vos valises : nous vous confirmons alors le véhicule adapté. Pour les capacités de chaque véhicule, consultez [Combien de valises dans un VTC pour aller à CDG ?](/blog/transferts-cdg/valises-vtc-cdg), valable aussi pour Orly. Pour un groupe ou une famille, le [van Mercedes Classe V](/van-7-places-paris) offre le plus d’espace.
+Un fauteuil, un déambulateur, des cannes ou un équipement médical comptent dans l’encombrement total. Signalez-les avec vos valises : nous vous confirmons alors le véhicule adapté. Pour les capacités de chaque véhicule, consultez [Combien de valises dans un VTC pour aller à CDG ?](/blog/transferts-cdg/valises-vtc-cdg), valable aussi pour Orly. Pour un groupe ou une famille, le [van Mercedes Classe V](/van-6-places-paris) offre le plus d’espace.
 
 Pour les équipements médicaux en cabine, comme un concentrateur d’oxygène, renseignez-vous à l’avance auprès de votre compagnie : chacune a ses propres règles.
 

@@ -9,7 +9,7 @@
 // Logo de l'entreprise : public/logo.png (ImageObject). Mise à disposition :
 // offres à l'heure (UnitPriceSpecification, unitCode HUR, minimum 3 h).
 // ────────────────────────────────────────────────────────────────────
-import { BUSINESS, DEPARTMENTS, AIRPORTS } from '../constants/business.js'
+import { BUSINESS, DEPARTMENTS, AIRPORTS, LEGAL_ENTITY } from '../constants/business.js'
 import { rateTable, HOURLY } from '../constants/rates.js'
 import { vehicles } from '../constants/vehicles.js'
 import { SITE, LANGS, pageUrl, routeUrl, isBlog } from '../routes.js'
@@ -77,6 +77,10 @@ function businessNode(lang) {
     '@type': ['TaxiService', 'LocalBusiness'],
     '@id': BUSINESS_ID,
     name: BUSINESS.name,
+    // Identité légale publiée (mentions légales) ; le siège n'est pas repris ici
+    legalName: LEGAL_ENTITY.legalName,
+    vatID: LEGAL_ENTITY.vat,
+    taxID: LEGAL_ENTITY.siren.replace(/\s/g, ''),
     url: BUSINESS.url,
     telephone: BUSINESS.phoneE164,
     email: BUSINESS.email,

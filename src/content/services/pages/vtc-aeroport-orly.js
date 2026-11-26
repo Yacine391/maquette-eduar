@@ -38,7 +38,7 @@ export default {
           'Le trajet direct entre l’adresse de prise en charge et la destination indiquées à la réservation.',
           'Le véhicule de la catégorie choisie, conduit par un chauffeur VTC.',
           'Le prix confirmé avant la course, selon le tableau des tarifs.',
-          'Vos bagages dans la limite de la capacité du véhicule : 2 grandes valises et 2 petites en Mercedes Classe E ou Classe S, 4 valises en Tesla, 7 valises en Mercedes Classe V.',
+          'Vos bagages dans la limite de la capacité du véhicule : 2 grandes valises et 2 petites en Mercedes Classe E ou Classe S, 4 valises en Tesla, 6 valises en Mercedes Classe V.',
           'Les péages, l’eau à bord, la facture et jusqu’à 1 h d’attente après l’atterrissage ; un retard de vol n’est jamais facturé.',
           'La confirmation de votre course par téléphone ou WhatsApp.',
         ], paras: [
@@ -91,7 +91,7 @@ export default {
           'The direct trip between the pick-up address and the destination given when booking.',
           'A vehicle of the category you chose, driven by a VTC chauffeur.',
           'The fare confirmed before the ride, based on the price list.',
-          'Your luggage within the vehicle’s capacity: 2 large and 2 small suitcases in a Mercedes E-Class or S-Class, 4 suitcases in a Tesla, 7 suitcases in a Mercedes V-Class.',
+          'Your luggage within the vehicle’s capacity: 2 large and 2 small suitcases in a Mercedes E-Class or S-Class, 4 suitcases in a Tesla, 6 suitcases in a Mercedes V-Class.',
           'Tolls, water on board, an invoice and up to 1 hour of waiting after landing; flight delays are never charged.',
           'Confirmation of your ride by phone or WhatsApp.',
         ], paras: [
@@ -144,7 +144,7 @@ export default {
           'Прямая поездка между адресом посадки и пунктом назначения, указанными при бронировании.',
           'Автомобиль выбранной категории с водителем VTC.',
           'Цена, подтверждённая до поездки, согласно таблице тарифов.',
-          'Багаж в пределах вместимости автомобиля: 2 больших и 2 маленьких чемодана в Mercedes E-класса или S-класса, 4 чемодана в Tesla, 7 чемоданов в Mercedes V-класса.',
+          'Багаж в пределах вместимости автомобиля: 2 больших и 2 маленьких чемодана в Mercedes E-класса или S-класса, 4 чемодана в Tesla, 6 чемоданов в Mercedes V-класса.',
           'Платные дороги, вода в салоне, счёт и до 1 часа ожидания после посадки; задержка рейса не оплачивается.',
           'Подтверждение поездки по телефону или в WhatsApp.',
         ], paras: [
@@ -197,7 +197,7 @@ export default {
           'Cursa directă între adresa de preluare și destinația indicate la rezervare.',
           'Vehiculul din categoria aleasă, condus de un șofer VTC.',
           'Prețul confirmat înainte de cursă, conform tabelului de tarife.',
-          'Bagajele în limita capacității vehiculului: 2 valize mari și 2 mici în Mercedes Clasa E sau Clasa S, 4 valize în Tesla, 7 valize în Mercedes Clasa V.',
+          'Bagajele în limita capacității vehiculului: 2 valize mari și 2 mici în Mercedes Clasa E sau Clasa S, 4 valize în Tesla, 6 valize în Mercedes Clasa V.',
           'Taxele de autostradă, apa la bord, factura și până la 1 oră de așteptare după aterizare; întârzierea zborului nu se facturează.',
           'Confirmarea cursei prin telefon sau WhatsApp.',
         ], paras: [

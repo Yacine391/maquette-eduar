@@ -143,13 +143,15 @@ test('flotte : capacités officielles, Classe E en tête et par défaut', () => 
   assert.deepEqual(vehicles.map(v => v.id), ['business', 'luxe', 'van', 'eco'])
   assert.ok(byId.business.featured && byId.business.model === 'Mercedes Classe E')
   for (const id of ['business', 'luxe']) { assert.equal(byId[id].seats, 3); assert.deepEqual(byId[id].luggage, { large: 2, small: 2 }) }
-  assert.deepEqual(byId.van.luggage, { total: 7 })
+  assert.equal(byId.van.seats, 6); assert.deepEqual(byId.van.luggage, { total: 6 })
   assert.equal(byId.eco.model, 'Tesla'); assert.equal(byId.eco.seats, 4); assert.deepEqual(byId.eco.luggage, { total: 4 })
   assert.equal(luggageLabel(byId.business, 'fr'), '2 grandes valises + 2 petites')
-  assert.equal(luggageLabel(byId.van, 'ru'), '7 чемоданов')
+  assert.equal(luggageLabel(byId.van, 'ru'), '6 чемоданов')
   assert.equal(luggageLabel(byId.eco, 'ru'), '4 чемодана')
   // Anciennes capacités absentes des textes (4 langues)
-  assert.doesNotMatch(ALL_TEXT, /\b[36] (bagages|bags|bagaje)\b|[36] мест[а]? багажа|6 единиц багажа|passagers et 3 bagages|4 passengers and 3/, 'ancienne capacité de bagages')
+  assert.doesNotMatch(ALL_TEXT, /\b3 (bagages|bags|bagaje)\b|3 мест[а]? багажа|passagers et 3 bagages|4 passengers and 3/, 'ancienne capacité de bagages')
+  // Classe V : 6 passagers et 6 bagages maximum (plus de « 7 places » ni « 7 valises »)
+  assert.doesNotMatch(ALL_TEXT, /\b7 (valises|bagages|suitcases|bags|valize|bagaje|places|seats|locuri)\b|7 чемодан|7 мест|7-seater|van-7-places/, 'ancienne capacité du van')
   // Formulaire : Classe E par défaut, champ sièges enfant transmis à EmailJS
   const form = readFileSync('src/components/BookingModule/index.jsx', 'utf8')
   assert.match(form, /vehicleId: 'business'/)

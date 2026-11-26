@@ -13,7 +13,7 @@ export const CATEGORIES = [
     short: 'Aéroport CDG',
     title: 'Transferts aéroport CDG : nos guides',
     description: 'Guides pratiques pour vos transferts entre Paris et Roissy-Charles-de-Gaulle : temps de trajet, terminaux, départs et arrivées en VTC.',
-    services: ['vtc-aeroport-cdg', 'vtc-gares-paris', 'van-7-places-paris'],
+    services: ['vtc-aeroport-cdg', 'vtc-gares-paris', 'van-6-places-paris'],
     intro: [
       'Roissy-Charles-de-Gaulle est le premier aéroport de France et la principale porte d’entrée internationale de Paris. Situé à environ 25 kilomètres au nord-est de la capitale, il compte trois terminaux, dont le Terminal 2, divisé en sept halls de 2A à 2G. Bien préparer son trajet entre l’aéroport et Paris permet d’éviter le stress des correspondances et des heures de pointe sur l’autoroute A1.',
       'Cette rubrique rassemble des guides pratiques pour vos transferts en voiture avec chauffeur vers et depuis CDG : temps de trajet selon l’heure et le jour, repères pour s’orienter entre les terminaux, conseils pour fixer l’heure de départ avant un vol ou pour retrouver son chauffeur à l’arrivée. Chaque article donne des repères concrets, sans jargon, pour que vous sachiez à quoi vous attendre avant même de quitter votre hôtel ou votre domicile.',
@@ -27,7 +27,7 @@ export const CATEGORIES = [
     short: 'Aéroport d’Orly',
     title: 'Transferts aéroport d’Orly : nos guides',
     description: 'Guides pratiques pour vos transferts entre Paris et l’aéroport d’Orly : terminaux Orly 1 à 4, temps de trajet, vols matinaux et arrivées tardives.',
-    services: ['vtc-aeroport-orly', 'vtc-gares-paris', 'van-7-places-paris'],
+    services: ['vtc-aeroport-orly', 'vtc-gares-paris', 'van-6-places-paris'],
     intro: [
       'L’aéroport de Paris-Orly est le plus proche de la capitale : il se trouve à environ 14 kilomètres au sud de Paris, entre le Val-de-Marne et l’Essonne. Ses quatre terminaux, numérotés de Orly 1 à Orly 4, sont reliés entre eux à pied. Il accueille surtout des vols vers la France, l’Europe, le Maghreb et l’outre-mer, et il est soumis à un couvre-feu : aucun avion n’y décolle ni n’y atterrit entre 23 h 30 et 6 h.',
       'Dans cette rubrique, vous trouverez des guides pour organiser vos transferts entre Paris, l’Île-de-France et Orly : durée du trajet selon l’heure, itinéraires par l’autoroute A6 ou la route nationale 7, repères pour trouver votre terminal, conseils pour les premiers vols du matin et pour les arrivées en fin de soirée. L’objectif est simple : vous aider à partir à la bonne heure et à rejoindre votre chauffeur sans difficulté.',
@@ -41,7 +41,7 @@ export const CATEGORIES = [
     short: 'Aéroport de Beauvais',
     title: 'Transferts aéroport de Beauvais : guides',
     description: 'Guides pour rejoindre l’aéroport de Paris-Beauvais depuis Paris en VTC : distance, temps de trajet, vols très matinaux et retours tardifs.',
-    services: ['vtc-aeroport-beauvais', 'van-7-places-paris', 'vtc-gares-paris'],
+    services: ['vtc-aeroport-beauvais', 'van-6-places-paris', 'vtc-gares-paris'],
     intro: [
       'L’aéroport de Paris-Beauvais, situé à Tillé dans l’Oise, se trouve à environ 85 kilomètres au nord de Paris. Il est surtout utilisé par des compagnies à bas coûts, avec de nombreux vols tôt le matin ou tard le soir, à des heures où les transports en commun sont rares. Ses deux terminaux sont à quelques minutes à pied l’un de l’autre.',
       'Parce que le trajet dure plus d’une heure, il mérite d’être préparé. Cette rubrique réunit nos guides pour rejoindre Beauvais depuis Paris ou en revenir : temps de trajet selon l’heure, itinéraire principal par l’autoroute A16, conseils pour fixer l’heure de départ quand les compagnies ferment l’enregistrement tôt, choix du véhicule quand on voyage en famille ou en groupe avec des bagages.',
@@ -69,7 +69,7 @@ export const CATEGORIES = [
     short: 'Disneyland Paris',
     title: 'Disneyland Paris en VTC : nos guides',
     description: 'Guides pour rejoindre Disneyland Paris et les parcs de loisirs d’Île-de-France en famille : temps de trajet, hôtels, bagages et choix du véhicule.',
-    services: ['vtc-disneyland-paris', 'van-7-places-paris', 'vtc-aeroport-cdg'],
+    services: ['vtc-disneyland-paris', 'van-6-places-paris', 'vtc-aeroport-cdg'],
     intro: [
       'Disneyland Paris se trouve à Marne-la-Vallée, en Seine-et-Marne, à environ 32 kilomètres à l’est de Paris. Le domaine réunit deux parcs à thème, le Disney Village et plusieurs hôtels, à côté de la gare de Marne-la-Vallée–Chessy. D’autres parcs de loisirs attirent aussi les familles autour de Paris, comme le Parc Astérix, situé dans l’Oise au nord de l’aéroport Roissy-Charles-de-Gaulle.',
       'Voyager avec des enfants, une poussette et plusieurs valises change la manière de préparer le trajet. Cette rubrique rassemble nos conseils pour rejoindre les parcs depuis Paris ou directement depuis l’aéroport : temps de trajet selon l’heure, organisation d’un aller-retour dans la journée, choix d’un véhicule assez grand pour toute la famille et ses bagages, repères pour la dépose devant les hôtels.',
@@ -83,7 +83,7 @@ export const CATEGORIES = [
     short: 'Tourisme à Paris',
     title: 'Visiter Paris avec chauffeur : guides',
     description: 'Idées et conseils pour visiter Paris et ses environs avec un chauffeur privé : monuments, quartiers, château de Versailles et journées sur mesure.',
-    services: ['mise-a-disposition-chauffeur', 'van-7-places-paris', 'vtc-aeroport-cdg'],
+    services: ['mise-a-disposition-chauffeur', 'van-6-places-paris', 'vtc-aeroport-cdg'],
     intro: [
       'Paris se visite à pied, mais les distances entre les grands sites sont parfois longues : de la tour Eiffel à Montmartre, du Louvre au château de Versailles, il faut souvent traverser la ville ou en sortir. Avec un chauffeur et un véhicule à disposition, vous enchaînez les visites à votre rythme, sans chercher de station de métro ni de place pour vous garer, et vous gardez vos achats dans la voiture.',
       'Cette rubrique propose des idées d’itinéraires et des conseils pratiques pour organiser une journée de visite : quels quartiers regrouper, combien de temps prévoir entre deux sites selon la circulation, comment combiner Paris et Versailles, que faire avec des enfants ou des personnes qui marchent peu. Les durées indiquées sont des repères, à adapter selon le jour et la saison.',
@@ -111,7 +111,7 @@ export const CATEGORIES = [
     short: 'Événements',
     title: 'Mariages, soirées et événements en VTC',
     description: 'Conseils pour organiser les déplacements d’un mariage, d’une soirée ou d’un événement à Paris : invités, horaires, van pour les groupes, retours.',
-    services: ['mise-a-disposition-chauffeur', 'van-7-places-paris', 'vtc-gares-paris'],
+    services: ['mise-a-disposition-chauffeur', 'van-6-places-paris', 'vtc-gares-paris'],
     intro: [
       'Un mariage, un anniversaire, un dîner d’entreprise ou une soirée de gala posent toujours la même question : comment faire venir les invités à l’heure et les ramener en toute sécurité ? Entre les lieux de réception parfois éloignés des transports en commun, les invités qui arrivent par le train ou l’avion et les retours tard dans la nuit, les déplacements méritent d’être prévus à l’avance.',
       'Cette rubrique réunit des conseils pour organiser les trajets d’un événement à Paris et en Île-de-France : établir un planning des arrivées et des départs, regrouper les invités dans un van, prévoir les allers-retours entre la cérémonie et la réception, accueillir des proches à la gare ou à l’aéroport. Ce sont des repères pratiques, à adapter à la taille de votre événement et à ses horaires.',

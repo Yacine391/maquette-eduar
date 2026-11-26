@@ -66,8 +66,8 @@ export const vehicles = [
     id:       'van',
     category: 'Van',
     model:    'Mercedes Classe V',
-    seats:    6,            // à confirmer par le client (7 places au total, chauffeur compris)
-    luggage:  { total: 7 },
+    seats:    6,            // confirmé par le client : 6 passagers et 6 bagages maximum
+    luggage:  { total: 6 },
     gradient: 'from-neutral-900 via-stone-900 to-zinc-900',
     // 4 photos client — 2 extérieures + 2 intérieures (demande client)
     images: [
@@ -106,7 +106,7 @@ export const vehicles = [
 ]
 
 // ── Capacité bagages : libellé par langue ─────────────────────────────
-// { large: 2, small: 2 } → « 2 grandes valises + 2 petites » ; { total: 7 } → « 7 valises »
+// { large: 2, small: 2 } → « 2 grandes valises + 2 petites » ; { total: 6 } → « 6 valises »
 const SUITCASES = {
   fr: (n) => `${n} valise${n > 1 ? 's' : ''}`,
   en: (n) => `${n} suitcase${n > 1 ? 's' : ''}`,

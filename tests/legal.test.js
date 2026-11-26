@@ -1,7 +1,7 @@
 // ── Tests des pages légales (mentions légales, confidentialité, CGV) ──
 // Lancer : npm test. Vérifie : 3 pages × 4 langues, contenu obligatoire
-// (LCEN, RGPD, CGV confirmées par le client), marqueurs [À COMPLÉTER]
-// signalés, aucune mention non confirmée, liens du pied de page et
+// (LCEN, RGPD, CGV confirmées par le client), aucun marqueur restant
+// (pas de bandeau « projet »), aucune mention non confirmée, liens du pied de page et
 // formulaire (mention d'information), aucun cookie ni script tiers.
 // ────────────────────────────────────────────────────────────────────
 import { test } from 'node:test'
@@ -10,7 +10,7 @@ import { readFileSync, existsSync } from 'node:fs'
 import { LANGS, LEGAL_SLUGS, ROUTES, pageUrl } from '../src/routes.js'
 import { LEGAL, hasTodo } from '../src/content/legal/index.js'
 import { LEGAL_UI } from '../src/content/legal/meta.js'
-import { BUSINESS } from '../src/constants/business.js'
+import { BUSINESS, LEGAL_ENTITY } from '../src/constants/business.js'
 import { rateTable } from '../src/constants/rates.js'
 import { RATE } from '../src/utils/bookingGuard.js'
 import { jsonLd } from '../src/seo/schema.js'
@@ -34,8 +34,13 @@ test('pages légales : 3 pages × 4 langues, routes et sitemap', () => {
 
 test('mentions légales : éditeur, hébergeur, registre VTC, directeur de la publication', () => {
   const t = text('mentions-legales', 'fr')
-  for (const s of ['945 208 445', '945 208 445 00011', '58 rue de Monceau', 'Vercel Inc.', '440 N Barranca Ave', BUSINESS.phoneDisplay, BUSINESS.email,
-    'Directeur de la publication', 'registre des exploitants', 'Propriété intellectuelle', 'Crédits']) assert.ok(t.includes(s), s)
+  for (const s of ['CDG TRANSFERT VTC', 'SASU', '1 000 €', 'RCS Paris 945 208 445', '945 208 445 00011', 'FR00945208445', '58 rue de Monceau, 75008 Paris',
+    'Eduard CASIANOV', 'Vercel Inc.', '440 N Barranca Ave', 'https://vercel.com/contact', BUSINESS.phoneDisplay, BUSINESS.email,
+    'Directeur de la publication', 'registre des exploitants', 'EVTC075250798', '4 août 2030', 'responsabilité civile professionnelle', 'protection juridique',
+    'Propriété intellectuelle', 'Crédits']) assert.ok(t.includes(s), s)
+  // Ligne « carte professionnelle » retirée à la demande du client
+  for (const lang of LANGS) assert.doesNotMatch(text('mentions-legales', lang), /carte professionnelle|professional card|профессиональн\S* карт|card profesional/i, lang)
+  for (const lang of LANGS) assert.ok(text('mentions-legales', lang).includes('EVTC075250798'), lang)
 })
 
 test('confidentialité : responsable, finalités, bases légales, durées, droits, CNIL, cookies', () => {
@@ -49,10 +54,16 @@ test('CGV : règles confirmées par le client et tarifs du tableau', () => {
   const t = text('cgv', 'fr')
   const h = rateTable.find(r => r.unit === 'hour')
   for (const s of ['réservation préalable', 'péages sont toujours inclus', 'jamais facturé', 'jusqu’à 1 h', 'jusqu’à 24 h', '100 %', 'sièges auto et rehausseurs sont fournis sur demande', 'Durée minimale : 3 heures', '20 km',
-    `${h.business} €`, `${h.luxe} €`, `${h.van} €`, `${h.eco} €`, 'facture', 'médiateur', 'droit français']) assert.ok(t.includes(s), s)
-  // Tant qu'il reste des informations à compléter : bandeau « Projet à valider par le client »
-  assert.ok(hasTodo(LEGAL.cgv.body))
-  assert.equal(LEGAL_UI.fr.draft, 'Projet à valider par le client')
+    `${h.business} €`, `${h.luxe} €`, `${h.van} €`, `${h.eco} €`, 'facture', 'prix TTC est indiqué avant la course', 'modalités de paiement sont précisées lors de la confirmation', 'droit français']) assert.ok(t.includes(s), s)
+  // Médiateur non encore désigné : aucune clause ni nom de médiateur pour l'instant
+  for (const lang of LANGS) assert.doesNotMatch(text('cgv', lang), /médiat|mediat|медиатор/i, lang)
+})
+
+test('pages légales : plus aucun marqueur, donc pas de bandeau « Projet à valider »', () => {
+  for (const slug of LEGAL_SLUGS) {
+    assert.equal(hasTodo(LEGAL[slug].body), false, slug)
+    for (const lang of LANGS) assert.doesNotMatch(text(slug, lang), /\[À (?:COMPLÉTER|VÉRIFIER)/, `${slug} ${lang}`)
+  }
 })
 
 test('pages légales : aucune mention non confirmée, prix du tableau uniquement', () => {
@@ -60,7 +71,8 @@ test('pages légales : aucune mention non confirmée, prix du tableau uniquement
   for (const slug of LEGAL_SLUGS) for (const lang of LANGS) {
     const t = text(slug, lang)
     for (const re of FORBIDDEN) assert.doesNotMatch(t, re, `${slug} ${lang} : ${re}`)
-    for (const m of t.matchAll(/(?:€\s?(\d+)|(\d+)\s?€)/g)) assert.ok(prices.has(Number(m[1] ?? m[2])), `${slug} ${lang} : prix ${m[0]}`)
+    // Le capital social n'est pas un prix
+    for (const m of t.replaceAll(LEGAL_ENTITY.capital, '').matchAll(/(?:€\s?(\d+)|(\d+)\s?€)/g)) assert.ok(prices.has(Number(m[1] ?? m[2])), `${slug} ${lang} : prix ${m[0]}`)
   }
 })
 
@@ -90,4 +102,12 @@ test('après un build : liens légaux dans le pied de page de toutes les pages, 
     assert.doesNotMatch(html, /google-analytics|googletagmanager|gtag\(|fbq\(|fonts\.googleapis|maps\.google|<iframe/, `${file} : traceur ou ressource tierce`)
   }
   for (const f of ['blog', 'blog/transferts-cdg/valises-vtc-cdg']) assert.ok(read(`dist/${f}.html`).includes('href="/confidentialite"'), f)
+})
+
+test('JSON-LD : identité légale (legalName, vatID, taxID) sans adresse du siège', () => {
+  const biz = jsonLd({ lang: 'fr', page: 'home' })['@graph'][0]
+  assert.equal(biz.legalName, 'CDG TRANSFERT VTC')
+  assert.equal(biz.vatID, 'FR00945208445')
+  assert.equal(biz.taxID, '945208445')
+  assert.doesNotMatch(JSON.stringify(biz), /Monceau|75008/)
 })

@@ -38,14 +38,14 @@ export default {
           'Le trajet de porte à porte entre l’adresse de prise en charge et la destination indiquées à la réservation.',
           'Le véhicule de la catégorie choisie, avec son chauffeur.',
           'Le prix confirmé avant la course, selon le tableau des tarifs.',
-          'Vos bagages dans la limite de la capacité du véhicule : 2 grandes valises et 2 petites en Mercedes Classe E ou Classe S, 4 valises en Tesla, 7 valises en Mercedes Classe V.',
+          'Vos bagages dans la limite de la capacité du véhicule : 2 grandes valises et 2 petites en Mercedes Classe E ou Classe S, 4 valises en Tesla, 6 valises en Mercedes Classe V.',
           'Les péages, l’eau à bord, la facture et jusqu’à 1 h d’attente après l’atterrissage ; un retard de vol n’est jamais facturé.',
           'La confirmation de votre course par téléphone ou WhatsApp.',
         ], paras: [
           'Aucun paiement n’est demandé sur le site : vous envoyez simplement une demande de réservation, et le prix vous est confirmé avant le départ.',
         ] },
         { h2: 'Quel véhicule choisir pour aller à Roissy ?', paras: [
-          'Seul ou à deux avec des bagages standards, la Tesla, 100 % électrique, ou la Mercedes Classe E conviennent parfaitement. Pour un voyage d’affaires, la Mercedes Classe S offre le plus haut niveau de confort de notre flotte. En famille ou en groupe, le van Mercedes Classe V accueille jusqu’à 6 passagers et 7 valises, ce qui évite de réserver deux voitures.',
+          'Seul ou à deux avec des bagages standards, la Tesla, 100 % électrique, ou la Mercedes Classe E conviennent parfaitement. Pour un voyage d’affaires, la Mercedes Classe S offre le plus haut niveau de confort de notre flotte. En famille ou en groupe, le van Mercedes Classe V accueille jusqu’à 6 passagers et 6 valises, ce qui évite de réserver deux voitures.',
         ] },
       ],
       faq: [
@@ -91,14 +91,14 @@ export default {
           'The door-to-door trip between the pick-up address and the destination given when booking.',
           'A vehicle of the category you chose, with its chauffeur.',
           'The fare confirmed before the ride, based on the price list.',
-          'Your luggage within the vehicle’s capacity: 2 large and 2 small suitcases in a Mercedes E-Class or S-Class, 4 suitcases in a Tesla, 7 suitcases in a Mercedes V-Class.',
+          'Your luggage within the vehicle’s capacity: 2 large and 2 small suitcases in a Mercedes E-Class or S-Class, 4 suitcases in a Tesla, 6 suitcases in a Mercedes V-Class.',
           'Tolls, water on board, an invoice and up to 1 hour of waiting after landing; flight delays are never charged.',
           'Confirmation of your ride by phone or WhatsApp.',
         ], paras: [
           'No payment is taken on the website: you simply send a booking request, and the fare is confirmed before departure.',
         ] },
         { h2: 'Which vehicle should you choose for Roissy?', paras: [
-          'Travelling alone or as a couple with standard luggage, the fully electric Tesla or the Mercedes E-Class are ideal. For a business trip, the Mercedes S-Class offers the highest level of comfort in our fleet. For families or groups, the Mercedes V-Class van seats up to 6 passengers with 7 suitcases, so there is no need to book two cars.',
+          'Travelling alone or as a couple with standard luggage, the fully electric Tesla or the Mercedes E-Class are ideal. For a business trip, the Mercedes S-Class offers the highest level of comfort in our fleet. For families or groups, the Mercedes V-Class van seats up to 6 passengers with 6 suitcases, so there is no need to book two cars.',
         ] },
       ],
       faq: [
@@ -144,14 +144,14 @@ export default {
           'Поездка «от двери до двери» между адресом посадки и пунктом назначения, указанными при бронировании.',
           'Автомобиль выбранной категории с водителем.',
           'Цена, подтверждённая до поездки, согласно прайс-листу.',
-          'Багаж в пределах вместимости автомобиля: 2 больших и 2 маленьких чемодана в Mercedes E-класса или S-класса, 4 чемодана в Tesla, 7 чемоданов в Mercedes V-класса.',
+          'Багаж в пределах вместимости автомобиля: 2 больших и 2 маленьких чемодана в Mercedes E-класса или S-класса, 4 чемодана в Tesla, 6 чемоданов в Mercedes V-класса.',
           'Платные дороги, вода в салоне, счёт и до 1 часа ожидания после посадки; задержка рейса не оплачивается.',
           'Подтверждение поездки по телефону или в WhatsApp.',
         ], paras: [
           'На сайте оплата не взимается: вы просто отправляете заявку на бронирование, а цена подтверждается до отправления.',
         ] },
         { h2: 'Какой автомобиль выбрать для поездки в Руасси?', paras: [
-          'Одному или вдвоём со стандартным багажом идеально подойдут полностью электрическая Tesla или Mercedes E-класса. Для деловой поездки Mercedes S-класса предлагает максимальный уровень комфорта в нашем автопарке. Для семьи или группы минивэн Mercedes V-класса вмещает до 6 пассажиров и 7 чемоданов — не нужно бронировать две машины.',
+          'Одному или вдвоём со стандартным багажом идеально подойдут полностью электрическая Tesla или Mercedes E-класса. Для деловой поездки Mercedes S-класса предлагает максимальный уровень комфорта в нашем автопарке. Для семьи или группы минивэн Mercedes V-класса вмещает до 6 пассажиров и 6 чемоданов — не нужно бронировать две машины.',
         ] },
       ],
       faq: [
@@ -197,14 +197,14 @@ export default {
           'Traseul de la ușă la ușă între adresa de preluare și destinația indicate la rezervare.',
           'Vehiculul din categoria aleasă, cu șoferul său.',
           'Prețul confirmat înainte de cursă, conform grilei de tarife.',
-          'Bagajele în limita capacității vehiculului: 2 valize mari și 2 mici în Mercedes Clasa E sau Clasa S, 4 valize în Tesla, 7 valize în Mercedes Clasa V.',
+          'Bagajele în limita capacității vehiculului: 2 valize mari și 2 mici în Mercedes Clasa E sau Clasa S, 4 valize în Tesla, 6 valize în Mercedes Clasa V.',
           'Taxele de autostradă, apa la bord, factura și până la 1 oră de așteptare după aterizare; întârzierea zborului nu se facturează.',
           'Confirmarea cursei prin telefon sau WhatsApp.',
         ], paras: [
           'Pe site nu se cere nicio plată: trimiteți doar o cerere de rezervare, iar prețul vă este confirmat înainte de plecare.',
         ] },
         { h2: 'Ce vehicul să alegeți pentru Roissy?', paras: [
-          'Singur sau în doi, cu bagaje obișnuite, Tesla, 100 % electrică, sau Mercedes Clasa E sunt alegeri ideale. Pentru o călătorie de afaceri, Mercedes Clasa S oferă cel mai înalt nivel de confort din flota noastră. Pentru familii sau grupuri, vanul Mercedes Clasa V primește până la 6 pasageri și 7 valize, fără să fie nevoie de două mașini.',
+          'Singur sau în doi, cu bagaje obișnuite, Tesla, 100 % electrică, sau Mercedes Clasa E sunt alegeri ideale. Pentru o călătorie de afaceri, Mercedes Clasa S oferă cel mai înalt nivel de confort din flota noastră. Pentru familii sau grupuri, vanul Mercedes Clasa V primește până la 6 pasageri și 6 valize, fără să fie nevoie de două mașini.',
         ] },
       ],
       faq: [

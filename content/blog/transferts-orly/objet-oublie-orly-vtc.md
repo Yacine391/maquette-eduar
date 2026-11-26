@@ -2,7 +2,7 @@
 title: "Objet oublié à Orly ou dans le VTC : que faire ?"
 description: "Objet oublié dans l’avion, à l’aéroport d’Orly ou dans la voiture, valise non livrée : qui contacter, quelles informations donner et comment l’éviter."
 date: "2026-11-24"
-updated: "2026-11-24"
+updated: "2026-11-26"
 category: transferts-orly
 tags:
   - objet perdu
@@ -87,7 +87,7 @@ Quelques habitudes évitent la plupart des oublis :
 - **en sortant de la voiture**, jetez un œil sur la banquette, les portières et le coffre ;
 - **gardez téléphone, papiers et chargeurs** dans un même sac, toujours fermé.
 
-Avec beaucoup de bagages ou en famille, l’oubli est plus fréquent : notre guide [Combien de valises dans un VTC pour aller à CDG ?](/blog/transferts-cdg/valises-vtc-cdg) aide à s’organiser. En groupe, le [van Mercedes Classe V](/van-7-places-paris) permet de garder tous les bagages au même endroit.
+Avec beaucoup de bagages ou en famille, l’oubli est plus fréquent : notre guide [Combien de valises dans un VTC pour aller à CDG ?](/blog/transferts-cdg/valises-vtc-cdg) aide à s’organiser. En groupe, le [van Mercedes Classe V](/van-6-places-paris) permet de garder tous les bagages au même endroit.
 
 ## Réserver votre transfert à Orly
 

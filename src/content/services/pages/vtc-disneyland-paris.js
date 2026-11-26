@@ -35,7 +35,7 @@ export default {
           'Gardez votre téléphone à portée de main le jour du trajet pour rester joignable.',
         ] },
         { h2: 'Quel véhicule choisir pour une famille ?', paras: [
-          'Pour une famille de quatre personnes, la Tesla accueille 4 passagers et 4 valises. Au-delà, ou avec beaucoup de valises, le van Mercedes Classe V transporte jusqu’à 6 passagers et 7 valises en un seul véhicule. Les berlines Mercedes Classe E et Classe S accueillent 3 passagers, 2 grandes valises et 2 petites. Pour un grand groupe, plusieurs véhicules peuvent être réservés ensemble grâce à notre réseau de chauffeurs partenaires vérifiés.',
+          'Pour une famille de quatre personnes, la Tesla accueille 4 passagers et 4 valises. Au-delà, ou avec beaucoup de valises, le van Mercedes Classe V transporte jusqu’à 6 passagers et 6 valises en un seul véhicule. Les berlines Mercedes Classe E et Classe S accueillent 3 passagers, 2 grandes valises et 2 petites. Pour un grand groupe, plusieurs véhicules peuvent être réservés ensemble grâce à notre réseau de chauffeurs partenaires vérifiés.',
           'Sièges auto et rehausseurs sont disponibles sur demande, pour tous les véhicules : indiquez leur nombre dans le formulaire de réservation, ainsi que l’âge des enfants lors de la confirmation par téléphone ou WhatsApp.',
         ] },
         { h2: 'Ce qui est inclus dans votre transfert Disneyland', list: [
@@ -52,7 +52,7 @@ export default {
         { q: 'Combien coûte un VTC entre Paris et Disneyland Paris ?', a: 'Ce trajet ne figure pas dans le tableau des tarifs : le prix est établi sur devis et confirmé avant la course. Indiquez vos adresses dans le formulaire de réservation pour recevoir une proposition.' },
         { q: 'Combien de temps faut-il pour aller de Paris à Disneyland Paris ?', a: 'Comptez de 40 minutes à 1 h 15 depuis le centre de Paris, selon la circulation sur l’autoroute A4.' },
         { q: 'Pouvez-vous nous conduire de l’aéroport CDG à Disneyland Paris ?', a: 'Oui. Le trajet dure en général de 35 à 55 minutes ; le prix est établi sur devis. Précisez votre numéro de vol lors de la confirmation de votre course.' },
-        { q: 'Quel véhicule pour une famille avec enfants et bagages ?', a: 'Le van Mercedes Classe V accueille jusqu’à 6 passagers et 7 valises, la Tesla 4 passagers et 4 valises. Sièges auto et rehausseurs sont disponibles sur demande pour tous les véhicules.' },
+        { q: 'Quel véhicule pour une famille avec enfants et bagages ?', a: 'Le van Mercedes Classe V accueille jusqu’à 6 passagers et 6 valises, la Tesla 4 passagers et 4 valises. Sièges auto et rehausseurs sont disponibles sur demande pour tous les véhicules.' },
         { q: 'Pouvez-vous nous déposer à notre hôtel Disney ?', a: 'Oui, indiquez le nom de votre hôtel comme destination. Le lieu exact de dépose ou de prise en charge vous est confirmé avant la course.' },
         { q: 'Faites-vous l’aller-retour Paris – Disneyland dans la journée ?', a: 'Oui, sur devis. Précisez l’heure de l’aller et celle du retour lors de la confirmation par téléphone ou WhatsApp.' },
       ],
@@ -87,7 +87,7 @@ export default {
           'Keep your phone at hand on the day of the trip so that you can be reached.',
         ] },
         { h2: 'Which vehicle should a family choose?', paras: [
-          'For a family of four, the Tesla seats 4 passengers with 4 suitcases. For more people, or lots of suitcases, the Mercedes V-Class van carries up to 6 passengers and 7 suitcases in a single vehicle. The Mercedes E-Class and S-Class saloons take 3 passengers, 2 large and 2 small suitcases. For a large group, several vehicles can be booked together through our network of vetted partner chauffeurs.',
+          'For a family of four, the Tesla seats 4 passengers with 4 suitcases. For more people, or lots of suitcases, the Mercedes V-Class van carries up to 6 passengers and 6 suitcases in a single vehicle. The Mercedes E-Class and S-Class saloons take 3 passengers, 2 large and 2 small suitcases. For a large group, several vehicles can be booked together through our network of vetted partner chauffeurs.',
           'Child seats and booster seats are available on request for every vehicle: state how many in the booking form, and give the children’s ages when we confirm your ride by phone or WhatsApp.',
         ] },
         { h2: 'What your Disneyland transfer includes', list: [
@@ -104,7 +104,7 @@ export default {
         { q: 'How much is a chauffeur between Paris and Disneyland Paris?', a: 'This trip is not in the price list: the price is given on quote and confirmed before the ride. Enter your addresses in the booking form to receive a proposal.' },
         { q: 'How long does it take from Paris to Disneyland Paris?', a: 'Allow 40 minutes to 1 h 15 from central Paris, depending on traffic on the A4 motorway.' },
         { q: 'Can you drive us from CDG airport to Disneyland Paris?', a: 'Yes. The trip usually takes 35 to 55 minutes; the price is given on quote. Give us your flight number when we confirm your ride.' },
-        { q: 'Which vehicle for a family with children and luggage?', a: 'The Mercedes V-Class van seats up to 6 passengers with 7 suitcases, the Tesla 4 passengers with 4 suitcases. Child seats and booster seats are available on request for every vehicle.' },
+        { q: 'Which vehicle for a family with children and luggage?', a: 'The Mercedes V-Class van seats up to 6 passengers with 6 suitcases, the Tesla 4 passengers with 4 suitcases. Child seats and booster seats are available on request for every vehicle.' },
         { q: 'Can you drop us off at our Disney hotel?', a: 'Yes, enter the name of your hotel as the destination. The exact drop-off or pick-up point is confirmed before the ride.' },
         { q: 'Do you offer a same-day return trip between Paris and Disneyland?', a: 'Yes, on quote. Give us the time of the outbound and return legs when we confirm your ride by phone or WhatsApp.' },
       ],
@@ -139,7 +139,7 @@ export default {
           'В день поездки держите телефон под рукой, чтобы оставаться на связи.',
         ] },
         { h2: 'Какой автомобиль выбрать для семьи?', paras: [
-          'Для семьи из четырёх человек подойдёт Tesla: 4 пассажира и 4 чемодана. Если вас больше или чемоданов много, минивэн Mercedes V-класса перевозит до 6 пассажиров и 7 чемоданов в одном автомобиле. Седаны Mercedes E-класса и S-класса рассчитаны на 3 пассажиров, 2 больших и 2 маленьких чемодана. Для большой группы можно заказать сразу несколько автомобилей благодаря сети проверенных водителей-партнёров.',
+          'Для семьи из четырёх человек подойдёт Tesla: 4 пассажира и 4 чемодана. Если вас больше или чемоданов много, минивэн Mercedes V-класса перевозит до 6 пассажиров и 6 чемоданов в одном автомобиле. Седаны Mercedes E-класса и S-класса рассчитаны на 3 пассажиров, 2 больших и 2 маленьких чемодана. Для большой группы можно заказать сразу несколько автомобилей благодаря сети проверенных водителей-партнёров.',
           'Детские автокресла и бустеры доступны по запросу для всех автомобилей: укажите их количество в форме бронирования, а возраст детей — при подтверждении по телефону или в WhatsApp.',
         ] },
         { h2: 'Что входит в трансфер в Диснейленд', list: [
@@ -156,7 +156,7 @@ export default {
         { q: 'Сколько стоит трансфер между Парижем и Диснейленд Париж?', a: 'Этого маршрута нет в таблице тарифов: стоимость рассчитывается по запросу и подтверждается до поездки. Укажите адреса в форме бронирования, чтобы получить предложение.' },
         { q: 'Сколько времени ехать из Парижа в Диснейленд Париж?', a: 'От центра Парижа — от 40 минут до 1 ч 15 мин, в зависимости от движения на автомагистрали A4.' },
         { q: 'Можете ли вы отвезти нас из аэропорта CDG в Диснейленд Париж?', a: 'Да. Поездка обычно занимает 35–55 минут; стоимость рассчитывается по запросу. Сообщите номер рейса при подтверждении поездки.' },
-        { q: 'Какой автомобиль выбрать для семьи с детьми и багажом?', a: 'Минивэн Mercedes V-класса вмещает до 6 пассажиров и 7 чемоданов, Tesla — 4 пассажира и 4 чемодана. Детские автокресла и бустеры доступны по запросу для всех автомобилей.' },
+        { q: 'Какой автомобиль выбрать для семьи с детьми и багажом?', a: 'Минивэн Mercedes V-класса вмещает до 6 пассажиров и 6 чемоданов, Tesla — 4 пассажира и 4 чемодана. Детские автокресла и бустеры доступны по запросу для всех автомобилей.' },
         { q: 'Можете ли вы довезти нас до отеля Disney?', a: 'Да, укажите название отеля в качестве пункта назначения. Точное место высадки или посадки подтверждается до поездки.' },
         { q: 'Можно ли съездить из Парижа в Диснейленд и обратно за один день?', a: 'Да, по запросу. Сообщите время поездки туда и обратно при подтверждении по телефону или в WhatsApp.' },
       ],
@@ -191,7 +191,7 @@ export default {
           'În ziua cursei, țineți telefonul la îndemână pentru a putea fi contactat.',
         ] },
         { h2: 'Ce vehicul să alegeți pentru o familie?', paras: [
-          'Pentru o familie de patru persoane, Tesla primește 4 pasageri și 4 valize. Pentru mai multe persoane sau multe valize, van-ul Mercedes Clasa V transportă până la 6 pasageri și 7 valize într-un singur vehicul. Berlinele Mercedes Clasa E și Clasa S primesc 3 pasageri, 2 valize mari și 2 mici. Pentru un grup mare se pot rezerva mai multe vehicule deodată, prin rețeaua noastră de șoferi parteneri verificați.',
+          'Pentru o familie de patru persoane, Tesla primește 4 pasageri și 4 valize. Pentru mai multe persoane sau multe valize, van-ul Mercedes Clasa V transportă până la 6 pasageri și 6 valize într-un singur vehicul. Berlinele Mercedes Clasa E și Clasa S primesc 3 pasageri, 2 valize mari și 2 mici. Pentru un grup mare se pot rezerva mai multe vehicule deodată, prin rețeaua noastră de șoferi parteneri verificați.',
           'Scaunele auto și înălțătoarele pentru copii sunt disponibile la cerere pentru toate vehiculele: indicați numărul lor în formularul de rezervare, iar vârsta copiilor la confirmarea prin telefon sau WhatsApp.',
         ] },
         { h2: 'Ce include transferul la Disneyland', list: [
@@ -208,7 +208,7 @@ export default {
         { q: 'Cât costă un VTC între Paris și Disneyland Paris?', a: 'Această cursă nu figurează în tabelul de tarife: prețul se stabilește la cerere și este confirmat înainte de cursă. Completați adresele în formularul de rezervare pentru a primi o ofertă.' },
         { q: 'Cât durează drumul de la Paris la Disneyland Paris?', a: 'Socotiți între 40 de minute și 1 h 15 din centrul Parisului, în funcție de trafic pe autostrada A4.' },
         { q: 'Ne puteți duce de la aeroportul CDG la Disneyland Paris?', a: 'Da. Cursa durează de obicei între 35 și 55 de minute; prețul se stabilește la cerere. Comunicați-ne numărul zborului la confirmarea cursei.' },
-        { q: 'Ce vehicul pentru o familie cu copii și bagaje?', a: 'Van-ul Mercedes Clasa V primește până la 6 pasageri și 7 valize, Tesla 4 pasageri și 4 valize. Scaunele auto și înălțătoarele pentru copii sunt disponibile la cerere pentru toate vehiculele.' },
+        { q: 'Ce vehicul pentru o familie cu copii și bagaje?', a: 'Van-ul Mercedes Clasa V primește până la 6 pasageri și 6 valize, Tesla 4 pasageri și 4 valize. Scaunele auto și înălțătoarele pentru copii sunt disponibile la cerere pentru toate vehiculele.' },
         { q: 'Ne puteți lăsa la hotelul Disney?', a: 'Da, indicați numele hotelului ca destinație. Locul exact de lăsare sau de preluare vă este confirmat înainte de cursă.' },
         { q: 'Faceți dus-întors Paris – Disneyland în aceeași zi?', a: 'Da, la cerere. Comunicați-ne ora cursei de dus și pe cea a cursei de întoarcere la confirmarea prin telefon sau WhatsApp.' },
       ],

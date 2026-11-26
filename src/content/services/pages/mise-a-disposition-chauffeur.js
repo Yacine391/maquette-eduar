@@ -49,7 +49,7 @@ export default {
           ['Paris centre ↔ aéroport Roissy-CDG', '30 min à 1 h 30'],
         ] },
         { h2: 'Quel véhicule pour votre mise à disposition ?', paras: [
-          'Pour des rendez-vous d’affaires, la Mercedes Classe E est notre véhicule de référence, et la Mercedes Classe S offre le plus haut niveau de confort de notre flotte pour accueillir un client important. La Tesla, 100 % électrique, convient aux déplacements en ville. Pour une délégation ou une famille, le van Mercedes Classe V accueille jusqu’à 6 passagers et 7 valises.',
+          'Pour des rendez-vous d’affaires, la Mercedes Classe E est notre véhicule de référence, et la Mercedes Classe S offre le plus haut niveau de confort de notre flotte pour accueillir un client important. La Tesla, 100 % électrique, convient aux déplacements en ville. Pour une délégation ou une famille, le van Mercedes Classe V accueille jusqu’à 6 passagers et 6 valises.',
           'Vous hésitez ? Décrivez-nous votre programme et le nombre de participants : nous vous proposons le véhicule le plus adapté.',
           'Aucun paiement n’est demandé sur le site : le prix vous est confirmé avant la prestation.',
         ] },
@@ -108,7 +108,7 @@ export default {
           ['Central Paris ↔ Roissy-CDG airport', '30 min to 1 h 30'],
         ] },
         { h2: 'Which vehicle for your chauffeur hire?', paras: [
-          'For business meetings, the Mercedes E-Class is our reference vehicle, and the Mercedes S-Class offers the highest level of comfort in our fleet to welcome an important client. The fully electric Tesla suits trips around town. For a delegation or a family, the Mercedes V-Class van seats up to 6 passengers with 7 suitcases.',
+          'For business meetings, the Mercedes E-Class is our reference vehicle, and the Mercedes S-Class offers the highest level of comfort in our fleet to welcome an important client. The fully electric Tesla suits trips around town. For a delegation or a family, the Mercedes V-Class van seats up to 6 passengers with 6 suitcases.',
           'Not sure? Describe your schedule and the number of people: we will suggest the most suitable vehicle.',
           'No payment is taken on the website: the price is confirmed before the service.',
         ] },
@@ -167,7 +167,7 @@ export default {
           ['Центр Парижа ↔ аэропорт Руасси-CDG', 'от 30 мин до 1 ч 30 мин'],
         ] },
         { h2: 'Какой автомобиль выбрать?', paras: [
-          'Для деловых встреч наш основной автомобиль — Mercedes E-класса, а Mercedes S-класса обеспечивает самый высокий уровень комфорта в нашем автопарке, если нужно встретить важного клиента. Полностью электрическая Tesla подходит для поездок по городу. Для делегации или семьи минивэн Mercedes V-класса вмещает до 6 пассажиров и 7 чемоданов.',
+          'Для деловых встреч наш основной автомобиль — Mercedes E-класса, а Mercedes S-класса обеспечивает самый высокий уровень комфорта в нашем автопарке, если нужно встретить важного клиента. Полностью электрическая Tesla подходит для поездок по городу. Для делегации или семьи минивэн Mercedes V-класса вмещает до 6 пассажиров и 6 чемоданов.',
           'Не знаете, что выбрать? Опишите вашу программу и число участников — мы предложим наиболее подходящий автомобиль.',
           'На сайте ничего не нужно оплачивать: цена подтверждается до начала услуги.',
         ] },
@@ -226,7 +226,7 @@ export default {
           ['Centrul Parisului ↔ aeroportul Roissy-CDG', '30 min – 1 h 30'],
         ] },
         { h2: 'Ce vehicul să alegeți?', paras: [
-          'Pentru întâlnirile de afaceri, Mercedes Clasa E este vehiculul nostru de referință, iar Mercedes Clasa S oferă cel mai înalt nivel de confort din flota noastră pentru a primi un client important. Tesla, 100 % electrică, este potrivită pentru deplasările prin oraș. Pentru o delegație sau o familie, van-ul Mercedes Clasa V primește până la 6 pasageri și 7 valize.',
+          'Pentru întâlnirile de afaceri, Mercedes Clasa E este vehiculul nostru de referință, iar Mercedes Clasa S oferă cel mai înalt nivel de confort din flota noastră pentru a primi un client important. Tesla, 100 % electrică, este potrivită pentru deplasările prin oraș. Pentru o delegație sau o familie, van-ul Mercedes Clasa V primește până la 6 pasageri și 6 valize.',
           'Nu sunteți sigur? Descrieți-ne programul și numărul de participanți: vă propunem vehiculul cel mai potrivit.',
           'Site-ul nu cere nicio plată: prețul vă este confirmat înainte de serviciu.',
         ] },

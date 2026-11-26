@@ -2,7 +2,7 @@
 title: "VTC ou taxi pour Roissy-CDG : quelles différences ?"
 description: "Taxi ou VTC entre Paris et l’aéroport Charles-de-Gaulle : réservation, prix, prise en charge, véhicule. Les vraies différences pour bien choisir."
 date: "2026-11-23"
-updated: "2026-11-24"
+updated: "2026-11-26"
 category: transferts-cdg
 tags:
   - VTC ou taxi
@@ -63,7 +63,7 @@ Aux heures d’arrivée chargées, les files aux stations de taxis peuvent toute
 Réserver un VTC à l’avance est souvent plus confortable dans les cas suivants :
 
 - **un départ très tôt le matin ou une arrivée de nuit**, quand il vaut mieux avoir une solution prête : notre article [CDG la nuit : comment y aller ou en revenir sans RER](/blog/transferts-cdg/cdg-la-nuit-sans-rer) détaille ces situations ;
-- **un voyage en famille ou en groupe**, avec un véhicule choisi à l’avance, comme le [van Mercedes Classe V](/van-7-places-paris) pour 6 passagers et 7 valises ;
+- **un voyage en famille ou en groupe**, avec un véhicule choisi à l’avance, comme le [van Mercedes Classe V](/van-6-places-paris) pour 6 passagers et 6 valises ;
 - **beaucoup de bagages** ou des objets volumineux, à signaler lors de la réservation : voir [Combien de valises dans un VTC pour aller à CDG ?](/blog/transferts-cdg/valises-vtc-cdg) ;
 - **un voyage professionnel**, quand on veut connaître le prix à l’avance et choisir la catégorie du véhicule ;
 - **une prise en charge organisée**, avec un chauffeur joignable par téléphone ou WhatsApp ;
