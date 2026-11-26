@@ -2,7 +2,7 @@
 title: "Orly – Disneyland Paris en VTC : bien s’organiser"
 description: "Rejoindre Disneyland Paris depuis Orly : durée du trajet, itinéraire, véhicule adapté à la famille et aux bagages, conseils pour l’aller et le retour."
 date: "2026-11-24"
-updated: "2026-11-24"
+updated: "2026-11-26"
 category: transferts-orly
 tags:
   - Orly Disneyland
@@ -16,7 +16,7 @@ faq:
   - question: "Quel est le prix d’un VTC entre Orly et Disneyland Paris ?"
     answer: "Ce trajet n’apparaît pas dans le tableau des tarifs : son prix est établi sur devis, selon le véhicule et l’adresse exacte, et confirmé avant la course."
   - question: "Quel véhicule choisir pour une famille avec des bagages ?"
-    answer: "Le van Mercedes Classe V accueille jusqu’à 6 passagers et 7 valises. Sièges auto et rehausseurs sont fournis sur demande : indiquez leur nombre dans le formulaire de réservation."
+    answer: "Le van Mercedes Classe V accueille jusqu’à 6 passagers et 6 valises. Sièges auto et rehausseurs sont fournis sur demande : indiquez leur nombre dans le formulaire de réservation."
   - question: "Le chauffeur peut-il nous déposer directement à l’hôtel ?"
     answer: "Oui, le chauffeur vous conduit à l’adresse indiquée, qu’il s’agisse d’un hôtel du parc, d’un hôtel du Val d’Europe ou d’une résidence proche."
 ---
@@ -50,9 +50,9 @@ Un séjour à Disneyland rime souvent avec plusieurs enfants, une poussette et d
 
 - **Tesla** : jusqu’à 4 passagers et 4 valises ;
 - **Mercedes Classe E ou Classe S** : jusqu’à 3 passagers, 2 grandes valises et 2 petites ;
-- **Mercedes Classe V** : jusqu’à 6 passagers et 7 valises.
+- **Mercedes Classe V** : jusqu’à 6 passagers et 6 valises.
 
-Pour une famille de quatre ou plus, le [van Mercedes Classe V](/van-7-places-paris) est souvent le plus confortable : tout le monde voyage ensemble, et les bagages tiennent dans un seul véhicule. Sièges auto et rehausseurs sont disponibles sur demande pour tous les véhicules : indiquez leur nombre dans le formulaire de réservation, puis l’âge des enfants et la poussette lors de la confirmation. Pour une grande famille, plusieurs véhicules peuvent aussi être réservés ensemble. Nos conseils détaillés pour voyager avec des enfants se trouvent dans [CDG – Paris en VTC avec un bébé ou des enfants](/blog/transferts-cdg/cdg-paris-avec-enfants).
+Pour une famille de quatre ou plus, le [van Mercedes Classe V](/van-6-places-paris) est souvent le plus confortable : tout le monde voyage ensemble, et les bagages tiennent dans un seul véhicule. Sièges auto et rehausseurs sont disponibles sur demande pour tous les véhicules : indiquez leur nombre dans le formulaire de réservation, puis l’âge des enfants et la poussette lors de la confirmation. Pour une grande famille, plusieurs véhicules peuvent aussi être réservés ensemble. Nos conseils détaillés pour voyager avec des enfants se trouvent dans [CDG – Paris en VTC avec un bébé ou des enfants](/blog/transferts-cdg/cdg-paris-avec-enfants).
 
 ## L’arrivée à Orly : les bonnes étapes
 
@@ -100,4 +100,4 @@ Beaucoup de familles combinent quelques jours à Paris et un séjour dans les pa
 - Comptez en général de 40 minutes à 1 h 10 entre Orly et Disneyland Paris.
 - Le trajet passe le plus souvent par l’A86 et l’A4, chargées aux heures de pointe.
 - Le prix est établi sur devis et confirmé avant la course.
-- En famille, le van Mercedes Classe V accueille jusqu’à 6 passagers et 7 valises.
+- En famille, le van Mercedes Classe V accueille jusqu’à 6 passagers et 6 valises.

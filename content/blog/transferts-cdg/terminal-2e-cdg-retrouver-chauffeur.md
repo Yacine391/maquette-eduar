@@ -2,7 +2,7 @@
 title: "Terminal 2E à CDG : où retrouver son chauffeur ?"
 description: "Arrivée ou départ au terminal 2E de Roissy-CDG : halls K, L et M, sortie après les bagages, dépose devant le terminal. Nos repères pour votre chauffeur."
 date: "2026-11-23"
-updated: "2026-11-24"
+updated: "2026-11-26"
 category: transferts-cdg
 tags:
   - terminal 2E
@@ -77,7 +77,7 @@ Vous continuez votre voyage en train ? La gare TGV et RER de l’aéroport se tr
 
 ## Choisir le bon véhicule pour un vol long-courrier
 
-Les vols long-courriers du terminal 2E riment souvent avec plusieurs valises. Les berlines Mercedes Classe E et Classe S accueillent 3 passagers, 2 grandes valises et 2 petites, la Tesla 4 passagers et 4 valises. En famille ou en groupe, le [van Mercedes Classe V](/van-7-places-paris) accueille jusqu’à 6 passagers et 7 valises en un seul véhicule.
+Les vols long-courriers du terminal 2E riment souvent avec plusieurs valises. Les berlines Mercedes Classe E et Classe S accueillent 3 passagers, 2 grandes valises et 2 petites, la Tesla 4 passagers et 4 valises. En famille ou en groupe, le [van Mercedes Classe V](/van-6-places-paris) accueille jusqu’à 6 passagers et 6 valises en un seul véhicule.
 
 Le prix d’un transfert entre Paris et l’aéroport figure dans le [tableau des tarifs du site](/#rates) et sur notre page [VTC aéroport CDG](/vtc-aeroport-cdg) : tarif indicatif, confirmé avant la course.
 

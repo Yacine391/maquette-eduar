@@ -2,7 +2,7 @@
 title: "Combien de valises dans un VTC pour aller à CDG ?"
 description: "Berline, Tesla ou van Classe V : passagers et valises pour un transfert vers Roissy-CDG, et que faire avec une poussette, des skis ou un grand groupe."
 date: "2026-11-23"
-updated: "2026-11-24"
+updated: "2026-11-26"
 category: transferts-cdg
 tags:
   - bagages
@@ -15,14 +15,14 @@ faq:
   - question: "Combien de valises tiennent dans une Mercedes Classe E ?"
     answer: "Au maximum 2 grandes valises et 2 petites, pour 3 passagers au plus. La Mercedes Classe S offre la même capacité."
   - question: "Quel véhicule choisir avec beaucoup de bagages ?"
-    answer: "Le van Mercedes Classe V accueille jusqu’à 6 passagers et 7 valises. Au-delà, plusieurs véhicules peuvent être réservés ensemble grâce à notre réseau de chauffeurs partenaires vérifiés."
+    answer: "Le van Mercedes Classe V accueille jusqu’à 6 passagers et 6 valises. Au-delà, plusieurs véhicules peuvent être réservés ensemble grâce à notre réseau de chauffeurs partenaires vérifiés."
   - question: "Une poussette compte-t-elle comme un bagage ?"
     answer: "Oui, comptez-la parmi vos bagages et signalez-la lors de la confirmation, tout comme une housse de skis ou un sac de golf. Les sièges auto et rehausseurs, eux, sont fournis sur demande."
   - question: "Faut-il préciser le nombre de bagages lors de la réservation ?"
     answer: "Oui. Indiquez le nombre et le type de bagages lors de la confirmation de la course pour que nous vous confirmions le véhicule adapté."
 ---
 
-Pour un transfert vers l’aéroport Charles-de-Gaulle, une berline Mercedes Classe E ou Classe S emporte au maximum 2 grandes valises et 2 petites pour 3 passagers, une Tesla 4 valises pour 4 passagers, et le van Mercedes Classe V jusqu’à 7 valises pour 6 passagers. Au-delà, plusieurs véhicules peuvent être réservés ensemble : signalez vos bagages pour que nous vous proposions la bonne solution.
+Pour un transfert vers l’aéroport Charles-de-Gaulle, une berline Mercedes Classe E ou Classe S emporte au maximum 2 grandes valises et 2 petites pour 3 passagers, une Tesla 4 valises pour 4 passagers, et le van Mercedes Classe V jusqu’à 6 valises pour 6 passagers. Au-delà, plusieurs véhicules peuvent être réservés ensemble : signalez vos bagages pour que nous vous proposions la bonne solution.
 
 Le nombre de valises est souvent ce qui décide du véhicule, bien plus que le nombre de passagers. Voici les capacités de notre flotte, ce qu’il faut savoir sur les bagages volumineux et nos conseils pour bien préparer votre départ.
 
@@ -34,7 +34,7 @@ Les capacités ci-dessous sont les maximums de chaque véhicule de notre flotte.
 |---|---|---|---|
 | Mercedes Classe E | Business | 3 | 2 grandes + 2 petites |
 | Mercedes Classe S | Luxe | 3 | 2 grandes + 2 petites |
-| Mercedes Classe V | Van | 6 | 7 |
+| Mercedes Classe V | Van | 6 | 6 |
 | Tesla | Éco / Électrique | 4 | 4 |
 
 Vous voyagez à deux avec deux grandes valises et deux bagages cabine ? Une berline Mercedes Classe E convient. Vous partez à quatre avec une valise chacun ? La Tesla emporte 4 valises ; avec des bagages plus nombreux ou plus volumineux, le van Mercedes Classe V est plus confortable, même si vous n’êtes pas six : il évite de tasser les bagages ou de garder des sacs sur les genoux pendant le trajet.
@@ -69,11 +69,11 @@ Le volume de bagages varie beaucoup selon le voyage. Pour un aller-retour de que
 
 Au retour aussi, les bagages ont tendance à se multiplier : achats, cadeaux, sacs supplémentaires. Si vous réservez à la fois l’aller et le retour, pensez à signaler un éventuel changement du nombre de bagages pour le trajet retour.
 
-## Plus de 7 valises ou de 6 passagers
+## Plus de 6 valises ou de 6 passagers
 
 Au-delà de la capacité d’un seul van, plusieurs véhicules peuvent être réservés ensemble : par exemple un van et une berline, ou deux vans. Avec notre réseau de chauffeurs partenaires vérifiés, nous disposons de plusieurs véhicules de chaque catégorie, dont 4 Classe V et 7 Tesla. Précisez le nombre de passagers et de bagages dans votre demande, puis lors de la confirmation : la solution vous est proposée, avec son prix, avant la course.
 
-Pour les groupes, notre page [van 7 places avec chauffeur](/van-7-places-paris) présente le Mercedes Classe V en détail.
+Pour les groupes, notre page [van 6 places avec chauffeur](/van-6-places-paris) présente le Mercedes Classe V en détail.
 
 ## Bien préparer ses bagages avant le transfert
 

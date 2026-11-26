@@ -2,7 +2,7 @@
 title: "Terminaux Orly 1, 2, 3 et 4 : comment s’y retrouver ?"
 description: "Orly 1, 2, 3 ou 4 : comment sont organisés les terminaux de l’aéroport d’Orly, où trouver le vôtre sur votre billet et comment passer de l’un à l’autre."
 date: "2026-11-24"
-updated: "2026-11-24"
+updated: "2026-11-26"
 category: transferts-orly
 tags:
   - terminaux Orly
@@ -96,7 +96,7 @@ Vous arrivez en train à Paris avant de prendre l’avion à Orly ? Notre page [
 
 ## Choisir le bon véhicule
 
-Pour un ou deux voyageurs, la Tesla ou la Mercedes Classe E conviennent en général. En famille ou en groupe, le [van Mercedes Classe V](/van-7-places-paris) accueille jusqu’à 6 passagers et 7 valises, ce qui évite de répartir le groupe dans deux voitures.
+Pour un ou deux voyageurs, la Tesla ou la Mercedes Classe E conviennent en général. En famille ou en groupe, le [van Mercedes Classe V](/van-6-places-paris) accueille jusqu’à 6 passagers et 6 valises, ce qui évite de répartir le groupe dans deux voitures.
 
 ## En résumé
 

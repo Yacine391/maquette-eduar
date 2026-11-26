@@ -12,7 +12,7 @@ import beauvais from './pages/vtc-aeroport-beauvais.js'
 import gares from './pages/vtc-gares-paris.js'
 import disney from './pages/vtc-disneyland-paris.js'
 import disposition from './pages/mise-a-disposition-chauffeur.js'
-import van from './pages/van-7-places-paris.js'
+import van from './pages/van-6-places-paris.js'
 
 export const SERVICE_BODIES = {
   'vtc-aeroport-cdg': cdg,
@@ -21,7 +21,7 @@ export const SERVICE_BODIES = {
   'vtc-gares-paris': gares,
   'vtc-disneyland-paris': disney,
   'mise-a-disposition-chauffeur': disposition,
-  'van-7-places-paris': van,
+  'van-6-places-paris': van,
 }
 
 // Métadonnées + texte, langue par langue

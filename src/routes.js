@@ -16,7 +16,7 @@ export const SERVICE_SLUGS = [
   'vtc-gares-paris',
   'vtc-disneyland-paris',
   'mise-a-disposition-chauffeur',
-  'van-7-places-paris',
+  'van-6-places-paris',
 ]
 
 // Pages légales (mentions légales, confidentialité, CGV) : même adresse

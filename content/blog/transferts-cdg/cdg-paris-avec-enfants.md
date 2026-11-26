@@ -2,7 +2,7 @@
 title: "CDG – Paris en VTC avec un bébé ou des enfants"
 description: "Voyager en famille entre Roissy-CDG et Paris : véhicule, poussette, siège auto, bagages, horaires. Nos conseils pour un transfert serein avec des enfants."
 date: "2026-11-23"
-updated: "2026-11-24"
+updated: "2026-11-26"
 category: transferts-cdg
 tags:
   - voyage en famille
@@ -13,7 +13,7 @@ image: classe-v-arriere
 imageAlt: "Van Mercedes Classe V noir vu de trois quarts arrière sur un parking"
 faq:
   - question: "Quel véhicule choisir pour une famille avec enfants ?"
-    answer: "À quatre, la Tesla accueille 4 passagers et 4 valises. Au-delà, ou avec une poussette et plusieurs valises, le van Mercedes Classe V accueille jusqu’à 6 passagers et 7 valises."
+    answer: "À quatre, la Tesla accueille 4 passagers et 4 valises. Au-delà, ou avec une poussette et plusieurs valises, le van Mercedes Classe V accueille jusqu’à 6 passagers et 6 valises."
   - question: "Fournissez-vous des sièges auto et des rehausseurs ?"
     answer: "Oui, sur demande, pour tous les véhicules. Indiquez leur nombre dans le formulaire de réservation, puis l’âge des enfants lors de la confirmation de la course."
   - question: "Une poussette prend-elle de la place dans le coffre ?"
@@ -22,7 +22,7 @@ faq:
     answer: "Ajoutez une marge à l’heure d’arrivée conseillée par votre compagnie : les formalités, les poussettes et les pauses prennent toujours un peu plus de temps en famille."
 ---
 
-Pour un transfert entre l’aéroport Charles-de-Gaulle et Paris avec un bébé ou des enfants, choisissez un véhicule assez grand pour les passagers et les bagages, demandez les sièges auto ou rehausseurs nécessaires dans le formulaire de réservation, et signalez l’âge des enfants et la poussette lors de la confirmation. Le van Mercedes Classe V, qui accueille jusqu’à 6 passagers et 7 valises, est souvent le plus confortable en famille.
+Pour un transfert entre l’aéroport Charles-de-Gaulle et Paris avec un bébé ou des enfants, choisissez un véhicule assez grand pour les passagers et les bagages, demandez les sièges auto ou rehausseurs nécessaires dans le formulaire de réservation, et signalez l’âge des enfants et la poussette lors de la confirmation. Le van Mercedes Classe V, qui accueille jusqu’à 6 passagers et 6 valises, est souvent le plus confortable en famille.
 
 Voyager avec des enfants demande un peu plus d’organisation : plus de bagages, une poussette, des horaires parfois décalés et des petits voyageurs fatigués à l’arrivée. Voici nos conseils pour que le trajet entre l’aéroport et votre logement soit le moment le plus simple du voyage.
 
@@ -35,9 +35,9 @@ Le nombre de places et le volume de bagages décident du véhicule. Voici les ca
 | Tesla | 4 | 4 | Famille de quatre avec une valise chacun |
 | Mercedes Classe E | 3 | 2 grandes + 2 petites | Un parent et deux enfants avec bagages légers |
 | Mercedes Classe S | 3 | 2 grandes + 2 petites | Petit groupe recherchant le plus de confort |
-| Mercedes Classe V (van) | 6 | 7 | Familles nombreuses, poussette et valises |
+| Mercedes Classe V (van) | 6 | 6 | Familles nombreuses, poussette et valises |
 
-Ces capacités sont des maximums : en famille, il vaut mieux prévoir large. Le [van Mercedes Classe V](/van-7-places-paris) évite de répartir la famille dans deux voitures et laisse de la place pour la poussette. Pour une grande famille, plusieurs véhicules peuvent aussi être réservés ensemble grâce à notre réseau de chauffeurs partenaires vérifiés.
+Ces capacités sont des maximums : en famille, il vaut mieux prévoir large. Le [van Mercedes Classe V](/van-6-places-paris) évite de répartir la famille dans deux voitures et laisse de la place pour la poussette. Pour une grande famille, plusieurs véhicules peuvent aussi être réservés ensemble grâce à notre réseau de chauffeurs partenaires vérifiés.
 
 Pour le détail des bagages, notre article [Combien de valises dans un VTC pour aller à CDG ?](/blog/transferts-cdg/valises-vtc-cdg) explique ce qui compte comme un bagage et comment signaler les objets volumineux.
 
@@ -90,7 +90,7 @@ Pour un trajet entre Paris et l’aéroport, le prix dépend de la catégorie de
 
 ## En résumé
 
-- En famille, prévoyez large : le van Mercedes Classe V accueille 6 passagers et 7 valises.
+- En famille, prévoyez large : le van Mercedes Classe V accueille 6 passagers et 6 valises.
 - Demandez les sièges auto ou rehausseurs dans le formulaire, et signalez l’âge des enfants et la poussette lors de la confirmation.
 - Ajoutez une marge à l’heure d’arrivée conseillée par votre compagnie.
 - Vérifiez les documents de voyage de chaque enfant avant le départ.

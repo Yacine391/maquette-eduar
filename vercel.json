@@ -5,6 +5,8 @@
   "trailingSlash": false,
   "redirects": [
     { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/van-7-places-paris", "destination": "/van-6-places-paris", "permanent": true },
+    { "source": "/:lang(en|ru|ro)/van-7-places-paris", "destination": "/:lang/van-6-places-paris", "permanent": true },
     { "source": "/:path((?!google9b82adfd484120a1\\.html$).+)\\.html", "destination": "/:path", "permanent": true }
   ],
   "rewrites": [

@@ -2,7 +2,7 @@
 title: "Réserver un VTC pour CDG : comment ça se passe ?"
 description: "Réserver un chauffeur pour Roissy-CDG étape par étape : formulaire, estimation, confirmation par téléphone ou WhatsApp et déroulement du jour du trajet."
 date: "2026-11-23"
-updated: "2026-11-24"
+updated: "2026-11-26"
 category: transferts-cdg
 tags:
   - réservation
@@ -84,7 +84,7 @@ Vous pouvez réserver un transfert pour un proche, un client ou un collaborateur
 - **son numéro de vol** et son terminal s’il arrive à Roissy ;
 - **le nombre de bagages** qu’il transporte.
 
-C’est une solution pratique pour accueillir un client à sa descente d’avion ou organiser le retour de parents à l’aéroport. Pour plusieurs voyageurs arrivant ensemble, le [van Mercedes Classe V](/van-7-places-paris) accueille jusqu’à 6 passagers et 7 valises, et plusieurs véhicules peuvent être réservés pour un groupe plus nombreux.
+C’est une solution pratique pour accueillir un client à sa descente d’avion ou organiser le retour de parents à l’aéroport. Pour plusieurs voyageurs arrivant ensemble, le [van Mercedes Classe V](/van-6-places-paris) accueille jusqu’à 6 passagers et 6 valises, et plusieurs véhicules peuvent être réservés pour un groupe plus nombreux.
 
 ## Quand réserver ?
 
@@ -93,7 +93,7 @@ Réservez le plus tôt possible, en particulier :
 - **pour un vol très tôt le matin**, avant les premiers trains : voir [CDG la nuit : comment y aller ou en revenir sans RER](/blog/transferts-cdg/cdg-la-nuit-sans-rer) ;
 - **pour une arrivée tard le soir** ;
 - **pendant les vacances scolaires et les jours de grands salons**, quand la demande est forte ;
-- **pour un groupe** qui a besoin du [van Mercedes Classe V](/van-7-places-paris).
+- **pour un groupe** qui a besoin du [van Mercedes Classe V](/van-6-places-paris).
 
 ## Modifier ou annuler votre course
 

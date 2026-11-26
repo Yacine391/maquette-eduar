@@ -48,7 +48,7 @@ export default {
           'Le trajet direct entre la gare et votre destination, ou l’inverse.',
           'Le véhicule de la catégorie choisie, avec son chauffeur.',
           'Le prix confirmé avant la course, selon le tableau des tarifs.',
-          'Vos bagages dans la limite de la capacité du véhicule : 2 grandes valises et 2 petites en Mercedes Classe E ou Classe S, 4 valises en Tesla, 7 valises en Mercedes Classe V.',
+          'Vos bagages dans la limite de la capacité du véhicule : 2 grandes valises et 2 petites en Mercedes Classe E ou Classe S, 4 valises en Tesla, 6 valises en Mercedes Classe V.',
           'Les péages, l’eau à bord, la facture et jusqu’à 1 h d’attente après l’arrivée du train ; un retard de train n’est jamais facturé.',
         ], paras: [
           'Aucun paiement n’est demandé sur le site : vous envoyez une demande de réservation et le prix vous est confirmé avant le départ.',
@@ -108,7 +108,7 @@ export default {
           'The direct trip between the station and your destination, or the other way round.',
           'A vehicle of the category you chose, with its chauffeur.',
           'The fare confirmed before the ride, based on the price list.',
-          'Your luggage within the vehicle’s capacity: 2 large and 2 small suitcases in a Mercedes E-Class or S-Class, 4 suitcases in a Tesla, 7 suitcases in a Mercedes V-Class.',
+          'Your luggage within the vehicle’s capacity: 2 large and 2 small suitcases in a Mercedes E-Class or S-Class, 4 suitcases in a Tesla, 6 suitcases in a Mercedes V-Class.',
           'Tolls, water on board, an invoice and up to 1 hour of waiting after the train arrives; train delays are never charged.',
         ], paras: [
           'No payment is taken on the website: you send a booking request and the fare is confirmed before departure.',
@@ -168,7 +168,7 @@ export default {
           'Прямая поездка между вокзалом и пунктом назначения или в обратном направлении.',
           'Автомобиль выбранной категории с водителем.',
           'Цена, подтверждённая до поездки, согласно таблице тарифов.',
-          'Багаж в пределах вместимости автомобиля: 2 больших и 2 маленьких чемодана в Mercedes E-класса или S-класса, 4 чемодана в Tesla, 7 чемоданов в Mercedes V-класса.',
+          'Багаж в пределах вместимости автомобиля: 2 больших и 2 маленьких чемодана в Mercedes E-класса или S-класса, 4 чемодана в Tesla, 6 чемоданов в Mercedes V-класса.',
           'Платные дороги, вода в салоне, счёт и до 1 часа ожидания после прибытия поезда; задержка поезда не оплачивается.',
         ], paras: [
           'На сайте ничего не нужно оплачивать: вы отправляете заявку на бронирование, а цена подтверждается до выезда.',
@@ -228,7 +228,7 @@ export default {
           'Cursa directă între gară și destinația dumneavoastră, sau invers.',
           'Vehiculul din categoria aleasă, cu șoferul său.',
           'Prețul confirmat înainte de cursă, conform tabelului de tarife.',
-          'Bagajele în limita capacității vehiculului: 2 valize mari și 2 mici în Mercedes Clasa E sau Clasa S, 4 valize în Tesla, 7 valize în Mercedes Clasa V.',
+          'Bagajele în limita capacității vehiculului: 2 valize mari și 2 mici în Mercedes Clasa E sau Clasa S, 4 valize în Tesla, 6 valize în Mercedes Clasa V.',
           'Taxele de autostradă, apa la bord, factura și până la 1 oră de așteptare după sosirea trenului; întârzierea trenului nu se facturează.',
         ], paras: [
           'Site-ul nu cere nicio plată: trimiteți o cerere de rezervare, iar prețul vă este confirmat înainte de plecare.',

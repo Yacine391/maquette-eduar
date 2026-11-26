@@ -2,7 +2,7 @@
 title: "CDG la nuit : comment y aller ou en revenir sans RER"
 description: "Vol très tôt le matin ou arrivée tardive à Roissy-CDG : RER, bus de nuit, taxi ou VTC réservé à l’avance. Les solutions pour voyager la nuit."
 date: "2026-11-23"
-updated: "2026-11-24"
+updated: "2026-11-26"
 category: transferts-cdg
 tags:
   - aéroport CDG
@@ -87,6 +87,6 @@ Si vous logez en banlieue ou dans une autre ville d’Île-de-France, la questio
 - **Préparez vos bagages et vos documents la veille** pour partir à l’heure convenue.
 - **Gardez votre téléphone chargé** : c’est par là que votre chauffeur vous joint.
 - **Vérifiez votre terminal** la veille, sur votre carte d’embarquement ou dans l’application de votre compagnie.
-- **En groupe ou en famille**, choisissez un véhicule assez grand : le [van Mercedes Classe V](/van-7-places-paris) accueille jusqu’à 6 passagers et 7 valises.
+- **En groupe ou en famille**, choisissez un véhicule assez grand : le [van Mercedes Classe V](/van-6-places-paris) accueille jusqu’à 6 passagers et 6 valises.
 
 CDG TRANSFERT VTC assure les transferts vers et depuis l’aéroport 24 h/24 et 7 j/7. Le prix d’un trajet entre Paris et l’aéroport figure dans notre [tableau des tarifs](/#rates) et sur la page [VTC aéroport CDG](/vtc-aeroport-cdg) : tarif indicatif, confirmé avant la course.

@@ -39,17 +39,26 @@ export const AIRPORTS = [
 ]
 
 // ── Identité légale (pages Mentions légales, Confidentialité, CGV) ────
-// Affichée uniquement sur les pages légales (obligation LCEN) : l'adresse
-// du siège n'est PAS reprise dans les données structurées ni dans le NAP.
-// Les informations manquantes sont marquées [À COMPLÉTER] dans les textes.
+// Informations fournies par le client. Affichées sur les pages légales
+// (obligation LCEN) ; l'adresse du siège n'est PAS reprise dans les données
+// structurées ni dans le NAP (JSON-LD : legalName, vatID, taxID seulement).
 export const LEGAL_ENTITY = {
-  form:    { fr: 'société par actions simplifiée (SAS)', en: 'simplified joint-stock company (SAS)', ru: 'упрощённое акционерное общество (SAS)', ro: 'societate pe acțiuni simplificată (SAS)' },
+  legalName: 'CDG TRANSFERT VTC',
+  form:    { fr: 'société par actions simplifiée unipersonnelle (SASU)', en: 'single-shareholder simplified joint-stock company (SASU)', ru: 'упрощённое акционерное общество с единственным акционером (SASU)', ro: 'societate pe acțiuni simplificată cu asociat unic (SASU)' },
+  capital: '1 000 €',
   siren:   '945 208 445',
   siret:   '945 208 445 00011',
+  rcs:     'RCS Paris 945 208 445',
+  vat:     'FR00945208445',
   address: '58 rue de Monceau, 75008 Paris, France',
+  president: 'Eduard CASIANOV',
+  // Registre des exploitants de voitures de transport avec chauffeur
+  evtc:    'EVTC075250798',
+  evtcValidUntil: '2030-08-04',
   host: {
     name:    'Vercel Inc.',
     address: '440 N Barranca Ave #4133, Covina, CA 91723, USA',
     site:    'https://vercel.com',
+    contact: 'https://vercel.com/contact',   // formulaire de contact officiel (pas de téléphone public sourcé)
   },
 }

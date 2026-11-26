@@ -5,14 +5,13 @@
 // (src/components/BookingModule/AddressAutocomplete.jsx), EmailJS, Vercel.
 // Inventaire des traceurs : aucun cookie, aucune mesure d'audience, aucun
 // script tiers (vérifié dans un navigateur sur le site en production).
-// Liens : [texte](url). [À COMPLÉTER : …] / [À VÉRIFIER : …] = à fournir
-// ou à vérifier par le client.
+// Liens : [texte](url). Aucun détail non vérifié sur les prestataires :
+// renvoi à leurs politiques officielles.
 // ────────────────────────────────────────────────────────────────────
 import { BUSINESS, LEGAL_ENTITY as E } from '../../../constants/business.js'
 import { RATE } from '../../../utils/bookingGuard.js'
 import { pagePath } from '../../../routes.js'
 
-const V = (s) => `[À VÉRIFIER : ${s}]`
 const KEY = RATE.key
 const URLS = {
   emailjs: 'https://www.emailjs.com/legal/privacy-policy/',
@@ -60,7 +59,7 @@ export default {
           'Seules les personnes qui traitent votre course ont accès à vos données :',
         ], list: [
           `${BUSINESS.name} et, lorsque la course est confiée à un chauffeur partenaire, ce chauffeur, pour les seules informations nécessaires à la course (nom, téléphone, adresses, horaires, vol ou train).`,
-          `EmailJS (service emailjs.com), sous-traitant qui achemine par e-mail les demandes envoyées depuis le formulaire et le récapitulatif adressé au client. Politique : [emailjs.com/legal/privacy-policy](${URLS.emailjs}). ${V('raison sociale et pays d’établissement d’EmailJS, accord de traitement (DPA) accepté')}`,
+          `EmailJS, prestataire d’envoi d’e-mails (service emailjs.com), qui achemine les demandes envoyées depuis le formulaire et le récapitulatif adressé au client ; voir sa politique : [emailjs.com/legal/privacy-policy](${URLS.emailjs}).`,
           `Google (messagerie Gmail de l’adresse ${BUSINESS.email}), qui reçoit ces e-mails. Politique : [policies.google.com/privacy](${URLS.google}).`,
           `${E.host.name} (hébergement du site, journaux techniques). Politique : [vercel.com/legal/privacy-policy](${URLS.vercel}) ; accord de traitement : [vercel.com/legal/dpa](${URLS.vercelDpa}).`,
           `API Adresse de la Base Adresse Nationale, service public de l’État français ([adresse.data.gouv.fr](${URLS.ban})) : pendant la saisie d’une adresse dans le formulaire, le texte saisi lui est envoyé pour proposer des suggestions. Aucune autre donnée du formulaire n’est transmise.`,
@@ -69,16 +68,16 @@ export default {
           'Aucun paiement en ligne n’est proposé sur le site. Si un paiement en ligne est mis en place (par exemple avec Stripe), cette politique sera mise à jour avant sa mise en service.',
         ] },
         { h2: 'Transferts hors de l’Union européenne', paras: [
-          `Certains prestataires sont établis aux États-Unis ou y traitent des données (notamment ${E.host.name} et Google). Ces transferts sont encadrés soit par l’adhésion du prestataire au cadre de protection des données UE–États-Unis (Data Privacy Framework, objet d’une décision d’adéquation de la Commission européenne du 10 juillet 2023), soit par les clauses contractuelles types adoptées par la Commission européenne. La liste des entreprises certifiées est publiée sur [dataprivacyframework.gov](${URLS.dpf}).`,
-          V('certification Data Privacy Framework en vigueur de Vercel et de Google, pays de traitement et garanties d’EmailJS, d’après leurs politiques officielles'),
+          `Certains prestataires (notamment ${E.host.name}, Google et EmailJS) peuvent traiter des données hors de l’Union européenne, en particulier aux États-Unis. Un tel transfert doit reposer sur l’une des garanties prévues par le RGPD : une décision d’adéquation de la Commission européenne, comme celle du 10 juillet 2023 relative au cadre de protection des données UE–États-Unis (Data Privacy Framework) pour les entreprises certifiées, ou les clauses contractuelles types adoptées par la Commission européenne.`,
+          `Les garanties retenues par chaque prestataire sont décrites dans sa politique de confidentialité (liens ci-dessus) ; la liste des entreprises certifiées est publiée sur [dataprivacyframework.gov](${URLS.dpf}).`,
         ] },
         { h2: 'Durées de conservation', list: [
           'Demande de réservation non suivie d’une course : 1 an à compter de la demande.',
           'Données des courses réalisées (identité, coordonnées, trajets) : 3 ans à compter de la dernière prestation.',
           'Factures et pièces comptables : 10 ans (article L123-22 du Code de commerce).',
           'Demandes d’exercice de droits : le temps de leur traitement, puis la durée de prescription applicable.',
-          `Journaux techniques de l’hébergeur : durée limitée fixée par ${E.host.name}. ${V('durée de conservation des journaux Vercel')}`,
-          `Historique des e-mails chez EmailJS : ${V('durée de conservation de l’historique dans le compte EmailJS ; le désactiver ou le purger si possible')}`,
+          `Journaux techniques de l’hébergeur : durée limitée fixée par ${E.host.name}, selon sa politique de confidentialité.`,
+          'Historique des e-mails chez EmailJS : selon les paramètres du compte et la politique d’EmailJS.',
           `Stockage local anti-spam du navigateur : 10 minutes (les dates d’envoi plus anciennes sont effacées à l’utilisation suivante).`,
         ], after: [
           'À l’issue de ces durées, les données sont supprimées ou anonymisées.',
@@ -137,7 +136,7 @@ export default {
           'Only the people handling your ride have access to your data:',
         ], list: [
           `${BUSINESS.name} and, when the ride is assigned to a partner chauffeur, that chauffeur, for the information needed for the ride only (name, phone, addresses, times, flight or train).`,
-          `EmailJS (emailjs.com), processor that delivers by e-mail the requests sent from the form and the summary sent to the customer. Policy: [emailjs.com/legal/privacy-policy](${URLS.emailjs}). ${V('raison sociale et pays d’établissement d’EmailJS, accord de traitement (DPA) accepté')}`,
+          `EmailJS, an e-mail delivery provider (emailjs.com), which delivers the requests sent from the form and the summary sent to the customer; see its policy: [emailjs.com/legal/privacy-policy](${URLS.emailjs}).`,
           `Google (Gmail mailbox ${BUSINESS.email}), which receives these e-mails. Policy: [policies.google.com/privacy](${URLS.google}).`,
           `${E.host.name} (website hosting, technical logs). Policy: [vercel.com/legal/privacy-policy](${URLS.vercel}); data processing agreement: [vercel.com/legal/dpa](${URLS.vercelDpa}).`,
           `API Adresse of the French National Address Database, a French government service ([adresse.data.gouv.fr](${URLS.ban})): while you type an address in the form, the text typed is sent to it to suggest addresses. No other form data is sent.`,
@@ -146,16 +145,16 @@ export default {
           'No online payment is offered on the website. If online payment is introduced (for example with Stripe), this policy will be updated before it goes live.',
         ] },
         { h2: 'Transfers outside the European Union', paras: [
-          `Some providers are established in the United States or process data there (in particular ${E.host.name} and Google). These transfers are covered either by the provider’s participation in the EU–U.S. Data Privacy Framework (subject of a European Commission adequacy decision of 10 July 2023) or by the standard contractual clauses adopted by the European Commission. The list of certified companies is published on [dataprivacyframework.gov](${URLS.dpf}).`,
-          V('certification Data Privacy Framework en vigueur de Vercel et de Google, pays de traitement et garanties d’EmailJS, d’après leurs politiques officielles'),
+          `Some providers (in particular ${E.host.name}, Google and EmailJS) may process data outside the European Union, notably in the United States. Such a transfer must rely on one of the safeguards provided by the GDPR: an adequacy decision of the European Commission, such as the decision of 10 July 2023 on the EU–U.S. Data Privacy Framework for certified companies, or the standard contractual clauses adopted by the European Commission.`,
+          `The safeguards used by each provider are described in its privacy policy (links above); the list of certified companies is published on [dataprivacyframework.gov](${URLS.dpf}).`,
         ] },
         { h2: 'Retention periods', list: [
           'Booking request not followed by a ride: 1 year from the request.',
           'Data of completed rides (identity, contact details, trips): 3 years from the last service.',
           'Invoices and accounting records: 10 years (article L123-22 of the French Commercial Code).',
           'Requests to exercise your rights: the time needed to handle them, then the applicable limitation period.',
-          `Host technical logs: limited period set by ${E.host.name}. ${V('durée de conservation des journaux Vercel')}`,
-          `E-mail history at EmailJS: ${V('durée de conservation de l’historique dans le compte EmailJS ; le désactiver ou le purger si possible')}`,
+          `Host technical logs: limited period set by ${E.host.name}, according to its privacy policy.`,
+          'E-mail history at EmailJS: according to the account settings and EmailJS’s policy.',
           'Anti-spam local storage in your browser: 10 minutes (older send times are deleted at the next use).',
         ], after: [
           'At the end of these periods, the data is deleted or anonymised.',
@@ -214,7 +213,7 @@ export default {
           'Доступ к вашим данным есть только у тех, кто занимается вашей поездкой:',
         ], list: [
           `${BUSINESS.name} и, если поездка поручена водителю-партнёру, этот водитель — только в объёме, необходимом для поездки (имя, телефон, адреса, время, рейс или поезд).`,
-          `EmailJS (сервис emailjs.com) — обработчик, доставляющий по e-mail заявки из формы и сводку клиенту. Политика: [emailjs.com/legal/privacy-policy](${URLS.emailjs}). ${V('raison sociale et pays d’établissement d’EmailJS, accord de traitement (DPA) accepté')}`,
+          `EmailJS — сервис отправки электронной почты (emailjs.com), доставляющий заявки из формы и сводку клиенту; см. его политику: [emailjs.com/legal/privacy-policy](${URLS.emailjs}).`,
           `Google (почтовый ящик Gmail ${BUSINESS.email}), который получает эти письма. Политика: [policies.google.com/privacy](${URLS.google}).`,
           `${E.host.name} (хостинг сайта, технические журналы). Политика: [vercel.com/legal/privacy-policy](${URLS.vercel}); соглашение об обработке данных: [vercel.com/legal/dpa](${URLS.vercelDpa}).`,
           `API Adresse Национальной базы адресов, государственный сервис Франции ([adresse.data.gouv.fr](${URLS.ban})): при вводе адреса в форму введённый текст отправляется ему для подсказок. Другие данные формы не передаются.`,
@@ -223,16 +222,16 @@ export default {
           'Онлайн-оплата на сайте не предусмотрена. Если она появится (например, через Stripe), политика будет обновлена до её запуска.',
         ] },
         { h2: 'Передача данных за пределы ЕС', paras: [
-          `Некоторые поставщики находятся в США или обрабатывают там данные (в частности, ${E.host.name} и Google). Такая передача осуществляется на основании участия поставщика в Рамочной программе защиты данных ЕС–США (Data Privacy Framework, решение Европейской комиссии об адекватности от 10 июля 2023 года) либо стандартных договорных положений, утверждённых Европейской комиссией. Список сертифицированных компаний опубликован на [dataprivacyframework.gov](${URLS.dpf}).`,
-          V('certification Data Privacy Framework en vigueur de Vercel et de Google, pays de traitement et garanties d’EmailJS, d’après leurs politiques officielles'),
+          `Некоторые поставщики (в частности, ${E.host.name}, Google и EmailJS) могут обрабатывать данные за пределами Европейского союза, в частности в США. Такая передача должна основываться на одной из гарантий, предусмотренных GDPR: решении Европейской комиссии об адекватности, например решении от 10 июля 2023 года о Рамочной программе защиты данных ЕС–США (Data Privacy Framework) для сертифицированных компаний, или стандартных договорных положениях, утверждённых Европейской комиссией.`,
+          `Гарантии, применяемые каждым поставщиком, описаны в его политике конфиденциальности (ссылки выше); список сертифицированных компаний опубликован на [dataprivacyframework.gov](${URLS.dpf}).`,
         ] },
         { h2: 'Сроки хранения', list: [
           'Заявка без последующей поездки: 1 год с даты заявки.',
           'Данные выполненных поездок (личность, контакты, маршруты): 3 года после последней услуги.',
           'Счета и бухгалтерские документы: 10 лет (статья L123-22 Торгового кодекса Франции).',
           'Запросы об осуществлении прав: время их обработки, затем применимый срок исковой давности.',
-          `Технические журналы хостинга: ограниченный срок, установленный ${E.host.name}. ${V('durée de conservation des journaux Vercel')}`,
-          `История писем в EmailJS: ${V('durée de conservation de l’historique dans le compte EmailJS ; le désactiver ou le purger si possible')}`,
+          `Технические журналы хостинга: ограниченный срок, установленный ${E.host.name} согласно его политике конфиденциальности.`,
+          'История писем в EmailJS: согласно настройкам аккаунта и политике EmailJS.',
           'Локальное хранилище браузера для защиты от спама: 10 минут (более старые отметки удаляются при следующем использовании).',
         ], after: [
           'По истечении этих сроков данные удаляются или обезличиваются.',
@@ -291,7 +290,7 @@ export default {
           'Doar persoanele care se ocupă de cursa dumneavoastră au acces la date:',
         ], list: [
           `${BUSINESS.name} și, când cursa este încredințată unui șofer partener, acest șofer, doar pentru informațiile necesare cursei (nume, telefon, adrese, ore, zbor sau tren).`,
-          `EmailJS (serviciul emailjs.com), persoană împuternicită care transmite prin e-mail cererile trimise din formular și rezumatul trimis clientului. Politica: [emailjs.com/legal/privacy-policy](${URLS.emailjs}). ${V('raison sociale et pays d’établissement d’EmailJS, accord de traitement (DPA) accepté')}`,
+          `EmailJS, furnizor de trimitere de e-mailuri (serviciul emailjs.com), care transmite cererile trimise din formular și rezumatul trimis clientului; vedeți politica sa: [emailjs.com/legal/privacy-policy](${URLS.emailjs}).`,
           `Google (căsuța Gmail ${BUSINESS.email}), care primește aceste e-mailuri. Politica: [policies.google.com/privacy](${URLS.google}).`,
           `${E.host.name} (găzduirea site-ului, jurnale tehnice). Politica: [vercel.com/legal/privacy-policy](${URLS.vercel}); acordul de prelucrare: [vercel.com/legal/dpa](${URLS.vercelDpa}).`,
           `API Adresse a Bazei Naționale de Adrese, serviciu public al statului francez ([adresse.data.gouv.fr](${URLS.ban})): în timp ce tastați o adresă în formular, textul introdus îi este trimis pentru sugestii. Nicio altă dată din formular nu este transmisă.`,
@@ -300,16 +299,16 @@ export default {
           'Site-ul nu oferă plată online. Dacă va fi introdusă (de exemplu prin Stripe), această politică va fi actualizată înainte de lansare.',
         ] },
         { h2: 'Transferuri în afara Uniunii Europene', paras: [
-          `Unii furnizori sunt stabiliți în Statele Unite sau prelucrează date acolo (în special ${E.host.name} și Google). Aceste transferuri sunt încadrate fie de participarea furnizorului la Cadrul UE–SUA privind protecția datelor (Data Privacy Framework, decizie de adecvare a Comisiei Europene din 10 iulie 2023), fie de clauzele contractuale standard adoptate de Comisia Europeană. Lista companiilor certificate este publicată pe [dataprivacyframework.gov](${URLS.dpf}).`,
-          V('certification Data Privacy Framework en vigueur de Vercel et de Google, pays de traitement et garanties d’EmailJS, d’après leurs politiques officielles'),
+          `Unii furnizori (în special ${E.host.name}, Google și EmailJS) pot prelucra date în afara Uniunii Europene, mai ales în Statele Unite. Un astfel de transfer trebuie să se bazeze pe una dintre garanțiile prevăzute de GDPR: o decizie de adecvare a Comisiei Europene, precum cea din 10 iulie 2023 privind Cadrul UE–SUA de protecție a datelor (Data Privacy Framework) pentru companiile certificate, sau clauzele contractuale standard adoptate de Comisia Europeană.`,
+          `Garanțiile folosite de fiecare furnizor sunt descrise în politica sa de confidențialitate (linkurile de mai sus); lista companiilor certificate este publicată pe [dataprivacyframework.gov](${URLS.dpf}).`,
         ] },
         { h2: 'Durate de păstrare', list: [
           'Cerere de rezervare neurmată de o cursă: 1 an de la cerere.',
           'Datele curselor efectuate (identitate, date de contact, trasee): 3 ani de la ultima prestație.',
           'Facturi și documente contabile: 10 ani (articolul L123-22 din Codul comercial francez).',
           'Cereri de exercitare a drepturilor: timpul necesar soluționării, apoi termenul de prescripție aplicabil.',
-          `Jurnalele tehnice ale furnizorului de găzduire: o durată limitată stabilită de ${E.host.name}. ${V('durée de conservation des journaux Vercel')}`,
-          `Istoricul e-mailurilor la EmailJS: ${V('durée de conservation de l’historique dans le compte EmailJS ; le désactiver ou le purger si possible')}`,
+          `Jurnalele tehnice ale furnizorului de găzduire: o durată limitată stabilită de ${E.host.name}, conform politicii sale de confidențialitate.`,
+          'Istoricul e-mailurilor la EmailJS: în funcție de setările contului și de politica EmailJS.',
           'Stocarea locală anti-spam din browser: 10 minute (datele de trimitere mai vechi sunt șterse la următoarea utilizare).',
         ], after: [
           'La sfârșitul acestor durate, datele sunt șterse sau anonimizate.',
