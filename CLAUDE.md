@@ -217,7 +217,7 @@ index.html             template: charset, viewport, favicon, robots + <!--app-he
   - Child seats and boosters on request, for every vehicle (requested in the booking form).
   - Fleet: the owner drives a Mercedes Classe E; « réseau de chauffeurs partenaires vérifiés » with 4 Classe S, 4 Classe V, 3 Classe E and 7 Tesla → several vehicles possible for groups.
 - **Still forbidden (not confirmed — checked by `npm test`, list in `tests/rules.js`):** « 30 minutes d'avance » (systematic early arrival), « véhicule(s) banalisé(s) », « Model Y » (write « Tesla »), unlimited or free waiting beyond 1 h, any other cancellation rule, any review / rating / invented statistic.
-- The booking form has no flight / train number field: these details are given when the ride is confirmed by phone or WhatsApp.
+- The booking form has an optional « Numéro de vol ou de train » field (shown for airports and stations); articles may tell readers to give it in the form or when the ride is confirmed.
 - New service page: add the slug to `SERVICE_SLUGS` (`src/routes.js`), its metadata to `src/content/services/meta.js`, its text to `src/content/services/pages/<slug>.js` and `src/content/services/index.js`; sitemap, footer, home cards and JSON-LD follow automatically.
 - The « Pourquoi nous choisir » arguments (`WhyUs`) and the highlights bar under the hero (`STATS` in `Hero`) contain only official client information (list above): change them only with the owner's approval.
 - Every visible text exists in the 4 languages (FR / EN / RU / RO); `<html lang>` follows the displayed language.
