@@ -2,16 +2,26 @@
 // CDG TRANSFERT VTC — site en production (cdgtransfertvtc.fr)
 // Une page par route (accueil + 7 pages services) et par langue :
 //   Header → <main> (HomePage ou ServicePage) → Footer
-// + Bouton WhatsApp flottant (mobile + desktop) bas-droite
+// + Mobile (< 768 px) : barre fixe en bas Réserver / Appeler / WhatsApp,
+//   masquée quand le formulaire est visible ; tablette et ordinateur :
+//   bouton WhatsApp flottant bas-droite (pas de doublon sur mobile)
 // ────────────────────────────────────────────────────────────────────
+import { useEffect, useState } from 'react'
 import { useTranslation } from './hooks/useTranslation'
 import Header      from './components/Header'
 import Footer      from './components/Footer'
-import { whatsappLink } from './constants/contact'
+import { whatsappLink, PHONE_E164 } from './constants/contact'
+import { hasBooking } from './routes'
+import { homeAnchor } from './components/Header'
 
 // Message pré-rempli du bouton WhatsApp flottant
 const WHATSAPP_MSG = 'Bonjour je souhaite reserver un transfert avec CDG Transfert VTC'
 const SKIP = { fr: 'Aller au contenu', en: 'Skip to content', ru: 'Перейти к содержанию', ro: 'Salt la conținut' }
+const BAR = {
+  label: { fr: 'Actions rapides', en: 'Quick actions', ru: 'Быстрые действия', ro: 'Acțiuni rapide' },
+  book:  { fr: 'Réserver', en: 'Book', ru: 'Заказать', ro: 'Rezervă' },
+  call:  { fr: 'Appeler', en: 'Call', ru: 'Позвонить', ro: 'Sună' },
+}
 const WA_LABEL = { fr: 'Contacter sur WhatsApp', en: 'Contact us on WhatsApp', ru: 'Написать в WhatsApp', ro: 'Contactați-ne pe WhatsApp' }
 
 // route = { lang, page } : écrite au pré-rendu, relue à l'hydratation
@@ -21,9 +31,21 @@ const WA_LABEL = { fr: 'Contacter sur WhatsApp', en: 'Contact us on WhatsApp', r
 export default function App({ route, Page, body }) {
   const { lang, page } = route
   const { t } = useTranslation(lang)
+  const bookingHref = hasBooking(route) ? '#booking' : homeAnchor(lang, 'booking')
+
+  // Barre mobile masquée quand le formulaire est à l'écran (inutile, et
+  // elle cacherait le bouton d'envoi) ; transform seul → aucun décalage (CLS)
+  const [formVisible, setFormVisible] = useState(false)
+  useEffect(() => {
+    const el = document.getElementById('booking')
+    if (!el || !('IntersectionObserver' in window)) return
+    const io = new IntersectionObserver(([e]) => setFormVisible(e.isIntersecting), { rootMargin: '0px 0px -15% 0px' })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [page])
 
   return (
-    <div className="min-h-screen bg-canvas text-offwhite font-sans overflow-x-hidden">
+    <div className="min-h-screen bg-canvas text-offwhite font-sans overflow-x-hidden pb-[calc(3.5rem+env(safe-area-inset-bottom))] md:pb-0">
 
       {/* Lien d'évitement (clavier) : visible seulement au focus */}
       <a href="#contenu" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] btn-primary">
@@ -40,14 +62,34 @@ export default function App({ route, Page, body }) {
 
       <Footer t={t} lang={lang} route={route} />
 
-      {/* ── Bouton WhatsApp flottant (visible mobile + desktop) ── */}
+      {/* ── Mobile : barre fixe Réserver / Appeler / WhatsApp ── */}
+      <nav aria-label={BAR.label[lang]} aria-hidden={formVisible || undefined}
+        className={`md:hidden fixed bottom-0 inset-x-0 z-40 grid grid-cols-3 border-t border-divider bg-[#050507]/95
+          pb-[env(safe-area-inset-bottom)] transition-transform duration-300 ease-in-out
+          ${formVisible ? 'translate-y-full' : 'translate-y-0'}`}>
+        <a href={bookingHref} tabIndex={formVisible ? -1 : undefined}
+          className="flex items-center justify-center h-14 bg-gold text-canvas font-sans font-semibold text-xs tracking-[0.15em] uppercase">
+          {BAR.book[lang]}
+        </a>
+        <a href={`tel:${PHONE_E164}`} tabIndex={formVisible ? -1 : undefined}
+          className="flex items-center justify-center gap-2 h-14 text-offwhite font-sans font-semibold text-xs tracking-[0.15em] uppercase">
+          <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-gold" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11.4 11.4 0 003.6.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1z"/></svg>
+          {BAR.call[lang]}
+        </a>
+        <a href={whatsappLink(WHATSAPP_MSG)} target="_blank" rel="noopener noreferrer" tabIndex={formVisible ? -1 : undefined}
+          className="flex items-center justify-center h-14 bg-[#25D366] text-canvas font-sans font-semibold text-xs tracking-[0.1em] uppercase">
+          WhatsApp
+        </a>
+      </nav>
+
+      {/* ── Bouton WhatsApp flottant (tablette et ordinateur) ── */}
       <a
         href={whatsappLink(WHATSAPP_MSG)}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={WA_LABEL[lang]}
         className="fixed bottom-6 right-5 z-50
-          flex items-center justify-center
+          hidden md:flex items-center justify-center
           w-14 h-14 rounded-full
           bg-[#25D366] hover:bg-[#20c05c]
           shadow-[0_4px_20px_rgba(37,211,102,0.4)]

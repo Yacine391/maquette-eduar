@@ -128,3 +128,19 @@ export function luggageLabel(vehicle, lang = 'fr') {
 // Véhicules disponibles en plus de la Classe E du responsable : plusieurs
 // véhicules peuvent être réservés ensemble pour un groupe.
 export const PARTNER_FLEET = { luxe: 4, van: 4, business: 3, eco: 7 }
+
+// Nombre maximal de bagages d'un véhicule (Classe E / S : 2 grandes + 2 petites)
+export const luggageMax = (v) => v.luggage.total ?? v.luggage.large + v.luggage.small
+
+// Capacité dépassée pour la catégorie choisie ?
+//   null      → la catégorie convient
+//   'van'     → proposer la Classe V (6 passagers, 6 bagages)
+//   'several' → au-delà de la Classe V : plusieurs véhicules, sur demande
+export function capacityAdvice(vehicleId, passengers, luggage) {
+  const p = Number(passengers) || 1
+  const l = Number(luggage) || 0
+  const v = vehicles.find(x => x.id === vehicleId)
+  if (!v || (p <= v.seats && l <= luggageMax(v))) return null
+  const van = vehicles.find(x => x.id === 'van')
+  return p <= van.seats && l <= luggageMax(van) && v.id !== 'van' ? 'van' : 'several'
+}

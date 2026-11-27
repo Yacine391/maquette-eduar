@@ -8,6 +8,11 @@
 // Catégorie par défaut : BUSINESS (Mercedes Classe E). Champ « Siège enfant
 // / rehausseur (nombre) » → paramètre EmailJS `child_seats` (à afficher dans
 // les deux templates du tableau de bord EmailJS : {{child_seats}}).
+// Passagers / bagages → `passengers` / `luggage` ; si la catégorie choisie
+// est trop petite (constants/vehicles.js), message : Classe V ou plusieurs
+// véhicules. Numéro de vol ou de train (facultatif, affiché si le départ ou
+// l'arrivée est un aéroport ou une gare) → `flight_number`.
+// Au-dessus du formulaire : rappel des engagements officiels du client.
 // Données minimales (RGPD) : e-mail facultatif (récapitulatif envoyé
 // seulement s'il est renseigné, sans le téléphone) ; mention d'information
 // et lien vers la politique de confidentialité sous le bouton d'envoi.
@@ -20,12 +25,15 @@
 import { useEffect, useRef, useState } from 'react'
 import { usePriceEstimate } from '../../hooks/usePriceEstimate'
 import { estimatePrice } from '../../utils/estimatePrice'
-import { vehicles } from '../../constants/vehicles'
+import { vehicles, capacityAdvice, luggageLabel } from '../../constants/vehicles'
+import { isTravelHub } from '../../utils/priceZone'
+import { BUSINESS } from '../../constants/business'
+import { track } from '../../utils/analytics'
 import { EMAILJS_CONFIG } from '../../config/emailjs'
 import AddressAutocomplete from './AddressAutocomplete'
 import { PHONE_E164, PHONE_DISPLAY, whatsappLink } from '../../constants/contact'
 import { pagePath } from '../../routes'
-import { LIMITS, checkBooking, cleanText, cleanParams, tooFast, rateLimited, recordSend } from '../../utils/bookingGuard'
+import { LIMITS, PASSENGERS, LUGGAGE, checkBooking, cleanText, cleanParams, tooFast, rateLimited, recordSend } from '../../utils/bookingGuard'
 
 // Date du jour au format AAAA-MM-JJ (heure locale) : date minimale du formulaire
 const todayISO = () => {
@@ -47,6 +55,9 @@ export default function BookingModule({ t, lang }) {
     dropoff:   '',
     vehicleId: 'business',
     childSeats: '0',
+    passengers: '1',
+    luggage:   '1',
+    flightNumber: '',
     website:   '',   // champ piège : invisible, rempli seulement par les robots
   })
   const [submitted, setSubmitted] = useState(false)
@@ -63,6 +74,11 @@ export default function BookingModule({ t, lang }) {
   useEffect(() => { setMinDate(todayISO()); shownAt.current = Date.now() }, [])
 
   const selectedVehicle = vehicles.find(v => v.id === form.vehicleId)
+  // Numéro de vol / train proposé seulement pour un aéroport ou une gare
+  const showFlight = isTravelHub(form.pickup) || isTravelHub(form.dropoff)
+  const flightValue = showFlight ? form.flightNumber : ''
+  // Capacité de la catégorie choisie dépassée → Classe V ou plusieurs véhicules
+  const advice = capacityAdvice(form.vehicleId, form.passengers, form.luggage)
 
   // Prix transmis dans la demande : celui affiché, ou calculé si le client
   // n'a pas cliqué sur « Obtenir une estimation »
@@ -96,7 +112,7 @@ export default function BookingModule({ t, lang }) {
   }
 
   // ── Vérification des champs avant envoi (src/utils/bookingGuard.js) ──
-  const validate = () => checkBooking(form, new Date()).map(lbl)
+  const validate = () => checkBooking({ ...form, flightNumber: flightValue }, new Date()).map(lbl)
 
   // ── Envoi de la demande + e-mails ──
   const handleSubmit = async (e) => {
@@ -131,6 +147,9 @@ export default function BookingModule({ t, lang }) {
       dropoff:      form.dropoff,
       vehicle:      `${selectedVehicle?.category} — ${selectedVehicle?.model}`,
       child_seats:  form.childSeats,
+      passengers:   form.passengers,
+      luggage:      form.luggage,
+      flight_number: flightValue,
       price:        priceLabel,
     })
     // Options du SDK : clé publique + refus des navigateurs automatisés
@@ -182,14 +201,15 @@ export default function BookingModule({ t, lang }) {
       }
     }
     setClientMailOk(clientOk)
+    track('Formulaire envoyé', { vehicule: form.vehicleId })
     setConfirmed(true)
     setSending(false)
   }
 
   // Demande pré-remplie pour WhatsApp (message de secours), valeurs nettoyées
   const c = (v, max) => cleanText(v, max)
-  const whatsappRequest = () => [
-    'Bonjour, je souhaite réserver un transfert :',
+  const whatsappRequest = (intro = 'Bonjour, je souhaite réserver un transfert :') => [
+    intro,
     `• Nom : ${c(form.name, LIMITS.name)}`,
     `• Téléphone : ${c(form.phone, LIMITS.phone)}`,
     ...(form.email.trim() ? [`• E-mail : ${c(form.email, LIMITS.email)}`] : []),
@@ -197,6 +217,8 @@ export default function BookingModule({ t, lang }) {
     `• Départ : ${c(form.pickup, LIMITS.address)}`,
     `• Arrivée : ${c(form.dropoff, LIMITS.address)}`,
     `• Véhicule : ${selectedVehicle?.category} — ${selectedVehicle?.model}`,
+    `• Passagers : ${c(form.passengers, 1)} · Bagages : ${c(form.luggage, 2)}`,
+    ...(flightValue.trim() ? [`• Vol / train : ${c(flightValue, LIMITS.flight)}`] : []),
     ...(form.childSeats !== '0' ? [`• Sièges enfant / rehausseurs : ${c(form.childSeats, 1)}`] : []),
     `• Prix estimé : ${requestPrice()}`,
   ].join('\n')
@@ -208,7 +230,17 @@ export default function BookingModule({ t, lang }) {
     phone:    { fr: 'Téléphone', en: 'Phone', ru: 'Телефон', ro: 'Telefon' },
     estimate: { fr: 'Obtenir une estimation', en: 'Get estimate', ru: 'Оценить стоимость', ro: 'Obțineți estimare' },
     send:     { fr: 'Confirmer la réservation', en: 'Confirm booking', ru: 'Подтвердить', ro: 'Confirmați rezervarea' },
-    success:  { fr: 'Demande de réservation envoyée !', en: 'Booking request sent!', ru: 'Заявка на бронирование отправлена!', ro: 'Cererea de rezervare a fost trimisă!' },
+    success:  { fr: 'Demande envoyée !', en: 'Request sent!', ru: 'Заявка отправлена!', ro: 'Cerere trimisă!' },
+    waFast:   { fr: 'Accélérer la confirmation sur WhatsApp', en: 'Speed up confirmation on WhatsApp', ru: 'Ускорить подтверждение в WhatsApp', ro: 'Grăbiți confirmarea pe WhatsApp' },
+    waIntro:  { fr: 'Bonjour, je viens d’envoyer une demande de réservation sur le site :', en: 'Hello, I have just sent a booking request on the website:', ru: 'Здравствуйте, я только что отправил(а) заявку на сайте:', ro: 'Bună ziua, tocmai am trimis o cerere de rezervare pe site:' },
+    passengers:{ fr: 'Nombre de passagers', en: 'Number of passengers', ru: 'Количество пассажиров', ro: 'Număr de pasageri' },
+    luggage:  { fr: 'Nombre de bagages', en: 'Number of bags', ru: 'Количество багажа', ro: 'Număr de bagaje' },
+    flight:   { fr: 'Numéro de vol ou de train', en: 'Flight or train number', ru: 'Номер рейса или поезда', ro: 'Număr de zbor sau de tren' },
+    flightHelp:{ fr: 'Nous suivons votre arrivée en temps réel : un retard n’est jamais facturé.', en: 'We track your arrival in real time: a delay is never charged.', ru: 'Мы отслеживаем ваше прибытие в реальном времени: задержка никогда не оплачивается.', ro: 'Urmărim sosirea dvs. în timp real: întârzierea nu se facturează niciodată.' },
+    errFlight:{ fr: 'Numéro de vol ou de train invalide (lettres, chiffres, 20 caractères maximum).', en: 'Invalid flight or train number (letters and digits, 20 characters maximum).', ru: 'Неверный номер рейса или поезда (буквы и цифры, не более 20 символов).', ro: 'Număr de zbor sau de tren invalid (litere și cifre, maximum 20 de caractere).' },
+    paxShort: { fr: 'Passagers · bagages', en: 'Passengers · bags', ru: 'Пассажиры · багаж', ro: 'Pasageri · bagaje' },
+    flightShort:{ fr: 'Vol / train', en: 'Flight / train', ru: 'Рейс / поезд', ro: 'Zbor / tren' },
+    chooseVan:{ fr: 'Choisir la Classe V', en: 'Choose the V-Class', ru: 'Выбрать V-класс', ro: 'Alegeți Clasa V' },
     success2: { fr: 'Nous vous confirmons votre course rapidement par téléphone ou WhatsApp.', en: 'We will confirm your ride shortly by phone or WhatsApp.', ru: 'Мы скоро подтвердим вашу поездку по телефону или в WhatsApp.', ro: 'Vă confirmăm cursa în curând prin telefon sau WhatsApp.' },
     success3: { fr: 'Un récapitulatif de votre demande vous a été envoyé par e-mail.', en: 'A summary of your request has been emailed to you.', ru: 'Сводка вашей заявки отправлена вам по электронной почте.', ro: 'Un rezumat al cererii v-a fost trimis pe e-mail.' },
     error:    { fr: "Votre demande n'a pas pu être envoyée. Contactez-nous directement :", en: 'Your request could not be sent. Please contact us directly:', ru: 'Не удалось отправить заявку. Свяжитесь с нами напрямую:', ro: 'Cererea nu a putut fi trimisă. Contactați-ne direct:' },
@@ -236,6 +268,17 @@ export default function BookingModule({ t, lang }) {
   }
   const lbl = (key) => L[key]?.[lang] ?? L[key]?.fr ?? ''
 
+  // Message de capacité (4 langues), valeurs officielles de vehicles.js
+  const van = vehicles.find(v => v.id === 'van')
+  const adviceText = () => {
+    const v = selectedVehicle
+    const cap = { fr: `${v.model} : ${v.seats} passagers et ${luggageLabel(v, 'fr')} maximum.`, en: `${v.model}: ${v.seats} passengers and ${luggageLabel(v, 'en')} maximum.`, ru: `${v.model}: не более ${v.seats} пассажиров и ${luggageLabel(v, 'ru')}.`, ro: `${v.model}: maximum ${v.seats} pasageri și ${luggageLabel(v, 'ro')}.` }[lang]
+    const more = advice === 'van'
+      ? { fr: `Le van ${van.model} accueille jusqu’à ${van.seats} passagers et ${luggageLabel(van, 'fr')}. Sur demande, nous organisons aussi plusieurs véhicules.`, en: `The ${van.model} van takes up to ${van.seats} passengers and ${luggageLabel(van, 'en')}. On request, we can also arrange several vehicles.`, ru: `Минивэн ${van.model} вмещает до ${van.seats} пассажиров и ${luggageLabel(van, 'ru')}. По запросу мы также организуем несколько автомобилей.`, ro: `Van-ul ${van.model} primește până la ${van.seats} pasageri și ${luggageLabel(van, 'ro')}. La cerere, organizăm și mai multe vehicule.` }[lang]
+      : { fr: 'Sur demande, nous organisons plusieurs véhicules grâce à notre réseau de chauffeurs partenaires vérifiés : envoyez votre demande, nous vous rappelons pour l’organiser.', en: 'On request, we arrange several vehicles through our network of vetted partner chauffeurs: send your request and we will call you back to organise it.', ru: 'По запросу мы организуем несколько автомобилей благодаря сети проверенных водителей-партнёров: отправьте заявку, и мы перезвоним вам, чтобы всё организовать.', ro: 'La cerere, organizăm mai multe vehicule prin rețeaua noastră de șoferi parteneri verificați: trimiteți cererea, vă sunăm înapoi pentru organizare.' }[lang]
+    return `${cap} ${more}`
+  }
+
   // ── Écran de confirmation ──
   if (confirmed) {
     return (
@@ -255,13 +298,21 @@ export default function BookingModule({ t, lang }) {
             {clientMailOk && (
               <p className="text-silver-dim text-sm font-sans font-light max-w-md mx-auto">{lbl('success3')}</p>
             )}
+            {/* WhatsApp : la demande pré-remplie, pour une confirmation plus rapide */}
+            <a href={whatsappLink(whatsappRequest(lbl('waIntro')))} target="_blank" rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center justify-center gap-2 py-3 px-5 font-sans font-semibold text-xs tracking-[0.2em] uppercase
+                bg-[#25D366] text-canvas hover:bg-[#20c05c] transition-all duration-300 ease-in-out">
+              {lbl('waFast')}
+            </a>
             <div className="mb-8" />
             <div className="text-left max-w-md mx-auto space-y-2 border border-divider p-6 mb-8">
               <SummaryRow label={form.name} value={`${form.date} · ${form.time}`} />
               <SummaryRow label={form.pickup} value="→" />
               <SummaryRow label={form.dropoff} value="" />
+              <SummaryRow label={lbl('paxShort')} value={`${form.passengers} · ${form.luggage}`} />
+              {flightValue.trim() && <SummaryRow label={lbl('flightShort')} value={flightValue.trim()} />}
               {form.childSeats !== '0' && <SummaryRow label={lbl('seatsShort')} value={form.childSeats} />}
-              <SummaryRow label={`${selectedVehicle?.category} — ${selectedVehicle?.model}`} value={typeof price === 'number' ? `${price} €` : (price ?? '')} gold />
+              <SummaryRow label={`${selectedVehicle?.category} — ${selectedVehicle?.model}`} value={requestPrice() ?? ''} gold />
             </div>
             <button
               onClick={() => {
@@ -269,7 +320,7 @@ export default function BookingModule({ t, lang }) {
                 setClientMailOk(true)
                 setErrors([])
                 reset()
-                setForm(f => ({ ...f, name: '', email: '', phone: '', date: '', time: '', pickup: '', dropoff: '', childSeats: '0' }))
+                setForm(f => ({ ...f, name: '', email: '', phone: '', date: '', time: '', pickup: '', dropoff: '', childSeats: '0', passengers: '1', luggage: '1', flightNumber: '' }))
               }}
               className="btn-primary"
             >
@@ -296,6 +347,8 @@ export default function BookingModule({ t, lang }) {
             <div className="h-px w-10 bg-gold/30" />
           </div>
         </div>
+
+        <Reassurance lang={lang} />
 
         <div className="card-glass p-6 md:p-10">
           <form onSubmit={handleSubmit} noValidate>
@@ -367,6 +420,30 @@ export default function BookingModule({ t, lang }) {
                   maxLength={LIMITS.address}
                   label={t('booking_dropoff')}
                 />
+                {/* Vol ou train : seulement pour un aéroport ou une gare */}
+                {showFlight && (
+                  <div className="sm:col-span-2">
+                    <label htmlFor="flightNumber" className="label-luxury">{lbl('flight')} <span className="normal-case tracking-normal">({lbl('optional')})</span></label>
+                    <input id="flightNumber" type="text" name="flightNumber" value={form.flightNumber} maxLength={LIMITS.flight}
+                      autoComplete="off" autoCapitalize="characters" spellCheck={false} aria-describedby="flight-help"
+                      onChange={handleChange} placeholder="AF 1234 / TGV 6201" className="input-luxury" />
+                    <p id="flight-help" className="mt-1.5 text-[11px] text-silver-dim">{lbl('flightHelp')}</p>
+                  </div>
+                )}
+                <div>
+                  <label htmlFor="passengers" className="label-luxury">{lbl('passengers')}</label>
+                  <select id="passengers" name="passengers" value={form.passengers}
+                    onChange={handleChange} className="input-luxury">
+                    {PASSENGERS.map(n => <option key={n} value={n}>{n}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="luggage" className="label-luxury">{lbl('luggage')}</label>
+                  <select id="luggage" name="luggage" value={form.luggage}
+                    onChange={handleChange} className="input-luxury">
+                    {LUGGAGE.map(n => <option key={n} value={n}>{n}</option>)}
+                  </select>
+                </div>
                 <div>
                   <label htmlFor="childSeats" className="label-luxury">{lbl('seats')}</label>
                   <select id="childSeats" name="childSeats" value={form.childSeats}
@@ -408,6 +485,19 @@ export default function BookingModule({ t, lang }) {
                     </button>
                   )
                 })}
+              </div>
+              {/* Capacité dépassée : Classe V ou plusieurs véhicules */}
+              <div role="status" aria-live="polite">
+                {advice && (
+                  <div className="mt-4 p-4 border border-gold/40 bg-gold/5 text-sm text-offwhite leading-relaxed">
+                    <p>{adviceText()}</p>
+                    {advice === 'van' && (
+                      <button type="button" onClick={() => handleVehicle('van')} className="btn-outline mt-3 py-2.5 px-5">
+                        {lbl('chooseVan')}
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -491,6 +581,49 @@ export default function BookingModule({ t, lang }) {
         </div>
       </div>
     </section>
+  )
+}
+
+// ── Rassurance au-dessus du formulaire : informations officielles du
+//    client uniquement (flotte, conditions), lien vers la fiche Google ──
+const TRUST = {
+  fleet: {
+    fr: 'Mercedes Classe E conduite par le responsable, Classe S, Classe V et Tesla',
+    en: 'Mercedes E-Class driven by the owner, S-Class, V-Class and Tesla',
+    ru: 'Mercedes E-класса (за рулём — сам владелец), S-класс, V-класс и Tesla',
+    ro: 'Mercedes Clasa E condus de proprietar, Clasa S, Clasa V și Tesla',
+  },
+  items: {
+    fr: ['Suivi de vol en temps réel', '1 h d’attente incluse', 'Péages inclus', 'Annulation gratuite jusqu’à 24 h avant', 'Une facture pour chaque course'],
+    en: ['Real-time flight tracking', '1 h of waiting included', 'Tolls included', 'Free cancellation up to 24 h before', 'An invoice for every ride'],
+    ru: ['Отслеживание рейса в реальном времени', '1 час ожидания включён', 'Платные дороги включены', 'Бесплатная отмена не позднее чем за 24 часа', 'Счёт за каждую поездку'],
+    ro: ['Urmărirea zborului în timp real', '1 h de așteptare inclusă', 'Taxe de autostradă incluse', 'Anulare gratuită cu până la 24 h înainte', 'Factură pentru fiecare cursă'],
+  },
+  reviews: { fr: 'Lire les avis Google', en: 'Read our Google reviews', ru: 'Читать отзывы в Google', ro: 'Citiți recenziile Google' },
+  label: { fr: 'Nos engagements', en: 'Our commitments', ru: 'Наши обязательства', ro: 'Angajamentele noastre' },
+}
+
+function Reassurance({ lang }) {
+  return (
+    <div className="mb-6 border border-divider bg-canvas-3/40 p-5 md:p-6">
+      <p className="text-sm text-offwhite font-sans mb-3">
+        <span className="text-gold font-semibold">{TRUST.label[lang]} · </span>{TRUST.fleet[lang]}
+      </p>
+      <ul className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-silver font-sans" aria-label={TRUST.label[lang]}>
+        {TRUST.items[lang].map(item => (
+          <li key={item} className="flex items-center gap-2">
+            <svg viewBox="0 0 20 20" fill="currentColor" className="w-3.5 h-3.5 text-gold flex-shrink-0" aria-hidden="true">
+              <path fillRule="evenodd" d="M16.7 5.3a1 1 0 010 1.4l-8 8a1 1 0 01-1.4 0l-4-4a1 1 0 011.4-1.4L8 12.6l7.3-7.3a1 1 0 011.4 0z" clipRule="evenodd" />
+            </svg>
+            {item}
+          </li>
+        ))}
+      </ul>
+      <a href={BUSINESS.googleProfile} target="_blank" rel="noopener noreferrer"
+        className="mt-4 inline-block text-xs text-gold underline underline-offset-2 hover:text-gold-hover transition-colors duration-300">
+        {TRUST.reviews[lang]} →
+      </a>
+    </div>
   )
 }
 

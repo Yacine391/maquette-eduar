@@ -36,4 +36,4 @@ export const LEGAL_UI = {
   ru: { draft: 'Проект — требует утверждения компанией', draftText: 'На этой странице ещё есть сведения, которые нужно дополнить или проверить (выделены).', updated: 'Последнее обновление', authoritative: 'Перевод предоставлен для информации: юридическую силу имеет только французская версия.', legal: 'Правовая информация' },
   ro: { draft: 'Proiect — de validat de companie', draftText: 'Această pagină conține încă informații de completat sau de verificat (evidențiate).', updated: 'Ultima actualizare', authoritative: 'Această traducere este oferită doar cu titlu informativ: numai versiunea în limba franceză are valoare juridică.', legal: 'Informații legale' },
 }
-export const LEGAL_UPDATED = '2026-11-24'
+export const LEGAL_UPDATED = '2026-11-27'

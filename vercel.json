@@ -16,7 +16,7 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'sha256-3bGBYhZninhyFP4vQdClzSKOYSj55TBm1JsfyGyntn0=' 'strict-dynamic' 'self'; style-src 'sha256-x+8i3kzKnzOfIqdgDdY4rkRaP7tqXOuWFtp/9jBLuYw='; img-src 'self'; font-src 'self'; connect-src 'self' https://api.emailjs.com https://api-adresse.data.gouv.fr; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests; require-trusted-types-for 'script'; trusted-types loader" },
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'sha256-3bGBYhZninhyFP4vQdClzSKOYSj55TBm1JsfyGyntn0=' 'strict-dynamic' 'self'; style-src 'sha256-2UvlC3OiCJx3QUXiF4wSteVWPW+IQUGLIJbCUjogh2w='; img-src 'self'; font-src 'self'; connect-src 'self' https://api.emailjs.com https://api-adresse.data.gouv.fr; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests; require-trusted-types-for 'script'; trusted-types loader analytics" },
         { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
         { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" },
         { "key": "X-Frame-Options", "value": "DENY" },

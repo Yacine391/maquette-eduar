@@ -11,6 +11,7 @@ import { StrictMode, startTransition } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
 import App from './App'
 import { LEGAL_SLUGS } from './routes'
+import { initAnalytics } from './utils/analytics'
 // Polices auto-hébergées, variables (woff2, font-display: swap) : un seul
 // fichier par famille et par style couvre toutes les graisses utilisées
 import '@fontsource-variable/cormorant-garamond/wght.css'
@@ -54,5 +55,8 @@ async function start() {
   // rend la main au navigateur entre deux (pas de longue tâche au chargement)
   if (root.hasChildNodes()) startTransition(() => { hydrateRoot(root, app) })
   else createRoot(root).render(app)
+  // Mesure d'audience sans cookie, après l'affichage (si activée)
+  const idle = window.requestIdleCallback ?? ((f) => setTimeout(f, 1))
+  idle(initAnalytics)
 }
 start()

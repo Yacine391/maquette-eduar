@@ -34,6 +34,7 @@ npm run check:links  # after a build: every internal link / anchor / image of di
 npm run blog       # regenerate src/content/blog/generated/ from content/blog/ (also done by dev / build / test)
 npm run preview    # preview the production build (no vercel.json headers, no clean URLs)
 python3 scripts/optimize-images.py        # regenerate AVIF/WebP after changing a fleet photo
+python3 scripts/optimize-logo.py          # regenerate the cropped header logo (logo-mark-*)
 python3 scripts/optimize-blog-images.py   # regenerate blog images after adding one to images-src/blog/
 ```
 
@@ -95,9 +96,9 @@ Generous spacing between sections. Buttons transition to `#D6B471` on hover, `0.
 
 ## Page Architecture (DOM order)
 
-Every page: Header (menu with « Blog »; full menu from 1280 px, burger below; language links → same page in the other language) → `<main>` → Footer (Navigation incl. « Blog », « Nos services » links, NAP block), plus a floating WhatsApp button. Booking links point to `#booking` when the page has the form, otherwise to the home page form (`hasBooking` in `src/routes.js`).
+Every page: Header (cropped transparent logo `logo-mark-*` from `scripts/optimize-logo.py`, 36 px high on mobile; menu with « Blog »; full menu from 1280 px, burger below; language links → same page in the other language) → `<main>` → Footer (Navigation incl. « Blog », « Nos services » links, NAP block), plus, below 768 px, a fixed bottom bar « Réserver / Appeler / WhatsApp » (hidden with a transform while `#booking` is on screen; the root has matching bottom padding) and, from 768 px, the floating WhatsApp button (never both). Booking links point to `#booking` when the page has the form, otherwise to the home page form (`hasBooking` in `src/routes.js`).
 
-- Home (`/`, `/en`, `/ru`, `/ro`): Hero → Booking → Fleet → Services (8 cards: 7 service pages + « Autre trajet » on quote) → WhyUs → Reviews (« Votre avis compte ») → Rates → FAQ → Contact.
+- Home (`/`, `/en`, `/ru`, `/ro`): Hero (single h1 = `hero_h1` « Votre chauffeur privé VTC pour CDG et Orly », subtitle `hero_sub` with official information only, button « Réserver mon trajet ») → Booking → Fleet → Services (8 cards: 7 service pages + « Autre trajet » on quote) → WhyUs → Reviews (« Votre avis compte ») → Rates → FAQ → Contact.
 - Service pages (`/vtc-aeroport-cdg`, `/vtc-aeroport-orly`, `/vtc-aeroport-beauvais`, `/vtc-gares-paris`, `/vtc-disneyland-paris`, `/mise-a-disposition-chauffeur`, `/van-6-places-paris` — the old `/van-7-places-paris` (and `/en|ru|ro/…`) is redirected 308 in `vercel.json`, same slugs under `/en`, `/ru`, `/ro`): breadcrumb → H1 → intro + « Réserver » button (top) → sections (rates from `rateTable`, travel times, meeting point, what is included…) → vehicles → related services → FAQ → « Réserver » (bottom) → Booking form.
 
 - Legal pages (`LEGAL_SLUGS`, `src/content/legal/`, component `LegalPage`): breadcrumb → H1 → last update → « Projet à valider par le client » banner while `[À COMPLÉTER : …]` / `[À VÉRIFIER : …]` markers remain (highlighted) → note « the French version prevails » on EN / RU / RO → sections. No booking form (booking links go to the home form). Footer links « Mentions légales · Confidentialité · CGV » on every page and language. Texts support `[label](url)` links.
@@ -157,7 +158,7 @@ scripts/               prerender.mjs, app-loader.js, optimize-images.py, optimiz
                        check-links.mjs, blog/generate.mjs
 images-src/            original photos and logo (not deployed); blog/ = blog image originals
 tests/                 priceZone.test.js, seo.test.js, blog.test.js, security.test.js, routing.test.js, bookingGuard.test.js, legal.test.js,
-                       rules.js (forbidden claims shared by the tests)
+                       conversion.test.js, rules.js (forbidden claims shared by the tests)
 public/                og-image.jpg (1200×630), logo.png (512×512, JSON-LD logo), img/blog/ (hashed AVIF / WebP / JPEG, cached 1 year),
                        google9b82adfd484120a1.html (Search Console verification — never delete)
 index.html             template: charset, viewport, favicon, robots + <!--app-head--> placeholder
@@ -165,14 +166,21 @@ index.html             template: charset, viewport, favicon, robots + <!--app-he
 
 ## Booking Flow
 
-- Form fields: name, e-mail (optional: only for the summary e-mail), phone (required: the client is called back by phone / WhatsApp), date (not in the past), time, pickup, drop-off, « Siège enfant / rehausseur (nombre) » (0–4), vehicle (default: BUSINESS / Classe E).
-- EmailJS template params (both templates): `client_name`, `client_email`, `client_phone`, `booking_date`, `booking_time`, `pickup`, `dropoff`, `vehicle`, `child_seats`, `price`. No recipient is sent by the code: the « To Email » of each template is set in the EmailJS dashboard (admin template = the business address; client template = `{{client_email}}`).
+- Above the form: reassurance block (`Reassurance` in `BookingModule`) with official information only (fleet — Classe E driven by the owner, S, V, Tesla —, flight tracking, 1 h waiting included, tolls, free cancellation 24 h before, invoice) and « Lire les avis Google » (`BUSINESS.googleProfile`).
+- Form fields: name, e-mail (optional: only for the summary e-mail), phone (required: the client is called back by phone / WhatsApp), date (not in the past), time, pickup, drop-off, « Numéro de vol ou de train » (optional, shown only when pickup or drop-off is an airport or a station — `isTravelHub` in `priceZone.js`), « Nombre de passagers » (1–8), « Nombre de bagages » (0–10), « Siège enfant / rehausseur (nombre) » (0–4), vehicle (default: BUSINESS / Classe E). If the chosen category is too small (`capacityAdvice` in `vehicles.js`), a message proposes the Classe V (button) or, beyond 6 / 6, several vehicles on request.
+- EmailJS template params (both templates): `client_name`, `client_email`, `client_phone`, `booking_date`, `booking_time`, `pickup`, `dropoff`, `vehicle`, `child_seats`, `passengers`, `luggage`, `flight_number`, `price`. No recipient is sent by the code: the « To Email » of each template is set in the EmailJS dashboard (admin template = the business address; client template = `{{client_email}}`).
 - Anti-spam / injection (`src/utils/bookingGuard.js`, tested in `tests/bookingGuard.test.js`): strict validation of every field (name letters only 2–80, e-mail ≤ 254, phone 9–15 digits ≤ 20 chars, date + time in the future and ≤ 18 months, addresses 3–200, seats 0–4, known vehicle), `maxLength` on inputs, hidden honeypot field `website` (filled → fake success, nothing sent), minimum 3 s between display and submit, max 3 requests per browser in 10 min (localStorage; beyond → call / WhatsApp), every EmailJS parameter cleaned to plain text (no control chars, `< > { }`, length-limited), EmailJS SDK `blockHeadless: true`. In the EmailJS templates use `{{var}}` (escaped), never `{{{var}}}`. Playwright tests must set `navigator.webdriver` to false (otherwise the SDK refuses to send).
 - On submit, EmailJS sends 1) the notification to the business (`ADMIN_TEMPLATE_ID`, mandatory) and 2) a summary to the client (`CLIENT_TEMPLATE_ID`, best effort: its failure must not show an error).
 - If the notification fails: fallback message with a `tel:` link and a WhatsApp link pre-filled with the request.
-- Success message: « Demande de réservation envoyée ! Nous vous confirmons votre course rapidement par téléphone ou WhatsApp. » — it is a request, not a confirmed booking.
+- Success message: « Demande envoyée ! » + « Nous vous confirmons votre course rapidement par téléphone ou WhatsApp. » — it is a request, not a confirmed booking — and a WhatsApp button « Accélérer la confirmation sur WhatsApp » pre-filled with the request.
 - Recipient addresses and template contents live in the EmailJS dashboard, not in the code.
 - **Never send real booking e-mails while testing** without the owner's approval: intercept `api.emailjs.com` in the browser (e.g. Playwright `page.route`).
+
+## Audience measurement (Vercel Web Analytics, no cookie)
+
+- `src/config/analytics.js` → `WEB_ANALYTICS` (currently `false`: Web Analytics is not enabled in the Vercel project, `/_vercel/insights/script.js` answers 404). To switch on: enable Web Analytics in Vercel (Project → Analytics), check that the script answers 200, set `WEB_ANALYTICS = true`, build, Lighthouse.
+- `src/utils/analytics.js`: loads the same-origin script after hydration through the Trusted Types policy `analytics` (CSP `trusted-types loader analytics`), no cookie / storage; events « Réserver » (`#booking` links), « Appeler » (`tel:`), « WhatsApp » (`wa.me`), « Formulaire envoyé ». No form data is sent. Custom events need the Vercel Pro plan to be visible.
+- The flag also switches the privacy-policy section « Mesure d'audience » and the « no audience measurement » sentences (`confidentialite.js`): the policy always matches what the site does.
 
 ## Legal / GDPR (RGPD, LCEN, CNIL)
 
@@ -181,7 +189,7 @@ index.html             template: charset, viewport, favicon, robots + <!--app-he
 - **TODO légal : ajouter le médiateur de la consommation dès adhésion (obligatoire, art. L612-1 Code de la consommation).** Until then the CGV contain no mediator clause or name (checked by `npm test`); on adhesion, add the clause (name, website, address) to the CGV in the 4 languages and update the test.
 - **À confirmer par le client** (neutral wording on the site, no marker): prices incl. VAT (TTC) and VAT rate (« prix TTC indiqué avant la course »); waiting included for a pick-up at an address; conditions when the client is absent (no-show); means and moment of payment (« modalités de paiement précisées lors de la confirmation »).
 - Third-party providers (EmailJS, Vercel, transfers outside the EU) are described with prudent wording and a link to their own privacy policy: never assert an unverified detail (location, DPF certification, retention period).
-- Privacy policy = what the site really does: form fields (e-mail optional), EmailJS, Gmail, Vercel, API Adresse, the anti-spam localStorage key (`RATE.key`, timestamps only, strictly necessary → exempt from consent). **No cookie, no analytics, no third-party script, no embedded map or video, self-hosted fonts → no consent banner.** Adding any tracker or third-party embed requires updating the policy and, if not exempt, a CNIL-compliant consent banner (refuse as easy as accept, nothing loaded before consent).
+- Privacy policy = what the site really does: form fields (e-mail, passengers, bags, flight / train number optional), EmailJS, Gmail, Vercel, API Adresse, the anti-spam localStorage key (`RATE.key`, timestamps only, strictly necessary → exempt from consent). **No cookie, no analytics, no third-party script, no embedded map or video, self-hosted fonts → no consent banner.** Adding any tracker or third-party embed requires updating the policy and, if not exempt, a CNIL-compliant consent banner (refuse as easy as accept, nothing loaded before consent).
 - Booking form: privacy notice + link under the submit button; only necessary fields are required; no pre-checked box; client summary e-mail sent only if an e-mail is given, without the phone number.
 - `npm test` (`tests/legal.test.js`) checks the 3 pages × 4 languages, mandatory content, sitemap, footer links, no tracker in `dist/`.
 

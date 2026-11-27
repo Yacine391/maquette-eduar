@@ -108,13 +108,8 @@ export default function Header({ t, lang, route }) {
 
             {/* ── Logo ── */}
             <a href={pagePath(lang, 'home')} className="flex items-center gap-3 group flex-shrink-0">
-              <Logo className="h-8 md:h-10 w-auto object-contain" />
-              <div className="hidden sm:block">
-                <p className="font-serif text-base font-semibold tracking-[0.2em] text-gold group-hover:text-gold-hover transition-colors duration-300 leading-none">
-                  CDG TRANSFERT
-                </p>
-                <p className="text-[9px] tracking-[0.4em] text-silver-dim uppercase mt-0.5">VTC Premium</p>
-              </div>
+              {/* Logo recadré : texte lisible dès 360 px (36 px de haut sur mobile) */}
+              <Logo className="h-9 md:h-11 w-auto" sizes="(min-width: 768px) 215px, 162px" />
             </a>
 
             {/* ── Nav desktop ── */}
