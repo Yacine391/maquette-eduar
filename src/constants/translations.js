@@ -12,10 +12,10 @@ export const translations = {
     nav_contact:     'Contact',
 
     // Hero
-    hero_h1:         'Chauffeur privé VTC à Paris – Transferts CDG et Orly',
-    hero_headline:   "L'Excellence à Votre Service",
-    hero_sub:        'Transferts aéroport, événements d\'entreprise, voyages longue distance.',
-    hero_cta:        'Réserver maintenant',
+    hero_eyebrow:    'Chauffeur privé VTC à Paris',
+    hero_h1:         'Votre chauffeur privé VTC pour CDG et Orly',
+    hero_sub:        'Prix fixe annoncé avant la course · péages inclus · 1 h d’attente incluse · 24h/24',
+    hero_cta:        'Réserver mon trajet',
 
     // Booking
     booking_title:   'Réserver votre transfert',
@@ -63,10 +63,10 @@ export const translations = {
     nav_booking:     'Booking',
     nav_contact:     'Contact',
 
-    hero_h1:         'Private VTC chauffeur in Paris – CDG and Orly airport transfers',
-    hero_headline:   'Excellence at Your Service',
-    hero_sub:        'Airport transfers, corporate events, long-distance journeys.',
-    hero_cta:        'Book now',
+    hero_eyebrow:    'Private VTC chauffeur in Paris',
+    hero_h1:         'Your private VTC chauffeur for CDG and Orly',
+    hero_sub:        'Fixed price given before the ride · tolls included · 1 h of waiting included · 24/7',
+    hero_cta:        'Book my ride',
 
     booking_title:   'Book your transfer',
     booking_date:    'Date',
@@ -108,10 +108,10 @@ export const translations = {
     nav_booking:     'Бронирование',
     nav_contact:     'Контакты',
 
-    hero_h1:         'Частный водитель VTC в Париже – трансферы CDG и Орли',
-    hero_headline:   'Превосходство на вашей стороне',
-    hero_sub:        'Трансферы в аэропорт, корпоративные мероприятия, дальние поездки.',
-    hero_cta:        'Забронировать',
+    hero_eyebrow:    'Частный водитель VTC в Париже',
+    hero_h1:         'Ваш частный водитель VTC для CDG и Орли',
+    hero_sub:        'Фиксированная цена до поездки · платные дороги включены · 1 час ожидания включён · 24/7',
+    hero_cta:        'Забронировать поездку',
 
     booking_title:   'Забронируйте трансфер',
     booking_date:    'Дата',
@@ -155,10 +155,10 @@ export const translations = {
     nav_contact:     'Contact',
 
     // Hero
-    hero_h1:         'Șofer privat VTC în Paris – transferuri CDG și Orly',
-    hero_headline:   'Excelența în Serviciul Dumneavoastră',
-    hero_sub:        'Transferuri aeroport, evenimente corporate, călătorii la distanță lungă.',
-    hero_cta:        'Rezervați acum',
+    hero_eyebrow:    'Șofer privat VTC în Paris',
+    hero_h1:         'Șoferul dvs. privat VTC pentru CDG și Orly',
+    hero_sub:        'Preț fix anunțat înainte de cursă · taxe de autostradă incluse · 1 h de așteptare inclusă · 24h/24',
+    hero_cta:        'Rezervați cursa',
 
     // Booking
     booking_title:   'Rezervați transferul dvs.',

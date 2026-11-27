@@ -3,14 +3,17 @@
 // Données réellement collectées : formulaire (src/components/BookingModule),
 // stockage local anti-spam (src/utils/bookingGuard.js), API Adresse
 // (src/components/BookingModule/AddressAutocomplete.jsx), EmailJS, Vercel.
-// Inventaire des traceurs : aucun cookie, aucune mesure d'audience, aucun
-// script tiers (vérifié dans un navigateur sur le site en production).
+// Inventaire des traceurs : aucun cookie, aucun script tiers (vérifié dans
+// un navigateur sur le site en production). Mesure d'audience sans cookie
+// (Vercel Web Analytics) : section affichée seulement si WEB_ANALYTICS est
+// activé (src/config/analytics.js), sinon le texte indique qu'il n'y en a pas.
 // Liens : [texte](url). Aucun détail non vérifié sur les prestataires :
 // renvoi à leurs politiques officielles.
 // ────────────────────────────────────────────────────────────────────
 import { BUSINESS, LEGAL_ENTITY as E } from '../../../constants/business.js'
 import { RATE } from '../../../utils/bookingGuard.js'
 import { pagePath } from '../../../routes.js'
+import { WEB_ANALYTICS } from '../../../config/analytics.js'
 
 const KEY = RATE.key
 const URLS = {
@@ -22,6 +25,41 @@ const URLS = {
   ban: 'https://adresse.data.gouv.fr',
   cnil: 'https://www.cnil.fr',
   cnilPlainte: 'https://www.cnil.fr/fr/plaintes',
+}
+
+// Mesure d'audience (Vercel Web Analytics, sans cookie) : textes selon WEB_ANALYTICS
+const AUD = WEB_ANALYTICS ? {
+  fr: { tech: 'Le site mesure son audience sans cookie (voir « Mesure d’audience ») et n’utilise aucun outil de publicité.', cookie: 'pas de mesure d’audience avec cookie (celle décrite ci-dessus n’en utilise pas), ' },
+  en: { tech: 'The website measures its audience without cookies (see “Audience measurement”) and uses no advertising tool.', cookie: 'no cookie-based audience measurement (the one described above uses none), ' },
+  ru: { tech: 'Сайт измеряет посещаемость без cookie (см. «Измерение посещаемости») и не использует рекламные инструменты.', cookie: 'нет веб-аналитики с cookie (описанная выше их не использует), ' },
+  ro: { tech: 'Site-ul măsoară audiența fără cookie-uri (vedeți „Măsurarea audienței”) și nu folosește instrumente de publicitate.', cookie: 'fără măsurarea audienței cu cookie-uri (cea descrisă mai sus nu folosește), ' },
+} : {
+  fr: { tech: 'Le site n’utilise aucun outil de mesure d’audience ni de publicité.', cookie: 'pas de mesure d’audience, ' },
+  en: { tech: 'The website uses no audience measurement or advertising tool.', cookie: 'no audience measurement, ' },
+  ru: { tech: 'Сайт не использует инструменты веб-аналитики и рекламы.', cookie: 'нет веб-аналитики, ' },
+  ro: { tech: 'Site-ul nu folosește instrumente de măsurare a audienței sau de publicitate.', cookie: 'fără măsurarea audienței, ' },
+}
+const AUDIENCE = {
+  fr: { h2: 'Mesure d’audience', paras: [
+    `Pour savoir quelles pages sont consultées et combien de demandes de réservation aboutissent, le site utilise Vercel Web Analytics, l’outil de statistiques de notre hébergeur Vercel. Il ne dépose aucun cookie et n’enregistre rien dans votre navigateur ; les statistiques sont consultées de façon agrégée, sans profil publicitaire ni suivi d’un site à l’autre. Voir la [politique de confidentialité de Vercel](${URLS.vercel}).`,
+    'Données mesurées : page consultée, site d’origine, pays, type d’appareil, navigateur et système d’exploitation, ainsi que quatre événements : clic sur « Réserver », clic sur « Appeler », clic sur WhatsApp et envoi du formulaire. Aucune donnée saisie dans le formulaire (nom, téléphone, adresses…) n’est transmise.',
+    `Base légale : notre intérêt légitime à mesurer la fréquentation du site et l’efficacité du formulaire (article 6.1.f du RGPD). Sans cookie ni lecture d’information sur votre appareil, cette mesure ne nécessite pas de consentement. Vous pouvez vous y opposer en écrivant à ${BUSINESS.email}.`,
+  ] },
+  en: { h2: 'Audience measurement', paras: [
+    `To know which pages are viewed and how many booking requests are completed, the website uses Vercel Web Analytics, the statistics tool of our host Vercel. It sets no cookie and stores nothing in your browser; statistics are viewed in aggregate, with no advertising profile and no cross-site tracking. See [Vercel’s privacy policy](${URLS.vercel}).`,
+    'Data measured: page viewed, referring website, country, device type, browser and operating system, plus four events: click on “Book”, click on “Call”, click on WhatsApp and form submission. No data entered in the form (name, phone, addresses…) is sent.',
+    `Legal basis: our legitimate interest in measuring website traffic and the effectiveness of the form (article 6.1.f GDPR). Without cookies or reading information on your device, this measurement requires no consent. You can object by writing to ${BUSINESS.email}.`,
+  ] },
+  ru: { h2: 'Измерение посещаемости', paras: [
+    `Чтобы знать, какие страницы просматривают и сколько заявок отправляется, сайт использует Vercel Web Analytics — инструмент статистики нашего хостинга Vercel. Он не устанавливает cookie и ничего не сохраняет в браузере; статистика просматривается в обобщённом виде, без рекламного профиля и отслеживания между сайтами. См. [политику конфиденциальности Vercel](${URLS.vercel}).`,
+    'Измеряемые данные: просмотренная страница, сайт-источник, страна, тип устройства, браузер и операционная система, а также четыре события: нажатие «Заказать», «Позвонить», WhatsApp и отправка формы. Данные, введённые в форму (имя, телефон, адреса…), не передаются.',
+    `Правовое основание: наш законный интерес в измерении посещаемости сайта и эффективности формы (ст. 6.1.f GDPR). Без cookie и без чтения данных на вашем устройстве это измерение не требует согласия. Вы можете возразить, написав на ${BUSINESS.email}.`,
+  ] },
+  ro: { h2: 'Măsurarea audienței', paras: [
+    `Pentru a ști ce pagini sunt vizitate și câte cereri de rezervare sunt trimise, site-ul folosește Vercel Web Analytics, instrumentul de statistici al furnizorului nostru de găzduire Vercel. Nu plasează niciun cookie și nu salvează nimic în browser; statisticile sunt consultate agregat, fără profil publicitar și fără urmărire între site-uri. Vedeți [politica de confidențialitate Vercel](${URLS.vercel}).`,
+    'Date măsurate: pagina vizitată, site-ul de proveniență, țara, tipul de dispozitiv, browserul și sistemul de operare, plus patru evenimente: clic pe „Rezervă”, clic pe „Sună”, clic pe WhatsApp și trimiterea formularului. Nicio dată introdusă în formular (nume, telefon, adrese…) nu este transmisă.',
+    `Temei juridic: interesul nostru legitim de a măsura traficul site-ului și eficiența formularului (articolul 6.1.f din RGPD). Fără cookie-uri și fără citirea informațiilor de pe dispozitiv, această măsurare nu necesită consimțământ. Vă puteți opune scriind la ${BUSINESS.email}.`,
+  ] },
 }
 
 export default {
@@ -40,12 +78,12 @@ export default {
           'Formulaire de réservation : nous ne demandons que ce qui est nécessaire pour traiter votre demande.',
         ], list: [
           'Obligatoires : nom, numéro de téléphone (pour confirmer la course par téléphone ou WhatsApp), date et heure, adresse de prise en charge, destination, catégorie de véhicule.',
-          'Facultatifs : adresse e-mail (pour recevoir un récapitulatif de votre demande) et nombre de sièges auto ou rehausseurs.',
+          'Facultatifs : adresse e-mail (pour recevoir un récapitulatif de votre demande), nombre de passagers et de bagages (pour vérifier que le véhicule convient), numéro de vol ou de train (proposé quand le départ ou l’arrivée est un aéroport ou une gare, pour suivre votre arrivée en temps réel) et nombre de sièges auto ou rehausseurs.',
           'Calculée automatiquement : l’estimation du prix, d’après le tableau des tarifs.',
         ], after: [
-          'Lors de la confirmation par téléphone ou WhatsApp, puis pendant la course, vous pouvez nous communiquer d’autres informations utiles : numéro de vol ou de train, nombre de passagers et de bagages, âge des enfants pour les sièges, demande particulière. Ne nous transmettez pas d’information sensible inutile ; si vous signalez un besoin lié à une mobilité réduite, cette information n’est utilisée, avec votre accord, que pour organiser votre course.',
+          'Lors de la confirmation par téléphone ou WhatsApp, puis pendant la course, vous pouvez nous communiquer d’autres informations utiles : âge des enfants pour les sièges, demande particulière, ou les détails de votre vol ou de votre train s’ils ne figurent pas dans le formulaire. Ne nous transmettez pas d’information sensible inutile ; si vous signalez un besoin lié à une mobilité réduite, cette information n’est utilisée, avec votre accord, que pour organiser votre course.',
           'Si vous nous contactez directement (téléphone, WhatsApp, e-mail), nous conservons le contenu de nos échanges. Une facture est établie pour chaque course : elle comporte votre nom, la prestation et son prix.',
-          'Données techniques : comme tout site web, notre hébergeur enregistre des journaux de connexion (adresse IP, date, page demandée, navigateur) nécessaires au fonctionnement et à la sécurité du site. Le site n’utilise aucun outil de mesure d’audience ni de publicité.',
+          `Données techniques : comme tout site web, notre hébergeur enregistre des journaux de connexion (adresse IP, date, page demandée, navigateur) nécessaires au fonctionnement et à la sécurité du site. ${AUD.fr.tech}`,
         ] },
         { h2: 'Finalités et bases légales', list: [
           'Traiter votre demande de réservation, vous répondre, confirmer, organiser et réaliser la course : mesures précontractuelles et exécution du contrat (article 6.1.b du RGPD).',
@@ -87,8 +125,9 @@ export default {
           `Pour les exercer, écrivez à ${BUSINESS.email} ou par courrier au siège (${E.address}). Nous vous répondons dans un délai d’un mois, qui peut être prolongé de deux mois pour une demande complexe ; dans ce cas, vous en êtes informé. Une pièce d’identité ne peut vous être demandée qu’en cas de doute raisonnable sur votre identité.`,
           `Si vous estimez, après nous avoir contactés, que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la Commission nationale de l’informatique et des libertés (CNIL) : [cnil.fr](${URLS.cnilPlainte}).`,
         ] },
+        ...(WEB_ANALYTICS ? [AUDIENCE.fr] : []),
         { h2: 'Cookies et traceurs', paras: [
-          'Le site ne dépose aucun cookie et n’utilise aucun traceur soumis à votre consentement : pas de mesure d’audience, pas de publicité, pas de réseau social intégré, pas de carte intégrée, aucun script tiers. Les polices de caractères sont hébergées sur le site lui-même. C’est pourquoi aucun bandeau de consentement n’est affiché.',
+          `Le site ne dépose aucun cookie et n’utilise aucun traceur soumis à votre consentement : ${AUD.fr.cookie}pas de publicité, pas de réseau social intégré, pas de carte intégrée, aucun script tiers. Les polices de caractères sont hébergées sur le site lui-même. C’est pourquoi aucun bandeau de consentement n’est affiché.`,
           `Seul élément enregistré dans votre navigateur : lorsque vous envoyez une demande de réservation, la date et l’heure de cet envoi (sans aucune autre donnée) sont conservées dans le stockage local (« localStorage », clé « ${KEY} ») afin de limiter le formulaire à 3 demandes en 10 minutes et de le protéger contre les envois automatisés. Ce stockage, strictement nécessaire à la sécurité du service que vous demandez, est exempté de consentement (article 82 de la loi Informatique et Libertés). Il ne quitte jamais votre appareil et vous pouvez l’effacer à tout moment depuis les réglages de votre navigateur.`,
           'Les liens vers WhatsApp, Google ou d’autres sites ouvrent des services tiers, soumis à leurs propres politiques.',
         ] },
@@ -117,12 +156,12 @@ export default {
           'Booking form: we only ask for what is needed to process your request.',
         ], list: [
           'Required: name, phone number (to confirm the ride by phone or WhatsApp), date and time, pick-up address, destination, vehicle category.',
-          'Optional: e-mail address (to receive a summary of your request) and number of child seats or boosters.',
+          'Optional: e-mail address (to receive a summary of your request), number of passengers and bags (to check that the vehicle is suitable), flight or train number (offered when the pick-up or destination is an airport or a station, to track your arrival in real time) and number of child seats or boosters.',
           'Calculated automatically: the price estimate, based on the price list.',
         ], after: [
-          'When the ride is confirmed by phone or WhatsApp, and during the ride, you may give us other useful information: flight or train number, number of passengers and bags, children’s ages for the seats, special requests. Do not send us unnecessary sensitive information; if you mention a reduced-mobility need, it is only used, with your agreement, to organise your ride.',
+          'When the ride is confirmed by phone or WhatsApp, and during the ride, you may give us other useful information: children’s ages for the seats, special requests, or your flight or train details if they are not in the form. Do not send us unnecessary sensitive information; if you mention a reduced-mobility need, it is only used, with your agreement, to organise your ride.',
           'If you contact us directly (phone, WhatsApp, e-mail), we keep the content of our exchanges. An invoice is issued for every ride: it shows your name, the service and its price.',
-          'Technical data: like any website, our host records connection logs (IP address, date, page requested, browser) needed for the website to work securely. The website uses no audience measurement or advertising tool.',
+          `Technical data: like any website, our host records connection logs (IP address, date, page requested, browser) needed for the website to work securely. ${AUD.en.tech}`,
         ] },
         { h2: 'Purposes and legal bases', list: [
           'Processing your booking request, replying, confirming, organising and performing the ride: pre-contractual measures and performance of the contract (article 6.1.b GDPR).',
@@ -164,8 +203,9 @@ export default {
           `To exercise them, write to ${BUSINESS.email} or by post to the registered office (${E.address}). We reply within one month, which may be extended by two months for a complex request, in which case you will be informed. Proof of identity may only be requested if there is reasonable doubt about your identity.`,
           `If, after contacting us, you consider that your rights are not respected, you can lodge a complaint with the French data protection authority (CNIL): [cnil.fr](${URLS.cnilPlainte}).`,
         ] },
+        ...(WEB_ANALYTICS ? [AUDIENCE.en] : []),
         { h2: 'Cookies and trackers', paras: [
-          'The website sets no cookie and uses no tracker requiring your consent: no audience measurement, no advertising, no embedded social network or map, no third-party script. Fonts are hosted on the website itself. This is why no consent banner is displayed.',
+          `The website sets no cookie and uses no tracker requiring your consent: ${AUD.en.cookie}no advertising, no embedded social network or map, no third-party script. Fonts are hosted on the website itself. This is why no consent banner is displayed.`,
           `The only item stored in your browser: when you send a booking request, the date and time of that request (and nothing else) are kept in local storage (“localStorage”, key “${KEY}”) to limit the form to 3 requests in 10 minutes and protect it against automated submissions. This storage is strictly necessary for the security of the service you request and is therefore exempt from consent (article 82 of the French Data Protection Act). It never leaves your device and you can clear it at any time in your browser settings.`,
           'Links to WhatsApp, Google or other websites open third-party services, subject to their own policies.',
         ] },
@@ -194,12 +234,12 @@ export default {
           'Форма бронирования: мы запрашиваем только то, что нужно для обработки заявки.',
         ], list: [
           'Обязательно: имя, номер телефона (для подтверждения поездки по телефону или в WhatsApp), дата и время, адрес посадки, пункт назначения, категория автомобиля.',
-          'По желанию: адрес электронной почты (чтобы получить сводку заявки) и количество детских кресел или бустеров.',
+          'По желанию: адрес электронной почты (чтобы получить сводку заявки), количество пассажиров и багажа (чтобы проверить, подходит ли автомобиль), номер рейса или поезда (предлагается, если место посадки или назначения — аэропорт или вокзал, чтобы отслеживать ваше прибытие в реальном времени) и количество детских кресел или бустеров.',
           'Рассчитывается автоматически: ориентировочная цена по таблице тарифов.',
         ], after: [
-          'При подтверждении по телефону или в WhatsApp и во время поездки вы можете сообщить другие полезные сведения: номер рейса или поезда, число пассажиров и багажа, возраст детей для кресел, особые пожелания. Не сообщайте лишних чувствительных данных; если вы указываете потребность, связанную с ограниченной подвижностью, она используется с вашего согласия только для организации поездки.',
+          'При подтверждении по телефону или в WhatsApp и во время поездки вы можете сообщить другие полезные сведения: возраст детей для кресел, особые пожелания или данные рейса либо поезда, если их нет в форме. Не сообщайте лишних чувствительных данных; если вы указываете потребность, связанную с ограниченной подвижностью, она используется с вашего согласия только для организации поездки.',
           'Если вы связываетесь с нами напрямую (телефон, WhatsApp, e-mail), мы храним содержание переписки. На каждую поездку выставляется счёт с вашим именем, услугой и ценой.',
-          'Технические данные: как и любой сайт, наш хостинг ведёт журналы подключений (IP-адрес, дата, страница, браузер), необходимые для работы и безопасности сайта. Сайт не использует инструменты веб-аналитики и рекламы.',
+          `Технические данные: как и любой сайт, наш хостинг ведёт журналы подключений (IP-адрес, дата, страница, браузер), необходимые для работы и безопасности сайта. ${AUD.ru.tech}`,
         ] },
         { h2: 'Цели и правовые основания', list: [
           'Обработка заявки, ответ, подтверждение, организация и выполнение поездки: преддоговорные меры и исполнение договора (ст. 6.1.b GDPR).',
@@ -241,8 +281,9 @@ export default {
           `Чтобы воспользоваться ими, напишите на ${BUSINESS.email} или по почте на юридический адрес (${E.address}). Мы отвечаем в течение одного месяца; для сложного запроса срок может быть продлён на два месяца, о чём вы будете уведомлены. Документ, удостоверяющий личность, может быть запрошен только при обоснованных сомнениях.`,
           `Если после обращения к нам вы считаете, что ваши права нарушены, вы можете подать жалобу во французский орган по защите данных (CNIL): [cnil.fr](${URLS.cnilPlainte}).`,
         ] },
+        ...(WEB_ANALYTICS ? [AUDIENCE.ru] : []),
         { h2: 'Cookie и трекеры', paras: [
-          'Сайт не устанавливает cookie и не использует трекеры, требующие согласия: нет веб-аналитики, рекламы, встроенных соцсетей или карт, сторонних скриптов. Шрифты размещены на самом сайте. Поэтому баннер согласия не показывается.',
+          `Сайт не устанавливает cookie и не использует трекеры, требующие согласия: ${AUD.ru.cookie}нет рекламы, встроенных соцсетей или карт, сторонних скриптов. Шрифты размещены на самом сайте. Поэтому баннер согласия не показывается.`,
           `Единственное, что сохраняется в браузере: при отправке заявки дата и время отправки (без каких-либо других данных) записываются в локальное хранилище («localStorage», ключ «${KEY}»), чтобы ограничить форму тремя заявками за 10 минут и защитить её от автоматических отправок. Это хранилище строго необходимо для безопасности запрошенной вами услуги и не требует согласия (статья 82 французского закона «Об информатике и свободах»). Оно не покидает ваше устройство, и вы можете очистить его в настройках браузера.`,
           'Ссылки на WhatsApp, Google и другие сайты ведут к сторонним сервисам со своими политиками.',
         ] },
@@ -271,12 +312,12 @@ export default {
           'Formularul de rezervare: cerem doar ceea ce este necesar pentru a procesa cererea.',
         ], list: [
           'Obligatorii: nume, număr de telefon (pentru confirmarea cursei prin telefon sau WhatsApp), data și ora, adresa de preluare, destinația, categoria vehiculului.',
-          'Opționale: adresa de e-mail (pentru a primi un rezumat al cererii) și numărul de scaune auto sau înălțătoare.',
+          'Opționale: adresa de e-mail (pentru a primi un rezumat al cererii), numărul de pasageri și de bagaje (pentru a verifica dacă vehiculul este potrivit), numărul zborului sau al trenului (propus când plecarea sau sosirea este un aeroport sau o gară, pentru a urmări sosirea dvs. în timp real) și numărul de scaune auto sau înălțătoare.',
           'Calculată automat: estimarea prețului, după tabelul de tarife.',
         ], after: [
-          'La confirmarea prin telefon sau WhatsApp și în timpul cursei ne puteți comunica și alte informații utile: numărul zborului sau al trenului, numărul de pasageri și de bagaje, vârsta copiilor pentru scaune, cereri speciale. Nu ne transmiteți informații sensibile inutile; dacă semnalați o nevoie legată de mobilitatea redusă, aceasta este folosită, cu acordul dumneavoastră, doar pentru organizarea cursei.',
+          'La confirmarea prin telefon sau WhatsApp și în timpul cursei ne puteți comunica și alte informații utile: vârsta copiilor pentru scaune, cereri speciale sau detaliile zborului ori ale trenului, dacă nu figurează în formular. Nu ne transmiteți informații sensibile inutile; dacă semnalați o nevoie legată de mobilitatea redusă, aceasta este folosită, cu acordul dumneavoastră, doar pentru organizarea cursei.',
           'Dacă ne contactați direct (telefon, WhatsApp, e-mail), păstrăm conținutul schimburilor. Pentru fiecare cursă se emite o factură cu numele dumneavoastră, serviciul și prețul.',
-          'Date tehnice: ca orice site, furnizorul de găzduire înregistrează jurnale de conectare (adresă IP, dată, pagină, browser), necesare funcționării și securității site-ului. Site-ul nu folosește instrumente de măsurare a audienței sau de publicitate.',
+          `Date tehnice: ca orice site, furnizorul de găzduire înregistrează jurnale de conectare (adresă IP, dată, pagină, browser), necesare funcționării și securității site-ului. ${AUD.ro.tech}`,
         ] },
         { h2: 'Scopuri și temeiuri juridice', list: [
           'Procesarea cererii de rezervare, răspunsul, confirmarea, organizarea și efectuarea cursei: demersuri precontractuale și executarea contractului (art. 6.1.b GDPR).',
@@ -318,8 +359,9 @@ export default {
           `Pentru a le exercita, scrieți la ${BUSINESS.email} sau prin poștă la sediu (${E.address}). Răspundem în termen de o lună, care poate fi prelungit cu două luni pentru o cerere complexă, caz în care veți fi informat. Un act de identitate poate fi cerut doar dacă există îndoieli rezonabile.`,
           `Dacă, după ce ne-ați contactat, considerați că drepturile nu vă sunt respectate, puteți depune o plângere la autoritatea franceză de protecție a datelor (CNIL): [cnil.fr](${URLS.cnilPlainte}).`,
         ] },
+        ...(WEB_ANALYTICS ? [AUDIENCE.ro] : []),
         { h2: 'Cookie-uri și trackere', paras: [
-          'Site-ul nu plasează niciun cookie și nu folosește trackere supuse consimțământului: fără măsurarea audienței, fără publicitate, fără rețele sociale sau hărți integrate, fără scripturi terțe. Fonturile sunt găzduite pe site. De aceea nu este afișat niciun banner de consimțământ.',
+          `Site-ul nu plasează niciun cookie și nu folosește trackere supuse consimțământului: ${AUD.ro.cookie}fără publicitate, fără rețele sociale sau hărți integrate, fără scripturi terțe. Fonturile sunt găzduite pe site. De aceea nu este afișat niciun banner de consimțământ.`,
           `Singurul element salvat în browser: când trimiteți o cerere de rezervare, data și ora trimiterii (fără nicio altă dată) sunt păstrate în stocarea locală („localStorage”, cheia „${KEY}”) pentru a limita formularul la 3 cereri în 10 minute și a-l proteja de trimiterile automate. Această stocare este strict necesară securității serviciului solicitat și este scutită de consimțământ (articolul 82 din legea franceză privind informatica și libertățile). Nu părăsește niciodată dispozitivul și o puteți șterge oricând din setările browserului.`,
           'Linkurile către WhatsApp, Google sau alte site-uri deschid servicii terțe, supuse propriilor politici.',
         ] },

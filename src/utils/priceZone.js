@@ -76,3 +76,11 @@ export function detectZone(pickup = '', dropoff = '') {
   }
   return 'quote'
 }
+
+/** Aéroport ou gare (départ ou arrivée) : le formulaire propose alors le
+ *  numéro de vol ou de train (facultatif, pour suivre l'arrivée en temps réel) */
+export function isTravelHub(address = '') {
+  if (['cdg', 'orly', 'beauvais'].includes(classifyPlace(address))) return true
+  const t = normalize(address)
+  return /a[eé]roport|airport|aerogare|terminal|\bgare\b|station|eurostar|\btgv\b|аэропорт|вокзал|aeroportul|\bgara\b/.test(t)
+}

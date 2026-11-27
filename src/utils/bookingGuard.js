@@ -6,12 +6,13 @@
 //   • tooFast : envoi moins de 3 s après l'affichage du formulaire (robot)
 //   • rateLimited / recordSend : 3 demandes maximum par navigateur en 10 min
 //     (localStorage ; sans stockage disponible, pas de limite côté client)
+//   • numéro de vol / train facultatif, passagers 1–8, bagages 0–10
 //   • cleanText / cleanParams : texte brut uniquement avant l'envoi à
 //     EmailJS — caractères de contrôle, < > { } et caractères de direction
 //     retirés, espaces réduits, longueur limitée.
 // ────────────────────────────────────────────────────────────────────
 
-export const LIMITS = { name: 80, email: 254, phone: 20, address: 200 }
+export const LIMITS = { name: 80, email: 254, phone: 20, address: 200, flight: 20 }
 export const MIN_DELAY_MS = 3000
 export const RATE = { max: 3, windowMs: 10 * 60 * 1000, key: 'cdgtv-booking-sends' }
 const MAX_AHEAD_MS = 548 * 24 * 3600 * 1000   // 18 mois
@@ -21,6 +22,11 @@ const EMAIL_RE = /^[^\s@<>"'(),;:\\[\]]+@[^\s@<>"'(),;:\\[\]]+\.[^\s@<>"'(),;:\\
 const PHONE_RE = /^\+?[\d\s().-]+$/
 const VEHICLES = ['business', 'luxe', 'van', 'eco']
 const SEATS    = ['0', '1', '2', '3', '4']
+// Passagers 1 à 8, bagages 0 à 10 (au-delà : demande par téléphone / WhatsApp)
+export const PASSENGERS = ['1', '2', '3', '4', '5', '6', '7', '8']
+export const LUGGAGE    = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+// Numéro de vol ou de train (facultatif) : lettres, chiffres, espace, tiret
+const FLIGHT_RE = /^[A-Za-z0-9][A-Za-z0-9 .\/-]*$/
 
 // Texte brut, une ligne, longueur limitée
 export function cleanText(value, max) {
@@ -38,6 +44,7 @@ const PARAM_MAX = {
   client_name: LIMITS.name, client_email: LIMITS.email, client_phone: LIMITS.phone,
   booking_date: 10, booking_time: 5, pickup: LIMITS.address, dropoff: LIMITS.address,
   vehicle: 60, child_seats: 1, price: 20,
+  flight_number: LIMITS.flight, passengers: 1, luggage: 2,
 }
 export function cleanParams(params) {
   return Object.fromEntries(Object.entries(params).map(([k, v]) => [k, cleanText(v, PARAM_MAX[k] ?? 200)]))
@@ -67,7 +74,12 @@ export function checkBooking(form, now = new Date()) {
     if (t.length < 3 || t.length > LIMITS.address) { errs.push('errAddr'); break }
   }
 
-  if (!VEHICLES.includes(form.vehicleId) || !SEATS.includes(form.childSeats)) errs.push('errInvalid')
+  // Numéro de vol / train facultatif : vérifié seulement s'il est renseigné
+  const flight = String(form.flightNumber ?? '').trim()
+  if (flight && (flight.length > LIMITS.flight || !FLIGHT_RE.test(flight))) errs.push('errFlight')
+
+  if (!VEHICLES.includes(form.vehicleId) || !SEATS.includes(form.childSeats)
+    || !PASSENGERS.includes(form.passengers ?? '1') || !LUGGAGE.includes(form.luggage ?? '0')) errs.push('errInvalid')
   return errs
 }
 

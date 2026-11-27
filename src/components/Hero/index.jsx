@@ -28,6 +28,12 @@ const STATS = [
   },
 ]
 
+// « CDG » et « Orly » / « Орли » mis en valeur dans le titre
+function highlightAirports(text) {
+  return text.split(/(CDG|Orly|Орли)/).map((part, i) =>
+    i % 2 ? <span key={i} className="italic text-gold">{part}</span> : part)
+}
+
 export default function Hero({ t, lang }) {
   return (
     <section id="hero" className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-28">
@@ -61,29 +67,20 @@ export default function Hero({ t, lang }) {
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
         <div className="max-w-4xl">
 
-          {/* Eyebrow = H1 SEO (mots-clés : chauffeur privé VTC Paris, CDG, Orly).
-              Même style visuel que l'ancien eyebrow : font-sans force la police
-              du texte courant (index.css applique font-serif à tous les h1). */}
-          <div className="flex items-center gap-4 mb-8">
+          {/* Eyebrow (texte) puis H1 unique de la page : titre concret
+              orienté client (mots-clés : chauffeur privé VTC, CDG, Orly) */}
+          <div className="flex items-center gap-4 mb-6">
             <div className="h-px w-12 bg-gold/60" />
-            <h1 className="section-eyebrow mb-0 font-sans">{t('hero_h1')}</h1>
+            <p className="section-eyebrow mb-0 font-sans">{t('hero_eyebrow')}</p>
           </div>
 
-          {/* Accroche visuelle — Cormorant Garamond ultra-luxe
-              (balise <p> : le H1 de la page est l'eyebrow ci-dessus) */}
-          <p className="font-serif text-display text-offwhite mb-6">
-            {t('hero_headline')
-              .split(' ')
-              .map((word, i) => (
-                <span key={i} className={i % 3 === 2 ? 'italic text-gold' : ''}>
-                  {word}{' '}
-                </span>
-              ))
-            }
-          </p>
+          {/* Les noms d'aéroports en or italique (Cormorant Garamond) */}
+          <h1 className="font-serif text-[2.6rem] leading-[1.08] tracking-[-0.01em] sm:text-6xl lg:text-7xl text-offwhite mb-6 max-w-4xl">
+            {highlightAirports(t('hero_h1'))}
+          </h1>
 
-          {/* Sous-titre */}
-          <p className="font-sans text-lg md:text-xl text-silver font-light leading-relaxed mb-10 max-w-xl">
+          {/* Sous-titre : informations officielles du client uniquement */}
+          <p className="font-sans text-base md:text-xl text-silver font-light leading-relaxed mb-10 max-w-2xl">
             {t('hero_sub')}
           </p>
 

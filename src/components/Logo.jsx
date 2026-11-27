@@ -1,25 +1,27 @@
 // ── Logo CDG Transfert VTC (AVIF / WebP, 1x-3x) ──────────────────────
-// Variantes générées par scripts/optimize-images.py (largeurs 64/128/192).
+// « CDG / TRANSFERT VTC » recadré sur fond transparent, généré par
+// scripts/optimize-logo.py (largeurs 192/384/508) : lisible sur mobile
+// (le logo complet, avec sa grande marge noire, rendait le texte minuscule).
 // ────────────────────────────────────────────────────────────────────
-import avif64 from '../assets/logo-64.avif'
-import avif128 from '../assets/logo-128.avif'
-import avif192 from '../assets/logo-192.avif'
-import webp64 from '../assets/logo-64.webp'
-import webp128 from '../assets/logo-128.webp'
-import webp192 from '../assets/logo-192.webp'
+import avif192 from '../assets/logo-mark-192.avif'
+import avif384 from '../assets/logo-mark-384.avif'
+import avif508 from '../assets/logo-mark-508.avif'
+import webp192 from '../assets/logo-mark-192.webp'
+import webp384 from '../assets/logo-mark-384.webp'
+import webp508 from '../assets/logo-mark-508.webp'
 
-// Dimensions de l'original (819 × 578) → ratio réservé par width/height
-export default function Logo({ className, sizes = '57px' }) {
+// Dimensions du logo recadré (508 × 113) → ratio réservé par width/height
+export default function Logo({ className, sizes = '180px' }) {
   return (
     <picture>
-      <source type="image/avif" srcSet={`${avif64} 64w, ${avif128} 128w, ${avif192} 192w`} sizes={sizes} />
+      <source type="image/avif" srcSet={`${avif192} 192w, ${avif384} 384w, ${avif508} 508w`} sizes={sizes} />
       <img
-        src={webp128}
-        srcSet={`${webp64} 64w, ${webp128} 128w, ${webp192} 192w`}
+        src={webp384}
+        srcSet={`${webp192} 192w, ${webp384} 384w, ${webp508} 508w`}
         sizes={sizes}
         alt="CDG Transfert VTC"
-        width="819"
-        height="578"
+        width="508"
+        height="113"
         decoding="async"
         className={className}
       />

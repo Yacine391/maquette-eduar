@@ -43,11 +43,7 @@ export default function Footer({ t, lang, route }) {
           {/* Colonne 1 : Marque */}
           <div>
             <div className="flex items-center gap-3 mb-5">
-              <Logo className="h-9 w-auto opacity-80" sizes="51px" />
-              <div>
-                <p className="font-serif text-sm font-semibold tracking-[0.2em] text-gold leading-none">CDG TRANSFERT</p>
-                <p className="text-[9px] tracking-[0.4em] text-silver-dim uppercase mt-0.5">VTC Premium</p>
-              </div>
+              <Logo className="h-10 w-auto" sizes="180px" />
             </div>
             <p className="text-sm text-silver font-sans font-light leading-relaxed">
               {t('contact_desc')}
